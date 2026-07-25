@@ -63,25 +63,25 @@
         "featured_collection_M6qaTt": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "best-seller"
           }
         },
         "featured_collection_bYAWAX": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "best-seller"
           }
         },
         "featured_collection_Dz7iRw": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "best-seller"
           }
         },
         "featured_collection_UB6XKG": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "best-seller"
           }
         }
       },
@@ -93,7 +93,7 @@
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "title": "Our <span>collections</span>",
+        "title": "Our collections",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 4,
@@ -112,65 +112,77 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/hero-2.webp",
-            "number": "01 /",
+            "number": "",
             "title": "Minimal",
             "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_1": {
           "type": "slide",
           "settings": {
-            "number": "01 /",
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "",
             "title": "Minimal",
             "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_2": {
           "type": "slide",
           "settings": {
-            "number": "02 /",
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "",
             "title": "Precision",
             "description": "Ultra-lightweight technical textiles designed to thermoregulate under intense heat.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_TAVCn4": {
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/hero-2.webp",
-            "number": "03 /",
+            "number": "",
             "title": "Contrast",
             "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_3": {
           "type": "slide",
           "settings": {
-            "number": "03 /",
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "",
             "title": "Contrast",
             "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_4": {
           "type": "slide",
           "settings": {
-            "number": "04 /",
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "",
             "title": "Structure",
             "description": "Clean lines and geometric seam lines crafted specifically for modern padel athletes.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         },
         "slide_5": {
           "type": "slide",
           "settings": {
-            "number": "05 /",
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "",
             "title": "Silhouette",
             "description": "Bold monochrome aesthetic paired with unmatched performance flexibility.",
-            "button_label": "Explore Collection"
+            "button_label": "Explore Collection",
+            "link": ""
           }
         }
       },
@@ -195,8 +207,9 @@
     "featured_product_carousel": {
       "type": "featured-product-carousel",
       "settings": {
-        "title": "For when the <span>heat rises</span>",
+        "title": "For when the heat rises",
         "heading_size": "h1",
+        "collection": "best-seller",
         "products_to_show": 8,
         "color_scheme": "scheme-1",
         "padding_top": 48,
@@ -206,8 +219,9 @@
     "featured_blog_slider": {
       "type": "featured-blog-slider",
       "settings": {
-        "title": "Stories that <span>move</span>",
+        "title": "Stories that move",
         "heading_size": "h1",
+        "blog": "nieuws",
         "post_limit": 4,
         "color_scheme": "scheme-1",
         "padding_top": 48,
