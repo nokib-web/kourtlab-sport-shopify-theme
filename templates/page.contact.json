@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -5,10 +14,12 @@
       "settings": {
         "color_scheme": "scheme-1",
         "full_width": false,
+        "bg_image": "shopify://shop_images/hero-2.webp",
+        "overlay_opacity": 0,
         "content_alignment": "left",
         "vertical_alignment": "bottom",
         "label": "CONTACT US // KØRE HQ",
-        "heading": "Get in touch<span>.</span>",
+        "heading": "Get in touch.",
         "subtext": "<p>Questions about gear, orders, or joining the KØRE community? Reach out to our team. Direct. Grounded. Never loud.</p>",
         "padding_top": 100,
         "padding_bottom": 80
@@ -20,6 +31,7 @@
         "color_scheme": "scheme-1",
         "full_width": false,
         "watermark": "KØRE HQ",
+        "overlay_opacity": 65,
         "label": "REACH OUT DIRECTLY",
         "title": "Our HQ & team<span>.</span>",
         "description": "<p>Whether you need help with sizing, order tracking, or want to discuss padel club drops — our team is here.</p>",

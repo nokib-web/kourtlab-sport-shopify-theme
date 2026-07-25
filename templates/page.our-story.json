@@ -71,6 +71,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-4",
+        "image_placement": "left",
         "full_width": false,
         "image": "shopify://shop_images/hero-2.webp",
         "label": "OUR PHILOSOPHY",
@@ -276,11 +277,13 @@
     "s10_cta": {
       "type": "story-cta",
       "settings": {
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-1",
         "title": "Ready to elevate your game?",
         "subtext": "Premium padel apparel engineered for every session.",
         "button_1_label": "SHOP NOW",
-        "button_2_label": "EXPLORE COLLECTION"
+        "button_1_link": "",
+        "button_2_label": "EXPLORE COLLECTION",
+        "button_2_link": ""
       }
     }
   },
