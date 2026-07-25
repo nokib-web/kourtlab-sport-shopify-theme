@@ -1,0 +1,170 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="story-hero story-hero--align-{{ section.settings.vertical_alignment }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="story-hero__bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.heading | escape }}"
+        loading="eager"
+        class="story-hero__bg-img"
+      >
+    </div>
+    <div
+      class="story-hero__overlay"
+      style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+    ></div>
+  {%- endif -%}
+
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %} width-100">
+    <div class="story-hero__content story-hero__content--{{ section.settings.content_alignment }}">
+      {%- if section.settings.label != blank -%}
+        <span class="story-label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="story-heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div class="story-hero__subtext">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="story-btn story-btn--lime">
+          {{ section.settings.button_label }} &rarr;
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 1. Hero Banner",
+  "class": "section-story-hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Horizontal Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical Alignment",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image (Padel Court Action)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark Overlay Opacity",
+      "default": 65
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "ABOUT US"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Hero Headline",
+      "default": "BUILT FOR THE <span>REPEAT.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext Paragraph",
+      "default": "<p>Kourtlab was created for athletes who believe greatness is built through consistency—not shortcuts.<br><br>Every training session. Every match. Every repetition.<br>Because progress belongs to those who keep showing up.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "SHOP COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 1. Hero Banner"
+    }
+  ]
+}
+{% endschema %}

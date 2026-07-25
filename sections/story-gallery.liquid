@@ -1,0 +1,143 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="story-gallery color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    {%- if section.settings.label != blank -%}
+      <span class="story-label">{{ section.settings.label }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="story-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="story-gallery__grid">
+      <div class="story-gallery__tile story-gallery__tile--1">
+        {%- if section.settings.image_1 != blank -%}
+          <img src="{{ section.settings.image_1 | image_url: width: 800 }}" alt="Life on court 1" loading="lazy" class="story-gallery__img">
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'story-gallery__img placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="story-gallery__tile story-gallery__tile--2">
+        {%- if section.settings.image_2 != blank -%}
+          <img src="{{ section.settings.image_2 | image_url: width: 800 }}" alt="Life on court 2" loading="lazy" class="story-gallery__img">
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'story-gallery__img placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="story-gallery__tile story-gallery__tile--3">
+        {%- if section.settings.image_3 != blank -%}
+          <img src="{{ section.settings.image_3 | image_url: width: 800 }}" alt="Life on court 3" loading="lazy" class="story-gallery__img">
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'story-gallery__img placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="story-gallery__tile story-gallery__tile--4">
+        {%- if section.settings.image_4 != blank -%}
+          <img src="{{ section.settings.image_4 | image_url: width: 800 }}" alt="Life on court 4" loading="lazy" class="story-gallery__img">
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'story-gallery__img placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 5. Court Gallery",
+  "class": "section-story-gallery",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "OUR GALLERY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "LIFE ON THE <span>COURT</span>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Gallery Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Gallery Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Gallery Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Gallery Image 4"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 5. Court Gallery"
+    }
+  ]
+}
+{% endschema %}

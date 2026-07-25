@@ -1,0 +1,224 @@
+{{ 'section-founding-members.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="founder-profile color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% if section.settings.bg_image != blank %} founding-section-has-bg{% endif %}">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="founding-section-bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.name | escape }}"
+        loading="lazy"
+        class="founding-section-bg-img"
+      >
+    </div>
+    <div
+      class="founding-section-overlay"
+      style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+    ></div>
+  {%- endif -%}
+
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="founder-profile__grid founder-profile__grid--image-{{ section.settings.image_placement }}">
+      <!-- Left Column: Photo -->
+      <div class="founder-profile__media">
+        <div class="founder-profile__media-wrap">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1200 }}"
+              alt="{{ section.settings.name | escape }}"
+              loading="lazy"
+              class="founder-profile__img"
+            >
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'founder-profile__img placeholder-svg' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right Column: Details Specs -->
+      <div class="founder-profile__content">
+        {%- if section.settings.label != blank -%}
+          <span class="founding-label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.name != blank -%}
+          <h2 class="founding-title">{{ section.settings.name }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.background != blank -%}
+          <div class="founding-meta-item">
+            <span class="founding-meta-label">BACKGROUND</span>
+            <div class="founding-meta-val">{{ section.settings.background }}</div>
+          </div>
+        {%- endif -%}
+
+        <div class="founder-profile__specs">
+          {%- if section.settings.plays != blank -%}
+            <div class="founding-meta-item">
+              <span class="founding-meta-label">PLAYS</span>
+              <p class="founding-meta-val">{{ section.settings.plays }}</p>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.based != blank -%}
+            <div class="founding-meta-item">
+              <span class="founding-meta-label">BASED</span>
+              <p class="founding-meta-val">{{ section.settings.based }}</p>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.the_brief != blank -%}
+            <div class="founding-meta-item">
+              <span class="founding-meta-label">THE BRIEF</span>
+              <div class="founding-quote-box">
+                <p class="founding-quote-text">"{{ section.settings.the_brief }}"</p>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.founder_test != blank -%}
+            <div class="founding-meta-item" style="margin-bottom:0;">
+              <span class="founding-meta-label">FOUNDER TEST</span>
+              <p class="founding-meta-val">{{ section.settings.founder_test }}</p>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founding 2. The Founder",
+  "class": "section-founder-profile",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "image_placement",
+      "label": "Image Placement",
+      "options": [
+        { "value": "left", "label": "Image Left / Content Right" },
+        { "value": "right", "label": "Image Right / Content Left" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 65
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founder Photo (Justin Niessen)"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "THE FOUNDER"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "name",
+      "label": "Founder Name",
+      "default": "JUSTIN NIESSEN<span>.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "background",
+      "label": "Background Bio",
+      "default": "<p>Chef and restaurant owner. Justin built two restaurants from the ground up, developing precision, taste, and the kind of obsession with quality that only comes from years at the pass.</p>"
+    },
+    {
+      "type": "text",
+      "id": "plays",
+      "label": "Plays",
+      "default": "Padel · 4× per week · Competitive club player"
+    },
+    {
+      "type": "text",
+      "id": "based",
+      "label": "Based Location & Coordinates",
+      "default": "Curaçao · 12.1696° N, 68.9900° W"
+    },
+    {
+      "type": "text",
+      "id": "the_brief",
+      "label": "The Brief Quote",
+      "default": "I wanted gear as honest as what I cook. No filler. Nothing that doesn't earn its place."
+    },
+    {
+      "type": "text",
+      "id": "founder_test",
+      "label": "Founder Test",
+      "default": "Would Justin wear this on court and walk directly into service at his restaurant?"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founding 2. The Founder"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,225 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="story-philosophy color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="story-philosophy__grid story-philosophy__grid--image-{{ section.settings.image_placement }}">
+      <!-- Left Media Column -->
+      <div class="story-philosophy__media">
+        <div class="story-philosophy__img-wrap">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1200 }}"
+              alt="{{ section.settings.heading | escape }}"
+              loading="lazy"
+              class="story-philosophy__img"
+            >
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'story-philosophy__img placeholder-svg' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right Content Column -->
+      <div class="story-philosophy__content">
+        {%- if section.settings.label != blank -%}
+          <span class="story-label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="story-heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="story-philosophy__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="story-philosophy__cards">
+            {%- for block in section.blocks -%}
+              <div class="story-phil-card" {{ block.shopify_attributes }}>
+                <div class="story-phil-card__icon">
+                  {%- case block.settings.icon -%}
+                    {%- when 'target' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    {%- when 'leaf' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 1.4 9-1 7.7-8.6 9-8.4 9z"/><path d="M11 20v-6"/></svg>
+                    {%- when 'diamond' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+                    {%- when 'community' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  {%- endcase -%}
+                </div>
+                <h3 class="story-phil-card__title">{{ block.settings.title }}</h3>
+                <p class="story-phil-card__desc">{{ block.settings.description }}</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 2. Our Philosophy",
+  "class": "section-story-philosophy",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "image_placement",
+      "label": "Image Placement",
+      "options": [
+        { "value": "left", "label": "Image Left / Content Right" },
+        { "value": "right", "label": "Image Right / Content Left" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Athlete Portrait Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "OUR PHILOSOPHY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "MORE THAN <span>APPAREL.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Description Paragraph",
+      "default": "<p>Kourtlab exists for players who live the game. We design premium apparel and performance essentials that combine technical functionality with modern, minimal aesthetics.<br><br>Everything we create is engineered to help athletes train harder, compete longer, and look confident both on and off the court.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "target", "label": "Target (Purpose)" },
+            { "value": "leaf", "label": "Leaf (Performance)" },
+            { "value": "diamond", "label": "Diamond (Quality)" },
+            { "value": "community", "label": "Community" }
+          ],
+          "default": "target"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "PURPOSE"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Short Description",
+          "default": "Every detail has a reason."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 2. Our Philosophy",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "target",
+            "title": "PURPOSE",
+            "description": "Every detail has a reason."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "PERFORMANCE",
+            "description": "Built to move. Built to last."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "diamond",
+            "title": "QUALITY",
+            "description": "Premium materials. Expertly crafted."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "community",
+            "title": "COMMUNITY",
+            "description": "United by passion. Driven by progress."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

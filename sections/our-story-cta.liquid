@@ -1,0 +1,93 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="our-story-cta color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="our-story-cta__inner">
+      {%- if section.settings.title != blank -%}
+        <h2 class="our-story-cta__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="our-story-cta__subtext">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="our-story-cta__actions">
+          {%- if section.settings.button_1_label != blank -%}
+            <a href="{{ section.settings.button_1_link }}" class="our-story-btn our-story-btn--primary">
+              {{ section.settings.button_1_label }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_label != blank -%}
+            <a href="{{ section.settings.button_2_link }}" class="our-story-btn our-story-btn--secondary">
+              {{ section.settings.button_2_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Call To Action",
+  "class": "section-our-story-cta",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "CTA Title",
+      "default": "READY TO <span>SHOW UP?</span>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Explore the court-ready padel apparel & limited edition duffle packs."
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 Label",
+      "default": "SHOP LAUNCH COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 Label",
+      "default": "EXPLORE PADEL DUFFLE"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Call To Action"
+    }
+  ]
+}
+{% endschema %}

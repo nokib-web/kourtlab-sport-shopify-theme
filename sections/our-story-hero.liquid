@@ -1,0 +1,153 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="our-story-hero our-story-hero--{{ section.settings.height }} color-{{ section.settings.color_scheme }} gradient">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="our-story-hero__bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.heading | escape }}"
+        loading="eager"
+        class="our-story-hero__bg-img"
+      >
+    </div>
+  {%- endif -%}
+
+  <div
+    class="our-story-hero__overlay"
+    style="background-color: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"
+  ></div>
+
+  <div class="our-story-hero__content our-story-hero__content--{{ section.settings.content_alignment }} page-width">
+    {%- if section.settings.badge_text != blank -%}
+      <span class="our-story-hero__badge">{{ section.settings.badge_text }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 class="our-story-hero__title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <div class="our-story-hero__subtext">{{ section.settings.subtext }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+      <div class="our-story-hero__actions">
+        {%- if section.settings.button_1_label != blank -%}
+          <a href="{{ section.settings.button_1_link }}" class="our-story-btn our-story-btn--primary">
+            {{ section.settings.button_1_label }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a href="{{ section.settings.button_2_link }}" class="our-story-btn our-story-btn--secondary">
+            {{ section.settings.button_2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Hero Banner",
+  "class": "section-our-story-hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section Height",
+      "options": [
+        { "value": "medium", "label": "Medium (60vh)" },
+        { "value": "large", "label": "Large (80vh)" },
+        { "value": "full_screen", "label": "Full Screen (100vh)" }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark Overlay Opacity",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "EST. 2024 / PADEL CULTURE & PERFORMANCE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Hero Heading",
+      "default": "BUILT FOR THE <span>DARING</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext Paragraph",
+      "default": "<p>KØRĒ was born on the padel courts — engineered for modern athletes who demand performance without compromising on lifestyle.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 Label",
+      "default": "EXPLORE OUR MANIFESTO"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 Label",
+      "default": "SHOP FIRST DROP"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Hero Banner"
+    }
+  ]
+}
+{% endschema %}

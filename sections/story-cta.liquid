@@ -1,0 +1,93 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="story-cta color-{{ section.settings.color_scheme }} gradient">
+  <div class="story-cta__bg-splash"></div>
+
+  <div class="page-width">
+    <div class="story-cta__inner">
+      <div class="story-cta__text">
+        {%- if section.settings.title != blank -%}
+          <h2 class="story-cta__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtext != blank -%}
+          <p class="story-cta__sub">{{ section.settings.subtext }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="story-cta__actions">
+        {%- if section.settings.button_1_label != blank -%}
+          <a href="{{ section.settings.button_1_link }}" class="story-btn story-btn--lime">
+            {{ section.settings.button_1_label }} &rarr;
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a href="{{ section.settings.button_2_link }}" class="story-btn story-btn--outline" style="color:#0A0A0A; border-color:#0A0A0A;">
+            {{ section.settings.button_2_label }} &rarr;
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 10. Bottom CTA",
+  "class": "section-story-cta",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-5"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "CTA Headline",
+      "default": "READY TO ELEVATE YOUR GAME?"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Premium apparel designed for every training session."
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 Label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 Label",
+      "default": "EXPLORE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 10. Bottom CTA"
+    }
+  ]
+}
+{% endschema %}

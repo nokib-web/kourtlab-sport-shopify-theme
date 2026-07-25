@@ -1,0 +1,176 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="story-mindset color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="story-mindset__header">
+      {%- if section.settings.label != blank -%}
+        <span class="story-label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="story-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="story-mindset__grid">
+        {%- for block in section.blocks -%}
+          <div class="story-mindset-card" {{ block.shopify_attributes }}>
+            <div class="story-mindset-card__top">
+              <span class="story-mindset-card__num">0{{ forloop.index }}</span>
+              <div class="story-mindset-card__icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'dumbbell' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+                  {%- when 'chart' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 7 7 4-4 7 7"/><path d="M14 6h7v7"/></svg>
+                  {%- when 'repeat' -%}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                {%- endcase -%}
+              </div>
+            </div>
+
+            <div class="story-mindset-card__bottom">
+              <h3 class="story-mindset-card__title">{{ block.settings.title }}</h3>
+              <p class="story-mindset-card__desc">{{ block.settings.description }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 3. Our Mindset",
+  "class": "section-story-mindset",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "OUR ATHLETIC MINDSET"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "SUCCESS ISN'T ONE PERFECT MATCH. IT'S THOUSANDS OF REPETITIONS. <span>BUILT FOR THE REPEAT.</span>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Mindset Card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "dumbbell", "label": "Dumbbell (Train)" },
+            { "value": "chart", "label": "Chart Up (Improve)" },
+            { "value": "repeat", "label": "Repeat Circle" }
+          ],
+          "default": "dumbbell"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "TRAIN"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Every session matters."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 3. Our Mindset",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "icon": "dumbbell",
+            "title": "TRAIN",
+            "description": "Every session matters."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "chart",
+            "title": "IMPROVE",
+            "description": "Progress comes from consistency."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "icon": "repeat",
+            "title": "REPEAT",
+            "description": "Keep showing up. Stay relentless."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="story-community color-{{ section.settings.color_scheme }} gradient{% if section.settings.bg_image != blank %} has-bg-image{% endif %}">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="story-community__bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.heading | escape }}"
+        loading="lazy"
+        class="story-community__bg-img"
+      >
+    </div>
+    <div class="story-community__overlay"></div>
+  {%- endif -%}
+
+  <div class="page-width">
+    <div class="story-community__content">
+      {%- if section.settings.label != blank -%}
+        <span class="story-label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="story-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="story-hero__subtext">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="story-btn story-btn--lime">
+          {{ section.settings.button_label }} &rarr;
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 7. Our Community",
+  "class": "section-story-community",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image (Community Athletes)"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "OUR COMMUNITY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "WE PLAY <span>TOGETHER.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Paragraph",
+      "default": "<p>Kourtlab is built around a growing community of athletes who value discipline, performance, and continuous improvement.<br><br>Whether you're stepping onto the court for the first time or competing at the highest level, you're part of something bigger.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "JOIN THE COMMUNITY"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 7. Our Community"
+    }
+  ]
+}
+{% endschema %}

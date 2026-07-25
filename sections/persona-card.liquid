@@ -1,0 +1,325 @@
+{{ 'section-founding-members.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="persona-block color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% if section.settings.bg_image != blank %} founding-section-has-bg{% endif %}">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="founding-section-bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.name | escape }}"
+        loading="lazy"
+        class="founding-section-bg-img"
+      >
+    </div>
+    <div
+      class="founding-section-overlay"
+      style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+    ></div>
+  {%- endif -%}
+
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="persona-block__grid persona-block__grid--image-{{ section.settings.image_placement }}">
+      <!-- Left Column: Content -->
+      <div class="persona-block__content">
+        {%- if section.settings.label != blank -%}
+          <span class="founding-label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.name != blank -%}
+          <h2 class="founding-title">{{ section.settings.name }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.profession != blank -%}
+          <div class="persona-block__profession">{{ section.settings.profession }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.bullets != blank -%}
+          <div class="persona-block__bullets">{{ section.settings.bullets }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="persona-block__desc">{{ section.settings.description }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.highlight != blank -%}
+          <div class="persona-block__highlight">{{ section.settings.highlight }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.tags != blank -%}
+          {%- assign tags_array = section.settings.tags | split: ',' -%}
+          <div class="persona-block__tags">
+            {%- for tag in tags_array -%}
+              <span class="persona-tag-pill">{{ tag | strip }}</span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <!-- Training Schedule Tracker UI -->
+        {%- if section.settings.tracker_title != blank -%}
+          <div class="persona-tracker">
+            <div class="persona-tracker__title">{{ section.settings.tracker_title }}</div>
+
+            {%- if section.settings.tracker_style == 'daily' -%}
+              <!-- 7/7 Full Daily Streak Bar UI -->
+              <div class="persona-streak-bar">
+                <div class="persona-streak-fill" style="width: 100%;"></div>
+              </div>
+              <div class="persona-tracker__days">
+                <div class="persona-day persona-day--active"><span class="persona-day__char">M</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">W</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">F</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+              </div>
+            {%- elsif section.settings.tracker_style == 'weekend' -%}
+              <!-- Weekend Players UI -->
+              <div class="persona-tracker__days">
+                <div class="persona-day"><span class="persona-day__char">M</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day"><span class="persona-day__char">W</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">F</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day persona-day--active"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+              </div>
+            {%- else -%}
+              <!-- Standard Specific Days Dot UI (e.g., 4x a week) -->
+              <div class="persona-tracker__days">
+                <div class="persona-day {% if section.settings.day_m %}persona-day--active{% endif %}"><span class="persona-day__char">M</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_t %}persona-day--active{% endif %}"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_w %}persona-day--active{% endif %}"><span class="persona-day__char">W</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_th %}persona-day--active{% endif %}"><span class="persona-day__char">T</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_f %}persona-day--active{% endif %}"><span class="persona-day__char">F</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_s %}persona-day--active{% endif %}"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+                <div class="persona-day {% if section.settings.day_su %}persona-day--active{% endif %}"><span class="persona-day__char">S</span><div class="persona-day__dot"></div></div>
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.focus_text != blank -%}
+              <div class="persona-tracker__focus">FOCUS: <span>{{ section.settings.focus_text }}</span></div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.quote != blank -%}
+          <div class="founding-quote-box" style="margin-top:2rem;">
+            <p class="founding-quote-text">“ {{ section.settings.quote }} ”</p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Photos Collage -->
+      <div class="persona-block__media">
+        <div class="persona-gallery">
+          {%- if section.settings.image_1 != blank -%}
+            <div class="persona-gallery__item persona-gallery__item--full">
+              <img src="{{ section.settings.image_1 | image_url: width: 1000 }}" alt="{{ section.settings.name | escape }}" loading="lazy" class="persona-gallery__img">
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.image_2 != blank -%}
+            <div class="persona-gallery__item">
+              <img src="{{ section.settings.image_2 | image_url: width: 600 }}" alt="{{ section.settings.name | escape }} 2" loading="lazy" class="persona-gallery__img">
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.image_3 != blank -%}
+            <div class="persona-gallery__item">
+              <img src="{{ section.settings.image_3 | image_url: width: 600 }}" alt="{{ section.settings.name | escape }} 3" loading="lazy" class="persona-gallery__img">
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Founding 3. Persona Card",
+  "class": "section-persona-card",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "image_placement",
+      "label": "Image Placement",
+      "options": [
+        { "value": "right", "label": "Image Right / Content Left" },
+        { "value": "left", "label": "Image Left / Content Right" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 65
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "PERSONA A"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "name",
+      "label": "Persona Name & Age",
+      "default": "MARCO, 34<span>.</span>"
+    },
+    {
+      "type": "text",
+      "id": "profession",
+      "label": "Profession Tag",
+      "default": "ENTREPRENEUR"
+    },
+    {
+      "type": "richtext",
+      "id": "bullets",
+      "label": "Headline Bullets",
+      "default": "<p>COMPETITIVE PADEL.<br>TRAINS 4X A WEEK.<br>REGIONAL TOURNAMENTS.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description Paragraph",
+      "default": "<p>Needs gear that performs in Caribbean heat, holds up session to session.</p>"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Lime Accent Highlight Text",
+      "default": "Buys quality once."
+    },
+    {
+      "type": "text",
+      "id": "tags",
+      "label": "Tags (Comma Separated)",
+      "default": "PADEL, RUN, COURT-TO-CITY"
+    },
+    {
+      "type": "header",
+      "content": "Weekly Schedule Tracker UI"
+    },
+    {
+      "type": "select",
+      "id": "tracker_style",
+      "label": "Tracker UI Style",
+      "options": [
+        { "value": "dots", "label": "Specific Active Days (Dots)" },
+        { "value": "daily", "label": "Trains Daily (Continuous 7-Day Streak Bar)" },
+        { "value": "weekend", "label": "Weekend Players (Fri-Sat-Sun)" }
+      ],
+      "default": "dots"
+    },
+    {
+      "type": "text",
+      "id": "tracker_title",
+      "label": "Tracker Title",
+      "default": "TRAINS 4X A WEEK"
+    },
+    { "type": "checkbox", "id": "day_m", "label": "Monday Active", "default": true },
+    { "type": "checkbox", "id": "day_t", "label": "Tuesday Active", "default": false },
+    { "type": "checkbox", "id": "day_w", "label": "Wednesday Active", "default": true },
+    { "type": "checkbox", "id": "day_th", "label": "Thursday Active", "default": false },
+    { "type": "checkbox", "id": "day_f", "label": "Friday Active", "default": true },
+    { "type": "checkbox", "id": "day_s", "label": "Saturday Active", "default": true },
+    { "type": "checkbox", "id": "day_su", "label": "Sunday Active", "default": false },
+    {
+      "type": "text",
+      "id": "focus_text",
+      "label": "Focus Text",
+      "default": "PERFORMANCE. CONSISTENCY. RECOVERY."
+    },
+    {
+      "type": "text",
+      "id": "quote",
+      "label": "Optional Quote"
+    },
+    {
+      "type": "header",
+      "content": "Media Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Primary Large Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Secondary Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Tertiary Image"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Founding 3. Persona Card"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,110 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="our-story-timeline color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="our-story-timeline__header">
+        <h2 class="our-story-timeline__title">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="our-story-timeline__track">
+        {%- for block in section.blocks -%}
+          <div class="our-story-timeline-item" {{ block.shopify_attributes }}>
+            <div class="our-story-timeline-item__dot"></div>
+            <div class="our-story-timeline-item__content">
+              {%- if block.settings.year != blank -%}
+                <div class="our-story-timeline-item__year">{{ block.settings.year }}</div>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="our-story-timeline-item__heading">{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="our-story-timeline-item__desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Journey Timeline",
+  "class": "section-our-story-timeline",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "THE KØRĒ <span>EVOLUTION</span>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Timeline Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year / Phase",
+          "default": "2024"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Milestone Title",
+          "default": "THE SPARK"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Milestone Description",
+          "default": "Conceptualized on the padel courts of Barcelona & Dubai. Designed to fill the void in high-performance padel apparel."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Journey Timeline",
+      "blocks": [
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "THE SPARK",
+            "description": "Conceptualized on the padel courts of Barcelona & Dubai. Designed to fill the void in high-performance padel apparel."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2025",
+            "title": "THE FIRST DROP",
+            "description": "Unveiling the limited-edition duffle pack and technical court apparel collection built for daring athletes."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2026",
+            "title": "GLOBAL MOVEMENT",
+            "description": "Expanding the KØRĒ community worldwide, partnering with elite padel players and urban lifestyle creators."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

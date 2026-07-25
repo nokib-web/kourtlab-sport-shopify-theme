@@ -1,0 +1,107 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="story-performance color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="story-performance__grid">
+      <!-- Left Column Text -->
+      <div class="story-performance__text">
+        {%- if section.settings.label != blank -%}
+          <span class="story-label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="story-heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <div class="story-philosophy__body">{{ section.settings.body }}</div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column Media + 3 Boxes -->
+      <div class="story-performance__media-wrap">
+        <div class="story-performance__main-img-wrap">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1200 }}"
+              alt="{{ section.settings.heading | escape }}"
+              loading="lazy"
+              class="story-performance__main-img"
+            >
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'story-performance__main-img placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+        <div class="story-performance__boxes">
+          <div class="story-perf-box">
+            <div class="story-perf-box__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4-4-4z"/></svg>
+            </div>
+            <h3 class="story-perf-box__title">PREMIUM FABRICS</h3>
+            <p class="story-perf-box__desc">High performance materials for every condition.</p>
+          </div>
+
+          <div class="story-perf-box">
+            <div class="story-perf-box__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <h3 class="story-perf-box__title">MOISTURE MANAGEMENT</h3>
+            <p class="story-perf-box__desc">Stay dry. Stay focused.</p>
+          </div>
+
+          <div class="story-perf-box">
+            <div class="story-perf-box__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3M21 16H3"/></svg>
+            </div>
+            <h3 class="story-perf-box__title">ATHLETIC FIT</h3>
+            <p class="story-perf-box__desc">Ergonomic fit for unrestricted movement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 6. Performance",
+  "class": "section-story-performance",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fabric Detail Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "CRAFTED TO PERFORM"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "DESIGNED TO <span>PERFORM.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Paragraph",
+      "default": "<p>Every stitch. Every seam. Every fabric. We obsess over details because athletes deserve gear that performs under pressure.<br><br>Minimal in appearance. Maximum in function.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 6. Performance"
+    }
+  ]
+}
+{% endschema %}

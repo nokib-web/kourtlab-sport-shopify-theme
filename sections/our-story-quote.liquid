@@ -1,0 +1,76 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="our-story-quote color-{{ section.settings.color_scheme }} gradient">
+  {%- if section.settings.bg_image != blank -%}
+    <div class="our-story-quote__bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.author | escape }}"
+        loading="lazy"
+        class="our-story-quote__bg-img"
+      >
+    </div>
+  {%- endif -%}
+
+  <div
+    class="our-story-quote__overlay"
+    style="background-color: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"
+  ></div>
+
+  <div class="our-story-quote__content page-width">
+    <div class="our-story-quote__mark">“</div>
+    {%- if section.settings.quote_text != blank -%}
+      <h2 class="our-story-quote__text">{{ section.settings.quote_text }}</h2>
+    {%- endif -%}
+    {%- if section.settings.author != blank -%}
+      <div class="our-story-quote__author">— {{ section.settings.author }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Impact Quote Banner",
+  "class": "section-our-story-quote",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark Overlay Opacity",
+      "default": 60
+    },
+    {
+      "type": "inline_richtext",
+      "id": "quote_text",
+      "label": "Statement Quote Text",
+      "default": "WE DIDN'T SET OUT TO MAKE MORE SPORTSWEAR. WE BUILT KØRĒ TO CREATE A UNIFORM FOR THOSE WHO SHOW UP AGAIN TOMORROW."
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Author / Citation",
+      "default": "FOUNDERS & ATHLETES // KOURTLAB"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Impact Quote Banner"
+    }
+  ]
+}
+{% endschema %}

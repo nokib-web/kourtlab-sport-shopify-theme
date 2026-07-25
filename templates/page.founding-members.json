@@ -1,0 +1,165 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "founding-hero",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "label": "KØRĒ // PEOPLE",
+        "heading": "FOUNDING MEMBERS & PERSONAS<span>.</span>",
+        "subtext": "<p>The athletes, creators, and competitors behind KØRĒ. Built for the repeat.</p>",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "founder_justin": {
+      "type": "founder-profile",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "image_placement": "left",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "image": "shopify://shop_images/hero-2.webp",
+        "label": "THE FOUNDER",
+        "name": "JUSTIN NIESSEN<span>.</span>",
+        "background": "<p>Chef and restaurant owner. Justin built two restaurants from the ground up, developing precision, taste, and the kind of obsession with quality that only comes from years at the pass.</p>",
+        "plays": "Padel · 4× per week · Competitive club player",
+        "based": "Curaçao · 12.1696° N, 68.9900° W",
+        "the_brief": "I wanted gear as honest as what I cook. No filler. Nothing that doesn't earn its place.",
+        "founder_test": "Would Justin wear this on court and walk directly into service at his restaurant?",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "persona_marco": {
+      "type": "persona-card",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "image_placement": "right",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "label": "PERSONA A",
+        "name": "MARCO, 34<span>.</span>",
+        "profession": "ENTREPRENEUR",
+        "bullets": "<p>COMPETITIVE PADEL.<br>TRAINS 4X A WEEK.<br>REGIONAL TOURNAMENTS.</p>",
+        "description": "<p>Needs gear that performs in Caribbean heat, holds up session to session.</p>",
+        "highlight": "Buys quality once.",
+        "tags": "PADEL, RUN, COURT-TO-CITY",
+        "tracker_style": "dots",
+        "tracker_title": "TRAINS 4X A WEEK",
+        "day_m": true,
+        "day_t": false,
+        "day_w": true,
+        "day_th": false,
+        "day_f": true,
+        "day_s": true,
+        "day_su": false,
+        "focus_text": "PERFORMANCE. CONSISTENCY. RECOVERY.",
+        "quote": "",
+        "image_1": "shopify://shop_images/hero-2.webp",
+        "image_2": "shopify://shop_images/hero-2.webp",
+        "image_3": "shopify://shop_images/hero-2.webp",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "persona_sofia": {
+      "type": "persona-card",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "image_placement": "left",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "label": "PERSONA B",
+        "name": "SOFIA, 28.",
+        "profession": "PT & CONTENT CREATOR",
+        "bullets": "<p>TRAINS DAILY.<br/>LIVES IN PERFORMANCE WEAR.<br/>MORNING CLASS TO AFTERNOON SESSION.</p>",
+        "description": "<p>Needs pieces that look clean on camera and perform under pressure. Style that moves with her lifestyle.</p>",
+        "highlight": "Built to be seen. Made to perform.",
+        "tags": "TRAIN, PADEL, CONTENT",
+        "tracker_style": "daily",
+        "tracker_title": "TRAINS DAILY — 7 DAYS A WEEK",
+        "day_m": true,
+        "day_t": true,
+        "day_w": true,
+        "day_th": true,
+        "day_f": true,
+        "day_s": true,
+        "day_su": true,
+        "focus_text": "STRENGTH. ENDURANCE. CONTENT. BALANCE.",
+        "quote": "",
+        "image_1": "shopify://shop_images/hero-2.webp",
+        "image_2": "shopify://shop_images/hero-2.webp",
+        "image_3": "shopify://shop_images/hero-2.webp",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "persona_lena_daan": {
+      "type": "persona-card",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "image_placement": "right",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "label": "PERSONA C",
+        "name": "LENA & DAAN, 30s.",
+        "profession": "WEEKEND CLUB COMPETITORS",
+        "bullets": "<p>PLAY 2X A WEEK.<br/>BRAND-AWARE.<br/>SOCIAL-ACTIVE.</p>",
+        "description": "<p>They play for the love of it. Weekend games, club nights, coffee after. Value pieces that look as good off court as they perform on it.</p>",
+        "highlight": "Buy into drops. Stay for the community.",
+        "tags": "PADEL, LIFESTYLE, CLUB",
+        "tracker_style": "weekend",
+        "tracker_title": "WEEKEND PLAYERS (CLUB NIGHTS)",
+        "day_m": false,
+        "day_t": false,
+        "day_w": false,
+        "day_th": false,
+        "day_f": true,
+        "day_s": true,
+        "day_su": true,
+        "focus_text": "COMMUNITY. CONNECTION. GOOD TIMES. ON COURT. OFF COURT.",
+        "quote": "GOOD GAME. GOOD PEOPLE. SEE YOU NEXT WEEKEND.",
+        "image_1": "shopify://shop_images/hero-2.webp",
+        "image_2": "shopify://shop_images/hero-2.webp",
+        "image_3": "shopify://shop_images/hero-2.webp",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "cta": {
+      "type": "founding-cta",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "overlay_opacity": 65,
+        "heading": "ARE YOU BUILT FOR REPEAT?",
+        "subtext": "Join Justin, Marco, Sofia, Lena & Daan on court.",
+        "button_1_label": "SHOP COLLECTION",
+        "button_1_link": "shopify://collections/all",
+        "button_2_label": "OUR STORY",
+        "button_2_link": "shopify://pages/our-story",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "founder_justin",
+    "persona_marco",
+    "persona_sofia",
+    "persona_lena_daan",
+    "cta"
+  ]
+}

@@ -1,0 +1,126 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+<section class="our-story-pillars color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {%- if section.settings.heading != blank or section.settings.subtext != blank -%}
+      <div class="our-story-pillars__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="our-story-pillars__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtext != blank -%}
+          <p class="our-story-pillars__sub">{{ section.settings.subtext }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="our-story-pillars__grid">
+        {%- for block in section.blocks -%}
+          <div class="our-story-pillar-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.number != blank -%}
+              <div class="our-story-pillar-card__num">{{ block.settings.number }}</div>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="our-story-pillar-card__heading">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="our-story-pillar-card__desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Brand Pillars",
+  "class": "section-our-story-pillars",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "OUR CORE <span>PILLARS</span>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Sub-heading Text",
+      "default": "Four principles that define every thread, seam, and garment we create."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number / Tag",
+          "default": "01 // PERFORMANCE"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Pillar Title",
+          "default": "COURT-TESTED ENGINEERING"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Engineered with 4-way stretch, ultra-lightweight moisture wicking, and athletic ergonomic cuts tailored specifically for padel movement."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Brand Pillars",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "number": "01 // PERFORMANCE",
+            "title": "COURT-TESTED ENGINEERING",
+            "description": "Engineered with 4-way stretch, ultra-lightweight moisture wicking, and athletic ergonomic cuts tailored specifically for padel movement."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "number": "02 // CULTURE",
+            "title": "PADEL FIRST IDENTITY",
+            "description": "Rooted deep in the court culture — designed by players who understand the speed, passion, and community of modern padel."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "number": "03 // DESIGN",
+            "title": "MINIMALIST LUXURY",
+            "description": "Sharp geometric lines, monochromatic palettes, and subtle high-frequency logos that transition effortlessly from court to city."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "number": "04 // MINDSET",
+            "title": "SHOW UP AGAIN TOMORROW",
+            "description": "A relentless commitment to consistency, discipline, and showing up regardless of the scoreboard."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

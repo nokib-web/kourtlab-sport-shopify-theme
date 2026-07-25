@@ -1,0 +1,184 @@
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="story-values color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="story-values__header">
+      {%- if section.settings.label != blank -%}
+        <span class="story-label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="story-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="story-values__grid">
+        {%- for block in section.blocks -%}
+          <div class="story-value-card" {{ block.shopify_attributes }}>
+            <span class="story-value-card__tag">0{{ forloop.index }} // {{ block.settings.title }}</span>
+
+            <div class="story-value-card__icon-wrap">
+              {%- case block.settings.icon -%}
+                {%- when 'precision' -%}
+                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                {%- when 'lightning' -%}
+                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                {%- when 'shield' -%}
+                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                {%- when 'wave' -%}
+                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.5 0 2.5-2 5-2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+              {%- endcase -%}
+            </div>
+
+            <h3 class="story-value-card__title">{{ block.settings.title }}</h3>
+            <p class="story-value-card__desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story 4. Our Values Grid",
+  "class": "section-story-values",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "WHAT WE STAND FOR"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "OUR <span>VALUES</span>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_card",
+      "name": "Value Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "precision", "label": "Precision (Crosshair)" },
+            { "value": "lightning", "label": "Performance (Lightning)" },
+            { "value": "shield", "label": "Durability (Shield)" },
+            { "value": "wave", "label": "Comfort (Wave)" }
+          ],
+          "default": "precision"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "PRECISION"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Designed with purpose. No unnecessary details."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story 4. Our Values Grid",
+      "blocks": [
+        {
+          "type": "value_card",
+          "settings": {
+            "icon": "precision",
+            "title": "PRECISION",
+            "description": "Designed with purpose. No unnecessary details."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "icon": "lightning",
+            "title": "PERFORMANCE",
+            "description": "Technical fabrics built for movement."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "icon": "shield",
+            "title": "DURABILITY",
+            "description": "Made to perform season after season."
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "icon": "wave",
+            "title": "COMFORT",
+            "description": "Lightweight. Breathable. Built to move."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
