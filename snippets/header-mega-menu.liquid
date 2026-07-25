@@ -1,6 +1,5 @@
 {% comment %}
-  Renders a megamenu for the header.
-
+  Renders a Castore-style professional megamenu for the header with promo card blocks and schema typography controls.
   Usage:
   {% render 'header-mega-menu' %}
 {% endcomment %}
@@ -8,65 +7,130 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- liquid
+        assign link_title_downcase = link.title | downcase
+        assign promo_block = null
+        for block in section.blocks
+          if block.type == 'mega_menu_promo'
+            assign block_item_downcase = block.settings.menu_item | downcase
+            if block_item_downcase == link_title_downcase and block_item_downcase != blank
+              assign promo_block = block
+              break
+            endif
+          endif
+        endfor
+      -%}
+
       <li>
         {%- if link.links != blank -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
               <summary
                 id="HeaderMenu-{{ link.handle }}"
-                class="header__menu-item list-menu__item link focus-inset"
+                class="header__menu-item list-menu__item link focus-inset{% if link_title_downcase contains 'sale' or link_title_downcase contains 'offer' %} header__menu-item--highlight{% endif %}"
               >
-                <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
-                >
+                <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>
                   {{- link.title | escape -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
+
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
-                  role="list"
-                >
-                  {%- for childlink in link.links -%}
-                    <li>
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
-                      {%- if childlink.links != blank -%}
-                        <ul class="list-unstyled" role="list">
-                          {%- for grandchildlink in childlink.links -%}
-                            <li>
-                              <a
-                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                href="{{ grandchildlink.url }}"
-                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
-                              >
-                                {{ grandchildlink.title | escape }}
+                <div class="mega-menu__wrapper page-width">
+                  <div class="mega-menu__grid{% if promo_block != null %} has-promo{% endif %}">
+                    <div class="mega-menu__columns">
+                      {%- for childlink in link.links -%}
+                        {%- liquid
+                          assign child_title_downcase = childlink.title | downcase
+                          assign is_highlight = false
+                          if child_title_downcase contains 'sale' or child_title_downcase contains 'offer' or child_title_downcase contains 'new'
+                            assign is_highlight = true
+                          endif
+                        -%}
+                        <div class="mega-menu__column">
+                          <a
+                            id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                            href="{{ childlink.url }}"
+                            class="mega-menu__column-title link{% if is_highlight %} mega-menu__link--highlight{% endif %}{% if childlink.current %} mega-menu__link--active{% endif %}"
+                          >
+                            {{ childlink.title | escape }}
+                          </a>
+
+                          {%- if childlink.links != blank -%}
+                            <ul class="mega-menu__sublist list-unstyled" role="list">
+                              {%- for grandchildlink in childlink.links -%}
+                                {%- liquid
+                                  assign grand_title_downcase = grandchildlink.title | downcase
+                                  assign is_grand_highlight = false
+                                  if grand_title_downcase contains 'sale' or grand_title_downcase contains 'offer' or grand_title_downcase contains 'new'
+                                    assign is_grand_highlight = true
+                                  endif
+                                -%}
+                                <li>
+                                  <a
+                                    id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                    href="{{ grandchildlink.url }}"
+                                    class="mega-menu__sublink link{% if is_grand_highlight %} mega-menu__link--highlight{% endif %}{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                  >
+                                    {{ grandchildlink.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+
+                    {%- if promo_block != null -%}
+                      <div class="mega-menu__promos">
+                        {%- if promo_block.settings.image_1 != blank or promo_block.settings.title_1 != blank -%}
+                          <div class="mega-menu__promo-card">
+                            {%- if promo_block.settings.image_1 != blank -%}
+                              <a href="{{ promo_block.settings.link_1 }}" class="mega-menu__promo-img-wrap">
+                                <img
+                                  src="{{ promo_block.settings.image_1 | image_url: width: 600 }}"
+                                  alt="{{ promo_block.settings.title_1 | escape }}"
+                                  loading="lazy"
+                                  class="mega-menu__promo-img"
+                                >
                               </a>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                            {%- endif -%}
+                            {%- if promo_block.settings.title_1 != blank -%}
+                              <a href="{{ promo_block.settings.link_1 }}" class="mega-menu__promo-title">
+                                {{ promo_block.settings.title_1 | escape }}
+                              </a>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+
+                        {%- if promo_block.settings.image_2 != blank or promo_block.settings.title_2 != blank -%}
+                          <div class="mega-menu__promo-card">
+                            {%- if promo_block.settings.image_2 != blank -%}
+                              <a href="{{ promo_block.settings.link_2 }}" class="mega-menu__promo-img-wrap">
+                                <img
+                                  src="{{ promo_block.settings.image_2 | image_url: width: 600 }}"
+                                  alt="{{ promo_block.settings.title_2 | escape }}"
+                                  loading="lazy"
+                                  class="mega-menu__promo-img"
+                                >
+                              </a>
+                            {%- endif -%}
+                            {%- if promo_block.settings.title_2 != blank -%}
+                              <a href="{{ promo_block.settings.link_2 }}" class="mega-menu__promo-title">
+                                {{ promo_block.settings.title_2 | escape }}
+                              </a>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
               </div>
             </details>
           </header-menu>
@@ -74,16 +138,12 @@
           <a
             id="HeaderMenu-{{ link.handle }}"
             href="{{ link.url }}"
-            class="header__menu-item list-menu__item link link--text focus-inset"
+            class="header__menu-item list-menu__item link link--text focus-inset{% if link_title_downcase contains 'sale' or link_title_downcase contains 'offer' %} header__menu-item--highlight{% endif %}"
             {% if link.current %}
               aria-current="page"
             {% endif %}
           >
-            <span
-              {%- if link.current %}
-                class="header__active-menu-item"
-              {% endif %}
-            >
+            <span {%- if link.current %} class="header__active-menu-item"{% endif %}>
               {{- link.title | escape -}}
             </span>
           </a>
@@ -92,3 +152,29 @@
     {%- endfor -%}
   </ul>
 </nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function initMegaMenuHover() {
+      if (window.innerWidth < 990) return;
+      const megaMenus = document.querySelectorAll('header-menu details.mega-menu');
+      megaMenus.forEach(menu => {
+        let closeTimeout;
+        menu.addEventListener('mouseenter', function() {
+          clearTimeout(closeTimeout);
+          megaMenus.forEach(other => {
+            if (other !== menu) other.removeAttribute('open');
+          });
+          menu.setAttribute('open', '');
+        });
+        menu.addEventListener('mouseleave', function() {
+          closeTimeout = setTimeout(function() {
+            menu.removeAttribute('open');
+          }, 150);
+        });
+      });
+    }
+    initMegaMenuHover();
+    window.addEventListener('resize', initMegaMenuHover, { passive: true });
+  });
+</script>

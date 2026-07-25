@@ -1,0 +1,274 @@
+{{ 'section-featured-blog-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  <div class="blog-slider-wrapper section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank -%}
+      <div class="blog-slider__header">
+        <h2 class="blog-slider__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <div class="blog-slider-container" id="BlogSliderContainer-{{ section.id }}">
+      <div class="blog-slider" id="BlogSlider-{{ section.id }}">
+        {%- assign blog = section.settings.blog -%}
+        {%- if blog != blank and blog.articles_count > 0 -%}
+          {%- for article in blog.articles limit: section.settings.post_limit -%}
+            <div class="blog-slider__card">
+              <a href="{{ article.url }}" class="blog-slider__card-link">
+                <div class="blog-slider__media">
+                  {%- if article.image != blank -%}
+                    <img
+                      src="{{ article.image | image_url: width: 800 }}"
+                      alt="{{ article.image.alt | escape }}"
+                      loading="lazy"
+                      class="blog-slider__img"
+                    >
+                  {%- else -%}
+                    <div class="blog-slider__placeholder">
+                      {%- assign placeholder_index = forloop.index | modulo: 2 | plus: 1 -%}
+                      {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                  <div class="blog-slider__overlay"></div>
+                  <div class="blog-slider__card-content">
+                    <h3 class="blog-slider__card-title">{{ article.title }}</h3>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <div class="blog-slider__card">
+              <div class="blog-slider__card-link">
+                <div class="blog-slider__media">
+                  <div class="blog-slider__placeholder">
+                    {%- assign placeholder_index = i | modulo: 2 | plus: 1 -%}
+                    {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                  <div class="blog-slider__overlay"></div>
+                  <div class="blog-slider__card-content">
+                    <h3 class="blog-slider__card-title">
+                      {%- case i -%}
+                        {%- when 1 -%}On's shoe finder
+                        {%- when 2 -%}Tenniscore styling
+                        {%- when 3 -%}Lane 1: The running mindset
+                        {%- when 4 -%}Discover our athletes
+                      {%- endcase -%}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const containers = document.querySelectorAll('.blog-slider-container');
+    containers.forEach(container => {
+      const slider = container.querySelector('.blog-slider');
+      let currentStep = 0;
+      let isAnimating = false;
+      const totalCards = slider.querySelectorAll('.blog-slider__card').length;
+
+      function slideNext() {
+        if (isAnimating || totalCards === 0) return;
+        isAnimating = true;
+
+        const firstCard = slider.querySelector('.blog-slider__card');
+        if (!firstCard) {
+          isAnimating = false;
+          return;
+        }
+
+        const cardWidth = firstCard.offsetWidth + 16;
+        slider.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+        slider.style.transform = `translateX(-${cardWidth}px)`;
+
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          slider.appendChild(firstCard);
+          slider.style.transform = 'translateX(0)';
+          currentStep = (currentStep + 1) % totalCards;
+          isAnimating = false;
+        }, 450);
+      }
+
+      function slidePrev() {
+        if (isAnimating || totalCards === 0) return;
+        isAnimating = true;
+
+        const lastCard = slider.lastElementChild;
+        if (!lastCard) {
+          isAnimating = false;
+          return;
+        }
+
+        const cardWidth = lastCard.offsetWidth + 16;
+        slider.style.transition = 'none';
+        slider.insertBefore(lastCard, slider.firstElementChild);
+        slider.style.transform = `translateX(-${cardWidth}px)`;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            slider.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+            slider.style.transform = 'translateX(0)';
+            setTimeout(() => {
+              slider.style.transition = 'none';
+              currentStep = (currentStep - 1 + totalCards) % totalCards;
+              isAnimating = false;
+            }, 450);
+          });
+        });
+      }
+
+      // Drag Handlers for Mouse & Touch
+      let isDown = false;
+      let startX = 0;
+      let dragDist = 0;
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        dragDist = 0;
+        startX = e.pageX;
+        slider.classList.add('dragging');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        dragDist = e.pageX - startX;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        slider.classList.remove('dragging');
+        if (dragDist < -30) slideNext();
+        else if (dragDist > 30) slidePrev();
+      });
+
+      slider.addEventListener('touchstart', (e) => {
+        isDown = true;
+        dragDist = 0;
+        startX = e.touches[0].pageX;
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        dragDist = e.touches[0].pageX - startX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', () => {
+        if (!isDown) return;
+        isDown = false;
+        if (dragDist < -30) slideNext();
+        else if (dragDist > 30) slidePrev();
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Blog Slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "STORIES THAT <span>MOVE</span>",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Maximum blog posts to show"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Blog Slider"
+    }
+  ]
+}
+{% endschema %}

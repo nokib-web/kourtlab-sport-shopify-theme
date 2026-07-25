@@ -1,0 +1,369 @@
+{{ 'section-featured-product-carousel.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  <div class="featured-product-carousel-wrapper page-width section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank -%}
+      <div class="product-carousel__header">
+        <h2 class="product-carousel__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <div class="product-carousel-container" id="ProductCarouselContainer-{{ section.id }}">
+      <div class="product-carousel" id="ProductCarousel-{{ section.id }}">
+        {%- assign collection = section.settings.collection -%}
+        {%- if collection != blank and collection.products_count > 0 -%}
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
+            <div class="product-carousel__card">
+              <button class="product-carousel__wishlist" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+
+              <a href="{{ product.url }}" class="product-carousel__media-link">
+                <div class="product-carousel__media">
+                  {%- if product.featured_media != blank -%}
+                    <img
+                      src="{{ product.featured_media | image_url: width: 700 }}"
+                      alt="{{ product.featured_media.alt | escape }}"
+                      loading="lazy"
+                      class="product-carousel__img"
+                    >
+                  {%- else -%}
+                    <div class="product-carousel__placeholder">
+                      {%- assign placeholder_index = forloop.index | modulo: 4 | plus: 1 -%}
+                      {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </a>
+
+              <div class="product-carousel__info">
+                {%- if forloop.index == 1 -%}
+                  <span class="product-carousel__badge product-carousel__badge--new">NEW</span>
+                {%- elsif forloop.index == 2 or forloop.index == 3 -%}
+                  <span class="product-carousel__badge product-carousel__badge--bestseller">BESTSELLER</span>
+                {%- endif -%}
+
+                <h3 class="product-carousel__title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+
+                <p class="product-carousel__tagline">
+                  {%- if product.metafields.descriptors.subtitle != blank -%}
+                    {{ product.metafields.descriptors.subtitle }}
+                  {%- else -%}
+                    Performance apparel & essentials
+                  {%- endif -%}
+                </p>
+
+                <div class="product-carousel__price">
+                  {{ product.price | money }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..6) -%}
+            <div class="product-carousel__card">
+              <button class="product-carousel__wishlist" aria-label="Add to wishlist">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </button>
+
+              <div class="product-carousel__media-link">
+                <div class="product-carousel__media">
+                  <div class="product-carousel__placeholder">
+                    {%- assign placeholder_index = forloop.index | modulo: 4 | plus: 1 -%}
+                    {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-carousel__info">
+                {%- if i == 1 -%}
+                  <span class="product-carousel__badge product-carousel__badge--new">NEW</span>
+                {%- elsif i == 2 or i == 3 -%}
+                  <span class="product-carousel__badge product-carousel__badge--bestseller">BESTSELLER</span>
+                {%- endif -%}
+
+                <h3 class="product-carousel__title">
+                  {%- case i -%}
+                    {%- when 1 -%}Train Flex Tank
+                    {%- when 2 -%}Club-T
+                    {%- when 3 -%}Court-T
+                    {%- when 4 -%}3" Performance Short
+                    {%- when 5 -%}Pro Match Polo
+                    {%- when 6 -%}Speed Crew Sock
+                  {%- endcase -%}
+                </h3>
+
+                <p class="product-carousel__tagline">
+                  {%- case i -%}
+                    {%- when 1 -%}High-intensity training
+                    {%- when 2 -%}Travel, recovery, all-day wear
+                    {%- when 3 -%}Tennis & padel court
+                    {%- when 4 -%}Lightweight breathable stretch
+                    {%- when 5 -%}Engineered ventilation
+                    {%- when 6 -%}Cushioned arch support
+                  {%- endcase -%}
+                </p>
+
+                <div class="product-carousel__price">
+                  {%- case i -%}
+                    {%- when 1 -%}CHF 90.00
+                    {%- when 2 -%}CHF 70.00
+                    {%- when 3 -%}CHF 100.00
+                    {%- when 4 -%}CHF 85.00
+                    {%- when 5 -%}CHF 110.00
+                    {%- when 6 -%}CHF 25.00
+                  {%- endcase -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+
+      <div class="product-carousel__controls">
+        <div class="product-carousel__arrows">
+          <button type="button" class="product-carousel__arrow product-carousel__arrow--prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <button type="button" class="product-carousel__arrow product-carousel__arrow--next" aria-label="Next">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="product-carousel__progress-bar">
+          <div class="product-carousel__progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const containers = document.querySelectorAll('.product-carousel-container');
+    containers.forEach(container => {
+      const carousel = container.querySelector('.product-carousel');
+      const prevBtn = container.querySelector('.product-carousel__arrow--prev');
+      const nextBtn = container.querySelector('.product-carousel__arrow--next');
+      const progressFill = container.querySelector('.product-carousel__progress-fill');
+
+      let currentStep = 0;
+      let isAnimating = false;
+      const totalCards = carousel.querySelectorAll('.product-carousel__card').length;
+
+      function updateProgress() {
+        if (progressFill && totalCards > 0) {
+          const progressPercent = Math.min(100, Math.max(15, (((currentStep % totalCards) + 1) / totalCards) * 100));
+          progressFill.style.width = progressPercent + '%';
+        }
+      }
+
+      function slideNext() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const firstCard = carousel.querySelector('.product-carousel__card');
+        if (!firstCard) {
+          isAnimating = false;
+          return;
+        }
+
+        const cardWidth = firstCard.offsetWidth + 16;
+        carousel.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+        carousel.style.transform = `translateX(-${cardWidth}px)`;
+
+        setTimeout(() => {
+          carousel.style.transition = 'none';
+          carousel.appendChild(firstCard);
+          carousel.style.transform = 'translateX(0)';
+          currentStep = (currentStep + 1) % totalCards;
+          updateProgress();
+          isAnimating = false;
+        }, 450);
+      }
+
+      function slidePrev() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const lastCard = carousel.lastElementChild;
+        if (!lastCard) {
+          isAnimating = false;
+          return;
+        }
+
+        const cardWidth = lastCard.offsetWidth + 16;
+        carousel.style.transition = 'none';
+        carousel.insertBefore(lastCard, carousel.firstElementChild);
+        carousel.style.transform = `translateX(-${cardWidth}px)`;
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            carousel.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+            carousel.style.transform = 'translateX(0)';
+            setTimeout(() => {
+              carousel.style.transition = 'none';
+              currentStep = (currentStep - 1 + totalCards) % totalCards;
+              updateProgress();
+              isAnimating = false;
+            }, 450);
+          });
+        });
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', slideNext);
+      if (prevBtn) prevBtn.addEventListener('click', slidePrev);
+
+      // Drag Handlers for Mouse & Touch
+      let isDown = false;
+      let startX = 0;
+      let dragDist = 0;
+
+      carousel.addEventListener('mousedown', (e) => {
+        isDown = true;
+        dragDist = 0;
+        startX = e.pageX;
+        carousel.classList.add('dragging');
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        dragDist = e.pageX - startX;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDown) return;
+        isDown = false;
+        carousel.classList.remove('dragging');
+        if (dragDist < -30) slideNext();
+        else if (dragDist > 30) slidePrev();
+      });
+
+      carousel.addEventListener('touchstart', (e) => {
+        isDown = true;
+        dragDist = 0;
+        startX = e.touches[0].pageX;
+      }, { passive: true });
+
+      carousel.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        dragDist = e.touches[0].pageX - startX;
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', () => {
+        if (!isDown) return;
+        isDown = false;
+        if (dragDist < -30) slideNext();
+        else if (dragDist > 30) slidePrev();
+      });
+
+      updateProgress();
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Featured Product Slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "For when the heat rises",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Slider"
+    }
+  ]
+}
+{% endschema %}

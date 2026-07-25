@@ -93,7 +93,7 @@
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "title": "Collections",
+        "title": "OUR <span>COLLECTIONS</span>",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 4,
@@ -104,10 +104,122 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "expanding_carousel": {
+      "type": "expanding-carousel",
+      "blocks": {
+        "slide_yNMpda": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "01 /",
+            "title": "Minimal",
+            "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "number": "01 /",
+            "title": "Minimal",
+            "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "number": "02 /",
+            "title": "Precision",
+            "description": "Ultra-lightweight technical textiles designed to thermoregulate under intense heat.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_TAVCn4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/hero-2.webp",
+            "number": "03 /",
+            "title": "Contrast",
+            "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "number": "03 /",
+            "title": "Contrast",
+            "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_4": {
+          "type": "slide",
+          "settings": {
+            "number": "04 /",
+            "title": "Structure",
+            "description": "Clean lines and geometric seam lines crafted specifically for modern padel athletes.",
+            "button_label": "Explore Collection"
+          }
+        },
+        "slide_5": {
+          "type": "slide",
+          "settings": {
+            "number": "05 /",
+            "title": "Silhouette",
+            "description": "Bold monochrome aesthetic paired with unmatched performance flexibility.",
+            "button_label": "Explore Collection"
+          }
+        }
+      },
+      "block_order": [
+        "slide_yNMpda",
+        "slide_1",
+        "slide_2",
+        "slide_TAVCn4",
+        "slide_3",
+        "slide_4",
+        "slide_5"
+      ],
+      "settings": {
+        "title": "LOOKBOOK & <span>ESSENTIALS</span>",
+        "heading_size": "h1",
+        "subtitle": "Explore our high-performance editorial collections",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "featured_product_carousel": {
+      "type": "featured-product-carousel",
+      "settings": {
+        "title": "FOR WHEN THE <span>HEAT RISES</span>",
+        "heading_size": "h1",
+        "products_to_show": 8,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "featured_blog_slider": {
+      "type": "featured-blog-slider",
+      "settings": {
+        "title": "STORIES THAT <span>MOVE</span>",
+        "heading_size": "h1",
+        "post_limit": 4,
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     }
   },
   "order": [
     "image_banner",
-    "collection_list_XPKfRX"
+    "collection_list_XPKfRX",
+    "expanding_carousel",
+    "featured_product_carousel",
+    "featured_blog_slider"
   ]
 }

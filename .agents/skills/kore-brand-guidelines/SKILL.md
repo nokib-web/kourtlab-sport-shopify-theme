@@ -65,7 +65,7 @@ description: >
 ### Accent Colors
 | Name | Hex | Usage |
 |------|-----|-------|
-| Neon Yellow-Green | #C8FF00 | "TOMORROW." tagline, CTAs, key highlights |
+| Lime Meadow | #CBD64A | "TOMORROW." tagline, CTAs, key highlights, <span> text accents |
 | Electric Lime | #AAFF00 | Alternative accent, hover states |
 | Deep Navy | #0A1628 | Brand guide section headers |
 

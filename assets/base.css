@@ -100,6 +100,67 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   margin: 0 auto;
 }
 
+/* Global Unified Section Headings & Lime Accent Span */
+.collection-list-title,
+.expanding-carousel__heading,
+.product-carousel__heading,
+.blog-slider__heading,
+.title-wrapper .title,
+.title-wrapper-with-link .title,
+.rich-text__heading,
+.image-with-text__heading,
+.inline-richtext.h1:not(.footer-block__heading),
+.inline-richtext.h0:not(.footer-block__heading),
+.inline-richtext.h2:not(.footer-block__heading),
+h2.h1:not(.footer-block__heading),
+h2.h0:not(.footer-block__heading),
+h2.h2:not(.footer-block__heading),
+h2.inline-richtext:not(.footer-block__heading) {
+  font-family: inherit !important;
+  font-size: 3.2rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.1 !important;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .collection-list-title,
+  .expanding-carousel__heading,
+  .product-carousel__heading,
+  .blog-slider__heading,
+  .title-wrapper .title,
+  .title-wrapper-with-link .title,
+  .rich-text__heading,
+  .image-with-text__heading,
+  .inline-richtext.h1:not(.footer-block__heading),
+  .inline-richtext.h0:not(.footer-block__heading),
+  .inline-richtext.h2:not(.footer-block__heading),
+  h2.h1:not(.footer-block__heading),
+  h2.h0:not(.footer-block__heading),
+  h2.h2:not(.footer-block__heading),
+  h2.inline-richtext:not(.footer-block__heading) {
+    font-size: 2.6rem !important;
+  }
+}
+
+.collection-list-title span,
+.expanding-carousel__heading span,
+.product-carousel__heading span,
+.blog-slider__heading span,
+.footer__newsletter-title span,
+.title-wrapper .title span,
+.title-wrapper-with-link .title span,
+.rich-text__heading span,
+.image-with-text__heading span,
+.inline-richtext span,
+.section-heading span {
+  color: #CBD64A !important;
+  font-style: normal;
+  font-weight: inherit;
+}
+
 .utility-bar__grid.page-width {
   padding-left: 3rem;
   padding-right: 3rem;
@@ -2400,7 +2461,7 @@ input[type='checkbox'] {
 
   .header--middle-left {
     grid-template-areas: 'heading navigation icons';
-    grid-template-columns: auto auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
     column-gap: 2rem;
   }
 

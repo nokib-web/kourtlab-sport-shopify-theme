@@ -22,6 +22,57 @@
     margin-left: -1.2rem;
   }
 
+  :root {
+    --nav-active-color: {{ section.settings.nav_active_color | default: '#CBD64A' }};
+  }
+
+  .header__menu-item {
+    font-size: {{ section.settings.menu_font_size | default: 14 }}px !important;
+    font-weight: {{ section.settings.menu_font_weight | default: '600' }} !important;
+    text-transform: {{ section.settings.menu_text_transform | default: 'uppercase' }} !important;
+    letter-spacing: {{ section.settings.menu_letter_spacing | default: '0.05em' }} !important;
+  }
+
+  /* ── Active top-level nav link (current page) ── */
+  /* Dawn puts aria-current="page" on the <a> and class="header__active-menu-item" on the inner <span> */
+  .header__active-menu-item,
+  .header__menu-item[aria-current="page"],
+  a[aria-current="page"] .header__active-menu-item {
+    color: var(--nav-active-color) !important;
+  }
+
+  /* ── Hover state for top-level nav items ── */
+  .header__menu-item:hover .header__active-menu-item,
+  .header__menu-item:hover > span {
+    color: var(--nav-active-color) !important;
+  }
+
+  {%- if section.settings.nav_hover_underline -%}
+  .header__menu-item:hover > span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  {%- endif -%}
+
+  /* ── Active mega menu column title (childlink.current) ── */
+  .mega-menu__column-title.mega-menu__link--active {
+    color: var(--nav-active-color) !important;
+    font-weight: 700 !important;
+  }
+
+  /* ── Active mega menu sublink (grandchildlink.current) ── */
+  .mega-menu__sublink.mega-menu__link--active {
+    color: var(--nav-active-color) !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+  }
+
+  /* ── Hover on all mega menu links ── */
+  .mega-menu__column-title:hover,
+  .mega-menu__sublink:hover {
+    color: var(--nav-active-color) !important;
+  }
+
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
     .scrolled-past-header .header__heading-logo-wrapper {
       width: 75%;
@@ -616,6 +667,72 @@
     },
     {
       "type": "header",
+      "content": "Menu Typography Customization"
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Menu Font Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "menu_font_weight",
+      "options": [
+        { "value": "400", "label": "Normal (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "600",
+      "label": "Menu Font Weight"
+    },
+    {
+      "type": "select",
+      "id": "menu_text_transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "uppercase",
+      "label": "Menu Text Transform"
+    },
+    {
+      "type": "select",
+      "id": "menu_letter_spacing",
+      "options": [
+        { "value": "0em", "label": "Normal (0)" },
+        { "value": "0.02em", "label": "Tight (0.02em)" },
+        { "value": "0.05em", "label": "Medium (0.05em)" },
+        { "value": "0.1em", "label": "Wide (0.1em)" }
+      ],
+      "default": "0.05em",
+      "label": "Menu Letter Spacing"
+    },
+    {
+      "type": "header",
+      "content": "Active & Hover Color"
+    },
+    {
+      "type": "color",
+      "id": "nav_active_color",
+      "label": "Nav Active / Hover Color",
+      "default": "#CBD64A",
+      "info": "Color for active page link and hover state in header and mega menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "nav_hover_underline",
+      "label": "Show underline on nav hover",
+      "default": false
+    },
+    {
+      "type": "header",
       "content": "t:sections.all.spacing"
     },
     {
@@ -656,6 +773,50 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "mega_menu_promo",
+      "name": "Mega Menu Promo Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "Parent Menu Item Title",
+          "info": "Type the exact title of the top-level menu item (e.g. Sports, Men, Women)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Promo Image 1"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "label": "Promo Title 1",
+          "default": "View All Collection →"
+        },
+        {
+          "type": "url",
+          "id": "link_1",
+          "label": "Promo Link 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Promo Image 2"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "label": "Promo Title 2",
+          "default": "View Featured →"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Promo Link 2"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,352 @@
+{{ 'section-expanding-carousel.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+  <div class="expanding-carousel-wrapper page-width section-{{ section.id }}-padding">
+    {%- if section.settings.title != blank -%}
+      <div class="expanding-carousel__header">
+        <h2 class="expanding-carousel__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="expanding-carousel__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="expanding-carousel" id="ExpandingCarousel-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign is_active = false
+          if forloop.index == 3
+            assign is_active = true
+          elsif forloop.first and section.blocks.size < 3
+            assign is_active = true
+          endif
+        -%}
+        <div
+          class="expanding-slide{% if is_active %} active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="expanding-slide__bg-wrap">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 1600 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                class="expanding-slide__bg-img"
+              >
+            {%- else -%}
+              <div class="expanding-slide__placeholder">
+                {%- assign placeholder_index = forloop.index | modulo: 2 | plus: 1 -%}
+                {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {%- endif -%}
+            <div class="expanding-slide__overlay"></div>
+          </div>
+
+          <div class="expanding-slide__content">
+            {%- if block.settings.number != blank -%}
+              <span class="expanding-slide__number">{{ block.settings.number }}</span>
+            {%- else -%}
+              <span class="expanding-slide__number">0{{ forloop.index }} /</span>
+            {%- endif -%}
+
+            <div class="expanding-slide__body">
+              {%- if block.settings.title != blank -%}
+                <h3 class="expanding-slide__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <div class="expanding-slide__description">
+                  <p>{{ block.settings.description }}</p>
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.button_label != blank -%}
+                <a
+                  {% if block.settings.link == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.link }}"
+                  {% endif %}
+                  class="button button--secondary expanding-slide__button"
+                >
+                  {{ block.settings.button_label | escape }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.expanding-carousel');
+    carousels.forEach(carousel => {
+      const slides = carousel.querySelectorAll('.expanding-slide');
+      let isDragging = false;
+      let startX = 0;
+      let currentX = 0;
+      let dragDistance = 0;
+
+      function getActiveIndex() {
+        return Array.from(slides).findIndex(s => s.classList.contains('active'));
+      }
+
+      function setActiveIndex(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+      }
+
+      function nextSlide() {
+        const idx = getActiveIndex();
+        const nextIdx = (idx + 1) % slides.length;
+        setActiveIndex(nextIdx);
+      }
+
+      function prevSlide() {
+        const idx = getActiveIndex();
+        const prevIdx = (idx - 1 + slides.length) % slides.length;
+        setActiveIndex(prevIdx);
+      }
+
+      slides.forEach(slide => {
+        slide.addEventListener('click', function(e) {
+          if (Math.abs(dragDistance) > 10) return;
+          slides.forEach(s => s.classList.remove('active'));
+          this.classList.add('active');
+        });
+        
+        slide.addEventListener('mouseenter', function() {
+          if (window.innerWidth >= 990 && !isDragging) {
+            slides.forEach(s => s.classList.remove('active'));
+            this.classList.add('active');
+          }
+        });
+      });
+
+      // Mouse & Touch Drag Handlers
+      carousel.addEventListener('mousedown', startDrag);
+      carousel.addEventListener('touchstart', startDrag, { passive: true });
+
+      window.addEventListener('mousemove', dragMove);
+      window.addEventListener('touchmove', dragMove, { passive: true });
+
+      window.addEventListener('mouseup', endDrag);
+      window.addEventListener('touchend', endDrag);
+
+      function startDrag(e) {
+        isDragging = true;
+        dragDistance = 0;
+        startX = e.pageX || (e.touches && e.touches[0].pageX);
+      }
+
+      function dragMove(e) {
+        if (!isDragging) return;
+        currentX = e.pageX || (e.touches && e.touches[0].pageX);
+        dragDistance = currentX - startX;
+      }
+
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+
+        if (dragDistance < -15) {
+          nextSlide();
+        } else if (dragDistance > 15) {
+          prevSlide();
+        }
+      }
+
+      // Wheel/Trackpad horizontal scroll listener
+      let isThrottled = false;
+      carousel.addEventListener('wheel', function(e) {
+        if (isThrottled) return;
+        if (Math.abs(e.deltaX) > 15 || Math.abs(e.deltaY) > 15) {
+          isThrottled = true;
+          if (e.deltaX > 0 || e.deltaY > 0) nextSlide();
+          else prevSlide();
+          setTimeout(() => { isThrottled = false; }, 350);
+        }
+      }, { passive: true });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Expanding Carousel",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "LOOKBOOK & ESSENTIALS",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Explore our high-performance editorial collections",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Slide Number",
+          "default": "01 /"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Contrast"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Explore Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expanding Carousel",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "number": "01 /",
+            "title": "Minimal",
+            "description": "Architectural silhouettes engineered for explosive movement and effortless court presence."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "number": "02 /",
+            "title": "Precision",
+            "description": "Ultra-lightweight technical textiles designed to thermoregulate under intense heat."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "number": "03 /",
+            "title": "Contrast",
+            "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "number": "04 /",
+            "title": "Structure",
+            "description": "Clean lines and geometric seam lines crafted specifically for modern padel athletes."
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "number": "05 /",
+            "title": "Silhouette",
+            "description": "Bold monochrome aesthetic paired with unmatched performance flexibility."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
