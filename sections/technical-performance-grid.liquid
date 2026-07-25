@@ -1,0 +1,174 @@
+{{ 'section-technical-performance.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="tech-grid color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.subheading != blank or section.settings.heading != blank -%}
+      <div class="tech-grid__header">
+        {%- if section.settings.subheading != blank -%}
+          <span class="tech-grid__subheading">{{ section.settings.subheading }}</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="tech-grid__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="tech-grid__wrapper">
+      {%- for block in section.blocks -%}
+        <div class="tech-card" {{ block.shopify_attributes }}>
+          <div class="tech-card__inner">
+            <div class="tech-card__top">
+              {%- if block.settings.number != blank -%}
+                <span class="tech-card__number">{{ block.settings.number }}</span>
+              {%- endif -%}
+              {%- if block.settings.tag != blank -%}
+                <span class="tech-card__tag">{{ block.settings.tag }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="tech-card__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="tech-card__desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Technical Performance",
+  "class": "section-tech-performance-grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "ENGINEERED FOR THE COURT"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for high intensity. Designed for repeat."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Performance Spec Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Card Index / Code",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Feature Badge",
+          "default": "FLEX-TECH"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "4-Way Stretch & Adapt"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Unrestricted movement on court with high-elasticity technical weave that holds its shape."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Technical Performance Grid",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "number": "01",
+            "tag": "MOBILITY",
+            "title": "4-Way Stretch & Adapt",
+            "description": "Unrestricted movement on court with high-elasticity technical weave that holds shape session to session."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "number": "02",
+            "tag": "THERMAL CONTROL",
+            "title": "Sweat & Heat Resilience",
+            "description": "Engineered micro-ventilation tested for intense rallies and extreme heat conditions."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "number": "03",
+            "tag": "VERSATILITY",
+            "title": "Court-to-City Design",
+            "description": "Clean editorial aesthetic tailored for match day focus and effortless urban lifestyle crossover."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

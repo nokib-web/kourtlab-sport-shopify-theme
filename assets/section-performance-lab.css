@@ -1,0 +1,279 @@
+/* ==========================================================================
+   KØRĒ Performance Lab Interactive Showcase Section
+   ========================================================================== */
+
+.perf-lab {
+  width: 100%;
+  position: relative;
+}
+
+.perf-lab__header {
+  margin-bottom: 4.5rem;
+  max-width: 800px;
+}
+
+.perf-lab__subheading {
+  display: block;
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nav-active-color, #CBD64A);
+  margin-bottom: 1.2rem;
+}
+
+.perf-lab__heading {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-heading-scale) * 3.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+  margin: 0;
+}
+
+.perf-lab__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 990px) {
+  .perf-lab__grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Left Column: Interactive Tabs
+   -------------------------------------------------------------------------- */
+.perf-lab__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.perf-tab {
+  position: relative;
+  background-color: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.1);
+  border-left: 3px solid transparent;
+  border-radius: 0;
+  padding: 2.5rem 2.8rem;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.perf-tab:hover {
+  background-color: rgba(var(--color-foreground), 0.05);
+  border-color: rgba(var(--color-foreground), 0.2);
+}
+
+.perf-tab.is-active {
+  background-color: rgba(var(--color-foreground), 0.06);
+  border-color: rgba(var(--color-foreground), 0.2);
+  border-left-color: var(--nav-active-color, #CBD64A);
+}
+
+.perf-tab__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+.perf-tab__code {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--nav-active-color, #CBD64A);
+}
+
+.perf-tab__badge {
+  font-family: var(--font-body-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.6);
+  background-color: rgba(var(--color-foreground), 0.06);
+  padding: 0.3rem 0.8rem;
+  border-radius: 0;
+}
+
+.perf-tab__title {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-heading-scale) * 2.2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 1rem 0;
+}
+
+.perf-tab__desc {
+  font-family: var(--font-body-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1.45rem);
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0 0 1.5rem 0;
+}
+
+.perf-tab__metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-body-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1.15rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--color-foreground));
+  padding-top: 1.2rem;
+  border-top: 1px dashed rgba(var(--color-foreground), 0.12);
+  width: 100%;
+}
+
+.perf-tab__metric-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--nav-active-color, #CBD64A);
+  display: inline-block;
+}
+
+.perf-lab__cta-wrap {
+  margin-top: 2rem;
+}
+
+.perf-lab__btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 1.6rem 3rem;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column: Media Stage
+   -------------------------------------------------------------------------- */
+.perf-lab__stage {
+  position: relative;
+  min-height: 480px;
+  width: 100%;
+}
+
+.perf-stage-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.perf-stage-item.is-active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+}
+
+.perf-stage-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  background-color: rgba(var(--color-foreground), 0.03);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perf-stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Fallback Graphic Placeholder when no image is uploaded */
+.perf-stage-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(var(--color-foreground), 0.05) 0%, rgba(var(--color-foreground), 0.01) 100%);
+  border: 1px dashed rgba(var(--color-foreground), 0.2);
+  padding: 4rem;
+  text-align: center;
+}
+
+.perf-stage-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.perf-stage-ph-num {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-heading-scale) * 3.5rem);
+  font-weight: 900;
+  color: var(--nav-active-color, #CBD64A);
+  letter-spacing: 0.05em;
+}
+
+.perf-stage-ph-title {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-heading-scale) * 2.5rem);
+  font-weight: 800;
+  color: rgb(var(--color-foreground));
+  letter-spacing: 0.02em;
+}
+
+/* Floating Spec Overlay Card */
+.perf-stage-overlay {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 1.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.perf-stage-overlay-label {
+  font-family: var(--font-body-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--nav-active-color, #CBD64A);
+  text-transform: uppercase;
+}
+
+.perf-stage-overlay-val {
+  font-family: var(--font-heading-family), sans-serif;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+}

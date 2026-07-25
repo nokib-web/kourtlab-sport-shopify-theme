@@ -1,0 +1,277 @@
+{{ 'section-performance-lab.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="perf-lab color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" id="PerfLab-{{ section.id }}">
+  <div class="page-width">
+    <!-- Header -->
+    <div class="perf-lab__header">
+      {%- if section.settings.subheading != blank -%}
+        <span class="perf-lab__subheading">{{ section.settings.subheading }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="perf-lab__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+
+    <!-- 2-Column Split: Interactive Tabs (Left) + Media Stage (Right) -->
+    <div class="perf-lab__grid">
+      <!-- Left Column: Tab Controls -->
+      <div class="perf-lab__tabs">
+        {%- for block in section.blocks -%}
+          <div
+            class="perf-tab{% if forloop.first %} is-active{% endif %}"
+            data-tab-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="perf-tab__header">
+              <span class="perf-tab__code">{{ block.settings.code }}</span>
+              <span class="perf-tab__badge">{{ block.settings.badge }}</span>
+            </div>
+            <h3 class="perf-tab__title">{{ block.settings.title }}</h3>
+            <p class="perf-tab__desc">{{ block.settings.description }}</p>
+            
+            {%- if block.settings.metric != blank -%}
+              <div class="perf-tab__metric">
+                <span class="perf-tab__metric-dot"></span>
+                <span>{{ block.settings.metric }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <div class="perf-lab__cta-wrap">
+            <a href="{{ section.settings.button_link }}" class="perf-lab__btn button button--primary">
+              {{ section.settings.button_label }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Dynamic Media Frame -->
+      <div class="perf-lab__stage">
+        {%- for block in section.blocks -%}
+          <div class="perf-stage-item{% if forloop.first %} is-active{% endif %}" data-stage-index="{{ forloop.index0 }}">
+            <div class="perf-stage-media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 1400 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  class="perf-stage-img"
+                >
+              {%- else -%}
+                <div class="perf-stage-placeholder">
+                  <div class="perf-stage-placeholder-inner">
+                    <span class="perf-stage-ph-num">{{ block.settings.code }}</span>
+                    <span class="perf-stage-ph-title">{{ block.settings.title }}</span>
+                  </div>
+                </div>
+              {%- endif -%}
+
+              <!-- Floating Spec Overlay Badge -->
+              {%- if block.settings.spec_overlay != blank -%}
+                <div class="perf-stage-overlay">
+                  <span class="perf-stage-overlay-label">TECHNICAL SPECIFICATION</span>
+                  <span class="perf-stage-overlay-val">{{ block.settings.spec_overlay }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('PerfLab-{{ section.id }}');
+    if (!section) return;
+
+    const tabs = section.querySelectorAll('.perf-tab');
+    const stages = section.querySelectorAll('.perf-stage-item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const index = this.getAttribute('data-tab-index');
+
+        tabs.forEach(t => t.classList.remove('is-active'));
+        stages.forEach(s => s.classList.remove('is-active'));
+
+        this.classList.add('is-active');
+        const targetStage = section.querySelector(`.perf-stage-item[data-stage-index="${index}"]`);
+        if (targetStage) {
+          targetStage.classList.add('is-active');
+        }
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Performance Lab Showcase",
+  "class": "section-perf-lab",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "THE PERFORMANCE LAB"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Engineered for match day focus. Built to repeat."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "EXPLORE TECHNICAL APPAREL →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Tech Spec Tab",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Tab Code / Index",
+          "default": "01 / FLEX-TECH"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge Label",
+          "default": "PRO WEAVE"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "4-Way Stretch & Adapt"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "High-elasticity technical weave crafted for explosive court lateral movements without losing shape."
+        },
+        {
+          "type": "text",
+          "id": "metric",
+          "label": "Key Spec Metric",
+          "default": "360° ELASTICITY · HIGH RECOVERY"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Tab Visual Image"
+        },
+        {
+          "type": "text",
+          "id": "spec_overlay",
+          "label": "Floating Spec Overlay Text",
+          "default": "ULTRA-FLEX WEAVE / Caribbean Heat Tested"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Lab Showcase",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "code": "01 / FLEX-TECH",
+            "badge": "4-WAY MOBILITY",
+            "title": "4-Way Stretch & Adapt",
+            "description": "High-elasticity technical weave crafted for explosive court lateral movements without losing structural shape.",
+            "metric": "360° ELASTIC RECOVERY WEAVE",
+            "spec_overlay": "360° ELASTIC RECOVERY / Caribbean Heat Tested"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "code": "02 / THERMO-CONTROL",
+            "badge": "HEAT RESILIENCE",
+            "title": "Sweat & Heat Resilience",
+            "description": "Engineered micro-ventilation channels regulate body thermal output during high-intensity rallies.",
+            "metric": "RAPID EVAPORATION TECHNOLOGY",
+            "spec_overlay": "MICRO-VENTILATION / 100% Breathable"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "code": "03 / URBAN-ADAPT",
+            "badge": "COURT TO CITY",
+            "title": "Court-to-City Versatility",
+            "description": "Tailored minimal aesthetic engineered for high performance on court and effortless luxury lifestyle off court.",
+            "metric": "SEAMLESS LIFESTYLE CROSSOVER",
+            "spec_overlay": "MINIMAL TAILORING / Match & Everyday Wear"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
