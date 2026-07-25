@@ -12,9 +12,36 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  {%- if section.settings.bg_image != blank -%}
+    #section-{{ section.id }} {
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    #section-{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: {{ section.settings.overlay_color }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      z-index: 1;
+    }
+
+    #section-{{ section.id }} > div {
+      position: relative;
+      z-index: 2;
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
-<section class="story-mindset color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<section id="section-{{ section.id }}" class="story-mindset color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
     <div class="story-mindset__header">
       {%- if section.settings.label != blank -%}
@@ -71,6 +98,31 @@
       "id": "full_width",
       "label": "Make section full width",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
     },
     {
       "type": "text",

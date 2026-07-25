@@ -1,6 +1,6 @@
 {{ 'section-our-story.css' | asset_url | stylesheet_tag }}
 
-<section class="story-quote color-{{ section.settings.color_scheme }} gradient">
+<section id="section-{{ section.id }}" class="story-quote color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
     <div class="story-quote__inner">
       <div class="story-quote__marks">“</div>
@@ -24,6 +24,31 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
     },
     {
       "type": "inline_richtext",

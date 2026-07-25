@@ -24,7 +24,7 @@
       </div>
     {%- endif -%}
 
-    <div class="product-carousel-container" id="ProductCarouselContainer-{{ section.id }}">
+    <div class="product-carousel-container" id="ProductCarouselContainer-{{ section.id }}" data-auto-slide="{{ section.settings.auto_slide }}" data-auto-slide-interval="{{ section.settings.auto_slide_interval }}">
       <div class="product-carousel" id="ProductCarousel-{{ section.id }}">
         {%- assign collection = section.settings.collection -%}
         {%- if collection != blank and collection.products_count > 0 -%}
@@ -171,6 +171,7 @@
 
       let currentStep = 0;
       let isAnimating = false;
+      let currentX = 0;
       const totalCards = carousel.querySelectorAll('.product-carousel__card').length;
 
       function updateProgress() {
@@ -200,6 +201,7 @@
           carousel.style.transform = 'translateX(0)';
           currentStep = (currentStep + 1) % totalCards;
           updateProgress();
+          currentX = 0;
           isAnimating = false;
         }, 450);
       }
@@ -227,6 +229,7 @@
               carousel.style.transition = 'none';
               currentStep = (currentStep - 1 + totalCards) % totalCards;
               updateProgress();
+              currentX = 0;
               isAnimating = false;
             }, 450);
           });
@@ -278,6 +281,59 @@
         if (dragDist < -30) slideNext();
         else if (dragDist > 30) slidePrev();
       });
+
+      // Auto Slide Logic (Continuous Smooth Marquee)
+      const autoSlideEnabled = container.getAttribute('data-auto-slide') === 'true';
+      const autoSlideInterval = parseInt(container.getAttribute('data-auto-slide-interval')) || 4;
+      let animationFrameId;
+      let isHovered = false;
+      let lastTime = 0;
+
+      function continuousLoop(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const deltaTime = timestamp - lastTime;
+        lastTime = timestamp;
+
+        if (autoSlideEnabled && !isHovered && !isDown && !isAnimating && totalCards > 1) {
+           const firstCard = carousel.firstElementChild;
+           if (firstCard) {
+             const cardWidth = firstCard.offsetWidth + 16;
+             // speed: cardWidth pixels over autoSlideInterval seconds
+             const speed = cardWidth / (autoSlideInterval * 1000);
+             currentX -= speed * deltaTime;
+
+             if (Math.abs(currentX) >= cardWidth) {
+               carousel.style.transition = 'none';
+               carousel.appendChild(firstCard);
+               currentX += cardWidth; // carry over remainder to prevent stutter
+               currentStep = (currentStep + 1) % totalCards;
+               updateProgress();
+             }
+             carousel.style.transform = `translateX(${currentX}px)`;
+           }
+        }
+        animationFrameId = requestAnimationFrame(continuousLoop);
+      }
+
+      function startAutoSlide() {
+        isHovered = false;
+        lastTime = 0;
+        if (autoSlideEnabled && totalCards > 1 && !animationFrameId) {
+          animationFrameId = requestAnimationFrame(continuousLoop);
+        }
+      }
+
+      function stopAutoSlide() {
+        isHovered = true;
+      }
+
+      startAutoSlide();
+
+      // Pause auto slide on interaction
+      container.addEventListener('mouseenter', stopAutoSlide);
+      container.addEventListener('mouseleave', startAutoSlide);
+      carousel.addEventListener('touchstart', stopAutoSlide, { passive: true });
+      carousel.addEventListener('touchend', startAutoSlide);
 
       updateProgress();
     });
@@ -332,6 +388,22 @@
       "step": 1,
       "default": 8,
       "label": "Maximum products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_slide",
+      "label": "Enable auto slide",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "auto_slide_interval",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Auto slide interval",
+      "default": 4
     },
     {
       "type": "color_scheme",

@@ -93,7 +93,7 @@
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "title": "Our collections",
+        "title": "Our <em>collections</em>",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 4,
@@ -207,10 +207,12 @@
     "featured_product_carousel": {
       "type": "featured-product-carousel",
       "settings": {
-        "title": "For when the heat rises",
+        "title": "For playing<em> on hot</em> days",
         "heading_size": "h1",
         "collection": "best-seller",
         "products_to_show": 8,
+        "auto_slide": true,
+        "auto_slide_interval": 3,
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
@@ -219,7 +221,7 @@
     "featured_blog_slider": {
       "type": "featured-blog-slider",
       "settings": {
-        "title": "Stories that move",
+        "title": "Stories that<em> move</em>",
         "heading_size": "h1",
         "blog": "nieuws",
         "post_limit": 4,
