@@ -9,6 +9,9 @@
 {%- style -%}
   .footer {
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+    --footer-heading-scale: {{ section.settings.footer_heading_scale | divided_by: 100.0 }};
+    --footer-body-scale: {{ section.settings.footer_body_scale | divided_by: 100.0 }};
+    --footer-accent-color: {{ section.settings.footer_accent_color }};
   }
 
   .section-{{ section.id }}-padding {
@@ -54,8 +57,8 @@
         {%- if section.settings.newsletter_enable -%}
           <div class="footer__newsletter-banner">
             <div class="footer__newsletter-content">
-              <h2 class="footer__newsletter-title">JOIN THE <span>KØRĒ CLUB</span></h2>
-              <p class="footer__newsletter-subtext">Get 10% off your first drop, early access to new releases, and exclusive padel content.</p>
+              <h2 class="footer__newsletter-title">{{ section.settings.newsletter_heading }}</h2>
+              <p class="footer__newsletter-subtext">{{ section.settings.newsletter_subtext }}</p>
             </div>
             <div class="footer__newsletter-form-wrap">
               {%- form 'customer', id: 'ContactFooter', class: 'footer__custom-newsletter-form' -%}
@@ -71,7 +74,7 @@
                     autocorrect="off"
                     autocapitalize="off"
                     autocomplete="email"
-                    placeholder="ENTER YOUR EMAIL ADDRESS"
+                    placeholder="{{ section.settings.newsletter_placeholder }}"
                     required
                   >
                   <button
@@ -81,7 +84,7 @@
                     id="Subscribe"
                     aria-label="Subscribe"
                   >
-                    SUBSCRIBE
+                    {{ section.settings.newsletter_button }}
                   </button>
                 </div>
               {%- endform -%}
@@ -142,7 +145,7 @@
                       <ul class="footer-block__details-content list-unstyled">
                         {%- assign heading_lower = block.settings.heading | downcase -%}
                         {%- if heading_lower contains 'quick' or heading_lower contains 'links' -%}
-                          <li><a href="/pages/about-us" class="link link--text list-menu__item">About KØRĒ</a></li>
+                          <li><a href="/pages/about-us" class="link link--text list-menu__item">About KØRE</a></li>
                           <li><a href="/collections/all" class="link link--text list-menu__item">New Arrivals</a></li>
                           <li><a href="/pages/lookbook" class="link link--text list-menu__item">Lookbook</a></li>
                           <li><a href="/pages/contact" class="link link--text list-menu__item">Contact Us</a></li>
@@ -187,7 +190,7 @@
                           }}
                         </div>
                       {%- else -%}
-                        <h2 class="footer-block__brand-title">KØRĒ</h2>
+                        <h2 class="footer-block__brand-title">KØRE</h2>
                       {%- endif -%}
                       {%- if section.settings.footer_description != blank -%}
                         <div class="footer-brand-desc">{{ section.settings.footer_description }}</div>
@@ -196,7 +199,7 @@
                       {%- else -%}
                         <div class="footer-brand-desc">
                           <p>
-                            At KØRĒ, we create performance & lifestyle experiences through premium padel apparel designed for modern athletes. Elegant, reliable, and crafted to help you play with confidence.
+                            At KØRE, we create performance & lifestyle experiences through premium padel apparel designed for modern athletes. Elegant, reliable, and crafted to help you play with confidence.
                           </p>
                         </div>
                       {%- endif -%}
@@ -247,7 +250,7 @@
     <div class="footer__content-bottom-wrapper">
       <div class="footer__copyright caption">
         <small class="copyright__content"
-          >&copy; {{ 'now' | date: '%Y' }} KØRĒ (Kourtlab) Design Themes. All rights reserved.
+          >&copy; {{ 'now' | date: '%Y' }} KØRE (Kourtlab) Design Themes. All rights reserved.
         </small>
       </div>
 
@@ -258,6 +261,18 @@
               {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
                 <div>
                   {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+                </div>
+              {%- endform -%}
+            </localization-form>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+          <div class="footer__column footer__localization isolate">
+            <localization-form>
+              {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+                <div>
+                  {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
                 </div>
               {%- endform -%}
             </localization-form>
@@ -393,6 +408,37 @@
   "settings": [
     {
       "type": "header",
+      "content": "Footer Typography & Colors"
+    },
+    {
+      "type": "range",
+      "id": "footer_heading_scale",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "Heading Font Scale",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "footer_body_scale",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "unit": "%",
+      "label": "Body Font Scale",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "footer_accent_color",
+      "label": "Newsletter Accent Color",
+      "default": "#CBD64A",
+      "info": "Make text bold (B) or italic (I) in the heading to apply this color."
+    },
+    {
+      "type": "header",
       "content": "Footer Brand Customization"
     },
     {
@@ -421,6 +467,7 @@
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
+
     {
       "type": "header",
       "content": "t:sections.footer.settings.header__1.content",
@@ -435,8 +482,26 @@
     {
       "type": "inline_richtext",
       "id": "newsletter_heading",
-      "default": "t:sections.footer.settings.newsletter_heading.default",
+      "default": "Join the <span>KØRE club</span>",
       "label": "t:sections.footer.settings.newsletter_heading.label"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subtext",
+      "label": "Newsletter Subtext",
+      "default": "Get 10% off your first drop, early access to new releases, and exclusive padel content."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Email Input Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Subscribe Button Text",
+      "default": "Subscribe"
     },
     {
       "type": "header",

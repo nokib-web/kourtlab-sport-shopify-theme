@@ -114,7 +114,6 @@
 .customer thead th {
   font-size: 1.2rem;
   letter-spacing: 0.07rem;
-  text-transform: uppercase;
 }
 
 .customer tbody td:first-of-type {
@@ -244,7 +243,6 @@
     content: attr(data-label);
     font-size: 1.4rem;
     padding-right: 2rem;
-    text-transform: uppercase;
     flex-grow: 1;
     text-align: left;
   }

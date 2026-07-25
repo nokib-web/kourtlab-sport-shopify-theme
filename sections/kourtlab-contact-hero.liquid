@@ -1,4 +1,5 @@
-{{ 'section-founding-members.css' | asset_url | stylesheet_tag }}
+{{ 'section-our-story.css' | asset_url | stylesheet_tag }}
+{{ 'section-kourtlab-contact.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -14,34 +15,34 @@
   }
 {%- endstyle -%}
 
-<section class="founding-hero color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% if section.settings.bg_image != blank %} founding-section-has-bg{% endif %}">
+<section class="story-hero story-hero--align-{{ section.settings.vertical_alignment }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   {%- if section.settings.bg_image != blank -%}
-    <div class="founding-section-bg">
+    <div class="story-hero__bg">
       <img
         src="{{ section.settings.bg_image | image_url: width: 2200 }}"
         alt="{{ section.settings.heading | escape }}"
         loading="eager"
-        class="founding-section-bg-img"
+        class="story-hero__bg-img"
       >
     </div>
     <div
-      class="founding-section-overlay"
+      class="story-hero__overlay"
       style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
     ></div>
   {%- endif -%}
 
-  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
-    <div class="founding-hero__inner">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %} width-100">
+    <div class="story-hero__content story-hero__content--{{ section.settings.content_alignment }}">
       {%- if section.settings.label != blank -%}
-        <span class="founding-label">{{ section.settings.label }}</span>
+        <span class="story-label">{{ section.settings.label }}</span>
       {%- endif -%}
 
       {%- if section.settings.heading != blank -%}
-        <h1 class="founding-title">{{ section.settings.heading }}</h1>
+        <h1 class="story-heading">{{ section.settings.heading }}</h1>
       {%- endif -%}
 
       {%- if section.settings.subtext != blank -%}
-        <div class="founding-hero__sub">{{ section.settings.subtext }}</div>
+        <div class="story-hero__subtext">{{ section.settings.subtext }}</div>
       {%- endif -%}
     </div>
   </div>
@@ -49,8 +50,8 @@
 
 {% schema %}
 {
-  "name": "Founding 1. Hero Banner",
-  "class": "section-founding-hero",
+  "name": "Contact 1. Hero Banner",
+  "class": "section-kourtlab-contact-hero",
   "settings": [
     {
       "type": "color_scheme",
@@ -80,22 +81,44 @@
       "default": 65
     },
     {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Horizontal Content Alignment",
+      "options": [
+        { "value": "left", "label": "Left (Grid Logo Line)" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical Alignment",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "bottom", "label": "Bottom Left" }
+      ],
+      "default": "bottom"
+    },
+    {
       "type": "text",
       "id": "label",
       "label": "Sub-label",
-      "default": "KØRE PEOPLE"
+      "default": "CONTACT US // KØRE HQ"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Hero Headline",
-      "default": "FOUNDING MEMBERS & PERSONAS<span>.</span>"
+      "default": "GET IN TOUCH<span>.</span>"
     },
     {
       "type": "richtext",
       "id": "subtext",
       "label": "Subtext Paragraph",
-      "default": "<p>The athletes, creators, and competitors behind KØRE. Built for the repeat.</p>"
+      "default": "<p>Questions about gear, orders, or joining the KØRE community? Reach out to our team. Direct. Grounded. Never loud.</p>"
     },
     {
       "type": "header",
@@ -109,7 +132,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top Padding",
-      "default": 80
+      "default": 100
     },
     {
       "type": "range",
@@ -124,7 +147,7 @@
   ],
   "presets": [
     {
-      "name": "Founding 1. Hero Banner"
+      "name": "Contact 1. Hero Banner"
     }
   ]
 }

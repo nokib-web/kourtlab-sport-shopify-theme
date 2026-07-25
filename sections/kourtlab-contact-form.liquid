@@ -1,0 +1,318 @@
+{{ 'section-kourtlab-contact.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="kourtlab-contact-section color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% if section.settings.bg_image != blank %} kourtlab-contact-has-bg{% endif %}">
+  {%- if section.settings.watermark != blank -%}
+    <div class="kourtlab-contact-watermark">{{ section.settings.watermark }}</div>
+  {%- endif -%}
+
+  {%- if section.settings.bg_image != blank -%}
+    <div class="kourtlab-contact-bg">
+      <img
+        src="{{ section.settings.bg_image | image_url: width: 2200 }}"
+        alt="{{ section.settings.title | escape }}"
+        loading="lazy"
+        class="kourtlab-contact-bg-img"
+      >
+    </div>
+    <div
+      class="kourtlab-contact-overlay"
+      style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+    ></div>
+  {%- endif -%}
+
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="kourtlab-contact-grid">
+      
+      <!-- Left Column: Minimal Editorial HQ Meta -->
+      <div class="contact-info-wrap">
+        {%- if section.settings.label != blank -%}
+          <span class="kourtlab-contact-label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="kourtlab-contact-title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div style="font-size: 1.65rem; line-height: 1.7; margin-bottom: 4rem; color: rgba(var(--color-foreground), 0.85);">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+
+        <!-- Meta Item 1: HQ Location -->
+        {%- if section.settings.hq_location != blank -%}
+          <div class="contact-meta-group">
+            <span class="contact-meta-tag">LOCATION & HQ</span>
+            <div class="contact-meta-main">{{ section.settings.hq_location }}</div>
+            {%- if section.settings.hq_coords != blank -%}
+              <p class="contact-meta-sub">{{ section.settings.hq_coords }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        <!-- Meta Item 2: Email -->
+        {%- if section.settings.email != blank -%}
+          <div class="contact-meta-group">
+            <span class="contact-meta-tag">DIRECT EMAIL</span>
+            <a href="mailto:{{ section.settings.email }}" class="contact-meta-main">{{ section.settings.email }}</a>
+            <p class="contact-meta-sub">Support team responds within 24 business hours</p>
+          </div>
+        {%- endif -%}
+
+        <!-- Meta Item 3: Support Hours & Social -->
+        {%- if section.settings.hours != blank -%}
+          <div class="contact-meta-group">
+            <span class="contact-meta-tag">OPERATING HOURS</span>
+            <div class="contact-meta-main" style="font-size:1.8rem;">{{ section.settings.hours }}</div>
+            <p class="contact-meta-sub">Instagram & Community: <strong>@kourtlab</strong></p>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Minimalist Underline Form -->
+      <div class="contact-form-wrap">
+        <div class="contact-form-header">
+          {%- if section.settings.form_title != blank -%}
+            <h3 class="contact-form-header__title">{{ section.settings.form_title }}</h3>
+          {%- endif -%}
+
+          {%- if section.settings.form_sub != blank -%}
+            <p class="contact-form-header__sub">{{ section.settings.form_sub }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- form 'contact', id: 'KourtlabContactForm', class: 'isolate' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="form-status form-status-list form__message" tabindex="-1" autofocus style="padding: 2rem; background: rgba(203,214,74,0.15); border-left: 3px solid var(--nav-active-color); margin-bottom: 3rem;">
+              <h3 style="font-size:1.6rem; color: var(--nav-active-color); margin:0;">
+                ✓ {{ 'templates.contact.form.post_success' | t }}
+              </h3>
+            </div>
+          {%- elsif form.errors -%}
+            <div class="form__message" style="margin-bottom: 3rem;">
+              <p style="color: #ff4d4d; font-weight:700;">
+                {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+              </p>
+            </div>
+          {%- endif -%}
+
+          <div class="contact-field-group">
+            <label class="contact-field-label" for="ContactForm-name">YOUR NAME *</label>
+            <input
+              class="contact-minimal-input"
+              autocomplete="name"
+              type="text"
+              id="ContactForm-name"
+              name="contact[Name]"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+              placeholder="e.g. Justin Niessen"
+              required
+            >
+          </div>
+
+          <div class="contact-field-group">
+            <label class="contact-field-label" for="ContactForm-email">YOUR EMAIL *</label>
+            <input
+              class="contact-minimal-input"
+              autocomplete="email"
+              type="email"
+              id="ContactForm-email"
+              name="contact[email]"
+              spellcheck="false"
+              autocapitalize="off"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              placeholder="name@domain.com"
+              required
+            >
+          </div>
+
+          <div class="contact-field-group">
+            <label class="contact-field-label">INQUIRY SUBJECT</label>
+            <div class="contact-pills-grid">
+              <label class="contact-pill-opt">
+                <input type="radio" name="contact[Subject]" value="General Inquiry" checked>
+                <span>GENERAL</span>
+              </label>
+              <label class="contact-pill-opt">
+                <input type="radio" name="contact[Subject]" value="Orders & Shipping">
+                <span>ORDERS & SHIPPING</span>
+              </label>
+              <label class="contact-pill-opt">
+                <input type="radio" name="contact[Subject]" value="Club Partnerships">
+                <span>PADEL CLUB DROPS</span>
+              </label>
+              <label class="contact-pill-opt">
+                <input type="radio" name="contact[Subject]" value="Press & Wholesale">
+                <span>PRESS / WHOLESALE</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="contact-field-group">
+            <label class="contact-field-label" for="ContactForm-body">YOUR MESSAGE *</label>
+            <textarea
+              rows="4"
+              id="ContactForm-body"
+              class="contact-minimal-textarea"
+              name="contact[body]"
+              placeholder="Tell us how we can help on or off court..."
+              required
+            >{{- form.body -}}</textarea>
+          </div>
+
+          <button type="submit" class="contact-submit-btn">
+            SEND MESSAGE &rarr;
+          </button>
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact 2. Form & Info",
+  "class": "section-kourtlab-contact-form",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "watermark",
+      "label": "Background Watermark Text",
+      "default": "KØRE HQ"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 65
+    },
+    {
+      "type": "header",
+      "content": "Left Column — Meta Settings"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "REACH OUT DIRECTLY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Section Title",
+      "default": "OUR HQ & TEAM<span>.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Whether you need help with sizing, order tracking, or want to discuss padel club drops — our team is here.</p>"
+    },
+    {
+      "type": "text",
+      "id": "hq_location",
+      "label": "HQ Location",
+      "default": "Curaçao · Dutch Caribbean"
+    },
+    {
+      "type": "text",
+      "id": "hq_coords",
+      "label": "Coordinates",
+      "default": "12.1696° N, 68.9900° W"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "support@kourtlab.com"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Support Hours",
+      "default": "MON – FRI: 08:00 – 18:00 AST"
+    },
+    {
+      "type": "header",
+      "content": "Right Column — Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "SEND A MESSAGE"
+    },
+    {
+      "type": "text",
+      "id": "form_sub",
+      "label": "Form Subtitle",
+      "default": "Fill out the fields below and our team will get back to you."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact 2. Form & Info"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,108 @@
+{{ 'section-on-faq.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="on-faq-contact-cta color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="on-faq-contact-cta__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="on-faq-contact-cta__title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="on-faq-contact-cta__sub">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="on-faq-contact-cta__btn">
+          {{ section.settings.button_label }} &rarr;
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "On FAQ 3. Contact CTA",
+  "class": "section-on-faq-contact-cta",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "STILL NEED HELP<span>?</span>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Our support team is here to answer any questions about orders, sizing, or club drops."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "On FAQ 3. Contact CTA"
+    }
+  ]
+}
+{% endschema %}

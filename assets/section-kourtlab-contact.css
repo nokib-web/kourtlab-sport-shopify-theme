@@ -1,0 +1,333 @@
+/* ==========================================================================
+   KØRE (Kourtlab) — Ultra-Modern Editorial Contact Page Stylesheet
+   Luxury Athletic Aesthetic (On Running / Rapha / Gymshark Onyx)
+   Uses 100% Global Dawn CSS Variables: --color-background, --color-foreground, --nav-active-color
+   ========================================================================== */
+
+/* Watermark Text */
+.kourtlab-contact-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(calc(var(--font-heading-scale) * 8rem), calc(var(--font-heading-scale) * 18vw), calc(var(--font-heading-scale) * 24rem));
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: rgba(var(--color-foreground), 0.02);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* Sub-label with glowing dash */
+.kourtlab-contact-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--nav-active-color, #CBD64A) !important;
+  margin-bottom: 1.6rem;
+}
+
+.kourtlab-contact-label::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background-color: var(--nav-active-color, #CBD64A);
+}
+
+/* Editorial Title */
+.kourtlab-contact-title {
+  font-size: calc(var(--font-heading-scale) * 4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 2.5rem 0;
+}
+
+@media screen and (min-width: 750px) {
+  .kourtlab-contact-title {
+    font-size: calc(var(--font-heading-scale) * 6.2rem);
+  }
+}
+
+.kourtlab-contact-title span {
+  color: var(--nav-active-color, #CBD64A) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Contact Section Grid
+   -------------------------------------------------------------------------- */
+.kourtlab-contact-section {
+  position: relative;
+  padding-top: var(--padding-top, 100px);
+  padding-bottom: var(--padding-bottom, 100px);
+  width: 100%;
+}
+
+.kourtlab-contact-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8rem;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 990px) {
+  .kourtlab-contact-grid {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Left Column: Minimal Editorial HQ Info
+   -------------------------------------------------------------------------- */
+.contact-info-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-meta-group {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.12);
+}
+
+.contact-meta-group:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.contact-meta-tag {
+  font-size: calc(var(--font-body-scale) * 1.15rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--nav-active-color, #CBD64A);
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.contact-meta-main {
+  font-size: calc(var(--font-heading-scale) * 2.2rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 0.8rem 0;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a.contact-meta-main:hover {
+  color: var(--nav-active-color, #CBD64A) !important;
+}
+
+.contact-meta-sub {
+  font-size: calc(var(--font-body-scale) * 1.45rem);
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   Right Column: Ultra-Sleek Form (No Heavy Box Borders)
+   -------------------------------------------------------------------------- */
+.contact-form-wrap {
+  padding: 0;
+}
+
+.contact-form-header {
+  margin-bottom: 4rem;
+}
+
+.contact-form-header__title {
+  font-size: calc(var(--font-heading-scale) * 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 1rem 0;
+}
+
+.contact-form-header__sub {
+  font-size: calc(var(--font-body-scale) * 1.5rem);
+  color: rgba(var(--color-foreground), 0.75);
+  margin: 0;
+}
+
+/* Minimalist Underline Input Fields */
+.contact-field-group {
+  position: relative;
+  margin-bottom: 3.5rem;
+}
+
+.contact-field-label {
+  font-size: calc(var(--font-body-scale) * 1.15rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: rgba(var(--color-foreground), 0.85);
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.contact-minimal-input,
+.contact-minimal-select,
+.contact-minimal-textarea {
+  width: 100%;
+  padding: 1.4rem 0;
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  font-family: inherit;
+  background-color: transparent !important;
+  border: none;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.2);
+  color: rgb(var(--color-foreground));
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-minimal-input:focus,
+.contact-minimal-select:focus,
+.contact-minimal-textarea:focus {
+  border-bottom-color: var(--nav-active-color, #CBD64A);
+}
+
+.contact-minimal-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23CBD64A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.contact-minimal-textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* Subject Radio Pills */
+.contact-pills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact-pill-opt {
+  position: relative;
+  cursor: pointer;
+}
+
+.contact-pill-opt input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.contact-pill-opt span {
+  display: inline-block;
+  font-size: calc(var(--font-body-scale) * 1.15rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.9rem 2rem;
+  background-color: rgba(var(--color-foreground), 0.04);
+  border: 1px solid rgba(var(--color-foreground), 0.18);
+  color: rgb(var(--color-foreground));
+  transition: all 0.25s ease;
+}
+
+.contact-pill-opt input:checked + span,
+.contact-pill-opt:hover span {
+  border-color: var(--nav-active-color, #CBD64A);
+  color: var(--nav-active-color, #CBD64A);
+  background-color: rgba(203, 214, 74, 0.08);
+}
+
+/* Ultra High-Performance Submit Button */
+.contact-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1.8rem 3.6rem;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background-color: var(--nav-active-color, #CBD64A) !important;
+  color: #0A0A0A !important;
+  border: 1.5px solid var(--nav-active-color, #CBD64A) !important;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 2rem;
+}
+
+.contact-submit-btn:hover {
+  background-color: rgb(var(--color-foreground)) !important;
+  color: rgb(var(--color-background)) !important;
+  border-color: rgb(var(--color-foreground)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+/* --------------------------------------------------------------------------
+   Background Photography Support
+   -------------------------------------------------------------------------- */
+.kourtlab-contact-has-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.kourtlab-contact-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.kourtlab-contact-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.kourtlab-contact-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.92) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.kourtlab-contact-has-bg .page-width,
+.kourtlab-contact-has-bg .page-width--full {
+  position: relative;
+  z-index: 3;
+}
+
+.kourtlab-contact-has-bg .kourtlab-contact-title,
+.kourtlab-contact-has-bg .contact-form-header__title,
+.kourtlab-contact-has-bg .contact-meta-main {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+}
+
+.kourtlab-contact-has-bg .contact-meta-sub,
+.kourtlab-contact-has-bg .contact-form-header__sub {
+  color: rgba(255, 255, 255, 0.88) !important;
+}

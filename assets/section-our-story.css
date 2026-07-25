@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KØRĒ (Kourtlab) — Master Editorial "Our Story / About Us" Stylesheet
+   KØRE (Kourtlab) — Master Editorial "Our Story / About Us" Stylesheet
    Uses Dawn CSS Variables: --color-background, --color-foreground, --nav-active-color
    High Contrast & 100% Readable Text Over Background Photography
    ========================================================================== */
@@ -7,19 +7,17 @@
 /* Common Sub-labels */
 .story-label {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
   font-weight: 800;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--nav-active-color, #CBD64A) !important;
   margin-bottom: 1.4rem;
 }
 
 /* Headings */
 .story-heading {
-  font-size: 3.2rem;
+  font-size: calc(var(--font-heading-scale) * 3.2rem);
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: -0.01em;
   line-height: 1.1;
   color: rgb(var(--color-foreground));
@@ -28,7 +26,7 @@
 
 @media screen and (min-width: 750px) {
   .story-heading {
-    font-size: 4.8rem;
+    font-size: calc(var(--font-heading-scale) * 4.8rem);
   }
 }
 
@@ -44,10 +42,9 @@
   justify-content: center;
   gap: 1rem;
   padding: 1.5rem 3.4rem;
-  font-size: 1.3rem;
+  font-size: calc(var(--font-body-scale) * 1.3rem);
   font-weight: 800;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   text-decoration: none;
   border-radius: 0;
   cursor: pointer;
@@ -174,7 +171,7 @@
 .story-hero__content--right { text-align: right; margin-left: auto; margin-right: 0; }
 
 .story-hero__subtext {
-  font-size: 1.6rem;
+  font-size: calc(var(--font-body-scale) * 1.6rem);
   line-height: 1.75;
   color: rgba(var(--color-foreground), 0.85);
   margin-bottom: 3.5rem;
@@ -231,7 +228,7 @@
 }
 
 .story-philosophy__body {
-  font-size: 1.55rem;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
   line-height: 1.7;
   color: rgba(var(--color-foreground), 0.85);
   margin-bottom: 4rem;
@@ -258,16 +255,15 @@
 }
 
 .story-phil-card__title {
-  font-size: 1.3rem;
+  font-size: calc(var(--font-body-scale) * 1.3rem);
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgb(var(--color-foreground));
   margin: 0;
 }
 
 .story-phil-card__desc {
-  font-size: 1.25rem;
+  font-size: calc(var(--font-body-scale) * 1.25rem);
   line-height: 1.5;
   color: rgba(var(--color-foreground), 0.8);
   margin: 0;
@@ -344,11 +340,10 @@
 }
 
 .story-mindset-card__num {
-  font-size: 1.4rem;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
   font-weight: 900;
   letter-spacing: 0.15em;
   color: var(--nav-active-color, #CBD64A);
-  text-transform: uppercase;
 }
 
 .story-mindset-card__icon {
@@ -365,9 +360,8 @@
 }
 
 .story-mindset-card__title {
-  font-size: 2.4rem;
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
   font-weight: 900;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
   color: rgb(var(--color-foreground));
   margin: 0 0 1rem 0;
@@ -375,7 +369,7 @@
 }
 
 .story-mindset-card__desc {
-  font-size: 1.45rem;
+  font-size: calc(var(--font-body-scale) * 1.45rem);
   line-height: 1.5;
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
@@ -422,10 +416,9 @@
 }
 
 .story-value-card__tag {
-  font-size: 1.1rem;
+  font-size: calc(var(--font-body-scale) * 1.1rem);
   font-weight: 800;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
   color: var(--nav-active-color, #CBD64A);
   margin-bottom: 2rem;
 }
@@ -455,16 +448,15 @@
 }
 
 .story-value-card__title {
-  font-size: 2rem;
+  font-size: calc(var(--font-heading-scale) * 2rem);
   font-weight: 800;
-  text-transform: uppercase;
   color: rgb(var(--color-foreground));
   margin: 0 0 1rem 0;
   letter-spacing: 0.02em;
 }
 
 .story-value-card__desc {
-  font-size: 1.4rem;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
   line-height: 1.55;
@@ -615,16 +607,15 @@
 }
 
 .story-perf-box__title {
-  font-size: 1.4rem;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
   font-weight: 800;
-  text-transform: uppercase;
   color: rgb(var(--color-foreground));
   margin: 0 0 0.8rem 0;
   letter-spacing: 0.03em;
 }
 
 .story-perf-box__desc {
-  font-size: 1.3rem;
+  font-size: calc(var(--font-body-scale) * 1.3rem);
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
   line-height: 1.5;
@@ -690,7 +681,7 @@
 .story-community.has-bg-image p {
   color: #FFFFFF !important;
   opacity: 0.95;
-  font-size: 1.65rem;
+  font-size: calc(var(--font-body-scale) * 1.65rem);
   line-height: 1.7;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
 }
@@ -742,7 +733,7 @@
 }
 
 .story-journey-step__year {
-  font-size: 1.2rem;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
   font-weight: 800;
   letter-spacing: 0.1em;
   color: rgba(var(--color-foreground), 0.6);
@@ -750,15 +741,14 @@
 }
 
 .story-journey-step__title {
-  font-size: 1.6rem;
+  font-size: calc(var(--font-body-scale) * 1.6rem);
   font-weight: 800;
-  text-transform: uppercase;
   color: rgb(var(--color-foreground));
   margin: 0 0 1rem 0;
 }
 
 .story-journey-step__desc {
-  font-size: 1.3rem;
+  font-size: calc(var(--font-body-scale) * 1.3rem);
   line-height: 1.5;
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
@@ -769,7 +759,7 @@
   align-items: center;
   padding-top: 1.8rem;
   color: rgba(var(--color-foreground), 0.3);
-  font-size: 2rem;
+  font-size: calc(var(--font-heading-scale) * 2rem);
 }
 
 @media screen and (max-width: 749px) {
@@ -797,16 +787,15 @@
 }
 
 .story-quote__marks {
-  font-size: 4rem;
+  font-size: calc(var(--font-heading-scale) * 4rem);
   color: var(--nav-active-color, #CBD64A);
   margin-bottom: 2rem;
   font-weight: 900;
 }
 
 .story-quote__text {
-  font-size: 3.2rem;
+  font-size: calc(var(--font-heading-scale) * 3.2rem);
   font-weight: 900;
-  text-transform: uppercase;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: rgb(var(--color-foreground));
@@ -815,7 +804,7 @@
 
 @media screen and (min-width: 750px) {
   .story-quote__text {
-    font-size: 4.6rem;
+    font-size: calc(var(--font-heading-scale) * 4.6rem);
   }
 }
 
@@ -866,9 +855,8 @@
 }
 
 .story-cta__title {
-  font-size: 3.6rem;
+  font-size: calc(var(--font-heading-scale) * 3.6rem);
   font-weight: 900;
-  text-transform: uppercase;
   line-height: 1.05;
   margin: 0 0 1.5rem 0;
   color: rgb(var(--color-foreground));
@@ -876,12 +864,12 @@
 
 @media screen and (min-width: 750px) {
   .story-cta__title {
-    font-size: 4.8rem;
+    font-size: calc(var(--font-heading-scale) * 4.8rem);
   }
 }
 
 .story-cta__sub {
-  font-size: 1.5rem;
+  font-size: calc(var(--font-body-scale) * 1.5rem);
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
 }

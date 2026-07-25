@@ -1,0 +1,134 @@
+{{ 'section-on-faq.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="on-faq-hero color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="on-faq-hero__inner">
+      {%- if section.settings.title != blank -%}
+        <h1 class="on-faq-hero__title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div class="on-faq-hero__sub">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+
+      <!-- On.com Live Search Input -->
+      <div class="on-faq-search-box">
+        <svg class="on-faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+          type="text"
+          id="OnFaqSearchInput"
+          class="on-faq-search-input"
+          placeholder="{{ section.settings.search_placeholder }}"
+          aria-label="{{ section.settings.search_placeholder }}"
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- Suggested Searches Chips -->
+      {%- if section.settings.chips != blank -%}
+        {%- assign chips_array = section.settings.chips | split: ',' -%}
+        <div class="on-faq-chips-wrap">
+          <span class="on-faq-chips-label">Suggested searches</span>
+          <div class="on-faq-chips-list">
+            {%- for chip in chips_array -%}
+              <button type="button" class="on-faq-chip" data-query="{{ chip | strip | downcase }}">
+                {{ chip | strip }}
+              </button>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "On FAQ 1. Hero & Search",
+  "class": "section-on-faq-hero",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Headline Title",
+      "default": "HOW CAN WE HELP YOU<span>?</span>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtitle Paragraph",
+      "default": "Find answers to your most commonly asked questions."
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Box Placeholder",
+      "default": "Search for your answer..."
+    },
+    {
+      "type": "text",
+      "id": "chips",
+      "label": "Suggested Searches (Comma Separated)",
+      "default": "track my order, returns, sizing & fit, padel club drops, warranty"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "On FAQ 1. Hero & Search"
+    }
+  ]
+}
+{% endschema %}

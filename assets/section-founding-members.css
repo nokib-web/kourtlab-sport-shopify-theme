@@ -1,5 +1,5 @@
 /* ==========================================================================
-   KØRĒ (Kourtlab) — Editorial Founding Members & Personas Stylesheet
+   KØRE (Kourtlab) — Editorial Founding Members & Personas Stylesheet
    Uses 100% Global Dawn CSS Variables: --color-background, --color-foreground, --nav-active-color
    ========================================================================== */
 
@@ -8,10 +8,9 @@
   display: inline-flex;
   align-items: center;
   gap: 1.2rem;
-  font-size: 1.2rem;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
   font-weight: 800;
   letter-spacing: 0.22em;
-  text-transform: uppercase;
   color: var(--nav-active-color, #CBD64A) !important;
   margin-bottom: 1.6rem;
 }
@@ -26,9 +25,8 @@
 
 /* Headings */
 .founding-title {
-  font-size: 3.6rem;
+  font-size: calc(var(--font-heading-scale) * 3.6rem);
   font-weight: 900;
-  text-transform: uppercase;
   letter-spacing: -0.01em;
   line-height: 1.05;
   color: rgb(var(--color-foreground));
@@ -37,7 +35,7 @@
 
 @media screen and (min-width: 750px) {
   .founding-title {
-    font-size: 5.4rem;
+    font-size: calc(var(--font-heading-scale) * 5.4rem);
   }
 }
 
@@ -52,17 +50,16 @@
 }
 
 .founding-meta-label {
-  font-size: 1.15rem;
+  font-size: calc(var(--font-body-scale) * 1.15rem);
   font-weight: 800;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
   color: var(--nav-active-color, #CBD64A);
   margin-bottom: 0.8rem;
   display: block;
 }
 
 .founding-meta-val {
-  font-size: 1.55rem;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
   line-height: 1.65;
   color: rgba(var(--color-foreground), 0.88);
   margin: 0;
@@ -77,7 +74,7 @@
 }
 
 .founding-quote-text {
-  font-size: 1.55rem;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
   font-style: italic;
   line-height: 1.65;
   color: rgb(var(--color-foreground));
@@ -157,7 +154,7 @@
 }
 
 .founding-hero__sub {
-  font-size: 1.7rem;
+  font-size: calc(var(--font-body-scale) * 1.7rem);
   line-height: 1.7;
   color: rgba(var(--color-foreground), 0.85);
   margin-top: 2rem;
@@ -177,13 +174,13 @@
 .founder-profile__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6rem;
+  gap: 5rem;
   align-items: flex-start;
 }
 
 @media screen and (min-width: 990px) {
   .founder-profile__grid {
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: 0.9fr 1.1fr;
   }
   .founder-profile__grid--image-right .founder-profile__media {
     order: 2;
@@ -193,10 +190,14 @@
   }
 }
 
+.founder-profile__media {
+  width: 100%;
+}
+
 .founder-profile__media-wrap {
   position: relative;
   width: 100%;
-  padding-top: 115%;
+  padding-top: 108%;
   overflow: hidden;
   border: 1px solid rgba(var(--color-foreground), 0.15);
   background-color: rgba(var(--color-foreground), 0.03);
@@ -219,17 +220,14 @@
 
 .founder-profile__specs {
   border-top: 1px solid rgba(var(--color-foreground), 0.15);
-  padding-top: 3rem;
-  margin-top: 3rem;
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
 }
 
 
-/* --------------------------------------------------------------------------
-   3. Persona Block (Marco, Sofia, Lena & Daan Modern Bento Layout)
-   -------------------------------------------------------------------------- */
 .persona-block {
-  padding-top: var(--padding-top, 100px);
-  padding-bottom: var(--padding-bottom, 100px);
+  padding-top: var(--padding-top, 90px);
+  padding-bottom: var(--padding-bottom, 90px);
   border-bottom: 1px solid rgba(var(--color-foreground), 0.12);
   width: 100%;
 }
@@ -237,8 +235,8 @@
 .persona-block__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6rem;
-  align-items: center;
+  gap: 5rem;
+  align-items: flex-start;
 }
 
 @media screen and (min-width: 990px) {
@@ -259,50 +257,53 @@
 }
 
 .persona-block__profession {
-  font-size: 1.25rem;
+  font-size: calc(var(--font-body-scale) * 1.25rem);
   font-weight: 800;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: var(--nav-active-color, #CBD64A);
   margin-bottom: 1.2rem;
 }
 
 .persona-block__bullets {
-  font-size: 1.9rem;
+  font-size: calc(var(--font-body-scale) * 1.9rem);
   font-weight: 900;
-  text-transform: uppercase;
   line-height: 1.3;
   color: rgb(var(--color-foreground));
-  margin: 1.5rem 0 2.5rem 0;
+  margin: 0.5rem 0 0.8rem 0;
   letter-spacing: 0.01em;
 }
 
+.persona-block__bullets p,
+.persona-block__desc p {
+  margin: 0;
+}
+
 .persona-block__desc {
-  font-size: 1.55rem;
-  line-height: 1.7;
-  color: rgba(var(--color-foreground), 0.85);
-  margin-bottom: 2rem;
+  font-size: calc(var(--font-body-scale) * 1.65rem);
+  line-height: 1.65;
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
+  margin-bottom: 0.8rem;
 }
 
 .persona-block__highlight {
-  font-size: 1.65rem;
+  font-size: calc(var(--font-body-scale) * 1.65rem);
   font-weight: 800;
   color: var(--nav-active-color, #CBD64A) !important;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .persona-block__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .persona-tag-pill {
-  font-size: 1.15rem;
+  font-size: calc(var(--font-body-scale) * 1.15rem);
   font-weight: 800;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
   padding: 0.7rem 1.8rem;
   background-color: rgba(var(--color-foreground), 0.04);
   border: 1px solid rgba(var(--color-foreground), 0.15);
@@ -324,10 +325,9 @@
 }
 
 .persona-tracker__title {
-  font-size: 1.25rem;
+  font-size: calc(var(--font-body-scale) * 1.25rem);
   font-weight: 800;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
   color: rgba(var(--color-foreground), 0.85);
   margin-bottom: 2rem;
 }
@@ -347,7 +347,7 @@
 }
 
 .persona-day__char {
-  font-size: 1.4rem;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
   font-weight: 900;
   color: rgba(var(--color-foreground), 0.5);
   transition: color 0.3s ease;
@@ -391,10 +391,9 @@
 }
 
 .persona-tracker__focus {
-  font-size: 1.2rem;
+  font-size: calc(var(--font-body-scale) * 1.2rem);
   font-weight: 800;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: rgba(var(--color-foreground), 0.85);
   border-top: 1px solid rgba(var(--color-foreground), 0.12);
   padding-top: 1.8rem;
@@ -410,16 +409,21 @@
 }
 
 /* Gallery collage for personas */
+.persona-block__media {
+  width: 100%;
+}
+
 .persona-gallery {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  gap: 1.6rem;
+  margin-bottom: 2.5rem;
 }
 
 .persona-gallery__item {
   position: relative;
   width: 100%;
-  padding-top: 120%;
+  padding-top: 85%;
   overflow: hidden;
   background-color: rgba(var(--color-foreground), 0.04);
   border: 1px solid rgba(var(--color-foreground), 0.12);
@@ -427,7 +431,7 @@
 
 .persona-gallery__item--full {
   grid-column: span 2;
-  padding-top: 100%;
+  padding-top: 32%;
 }
 
 .persona-gallery__img {
@@ -447,10 +451,9 @@
   justify-content: center;
   gap: 1rem;
   padding: 1.6rem 3.4rem;
-  font-size: 1.3rem;
+  font-size: calc(var(--font-body-scale) * 1.3rem);
   font-weight: 800;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   text-decoration: none !important;
   border-radius: 0;
   cursor: pointer;
@@ -505,9 +508,8 @@
 }
 
 .founding-cta__title {
-  font-size: 3.6rem;
+  font-size: calc(var(--font-heading-scale) * 3.6rem);
   font-weight: 900;
-  text-transform: uppercase;
   line-height: 1.05;
   margin: 0 0 1.5rem 0;
   color: rgb(var(--color-foreground));
@@ -515,12 +517,12 @@
 
 @media screen and (min-width: 750px) {
   .founding-cta__title {
-    font-size: 4.8rem;
+    font-size: calc(var(--font-heading-scale) * 4.8rem);
   }
 }
 
 .founding-cta__sub {
-  font-size: 1.55rem;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
   color: rgba(var(--color-foreground), 0.85);
   margin: 0;
 }

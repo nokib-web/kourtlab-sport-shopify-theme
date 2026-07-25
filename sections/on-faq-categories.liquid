@@ -1,0 +1,468 @@
+{{ 'section-on-faq.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  Collect unique category names from blocks (preserve order of first appearance)
+{%- endcomment -%}
+{%- assign all_categories = '' -%}
+{%- for block in section.blocks -%}
+  {%- assign cat = block.settings.category -%}
+  {%- unless all_categories contains cat -%}
+    {%- if all_categories == '' -%}
+      {%- assign all_categories = cat -%}
+    {%- else -%}
+      {%- assign all_categories = all_categories | append: '||' | append: cat -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign categories_arr = all_categories | split: '||' -%}
+
+<section class="kore-faq-page color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+
+    <!-- Top Hero Headline -->
+    <div class="kore-faq-top">
+      {%- if section.settings.title != blank -%}
+        <h1 class="kore-faq-top__title">{{ section.settings.title }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subtext != blank -%}
+        <p class="kore-faq-top__sub">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="kore-faq-layout">
+
+      <!-- LEFT: Category Sidebar -->
+      <aside class="kore-faq-sidebar">
+        <p class="kore-faq-sidebar__heading">Topics</p>
+        <ul class="kore-faq-sidebar__list" id="KoreFaqSidebarList">
+          {%- for cat in categories_arr -%}
+            {%- assign cat_slug = cat | handleize -%}
+            <li class="kore-faq-sidebar__item">
+              <a
+                class="kore-faq-sidebar__link{% if forloop.first %} is-active{% endif %}"
+                data-target="{{ cat_slug }}"
+                href="#{{ cat_slug }}"
+                aria-label="Show {{ cat }} FAQs"
+              >
+                <span>{{ cat }}</span>
+                <span class="kore-faq-sidebar__arrow">→</span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </aside>
+
+      <!-- RIGHT: Search + Category Panels -->
+      <main class="kore-faq-main">
+
+        <!-- Search -->
+        <div class="kore-faq-search-wrap">
+          <svg class="kore-faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            type="text"
+            id="KoreFaqSearch"
+            class="kore-faq-search-input"
+            placeholder="{{ section.settings.search_placeholder | default: 'Search for your answer…' }}"
+            autocomplete="off"
+            aria-label="Search FAQ"
+          >
+        </div>
+
+        <!-- Suggested Chips -->
+        {%- if section.settings.chips != blank -%}
+          {%- assign chips_list = section.settings.chips | split: ',' -%}
+          <div class="kore-faq-chips" id="KoreFaqChips">
+            {%- for chip in chips_list -%}
+              <button type="button" class="kore-faq-chip" data-query="{{ chip | strip | downcase }}">{{ chip | strip }}</button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <!-- No results -->
+        <div class="kore-faq-no-results" id="KoreFaqNoResults">
+          <p>No results found. Try a different keyword.</p>
+        </div>
+
+        <!-- Category Panels -->
+        {%- for cat in categories_arr -%}
+          {%- assign cat_slug = cat | handleize -%}
+          <div
+            class="kore-faq-panel{% if forloop.first %} is-active{% endif %}"
+            id="panel-{{ cat_slug }}"
+            data-panel="{{ cat_slug }}"
+          >
+            <h2 class="kore-faq-panel__heading">{{ cat }}</h2>
+            {%- for block in section.blocks -%}
+              {%- if block.settings.category == cat -%}
+                <details
+                  class="kore-faq-accordion"
+                  {{ block.shopify_attributes }}
+                  data-search-text="{{ block.settings.question | downcase }} {{ block.settings.answer | strip_html | downcase }}"
+                  data-category="{{ cat_slug }}"
+                >
+                  <summary>
+                    <span>{{ block.settings.question }}</span>
+                    <span class="kore-faq-accordion__icon">+</span>
+                  </summary>
+                  <div class="kore-faq-accordion__body">
+                    {{ block.settings.answer }}
+                  </div>
+                </details>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+
+        <!-- Bottom Contact CTA -->
+        {%- if section.settings.cta_heading != blank -%}
+          <div class="kore-faq-cta">
+            <div class="kore-faq-cta__text">
+              <h3>{{ section.settings.cta_heading }}</h3>
+              {%- if section.settings.cta_sub != blank -%}
+                <p>{{ section.settings.cta_sub }}</p>
+              {%- endif -%}
+            </div>
+            {%- if section.settings.cta_label != blank -%}
+              <a href="{{ section.settings.cta_link | default: '/pages/contact' }}" class="kore-faq-cta__btn">
+                {{ section.settings.cta_label }} →
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      </main>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var sidebarLinks = document.querySelectorAll('#KoreFaqSidebarList .kore-faq-sidebar__link');
+  var panels = document.querySelectorAll('.kore-faq-panel');
+  var searchInput = document.getElementById('KoreFaqSearch');
+  var chips = document.querySelectorAll('.kore-faq-chip');
+  var noResults = document.getElementById('KoreFaqNoResults');
+  var allAccordions = document.querySelectorAll('.kore-faq-accordion');
+
+  // ── Sidebar Tab Switch ──
+  function showPanel(slug) {
+    sidebarLinks.forEach(function(link) {
+      link.classList.toggle('is-active', link.getAttribute('data-target') === slug);
+    });
+    panels.forEach(function(panel) {
+      panel.classList.toggle('is-active', panel.getAttribute('data-panel') === slug);
+    });
+    if (searchInput) { searchInput.value = ''; }
+    chips.forEach(function(c) { c.classList.remove('is-active'); });
+    if (noResults) { noResults.style.display = 'none'; }
+    // Reset all accordions in visible panel to closed
+    var active = document.querySelector('.kore-faq-panel.is-active');
+    if (active) {
+      active.querySelectorAll('details').forEach(function(d) { d.style.display = ''; d.removeAttribute('open'); });
+    }
+  }
+
+  sidebarLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      showPanel(this.getAttribute('data-target'));
+    });
+  });
+
+  // ── Live Search ──
+  function searchFaq(q) {
+    q = q.trim().toLowerCase();
+    var anyVisible = false;
+
+    if (q === '') {
+      // Restore all panels to default (show first panel)
+      allAccordions.forEach(function(d) { d.style.display = ''; d.removeAttribute('open'); });
+      var firstSlug = sidebarLinks.length ? sidebarLinks[0].getAttribute('data-target') : null;
+      if (firstSlug) { showPanel(firstSlug); }
+      if (noResults) { noResults.style.display = 'none'; }
+      return;
+    }
+
+    // In search mode: show ALL panels, filter accordions
+    panels.forEach(function(p) { p.classList.add('is-active'); });
+    sidebarLinks.forEach(function(l) { l.classList.remove('is-active'); });
+
+    allAccordions.forEach(function(accordion) {
+      var text = accordion.getAttribute('data-search-text') || '';
+      var match = text.includes(q);
+      accordion.style.display = match ? '' : 'none';
+      if (match) {
+        accordion.setAttribute('open', 'true');
+        anyVisible = true;
+      } else {
+        accordion.removeAttribute('open');
+      }
+    });
+
+    // Hide empty panels
+    panels.forEach(function(panel) {
+      var visibleItems = Array.from(panel.querySelectorAll('.kore-faq-accordion')).filter(function(d) {
+        return d.style.display !== 'none';
+      });
+      panel.classList.toggle('is-active', visibleItems.length > 0);
+    });
+
+    if (noResults) {
+      noResults.style.display = anyVisible ? 'none' : 'block';
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      chips.forEach(function(c) { c.classList.remove('is-active'); });
+      searchFaq(this.value);
+    });
+  }
+
+  // ── Chips ──
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var q = this.getAttribute('data-query') || '';
+      if (this.classList.contains('is-active')) {
+        this.classList.remove('is-active');
+        if (searchInput) { searchInput.value = ''; }
+        searchFaq('');
+      } else {
+        chips.forEach(function(c) { c.classList.remove('is-active'); });
+        this.classList.add('is-active');
+        if (searchInput) { searchInput.value = q; }
+        searchFaq(q);
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "KØRE Master FAQ",
+  "class": "section-kore-faq",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Page Title",
+      "default": "HOW CAN WE HELP YOU<span>?</span>"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtitle",
+      "default": "Find answers to your most commonly asked questions."
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search for your answer…"
+    },
+    {
+      "type": "text",
+      "id": "chips",
+      "label": "Suggested Searches (comma-separated)",
+      "default": "track my order, returns, sizing, padel club drops, warranty"
+    },
+    {
+      "type": "header",
+      "content": "Contact CTA Block"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "cta_heading",
+      "label": "CTA Heading",
+      "default": "STILL NEED HELP<span>?</span>"
+    },
+    {
+      "type": "text",
+      "id": "cta_sub",
+      "label": "CTA Subtext",
+      "default": "Our team is here for sizing, orders, or club drops."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Button Label",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0, "max": 140, "step": 4, "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0, "max": 140, "step": 4, "unit": "px",
+      "label": "Bottom Padding",
+      "default": 100
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Question",
+      "settings": [
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            { "value": "Orders", "label": "Orders" },
+            { "value": "Returns & Exchanges", "label": "Returns & Exchanges" },
+            { "value": "Shipping & Delivery", "label": "Shipping & Delivery" },
+            { "value": "Product Info & Sizing", "label": "Product Info & Sizing" },
+            { "value": "Sustainability", "label": "Sustainability" },
+            { "value": "Club Membership & Drops", "label": "Club Membership & Drops" },
+            { "value": "Ambassador & Partnerships", "label": "Ambassador & Partnerships" },
+            { "value": "KØRE Technology", "label": "KØRE Technology" },
+            { "value": "Account & Profile", "label": "Account & Profile" },
+            { "value": "Security & Privacy", "label": "Security & Privacy" }
+          ],
+          "default": "Orders"
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Where can I track the status of my order?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>You will receive a confirmation email with a direct tracking link as soon as your order leaves our Curaçao facility. You can also view live updates under your account.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRE Master FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Where can I track the status of my order?",
+            "answer": "<p>You will receive a confirmation email with a direct tracking link as soon as your order leaves our Curaçao facility or EU warehouse. You can also view live order updates under your account profile.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Can I cancel or edit my order after placing it?",
+            "answer": "<p>Because our fulfillment team processes orders quickly to meet matchday schedules, orders enter processing within 1 hour. Please reach out to support@kourtlab.com immediately if you need to modify your address or size.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "What is the KØRE return policy?",
+            "answer": "<p>We offer a 30-day performance trial. If your gear doesn't meet your court performance standards within 30 days of delivery, you can return unworn or court-tested items for a full refund or size exchange.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "How do I initiate a return or exchange?",
+            "answer": "<p>Simply email support@kourtlab.com with your Order Number. We will provide a pre-paid return shipping label and instructions for your region.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "How long does shipping take for KØRE drops?",
+            "answer": "<p>Orders ship within 24-48 hours. Caribbean delivery arrives in 2-4 business days. European and Americas express shipping arrives in 3-6 business days.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "Do you ship internationally?",
+            "answer": "<p>Yes, KØRE ships worldwide via DHL Express and FedEx. Customs duties and taxes are calculated at checkout so there are no unexpected fees upon delivery.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "Are KØRE performance pieces true to size?",
+            "answer": "<p>All KØRE apparel features an athletic tailored fit engineered for padel court mobility. If you prefer a loose lifestyle fit, we recommend ordering one size up.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "How do I care for my KØRE performance gear?",
+            "answer": "<p>Machine wash cold on a gentle cycle. Hang dry or tumble dry low. Do not use fabric softeners or bleach to preserve moisture-wicking properties.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Padel Club & Drops",
+            "question": "How can our padel club or academy partner with KØRE?",
+            "answer": "<p>We collaborate with select padel clubs globally for custom team kit drops and tournament sponsorships. Contact clubs@kourtlab.com to get started.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Security & Privacy",
+            "question": "Is my payment information secure?",
+            "answer": "<p>Yes. All transactions are processed using 256-bit SSL encryption via Shopify Payments, supporting Apple Pay, Google Pay, Visa, Mastercard, and Klarna.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

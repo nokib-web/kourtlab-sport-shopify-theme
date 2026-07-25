@@ -1,0 +1,180 @@
+{{ 'section-kourtlab-contact-faq.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="contact-faq-section color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{% if section.settings.full_width %}page-width--full{% else %}page-width{% endif %}">
+    <div class="contact-faq-header">
+      {%- if section.settings.label != blank -%}
+        <span class="kourtlab-contact-label" style="display:inline-flex;">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="kourtlab-contact-title">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <div style="font-size: 1.6rem; color: rgba(var(--color-foreground), 0.8);">{{ section.settings.subtext }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="contact-faq-grid">
+      {%- for block in section.blocks -%}
+        <details class="contact-faq-item" {{ block.shopify_attributes }} {% if forloop.first %}open{% endif %}>
+          <summary class="contact-faq-summary">
+            <div class="contact-faq-question">
+              {%- if block.settings.tag != blank -%}
+                <span class="contact-faq-tag">{{ block.settings.tag }}</span>
+              {%- endif -%}
+              <span>{{ block.settings.question }}</span>
+            </div>
+            <span class="contact-faq-icon">+</span>
+          </summary>
+          <div class="contact-faq-answer">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact 3. FAQ Accordion",
+  "class": "section-kourtlab-contact-faq",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Sub-label",
+      "default": "QUICK HELP & ANSWERS"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "default": "FREQUENTLY ASKED QUESTIONS<span>.</span>"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Find quick answers about collection drops, Caribbean shipping, sizing, and padel club partnerships.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Category Tag",
+          "default": "SHIPPING"
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long does shipping take for KØRE drops?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Orders ship directly from our Curaçao facility and European distribution hubs within 24-48 hours. Caribbean delivery typically arrives within 2-4 business days, while international express takes 3-6 business days.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact 3. FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "tag": "SHIPPING",
+            "question": "How long does shipping take for KØRE drops?",
+            "answer": "<p>Orders ship directly from our Curaçao facility and European distribution hubs within 24-48 hours. Caribbean delivery typically arrives within 2-4 business days, while international express takes 3-6 business days.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "tag": "SIZING & FIT",
+            "question": "Are KØRE performance apparel pieces true to size?",
+            "answer": "<p>Yes. All KØRE tees, shorts, and performance layers feature an athletic tailored fit engineered specifically for padel court mobility. If you prefer a relaxed lifestyle fit, we recommend ordering one size up.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "tag": "RETURNS",
+            "question": "What is the KØRE 30-day court performance trial policy?",
+            "answer": "<p>We stand behind every garment we make. If your gear doesn't perform to your standard on court within 30 days, reach out to our team for an effortless exchange or full refund.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "tag": "PADEL CLUBS",
+            "question": "How can our padel club or academy partner with KØRE?",
+            "answer": "<p>We collaborate with select padel clubs globally for custom team kit drops, tournament sponsorships, and exclusive club pop-ups. Contact us with subject 'Padel Club Drops' to get started.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

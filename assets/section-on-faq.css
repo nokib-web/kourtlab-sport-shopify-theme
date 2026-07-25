@@ -1,0 +1,346 @@
+/* ==========================================================================
+   KØRE (Kourtlab) — On.com /faq/orders Style Category FAQ System
+   Two-column layout: Left Sidebar Nav + Right Category Accordion List
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Main FAQ Wrapper
+   -------------------------------------------------------------------------- */
+.kore-faq-page {
+  padding-top: var(--padding-top, 60px);
+  padding-bottom: var(--padding-bottom, 100px);
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   2. FAQ Hero at top (plain text, left-aligned)
+   -------------------------------------------------------------------------- */
+.kore-faq-top {
+  margin-bottom: 4rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.12);
+  padding-bottom: 3rem;
+}
+
+.kore-faq-top__title {
+  font-size: clamp(calc(var(--font-heading-scale) * 3.6rem), calc(var(--font-heading-scale) * 5vw), calc(var(--font-heading-scale) * 6rem));
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.0;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 1.2rem 0;
+}
+
+.kore-faq-top__title span {
+  color: var(--nav-active-color, #CBD64A) !important;
+}
+
+.kore-faq-top__sub {
+  font-size: calc(var(--font-body-scale) * 1.7rem);
+  color: rgba(var(--color-foreground), 0.72);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Two-Column Layout: Sidebar + Main
+   -------------------------------------------------------------------------- */
+.kore-faq-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 768px) {
+  .kore-faq-layout {
+    grid-template-columns: 240px 1fr;
+    gap: 6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. LEFT Sidebar Category Navigation
+   -------------------------------------------------------------------------- */
+.kore-faq-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.kore-faq-sidebar__heading {
+  font-size: calc(var(--font-body-scale) * 1.1rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: rgba(var(--color-foreground), 0.55);
+  margin: 0 0 1.6rem 0;
+}
+
+.kore-faq-sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.kore-faq-sidebar__item {
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+.kore-faq-sidebar__item:last-child {
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+.kore-faq-sidebar__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 0;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: rgba(var(--color-foreground), 0.75);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.kore-faq-sidebar__link:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.kore-faq-sidebar__link.is-active {
+  color: var(--nav-active-color, #CBD64A) !important;
+  font-weight: 900;
+}
+
+.kore-faq-sidebar__arrow {
+  opacity: 0;
+  font-size: calc(var(--font-body-scale) * 1.4rem);
+  transition: opacity 0.2s ease;
+}
+
+.kore-faq-sidebar__link.is-active .kore-faq-sidebar__arrow,
+.kore-faq-sidebar__link:hover .kore-faq-sidebar__arrow {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   5. RIGHT Main: Search + Active Category Panel
+   -------------------------------------------------------------------------- */
+.kore-faq-main {}
+
+/* Search Bar */
+.kore-faq-search-wrap {
+  position: relative;
+  margin-bottom: 3.5rem;
+}
+
+.kore-faq-search-input {
+  width: 100%;
+  padding: 1.8rem 2rem 1.8rem 5rem;
+  font-size: calc(var(--font-body-scale) * 1.55rem);
+  font-family: inherit;
+  background-color: rgba(var(--color-foreground), 0.05);
+  border: 1px solid rgba(var(--color-foreground), 0.14);
+  border-radius: 3px;
+  color: rgb(var(--color-foreground));
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.kore-faq-search-input:focus {
+  background-color: transparent;
+  border-color: var(--nav-active-color, #CBD64A);
+  box-shadow: 0 0 0 3px rgba(203, 214, 74, 0.15);
+}
+
+.kore-faq-search-icon {
+  position: absolute;
+  left: 1.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: rgba(var(--color-foreground), 0.5);
+  pointer-events: none;
+}
+
+/* Suggested Chips */
+.kore-faq-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 3rem;
+}
+
+.kore-faq-chip {
+  font-size: calc(var(--font-body-scale) * 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.7rem 1.6rem;
+  border-radius: 30px;
+  background-color: rgba(var(--color-foreground), 0.05);
+  border: 1px solid rgba(var(--color-foreground), 0.14);
+  color: rgba(var(--color-foreground), 0.85);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kore-faq-chip:hover,
+.kore-faq-chip.is-active {
+  background-color: var(--nav-active-color, #CBD64A);
+  border-color: var(--nav-active-color, #CBD64A);
+  color: #0a0a0a;
+}
+
+/* --------------------------------------------------------------------------
+   6. Category Panels
+   -------------------------------------------------------------------------- */
+.kore-faq-panel {
+  display: none;
+}
+
+.kore-faq-panel.is-active {
+  display: block;
+}
+
+.kore-faq-panel__heading {
+  font-size: calc(var(--font-heading-scale) * 2.2rem);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.85);
+}
+
+/* --------------------------------------------------------------------------
+   7. Accordion Items
+   -------------------------------------------------------------------------- */
+.kore-faq-accordion {
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.12);
+  transition: border-color 0.2s ease;
+}
+
+.kore-faq-accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 0;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  font-size: calc(var(--font-body-scale) * 1.7rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: rgb(var(--color-foreground));
+  transition: color 0.2s ease;
+}
+
+.kore-faq-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.kore-faq-accordion summary:hover {
+  color: var(--nav-active-color, #CBD64A);
+}
+
+.kore-faq-accordion__icon {
+  font-size: calc(var(--font-heading-scale) * 2.4rem);
+  font-weight: 300;
+  line-height: 1;
+  min-width: 24px;
+  transition: transform 0.28s ease;
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.kore-faq-accordion[open] summary .kore-faq-accordion__icon {
+  transform: rotate(45deg);
+  color: var(--nav-active-color, #CBD64A);
+}
+
+.kore-faq-accordion__body {
+  padding-bottom: 2.5rem;
+  padding-right: 4rem;
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  line-height: 1.8;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.kore-faq-accordion__body p {
+  margin: 0 0 1rem 0;
+}
+
+.kore-faq-accordion__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* No results message */
+.kore-faq-no-results {
+  display: none;
+  padding: 4rem 0;
+  font-size: calc(var(--font-body-scale) * 1.7rem);
+  color: rgba(var(--color-foreground), 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   8. Bottom Contact CTA
+   -------------------------------------------------------------------------- */
+.kore-faq-cta {
+  margin-top: 6rem;
+  padding: 5rem 4rem;
+  border: 1px solid rgba(var(--color-foreground), 0.14);
+  background-color: rgba(var(--color-foreground), 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .kore-faq-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.kore-faq-cta__text h3 {
+  font-size: calc(var(--font-heading-scale) * 2.2rem);
+  font-weight: 900;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 0.6rem 0;
+}
+
+.kore-faq-cta__text h3 span {
+  color: var(--nav-active-color, #CBD64A);
+}
+
+.kore-faq-cta__text p {
+  font-size: calc(var(--font-body-scale) * 1.5rem);
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 0;
+}
+
+.kore-faq-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.4rem 3.2rem;
+  font-size: calc(var(--font-body-scale) * 1.25rem);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  background-color: var(--nav-active-color, #CBD64A);
+  color: #0a0a0a !important;
+  border: 1.5px solid var(--nav-active-color, #CBD64A);
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.kore-faq-cta__btn:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background)) !important;
+  border-color: rgb(var(--color-foreground));
+}

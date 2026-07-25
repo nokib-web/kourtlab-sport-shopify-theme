@@ -8,8 +8,8 @@
         "vertical_alignment": "bottom",
         "full_width": false,
         "overlay_opacity": 65,
-        "label": "KØRĒ // ATHLETICWEAR",
-        "heading": "BUILT FOR REPEAT<span>.</span>",
+        "label": "KØRE // ATHLETICWEAR",
+        "heading": "Built for repeat<span>.</span>",
         "subtext": "<p>ENGINEERED FOR PERFORMANCE.<br><br>We sound like the teammate who played the whole session and still has something worth saying. Direct. Grounded. Never loud.<br>Tested across 200 sessions before it earned the K.</p>",
         "button_label": "EXPLORE COLLECTION",
         "button_link": "shopify://collections/all"
@@ -22,7 +22,7 @@
           "type": "feature",
           "settings": {
             "icon": "target",
-            "title": "DIRECT",
+            "title": "Direct",
             "description": "Short sentences, active voice, no filler."
           }
         },
@@ -30,7 +30,7 @@
           "type": "feature",
           "settings": {
             "icon": "leaf",
-            "title": "CONFIDENT",
+            "title": "Confident",
             "description": "We state. We don't oversell or beg."
           }
         },
@@ -38,7 +38,7 @@
           "type": "feature",
           "settings": {
             "icon": "diamond",
-            "title": "PRECISE",
+            "title": "Precise",
             "description": "Knowledgeable about sport and technical materials."
           }
         },
@@ -46,7 +46,7 @@
           "type": "feature",
           "settings": {
             "icon": "community",
-            "title": "HUMAN",
+            "title": "Human",
             "description": "Warm, dry, in on the work."
           }
         }
@@ -61,7 +61,7 @@
         "color_scheme": "scheme-4",
         "full_width": false,
         "label": "OUR PHILOSOPHY",
-        "heading": "COURT TO CITY<span>.</span>",
+        "heading": "Court to city<span>.</span>",
         "body": "<p>Kourtlab exists for players who live the game. We design technical apparel and performance essentials that combine functional durability with modern, minimal aesthetics.<br><br>Sweat. Adapt. Repeat.</p>"
       }
     },
@@ -72,7 +72,7 @@
           "type": "card",
           "settings": {
             "icon": "dumbbell",
-            "title": "TRAIN",
+            "title": "Train",
             "description": "Every session matters. No shortcuts."
           }
         },
@@ -80,7 +80,7 @@
           "type": "card",
           "settings": {
             "icon": "chart",
-            "title": "IMPROVE",
+            "title": "Improve",
             "description": "Progress comes from continuous repetition."
           }
         },
@@ -88,7 +88,7 @@
           "type": "card",
           "settings": {
             "icon": "repeat",
-            "title": "REPEAT",
+            "title": "Repeat",
             "description": "Keep showing up. Stay relentless."
           }
         }
@@ -102,7 +102,7 @@
         "color_scheme": "scheme-1",
         "full_width": false,
         "label": "ATHLETIC MINDSET",
-        "heading": "SWEAT. ADAPT. REPEAT<span>.</span>"
+        "heading": "Sweat. Adapt. Repeat<span>.</span>"
       }
     },
     "s4_values": {
@@ -112,7 +112,7 @@
           "type": "value_card",
           "settings": {
             "icon": "precision",
-            "title": "PRECISION",
+            "title": "Precision",
             "description": "Designed with purpose. No unnecessary details."
           }
         },
@@ -120,7 +120,7 @@
           "type": "value_card",
           "settings": {
             "icon": "lightning",
-            "title": "PERFORMANCE",
+            "title": "Performance",
             "description": "4-way stretch fabrics built for movement."
           }
         },
@@ -128,7 +128,7 @@
           "type": "value_card",
           "settings": {
             "icon": "shield",
-            "title": "DURABILITY",
+            "title": "Durability",
             "description": "Tested across 200 sessions before earning the K."
           }
         },
@@ -136,7 +136,7 @@
           "type": "value_card",
           "settings": {
             "icon": "wave",
-            "title": "COMFORT",
+            "title": "Comfort",
             "description": "Closed mesh panels. Packable & breathable."
           }
         }
@@ -151,7 +151,7 @@
         "color_scheme": "scheme-4",
         "full_width": false,
         "label": "BRAND PRINCIPLES",
-        "heading": "WHAT WE STAND FOR<span>.</span>"
+        "heading": "What we stand for<span>.</span>"
       }
     },
     "s5_gallery": {
@@ -160,7 +160,7 @@
         "color_scheme": "scheme-1",
         "full_width": false,
         "label": "PHOTOGRAPHY",
-        "heading": "LIFE ON THE COURT<span>.</span>"
+        "heading": "Life on the court<span>.</span>"
       }
     },
     "s6_performance": {
@@ -168,7 +168,7 @@
       "settings": {
         "color_scheme": "scheme-4",
         "label": "CRAFTED FOR ATHLETES",
-        "heading": "ENGINEERED FOR PERFORMANCE<span>.</span>",
+        "heading": "Engineered for performance<span>.</span>",
         "body": "<p>4-way stretch woven shell, closed mesh panels, packable in its own pocket. Premium materials engineered for every condition.</p>"
       }
     },
@@ -177,8 +177,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "label": "JOIN THE MOVEMENT",
-        "heading": "SHOW UP AGAIN TOMORROW<span>.</span>",
-        "body": "<p>United by passion. Driven by progress. Whether you're stepping onto the court for the first time or competing at the highest level, you are part of KØRĒ.</p>",
+        "heading": "Show up again tomorrow<span>.</span>",
+        "body": "<p>United by passion. Driven by progress. Whether you're stepping onto the court for the first time or competing at the highest level, you are part of KØRE.</p>",
         "button_label": "JOIN THE COMMUNITY",
         "button_link": "shopify://pages/contact"
       }
@@ -191,7 +191,7 @@
           "settings": {
             "icon": "target",
             "year": "2024",
-            "title": "IDEA BORN",
+            "title": "Idea born",
             "description": "A vision to create premium padel apparel for dedicated athletes."
           }
         },
@@ -200,7 +200,7 @@
           "settings": {
             "icon": "hanger",
             "year": "2025",
-            "title": "FIRST COLLECTION",
+            "title": "First collection",
             "description": "Our first drop engineered strictly for performance."
           }
         },
@@ -209,7 +209,7 @@
           "settings": {
             "icon": "community",
             "year": "2026",
-            "title": "GROWING COMMUNITY",
+            "title": "Growing community",
             "description": "Building a global community of players who show up daily."
           }
         },
@@ -218,7 +218,7 @@
           "settings": {
             "icon": "flag",
             "year": "2027+",
-            "title": "NEXT CHAPTER",
+            "title": "Next chapter",
             "description": "Continuous innovation. Court to city."
           }
         }
@@ -233,7 +233,7 @@
         "color_scheme": "scheme-4",
         "full_width": false,
         "label": "OUR ROADMAP",
-        "heading": "OUR JOURNEY<span>.</span>"
+        "heading": "Our journey<span>.</span>"
       }
     },
     "s9_quote": {
@@ -248,7 +248,7 @@
       "type": "story-cta",
       "settings": {
         "color_scheme": "scheme-5",
-        "title": "READY TO ELEVATE YOUR GAME?",
+        "title": "Ready to elevate your game?",
         "subtext": "Premium padel apparel engineered for every session.",
         "button_1_label": "SHOP NOW",
         "button_2_label": "EXPLORE COLLECTION"
