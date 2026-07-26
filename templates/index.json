@@ -115,7 +115,7 @@
             "title": "Engineered Silhouettes",
             "description": "Architectural cuts engineered for explosive movement and effortless court presence.",
             "overlay_opacity": 35,
-            "card_bg": "#E4DDD1",
+            "card_bg": "#e4ddd1",
             "card_text_color": "#111111",
             "number_color": "#111111",
             "title_color": "#111111",
@@ -129,7 +129,7 @@
             "title": "Thermoregulating Fabric",
             "description": "Ultra-lightweight technical textiles designed to perform under intense heat.",
             "overlay_opacity": 35,
-            "card_bg": "#B59D8C",
+            "card_bg": "#b59d8c",
             "card_text_color": "#111111",
             "number_color": "#111111",
             "title_color": "#111111",
@@ -143,8 +143,8 @@
             "title": "Court to City",
             "description": "Lifestyle versatility designed to seamlessly transition from active play to urban wear.",
             "overlay_opacity": 0,
-            "card_bg": "#C9A8B4",
-            "card_text_color": "#CBD64A",
+            "card_bg": "#c9a8b4",
+            "card_text_color": "#cbd64a",
             "number_color": "#ffffff",
             "title_color": "#fffcfc",
             "description_color": "#fffcfc"
@@ -157,7 +157,7 @@
             "title": "Unmatched Durability",
             "description": "Reinforced stitching and abrasion-resistant materials built for continuous play.",
             "overlay_opacity": 35,
-            "card_bg": "#C8D64A",
+            "card_bg": "#c8d64a",
             "card_text_color": "#111111",
             "number_color": "#111111",
             "title_color": "#111111",
@@ -454,6 +454,7 @@
         "feature_moisture": {
           "type": "feature_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "feather",
             "title": "Moisture Wicking",
             "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout.",
@@ -468,6 +469,7 @@
         "feature_stretch": {
           "type": "feature_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "stretch",
             "title": "4-Way Stretch",
             "description": "Maximum flexibility and unrestricted movement for peak athletic performance.",
@@ -482,6 +484,7 @@
         "feature_lightweight": {
           "type": "feature_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "feather",
             "title": "Lightweight Comfort",
             "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long.",
@@ -496,6 +499,7 @@
         "feature_durable": {
           "type": "feature_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "shield",
             "title": "Durable Performance",
             "description": "Premium materials engineered to withstand intense training and repeated wear.",

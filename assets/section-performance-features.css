@@ -102,6 +102,13 @@
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.performance-features__custom-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
 .performance-features__card:hover .performance-features__icon-wrap {
   transform: scale(1.1);
 }

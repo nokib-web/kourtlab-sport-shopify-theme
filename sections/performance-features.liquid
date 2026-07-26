@@ -73,37 +73,48 @@
           <div class="performance-features__top-accent"></div>
           
           <div class="performance-features__icon-wrap">
-            {%- case block.settings.icon -%}
-              {%- when 'droplet' -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-                </svg>
-              {%- when 'stretch' -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <polyline points="15 3 21 3 21 9"></polyline>
-                  <polyline points="9 21 3 21 3 15"></polyline>
-                  <line x1="21" y1="3" x2="14" y2="10"></line>
-                  <line x1="3" y1="21" x2="10" y2="14"></line>
-                </svg>
-              {%- when 'feather' -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L3 13.5V21h7.5z"></path>
-                  <line x1="16" y1="8" x2="2" y2="22"></line>
-                  <line x1="17.5" y1="15" x2="9" y2="15"></line>
-                </svg>
-              {%- when 'shield' -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                </svg>
-              {%- when 'wind' -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
-                </svg>
-              {%- else -%}
-                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
-                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-                </svg>
-            {%- endcase -%}
+            {%- if block.settings.custom_icon != blank -%}
+              <img
+                src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                class="performance-features__custom-icon"
+                width="{{ block.settings.custom_icon.width }}"
+                height="{{ block.settings.custom_icon.height }}"
+              >
+            {%- else -%}
+              {%- case block.settings.icon -%}
+                {%- when 'droplet' -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+                {%- when 'stretch' -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <polyline points="9 21 3 21 3 15"></polyline>
+                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                  </svg>
+                {%- when 'feather' -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L3 13.5V21h7.5z"></path>
+                    <line x1="16" y1="8" x2="2" y2="22"></line>
+                    <line x1="17.5" y1="15" x2="9" y2="15"></line>
+                  </svg>
+                {%- when 'shield' -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                {%- when 'wind' -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                  </svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+              {%- endcase -%}
+            {%- endif -%}
           </div>
 
           <h3 class="performance-features__card-title">{{ block.settings.title }}</h3>
@@ -319,6 +330,11 @@
       "name": "Feature Card",
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
           "type": "select",
           "id": "icon",
           "options": [
@@ -329,7 +345,7 @@
             { "value": "wind", "label": "Wind (Breathable)" }
           ],
           "default": "droplet",
-          "label": "Card Icon"
+          "label": "Preset Card Icon"
         },
         {
           "type": "text",
