@@ -114,8 +114,12 @@
             "number": "01",
             "title": "Engineered Silhouettes",
             "description": "Architectural cuts engineered for explosive movement and effortless court presence.",
-            "card_bg": "#e9e5fc",
-            "card_text_color": "#111111"
+            "overlay_opacity": 35,
+            "card_bg": "#E4DDD1",
+            "card_text_color": "#111111",
+            "number_color": "#111111",
+            "title_color": "#111111",
+            "description_color": "#111111"
           }
         },
         "card_2": {
@@ -124,8 +128,12 @@
             "number": "02",
             "title": "Thermoregulating Fabric",
             "description": "Ultra-lightweight technical textiles designed to perform under intense heat.",
-            "card_bg": "#fdf0d5",
-            "card_text_color": "#111111"
+            "overlay_opacity": 35,
+            "card_bg": "#B59D8C",
+            "card_text_color": "#111111",
+            "number_color": "#111111",
+            "title_color": "#111111",
+            "description_color": "#111111"
           }
         },
         "card_3": {
@@ -134,8 +142,12 @@
             "number": "03",
             "title": "Court to City",
             "description": "Lifestyle versatility designed to seamlessly transition from active play to urban wear.",
-            "card_bg": "#e2f4f8",
-            "card_text_color": "#111111"
+            "overlay_opacity": 0,
+            "card_bg": "#C9A8B4",
+            "card_text_color": "#CBD64A",
+            "number_color": "#ffffff",
+            "title_color": "#fffcfc",
+            "description_color": "#fffcfc"
           }
         },
         "card_4": {
@@ -144,8 +156,12 @@
             "number": "04",
             "title": "Unmatched Durability",
             "description": "Reinforced stitching and abrasion-resistant materials built for continuous play.",
-            "card_bg": "#fce3d8",
-            "card_text_color": "#111111"
+            "overlay_opacity": 35,
+            "card_bg": "#C8D64A",
+            "card_text_color": "#111111",
+            "number_color": "#111111",
+            "title_color": "#111111",
+            "description_color": "#111111"
           }
         }
       },
@@ -156,8 +172,12 @@
         "card_4"
       ],
       "settings": {
+        "bg_color": "rgba(0,0,0,0)",
         "subtitle": "Discover How It Works",
+        "label_color": "#cbd64a",
         "title": "Why Choose Us",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "color_scheme": "scheme-1",
         "padding_top": 48,
@@ -175,7 +195,11 @@
             "title": "Minimal",
             "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_1": {
@@ -186,7 +210,11 @@
             "title": "Minimal",
             "description": "Architectural silhouettes engineered for explosive movement and effortless court presence.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_2": {
@@ -197,7 +225,11 @@
             "title": "Precision",
             "description": "Ultra-lightweight technical textiles designed to thermoregulate under intense heat.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_TAVCn4": {
@@ -208,7 +240,11 @@
             "title": "Contrast",
             "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_3": {
@@ -219,7 +255,11 @@
             "title": "Contrast",
             "description": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_4": {
@@ -230,7 +270,11 @@
             "title": "Structure",
             "description": "Clean lines and geometric seam lines crafted specifically for modern padel athletes.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         },
         "slide_5": {
@@ -241,7 +285,11 @@
             "title": "Silhouette",
             "description": "Bold monochrome aesthetic paired with unmatched performance flexibility.",
             "button_label": "Explore Collection",
-            "link": ""
+            "link": "",
+            "text_color": "#ffffff",
+            "btn_bg": "#cbd64a",
+            "btn_text": "#0a0a0a",
+            "overlay_opacity": 40
           }
         }
       },
@@ -255,9 +303,15 @@
         "slide_5"
       ],
       "settings": {
+        "bg_color": "rgba(0,0,0,0)",
+        "label": "LOOKBOOK & ESSENTIALS",
+        "label_color": "#cbd64a",
         "title": "Lookbook & <em>Essentials</em>",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "subtitle": "Explore our high-performance editorial collections",
+        "subtitle_color": "#666666",
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
@@ -274,7 +328,11 @@
             "image": "shopify://shop_images/31uX7lOPs8L.jpg",
             "title": "Padel",
             "description": "Built for speed, precision, and court performance.",
-            "product_count": "32 Products"
+            "title_color": "#000000",
+            "desc_color": "#020202",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         },
         "activity_training": {
@@ -285,7 +343,11 @@
             "image": "shopify://shop_images/41QZFiw-cpL.jpg",
             "title": "Training",
             "description": "Engineered for strength, mobility, and every workout.",
-            "product_count": "18 Products"
+            "title_color": "#ffffff",
+            "desc_color": "#efefef",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         },
         "activity_running": {
@@ -293,9 +355,14 @@
           "settings": {
             "collection": "",
             "link": "",
+            "image": "shopify://shop_images/317Xz6AkjGL.jpg",
             "title": "Running",
             "description": "Lightweight comfort built for every mile.",
-            "product_count": "24 Products"
+            "title_color": "#ffffff",
+            "desc_color": "#efefef",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         },
         "activity_recovery": {
@@ -303,9 +370,14 @@
           "settings": {
             "collection": "",
             "link": "",
+            "image": "shopify://shop_images/31bv_mIT7GL.jpg",
             "title": "Recovery",
             "description": "Relax in premium comfort after every session.",
-            "product_count": "12 Products"
+            "title_color": "#ffffff",
+            "desc_color": "#efefef",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         },
         "activity_lifestyle": {
@@ -313,9 +385,14 @@
           "settings": {
             "collection": "",
             "link": "",
+            "image": "shopify://shop_images/41me8EhjOcL.jpg",
             "title": "Lifestyle",
             "description": "Designed to move effortlessly from the court to the city.",
-            "product_count": "41 Products"
+            "title_color": "#ffffff",
+            "desc_color": "#efefef",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         },
         "activity_new_arrivals": {
@@ -323,9 +400,14 @@
           "settings": {
             "collection": "",
             "link": "",
+            "image": "shopify://shop_images/31gMycW2N7L.jpg",
             "title": "New Arrivals",
             "description": "Discover the latest performance collection.",
-            "product_count": "15 Products"
+            "title_color": "#ffffff",
+            "desc_color": "#efefef",
+            "cta_color": "#cbd64a",
+            "card_bg": "#111111",
+            "overlay_opacity": 45
           }
         }
       },
@@ -339,9 +421,13 @@
       ],
       "settings": {
         "label": "BUILT FOR THE COURT. DESIGNED FOR EVERYDAY.",
+        "label_color": "#cbd64a",
         "title": "Shop by <em>Activity</em>",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "subtitle": "Engineered apparel built for every movement—from the court to everyday life.",
+        "subtitle_color": "#666666",
         "color_scheme": "",
         "padding_top": 104,
         "padding_bottom": 104
@@ -350,7 +436,10 @@
     "featured_product_carousel": {
       "type": "featured-product-carousel",
       "settings": {
+        "bg_color": "rgba(0,0,0,0)",
         "title": "For playing<em> on hot</em> days",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "collection": "best-seller",
         "products_to_show": 8,
@@ -365,9 +454,15 @@
         "feature_moisture": {
           "type": "feature_card",
           "settings": {
-            "icon": "droplet",
+            "icon": "feather",
             "title": "Moisture Wicking",
-            "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout."
+            "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout.",
+            "card_bg": "#ffffff",
+            "card_border": "#eaeaea",
+            "title_color": "#111111",
+            "desc_color": "#666666",
+            "icon_color": "#111111",
+            "accent_line": "#cbd64a"
           }
         },
         "feature_stretch": {
@@ -375,7 +470,13 @@
           "settings": {
             "icon": "stretch",
             "title": "4-Way Stretch",
-            "description": "Maximum flexibility and unrestricted movement for peak athletic performance."
+            "description": "Maximum flexibility and unrestricted movement for peak athletic performance.",
+            "card_bg": "#ffffff",
+            "card_border": "#eaeaea",
+            "title_color": "#111111",
+            "desc_color": "#666666",
+            "icon_color": "#111111",
+            "accent_line": "#cbd64a"
           }
         },
         "feature_lightweight": {
@@ -383,7 +484,13 @@
           "settings": {
             "icon": "feather",
             "title": "Lightweight Comfort",
-            "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long."
+            "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long.",
+            "card_bg": "#ffffff",
+            "card_border": "#eaeaea",
+            "title_color": "#111111",
+            "desc_color": "#666666",
+            "icon_color": "#111111",
+            "accent_line": "#cbd64a"
           }
         },
         "feature_durable": {
@@ -391,7 +498,13 @@
           "settings": {
             "icon": "shield",
             "title": "Durable Performance",
-            "description": "Premium materials engineered to withstand intense training and repeated wear."
+            "description": "Premium materials engineered to withstand intense training and repeated wear.",
+            "card_bg": "#ffffff",
+            "card_border": "#eaeaea",
+            "title_color": "#111111",
+            "desc_color": "#666666",
+            "icon_color": "#111111",
+            "accent_line": "#cbd64a"
           }
         }
       },
@@ -402,10 +515,15 @@
         "feature_durable"
       ],
       "settings": {
+        "bg_color": "#ffffff",
         "label": "ENGINEERED FOR PERFORMANCE",
+        "label_color": "#cbd64a",
         "title": "Performance <em>Features</em>",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "subtitle": "Every stitch, fabric, and detail is designed to maximize comfort, movement, and performance—on and off the court.",
+        "subtitle_color": "#666666",
         "color_scheme": "scheme-1",
         "padding_top": 120,
         "padding_bottom": 120,
@@ -420,7 +538,10 @@
     "featured_blog_slider": {
       "type": "featured-blog-slider",
       "settings": {
+        "bg_color": "rgba(0,0,0,0)",
         "title": "Stories that<em> move</em>",
+        "heading_color": "#111111",
+        "accent_color": "#cbd64a",
         "heading_size": "h1",
         "blog": "nieuws",
         "show_view_all": true,
