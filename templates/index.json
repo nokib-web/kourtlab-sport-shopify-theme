@@ -114,7 +114,7 @@
             "number": "01",
             "title": "Engineered Silhouettes",
             "description": "Architectural cuts engineered for explosive movement and effortless court presence.",
-            "card_bg": "#E9E5FC",
+            "card_bg": "#e9e5fc",
             "card_text_color": "#111111"
           }
         },
@@ -124,7 +124,7 @@
             "number": "02",
             "title": "Thermoregulating Fabric",
             "description": "Ultra-lightweight technical textiles designed to perform under intense heat.",
-            "card_bg": "#FDF0D5",
+            "card_bg": "#fdf0d5",
             "card_text_color": "#111111"
           }
         },
@@ -134,7 +134,7 @@
             "number": "03",
             "title": "Court to City",
             "description": "Lifestyle versatility designed to seamlessly transition from active play to urban wear.",
-            "card_bg": "#E2F4F8",
+            "card_bg": "#e2f4f8",
             "card_text_color": "#111111"
           }
         },
@@ -144,7 +144,7 @@
             "number": "04",
             "title": "Unmatched Durability",
             "description": "Reinforced stitching and abrasion-resistant materials built for continuous play.",
-            "card_bg": "#FCE3D8",
+            "card_bg": "#fce3d8",
             "card_text_color": "#111111"
           }
         }
@@ -269,6 +269,9 @@
         "activity_padel": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
+            "image": "shopify://shop_images/31uX7lOPs8L.jpg",
             "title": "Padel",
             "description": "Built for speed, precision, and court performance.",
             "product_count": "32 Products"
@@ -277,6 +280,9 @@
         "activity_training": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
+            "image": "shopify://shop_images/41QZFiw-cpL.jpg",
             "title": "Training",
             "description": "Engineered for strength, mobility, and every workout.",
             "product_count": "18 Products"
@@ -285,6 +291,8 @@
         "activity_running": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
             "title": "Running",
             "description": "Lightweight comfort built for every mile.",
             "product_count": "24 Products"
@@ -293,6 +301,8 @@
         "activity_recovery": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
             "title": "Recovery",
             "description": "Relax in premium comfort after every session.",
             "product_count": "12 Products"
@@ -301,6 +311,8 @@
         "activity_lifestyle": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
             "title": "Lifestyle",
             "description": "Designed to move effortlessly from the court to the city.",
             "product_count": "41 Products"
@@ -309,6 +321,8 @@
         "activity_new_arrivals": {
           "type": "activity_card",
           "settings": {
+            "collection": "",
+            "link": "",
             "title": "New Arrivals",
             "description": "Discover the latest performance collection.",
             "product_count": "15 Products"
@@ -326,7 +340,9 @@
       "settings": {
         "label": "BUILT FOR THE COURT. DESIGNED FOR EVERYDAY.",
         "title": "Shop by <em>Activity</em>",
+        "heading_size": "h1",
         "subtitle": "Engineered apparel built for every movement—from the court to everyday life.",
+        "color_scheme": "",
         "padding_top": 104,
         "padding_bottom": 104
       }
@@ -338,8 +354,6 @@
         "heading_size": "h1",
         "collection": "best-seller",
         "products_to_show": 8,
-        "auto_slide": true,
-        "auto_slide_interval": 8,
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
@@ -409,6 +423,9 @@
         "title": "Stories that<em> move</em>",
         "heading_size": "h1",
         "blog": "nieuws",
+        "show_view_all": true,
+        "view_all_text": "Read all blog",
+        "view_all_style_secondary": true,
         "post_limit": 4,
         "color_scheme": "scheme-1",
         "padding_top": 48,
