@@ -46,7 +46,8 @@
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": true,
+            "preorder_icon": "shopify://shop_images/favicon_4.png"
           }
         },
         "description": {
