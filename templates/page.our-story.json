@@ -12,15 +12,15 @@
     "s1_hero": {
       "type": "story-hero",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-eeffc6e4-3cb7-42d4-91de-8827fd6cf136",
         "content_alignment": "left",
         "vertical_alignment": "bottom",
         "full_width": false,
-        "bg_image": "shopify://shop_images/hero-2.webp",
-        "overlay_opacity": 65,
+        "bg_image": "shopify://shop_images/bg-2.webp",
+        "overlay_opacity": 0,
         "label": "KØRE // ATHLETICWEAR",
-        "heading": "Built for repeat<span>.</span>",
-        "subtext": "<p>ENGINEERED FOR PERFORMANCE.<br><br>We sound like the teammate who played the whole session and still has something worth saying. Direct. Grounded. Never loud.<br>Tested across 200 sessions before it earned the K.</p>",
+        "heading": "Built for repeat.",
+        "subtext": "<p>ENGINEERED FOR PERFORMANCE.<br/><br/>We sound like the teammate who played the whole session and still has something worth saying. Direct. Grounded. Never loud.<br/>Tested across 200 sessions before it earned the K.</p>",
         "button_label": "EXPLORE COLLECTION",
         "button_link": "shopify://collections/all",
         "padding_top": 80,
@@ -73,10 +73,13 @@
         "color_scheme": "scheme-4",
         "image_placement": "left",
         "full_width": false,
+        "bg_image": "shopify://shop_images/bg-1.webp",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "image": "shopify://shop_images/hero-2.webp",
         "label": "OUR PHILOSOPHY",
-        "heading": "Court to city<span>.</span>",
-        "body": "<p>Kourtlab exists for players who live the game. We design technical apparel and performance essentials that combine functional durability with modern, minimal aesthetics.<br><br>Sweat. Adapt. Repeat.</p>",
+        "heading": "Court to city.",
+        "body": "<p>Kourtlab exists for players who live the game. We design technical apparel and performance essentials that combine functional durability with modern, minimal aesthetics.<br/><br/>Sweat. Adapt. Repeat.</p>",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -117,6 +120,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "full_width": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "label": "ATHLETIC MINDSET",
         "heading": "Sweat. Adapt. Repeat<span>.</span>",
         "padding_top": 80,
@@ -168,8 +173,11 @@
       "settings": {
         "color_scheme": "scheme-4",
         "full_width": false,
+        "bg_image": "shopify://shop_images/bg-1.webp",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "label": "BRAND PRINCIPLES",
-        "heading": "What we stand for<span>.</span>",
+        "heading": "What we stand for.",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -179,6 +187,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "full_width": false,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "label": "PHOTOGRAPHY",
         "heading": "Life on the court<span>.</span>",
         "image_1": "shopify://shop_images/hero-2.webp",
@@ -193,9 +203,12 @@
       "type": "story-performance",
       "settings": {
         "color_scheme": "scheme-4",
+        "bg_image": "shopify://shop_images/bg-1.webp",
+        "overlay_color": "rgba(0,0,0,0)",
+        "overlay_opacity": 30,
         "image": "shopify://shop_images/hero-2.webp",
         "label": "CRAFTED FOR ATHLETES",
-        "heading": "Engineered for performance<span>.</span>",
+        "heading": "Engineered for performance.",
         "body": "<p>4-way stretch woven shell, closed mesh panels, packable in its own pocket. Premium materials engineered for every condition.</p>"
       }
     },
@@ -260,8 +273,11 @@
       "settings": {
         "color_scheme": "scheme-4",
         "full_width": false,
+        "bg_image": "shopify://shop_images/bg-1.webp",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "label": "OUR ROADMAP",
-        "heading": "Our journey<span>.</span>",
+        "heading": "Our journey.",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -270,6 +286,8 @@
       "type": "story-quote",
       "settings": {
         "color_scheme": "scheme-1",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "quote_text": "CHAMPIONS AREN'T BUILT OVERNIGHT. THEY'RE BUILT THROUGH REPETITION.",
         "tagline": "BUILT FOR REPEAT."
       }
@@ -278,6 +296,9 @@
       "type": "story-cta",
       "settings": {
         "color_scheme": "scheme-1",
+        "bg_image": "shopify://shop_images/bg-2.webp",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "title": "Ready to elevate your game?",
         "subtext": "Premium padel apparel engineered for every session.",
         "button_1_label": "SHOP NOW",

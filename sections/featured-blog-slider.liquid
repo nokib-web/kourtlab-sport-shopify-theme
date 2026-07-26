@@ -12,17 +12,67 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  #FeaturedBlogSlider-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+    {% endif %}
+  }
+
+  #FeaturedBlogSlider-{{ section.id }} .blog-slider__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #FeaturedBlogSlider-{{ section.id }} .blog-slider__heading em {
+    color: {{ section.settings.accent_color }};
+  }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
-  <div class="blog-slider-wrapper section-{{ section.id }}-padding">
-    {%- if section.settings.title != blank -%}
-      <div class="blog-slider__header">
-        <h2 class="blog-slider__heading inline-richtext {{ section.settings.heading_size }}">
-          {{ section.settings.title }}
-        </h2>
+<div class="color-{{ section.settings.color_scheme }} isolate gradient" id="FeaturedBlogSlider-{{ section.id }}">
+  <div class="blog-slider-wrapper page-width section-{{ section.id }}-padding">
+    <div class="blog-slider__header">
+      <div class="blog-slider__header-left">
+        {%- if section.settings.title != blank -%}
+          <h2 class="blog-slider__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
       </div>
-    {%- endif -%}
+      
+      <div class="blog-slider__header-right">
+        {%- if section.settings.show_view_all and section.settings.blog != blank -%}
+          <a href="{{ section.settings.blog.url }}" class="button{% if section.settings.view_all_style_secondary %} button--secondary{% endif %} blog-slider__view-all">
+            {{ section.settings.view_all_text }}
+          </a>
+        {%- endif -%}
+
+        <div class="blog-slider__controls">
+          <button
+            type="button"
+            class="blog-slider__btn blog-slider__btn--prev"
+            id="BlogPrev-{{ section.id }}"
+            aria-label="Previous posts"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="blog-slider__btn blog-slider__btn--next"
+            id="BlogNext-{{ section.id }}"
+            aria-label="Next posts"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="blog-slider-container" id="BlogSliderContainer-{{ section.id }}">
       <div class="blog-slider" id="BlogSlider-{{ section.id }}">
@@ -38,11 +88,13 @@
                       alt="{{ article.image.alt | escape }}"
                       loading="lazy"
                       class="blog-slider__img"
+                      width="{{ article.image.width }}"
+                      height="{{ article.image.height }}"
                     >
                   {%- else -%}
                     <div class="blog-slider__placeholder">
-                      {%- assign placeholder_index = forloop.index | modulo: 2 | plus: 1 -%}
-                      {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- assign placeholder_index = forloop.index | modulo: 3 | plus: 1 -%}
+                      {{ 'collection-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
                     </div>
                   {%- endif -%}
                   <div class="blog-slider__overlay"></div>
@@ -59,8 +111,8 @@
               <div class="blog-slider__card-link">
                 <div class="blog-slider__media">
                   <div class="blog-slider__placeholder">
-                    {%- assign placeholder_index = i | modulo: 2 | plus: 1 -%}
-                    {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- assign placeholder_index = i | modulo: 3 | plus: 1 -%}
+                    {{ 'collection-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
                   </div>
                   <div class="blog-slider__overlay"></div>
                   <div class="blog-slider__card-content">
@@ -85,107 +137,24 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const containers = document.querySelectorAll('.blog-slider-container');
-    containers.forEach(container => {
-      const slider = container.querySelector('.blog-slider');
-      let currentStep = 0;
-      let isAnimating = false;
-      const totalCards = slider.querySelectorAll('.blog-slider__card').length;
+    const track = document.getElementById('BlogSlider-{{ section.id }}');
+    const prevBtn = document.getElementById('BlogPrev-{{ section.id }}');
+    const nextBtn = document.getElementById('BlogNext-{{ section.id }}');
 
-      function slideNext() {
-        if (isAnimating || totalCards === 0) return;
-        isAnimating = true;
-
-        const firstCard = slider.querySelector('.blog-slider__card');
-        if (!firstCard) {
-          isAnimating = false;
-          return;
-        }
-
-        const cardWidth = firstCard.offsetWidth + 16;
-        slider.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-        slider.style.transform = `translateX(-${cardWidth}px)`;
-
-        setTimeout(() => {
-          slider.style.transition = 'none';
-          slider.appendChild(firstCard);
-          slider.style.transform = 'translateX(0)';
-          currentStep = (currentStep + 1) % totalCards;
-          isAnimating = false;
-        }, 450);
+    if (track && prevBtn && nextBtn) {
+      function getScrollDistance() {
+        const firstCard = track.querySelector('.blog-slider__card');
+        return firstCard ? (firstCard.offsetWidth + 20) * 1.5 : 450;
       }
 
-      function slidePrev() {
-        if (isAnimating || totalCards === 0) return;
-        isAnimating = true;
-
-        const lastCard = slider.lastElementChild;
-        if (!lastCard) {
-          isAnimating = false;
-          return;
-        }
-
-        const cardWidth = lastCard.offsetWidth + 16;
-        slider.style.transition = 'none';
-        slider.insertBefore(lastCard, slider.firstElementChild);
-        slider.style.transform = `translateX(-${cardWidth}px)`;
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            slider.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-            slider.style.transform = 'translateX(0)';
-            setTimeout(() => {
-              slider.style.transition = 'none';
-              currentStep = (currentStep - 1 + totalCards) % totalCards;
-              isAnimating = false;
-            }, 450);
-          });
-        });
-      }
-
-      // Drag Handlers for Mouse & Touch
-      let isDown = false;
-      let startX = 0;
-      let dragDist = 0;
-
-      slider.addEventListener('mousedown', (e) => {
-        isDown = true;
-        dragDist = 0;
-        startX = e.pageX;
-        slider.classList.add('dragging');
+      prevBtn.addEventListener('click', function() {
+        track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
       });
 
-      window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        dragDist = e.pageX - startX;
+      nextBtn.addEventListener('click', function() {
+        track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
       });
-
-      window.addEventListener('mouseup', () => {
-        if (!isDown) return;
-        isDown = false;
-        slider.classList.remove('dragging');
-        if (dragDist < -30) slideNext();
-        else if (dragDist > 30) slidePrev();
-      });
-
-      slider.addEventListener('touchstart', (e) => {
-        isDown = true;
-        dragDist = 0;
-        startX = e.touches[0].pageX;
-      }, { passive: true });
-
-      slider.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        dragDist = e.touches[0].pageX - startX;
-      }, { passive: true });
-
-      slider.addEventListener('touchend', () => {
-        if (!isDown) return;
-        isDown = false;
-        if (dragDist < -30) slideNext();
-        else if (dragDist > 30) slidePrev();
-      });
-    });
+    }
   });
 </script>
 
@@ -199,35 +168,67 @@
   },
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "default": "transparent",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Section Background Image"
+    },
+    {
       "type": "inline_richtext",
       "id": "title",
-      "default": "STORIES THAT <span>MOVE</span>",
+      "default": "Stories that <em>move</em>",
       "label": "Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Accent Color"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
-        {
-          "value": "h2",
-          "label": "Small"
-        },
-        {
-          "value": "h1",
-          "label": "Medium"
-        },
-        {
-          "value": "h0",
-          "label": "Large"
-        }
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "Heading Size"
     },
     {
       "type": "blog",
       "id": "blog",
       "label": "Blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View all' button"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "Read all blog",
+      "label": "View all button text"
+    },
+    {
+      "type": "checkbox",
+      "id": "view_all_style_secondary",
+      "default": true,
+      "label": "Use outline button style"
     },
     {
       "type": "range",
@@ -241,28 +242,28 @@
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "Color Scheme",
       "default": "scheme-1"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Top padding",
-      "default": 48
+      "label": "Padding Top",
+      "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Bottom padding",
-      "default": 48
+      "label": "Padding Bottom",
+      "default": 64
     }
   ],
   "presets": [

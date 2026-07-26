@@ -102,6 +102,18 @@
     ]
   },
   {
+    "name": "Brand Highlights",
+    "settings": [
+      {
+        "type": "color",
+        "id": "brand_highlight_color",
+        "label": "Highlight Color (Bold/Italic)",
+        "default": "#CBD64A",
+        "info": "This color is applied to bold or italic text in headings and rich text."
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.typography.name",
     "settings": [
       {

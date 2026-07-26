@@ -1,0 +1,429 @@
+{{ 'section-performance-features.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.65 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.65 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #PerformanceFeatures-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  #PerformanceFeatures-{{ section.id }} .performance-features__label {
+    color: {{ section.settings.label_color }};
+  }
+
+  #PerformanceFeatures-{{ section.id }} .performance-features__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #PerformanceFeatures-{{ section.id }} .performance-features__heading em {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #PerformanceFeatures-{{ section.id }} .performance-features__subtitle {
+    color: {{ section.settings.subtitle_color }};
+  }
+{%- endstyle -%}
+
+<div class="performance-features-section color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-padding" id="PerformanceFeatures-{{ section.id }}">
+  <div class="page-width">
+    <!-- Header Section -->
+    <div class="performance-features__header">
+      {%- if section.settings.label != blank -%}
+        <span class="performance-features__label">{{ section.settings.label }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h2 class="performance-features__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="performance-features__subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <!-- 4 Features Grid -->
+    <div class="performance-features__grid">
+      {%- for block in section.blocks -%}
+        <div
+          class="performance-features__card fade-up-item"
+          style="
+            --feature-card-bg: {{ block.settings.card_bg }};
+            --feature-card-border: {{ block.settings.card_border }};
+            --feature-card-title: {{ block.settings.title_color }};
+            --feature-card-desc: {{ block.settings.desc_color }};
+            --feature-card-icon: {{ block.settings.icon_color }};
+            --feature-card-accent: {{ block.settings.accent_line }};
+          "
+          {{ block.shopify_attributes }}
+        >
+          <div class="performance-features__top-accent"></div>
+          
+          <div class="performance-features__icon-wrap">
+            {%- case block.settings.icon -%}
+              {%- when 'droplet' -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+              {%- when 'stretch' -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <polyline points="9 21 3 21 3 15"></polyline>
+                  <line x1="21" y1="3" x2="14" y2="10"></line>
+                  <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+              {%- when 'feather' -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L3 13.5V21h7.5z"></path>
+                  <line x1="16" y1="8" x2="2" y2="22"></line>
+                  <line x1="17.5" y1="15" x2="9" y2="15"></line>
+                </svg>
+              {%- when 'shield' -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              {%- when 'wind' -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                </svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+            {%- endcase -%}
+          </div>
+
+          <h3 class="performance-features__card-title">{{ block.settings.title }}</h3>
+          <p class="performance-features__card-desc">{{ block.settings.description }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Hero Action Banner -->
+    {%- if section.settings.show_banner -%}
+      <div class="performance-features__banner fade-up-item">
+        <div class="performance-features__banner-media">
+          {%- if section.settings.banner_image != blank -%}
+            <img
+              src="{{ section.settings.banner_image | image_url: width: 1600 }}"
+              alt="{{ section.settings.banner_title | escape }}"
+              loading="lazy"
+              class="performance-features__banner-img"
+              width="{{ section.settings.banner_image.width }}"
+              height="{{ section.settings.banner_image.height }}"
+            >
+          {%- else -%}
+            <div class="performance-features__banner-placeholder">
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+          <div class="performance-features__banner-overlay"></div>
+        </div>
+
+        <div class="performance-features__banner-content">
+          {%- if section.settings.banner_title != blank -%}
+            <h3 class="performance-features__banner-title">{{ section.settings.banner_title }}</h3>
+          {%- endif -%}
+
+          {%- if section.settings.banner_desc != blank -%}
+            <p class="performance-features__banner-desc">{{ section.settings.banner_desc }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.banner_button_label != blank -%}
+            <a href="{{ section.settings.banner_button_link | default: '/collections/all' }}" class="performance-features__banner-btn">
+              {{ section.settings.banner_button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const fadeItems = document.querySelectorAll('#PerformanceFeatures-{{ section.id }} .fade-up-item');
+
+    if ('IntersectionObserver' in window && fadeItems.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      fadeItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(item);
+      });
+    } else {
+      fadeItems.forEach(item => item.classList.add('is-visible'));
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Performance Features",
+  "class": "section-performance-features-wrapper",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "default": "#FFFFFF",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "ENGINEERED FOR PERFORMANCE",
+      "label": "Small Label"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "default": "#CBD64A",
+      "label": "Label Color"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Performance <em>Features</em>",
+      "label": "Main Heading (Use italic for accent)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Highlight Accent Color"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Every stitch, fabric, and detail is designed to maximize comfort, movement, and performance—on and off the court.",
+      "label": "Subheading"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "default": "#666666",
+      "label": "Subheading Text Color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Editorial Hero Banner Below Cards"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "default": true,
+      "label": "Show Editorial Hero Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Background Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "default": "BUILT TO MOVE. DESIGNED TO PERFORM.",
+      "label": "Banner Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_desc",
+      "default": "Premium apparel engineered with technical fabrics, modern craftsmanship, and uncompromising comfort for athletes who never settle.",
+      "label": "Banner Description"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_label",
+      "default": "Explore Performance →",
+      "label": "Banner Button Label"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_link",
+      "label": "Banner Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            { "value": "droplet", "label": "Water Droplet (Moisture Wicking)" },
+            { "value": "stretch", "label": "Directional Arrows (4-Way Stretch)" },
+            { "value": "feather", "label": "Feather (Lightweight)" },
+            { "value": "shield", "label": "Shield (Durable)" },
+            { "value": "wind", "label": "Wind (Breathable)" }
+          ],
+          "default": "droplet",
+          "label": "Card Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Moisture Wicking",
+          "label": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "default": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout.",
+          "label": "Feature Description"
+        },
+        {
+          "type": "header",
+          "content": "Card Color Customization"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "default": "#FFFFFF",
+          "label": "Card Background Color"
+        },
+        {
+          "type": "color",
+          "id": "card_border",
+          "default": "#EAEAEA",
+          "label": "Card Border Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "default": "#111111",
+          "label": "Card Title Color"
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "default": "#666666",
+          "label": "Card Description Color"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "default": "#111111",
+          "label": "Card Icon Color"
+        },
+        {
+          "type": "color",
+          "id": "accent_line",
+          "default": "#CBD64A",
+          "label": "Hover Accent Top Line Color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Features",
+      "blocks": [
+        {
+          "type": "feature_card",
+          "settings": {
+            "icon": "droplet",
+            "title": "Moisture Wicking",
+            "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout."
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "icon": "stretch",
+            "title": "4-Way Stretch",
+            "description": "Maximum flexibility and unrestricted movement for peak athletic performance."
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "icon": "feather",
+            "title": "Lightweight Comfort",
+            "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long."
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "icon": "shield",
+            "title": "Durable Performance",
+            "description": "Premium materials engineered to withstand intense training and repeated wear."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

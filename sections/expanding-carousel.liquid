@@ -12,181 +12,177 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  #ExpandingCarousel-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+    {% endif %}
+  }
+
+  #ExpandingCarousel-{{ section.id }} .expanding-carousel__label {
+    color: {{ section.settings.label_color }};
+  }
+
+  #ExpandingCarousel-{{ section.id }} .expanding-carousel__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #ExpandingCarousel-{{ section.id }} .expanding-carousel__heading em {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #ExpandingCarousel-{{ section.id }} .expanding-carousel__subtitle {
+    color: {{ section.settings.subtitle_color }};
+  }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
-  <div class="expanding-carousel-wrapper page-width section-{{ section.id }}-padding">
-    {%- if section.settings.title != blank -%}
-      <div class="expanding-carousel__header">
-        <h2 class="expanding-carousel__heading inline-richtext {{ section.settings.heading_size }}">
-          {{ section.settings.title }}
-        </h2>
+<div class="expanding-carousel-section color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-padding" id="ExpandingCarousel-{{ section.id }}">
+  <div class="page-width">
+    <!-- Header Section with Controls -->
+    <div class="expanding-carousel__header">
+      <div class="expanding-carousel__header-left">
+        {%- if section.settings.label != blank -%}
+          <span class="expanding-carousel__label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="expanding-carousel__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+
         {%- if section.settings.subtitle != blank -%}
-          <p class="expanding-carousel__subtitle">{{ section.settings.subtitle }}</p>
+          <p class="expanding-carousel__subtitle">
+            {{ section.settings.subtitle }}
+          </p>
         {%- endif -%}
       </div>
-    {%- endif -%}
 
-    <div class="expanding-carousel" id="ExpandingCarousel-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}">
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign is_active = false
-          if forloop.index == 3
-            assign is_active = true
-          elsif forloop.first and section.blocks.size < 3
-            assign is_active = true
-          endif
-        -%}
-        <div
-          class="expanding-slide{% if is_active %} active{% endif %}"
-          data-index="{{ forloop.index0 }}"
-          {{ block.shopify_attributes }}
-        >
-          <div class="expanding-slide__bg-wrap">
-            {%- if block.settings.image != blank -%}
-              <img
-                src="{{ block.settings.image | image_url: width: 1600 }}"
-                alt="{{ block.settings.title | escape }}"
-                loading="lazy"
-                class="expanding-slide__bg-img"
-              >
-            {%- else -%}
-              <div class="expanding-slide__placeholder">
-                {%- assign placeholder_index = forloop.index | modulo: 2 | plus: 1 -%}
-                {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
-              </div>
-            {%- endif -%}
-            <div class="expanding-slide__overlay"></div>
-          </div>
+      <div class="expanding-carousel__controls">
+        <button type="button" class="expanding-carousel__btn expanding-carousel__btn--prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button type="button" class="expanding-carousel__btn expanding-carousel__btn--next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-          <div class="expanding-slide__content">
-            {%- if block.settings.number != blank -%}
-              <span class="expanding-slide__number">{{ block.settings.number }}</span>
-            {%- else -%}
-              <span class="expanding-slide__number">0{{ forloop.index }} /</span>
-            {%- endif -%}
+    <!-- Expanding Carousel Container -->
+    <div class="expanding-carousel-container">
+      <div class="expanding-carousel" id="ExpandingCarouselTrack-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign is_active = false
+            if forloop.first
+              assign is_active = true
+            endif
 
-            <div class="expanding-slide__body">
-              {%- if block.settings.title != blank -%}
-                <h3 class="expanding-slide__title">{{ block.settings.title }}</h3>
-              {%- endif -%}
-
-              {%- if block.settings.description != blank -%}
-                <div class="expanding-slide__description">
-                  <p>{{ block.settings.description }}</p>
+            assign overlay_opacity = block.settings.overlay_opacity | default: 40 | divided_by: 100.0
+          -%}
+          <div
+            class="expanding-card{% if is_active %} is-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            style="
+              --card-text-custom: {{ block.settings.text_color }};
+              --card-btn-bg-custom: {{ block.settings.btn_bg }};
+              --card-btn-text-custom: {{ block.settings.btn_text }};
+              --overlay-val: {{ overlay_opacity }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            <div class="expanding-card__bg">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 1400 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  class="expanding-card__img"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                >
+              {%- else -%}
+                <div class="expanding-card__placeholder">
+                  {%- assign placeholder_idx = forloop.index | modulo: 3 | plus: 1 -%}
+                  {{ 'collection-' | append: placeholder_idx | placeholder_svg_tag: 'placeholder-svg' }}
                 </div>
               {%- endif -%}
+              <div class="expanding-card__overlay"></div>
+            </div>
 
-              {%- if block.settings.button_label != blank -%}
-                <a
-                  {% if block.settings.link == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.link }}"
-                  {% endif %}
-                  class="button button--secondary expanding-slide__button"
-                >
-                  {{ block.settings.button_label | escape }}
-                </a>
-              {%- endif -%}
+            <!-- Bottom Left Aligned Content -->
+            <div class="expanding-card__content">
+              <div class="expanding-card__bottom-wrap">
+                {%- if block.settings.number != blank -%}
+                  <span class="expanding-card__number">{{ block.settings.number }}</span>
+                {%- endif -%}
+
+                <h3 class="expanding-card__title">{{ block.settings.title }}</h3>
+                <p class="expanding-card__desc">{{ block.settings.description }}</p>
+                
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.link | default: '#' }}" class="expanding-card__btn">
+                    <span>{{ block.settings.button_label }}</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </div>
             </div>
           </div>
-        </div>
-      {%- endfor -%}
+        {%- endfor -%}
+      </div>
     </div>
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const carousels = document.querySelectorAll('.expanding-carousel');
-    carousels.forEach(carousel => {
-      const slides = carousel.querySelectorAll('.expanding-slide');
-      let isDragging = false;
-      let startX = 0;
-      let currentX = 0;
-      let dragDistance = 0;
+    const section = document.getElementById('ExpandingCarousel-{{ section.id }}');
+    if (!section) return;
 
-      function getActiveIndex() {
-        return Array.from(slides).findIndex(s => s.classList.contains('active'));
-      }
+    const cards = Array.from(section.querySelectorAll('.expanding-card'));
+    const prevBtn = section.querySelector('.expanding-carousel__btn--prev');
+    const nextBtn = section.querySelector('.expanding-carousel__btn--next');
 
-      function setActiveIndex(index) {
-        slides.forEach(s => s.classList.remove('active'));
-        slides[index].classList.add('active');
-      }
+    if (!cards.length) return;
 
-      function nextSlide() {
-        const idx = getActiveIndex();
-        const nextIdx = (idx + 1) % slides.length;
-        setActiveIndex(nextIdx);
-      }
+    let activeIndex = 0;
 
-      function prevSlide() {
-        const idx = getActiveIndex();
-        const prevIdx = (idx - 1 + slides.length) % slides.length;
-        setActiveIndex(prevIdx);
-      }
-
-      slides.forEach(slide => {
-        slide.addEventListener('click', function(e) {
-          if (Math.abs(dragDistance) > 10) return;
-          slides.forEach(s => s.classList.remove('active'));
-          this.classList.add('active');
-        });
-        
-        slide.addEventListener('mouseenter', function() {
-          if (window.innerWidth >= 990 && !isDragging) {
-            slides.forEach(s => s.classList.remove('active'));
-            this.classList.add('active');
-          }
-        });
+    function setActiveCard(index) {
+      cards.forEach((card, i) => {
+        if (i === index) {
+          card.classList.add('is-active');
+        } else {
+          card.classList.remove('is-active');
+        }
       });
+      activeIndex = index;
+    }
 
-      // Mouse & Touch Drag Handlers
-      carousel.addEventListener('mousedown', startDrag);
-      carousel.addEventListener('touchstart', startDrag, { passive: true });
+    cards.forEach((card, index) => {
+      card.addEventListener('click', function() {
+        setActiveCard(index);
+      });
+    });
 
-      window.addEventListener('mousemove', dragMove);
-      window.addEventListener('touchmove', dragMove, { passive: true });
+    nextBtn?.addEventListener('click', function() {
+      const nextIndex = (activeIndex + 1) % cards.length;
+      setActiveCard(nextIndex);
+    });
 
-      window.addEventListener('mouseup', endDrag);
-      window.addEventListener('touchend', endDrag);
-
-      function startDrag(e) {
-        isDragging = true;
-        dragDistance = 0;
-        startX = e.pageX || (e.touches && e.touches[0].pageX);
-      }
-
-      function dragMove(e) {
-        if (!isDragging) return;
-        currentX = e.pageX || (e.touches && e.touches[0].pageX);
-        dragDistance = currentX - startX;
-      }
-
-      function endDrag() {
-        if (!isDragging) return;
-        isDragging = false;
-
-        if (dragDistance < -15) {
-          nextSlide();
-        } else if (dragDistance > 15) {
-          prevSlide();
-        }
-      }
-
-      // Wheel/Trackpad horizontal scroll listener
-      let isThrottled = false;
-      carousel.addEventListener('wheel', function(e) {
-        if (isThrottled) return;
-        if (Math.abs(e.deltaX) > 15 || Math.abs(e.deltaY) > 15) {
-          isThrottled = true;
-          if (e.deltaX > 0 || e.deltaY > 0) nextSlide();
-          else prevSlide();
-          setTimeout(() => { isThrottled = false; }, 350);
-        }
-      }, { passive: true });
+    prevBtn?.addEventListener('click', function() {
+      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+      setActiveCard(prevIndex);
     });
   });
 </script>
@@ -194,69 +190,101 @@
 {% schema %}
 {
   "name": "Expanding Carousel",
+  "class": "section-expanding-carousel-wrapper",
   "tag": "section",
-  "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
   },
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "default": "transparent",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Section Background Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "LOOKBOOK & ESSENTIALS",
+      "label": "Small Top Label"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "default": "#CBD64A",
+      "label": "Label Color"
+    },
+    {
       "type": "inline_richtext",
       "id": "title",
-      "default": "LOOKBOOK & ESSENTIALS",
-      "label": "Heading"
+      "default": "Stories in <em>Motion</em>",
+      "label": "Heading (Use italic for accent)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Accent Color"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
-        {
-          "value": "h2",
-          "label": "Small"
-        },
-        {
-          "value": "h1",
-          "label": "Medium"
-        },
-        {
-          "value": "h0",
-          "label": "Large"
-        }
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "Heading Size"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "subtitle",
       "default": "Explore our high-performance editorial collections",
-      "label": "Subtitle"
+      "label": "Subheading"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "default": "#666666",
+      "label": "Subheading Text Color"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "Color Scheme",
       "default": "scheme-1"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Top padding",
-      "default": 36
+      "label": "Padding Top",
+      "default": 80
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Bottom padding",
-      "default": 36
+      "label": "Padding Bottom",
+      "default": 80
     }
   ],
   "blocks": [
@@ -267,7 +295,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Slide Image"
         },
         {
           "type": "text",
@@ -278,25 +306,57 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "Slide Title",
           "default": "Contrast"
         },
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
+          "label": "Slide Description",
           "default": "Dark tailoring, clean space, and metallic detail give the composition strength, tension, and precision."
         },
         {
           "type": "text",
           "id": "button_label",
-          "label": "Button label",
+          "label": "Button Label",
           "default": "Explore Collection"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Button link"
+          "label": "Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Slide Color Customization"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "default": "#FFFFFF",
+          "label": "Slide Text Color"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg",
+          "default": "#CBD64A",
+          "label": "Button Background Color"
+        },
+        {
+          "type": "color",
+          "id": "btn_text",
+          "default": "#0A0A0A",
+          "label": "Button Text Color"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "label": "Image Dark Overlay Opacity",
+          "default": 40
         }
       ]
     }

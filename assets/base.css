@@ -179,7 +179,7 @@ h2.inline-richtext:not(.footer-block__heading) {
 .story-heading strong,
 .story-heading em,
 .lime-dot {
-  color: var(--nav-active-color, #CBD64A) !important;
+  color: var(--brand-highlight-color, #CBD64A) !important;
   font-style: normal;
   font-weight: inherit;
 }

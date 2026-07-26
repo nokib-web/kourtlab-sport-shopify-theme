@@ -1,0 +1,279 @@
+.performance-features-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left-Aligned Header Area */
+.performance-features__header {
+  text-align: left;
+  max-width: 680px;
+  margin: 0 0 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.performance-features__label {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.performance-features__heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  text-align: left;
+  line-height: 1.1;
+}
+
+.performance-features__heading em {
+  font-style: italic;
+  font-family: var(--font-heading-family);
+  background: transparent;
+  padding: 0;
+}
+
+.performance-features__subtitle {
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0;
+  text-align: left;
+}
+
+/* 4-Column Grid Layout */
+.performance-features__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem;
+  margin-bottom: 5rem;
+}
+
+/* Feature Card */
+.performance-features__card {
+  position: relative;
+  background-color: var(--feature-card-bg, #FFFFFF);
+  border: 1px solid var(--feature-card-border, #EAEAEA);
+  border-radius: 20px;
+  padding: 4rem 3rem 3.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Top Hover Accent Line */
+.performance-features__top-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--feature-card-accent, #CBD64A);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.performance-features__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.performance-features__card:hover .performance-features__top-accent {
+  transform: scaleX(1);
+}
+
+/* Icon Wrap */
+.performance-features__icon-wrap {
+  margin-bottom: 2.2rem;
+  color: var(--feature-card-icon, #111111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.performance-features__card:hover .performance-features__icon-wrap {
+  transform: scale(1.1);
+}
+
+.performance-features__card-title {
+  font-family: var(--font-heading-family);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--feature-card-title, #111111);
+  margin: 0 0 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.performance-features__card-desc {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--feature-card-desc, #666666);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Editorial Hero Banner */
+.performance-features__banner {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  padding: 5rem 6rem;
+  box-sizing: border-box;
+}
+
+.performance-features__banner-media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.performance-features__banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.performance-features__banner-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #161616;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.performance-features__banner-placeholder svg {
+  width: 50%;
+  height: 50%;
+  opacity: 0.2;
+}
+
+.performance-features__banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.65) 50%, rgba(0, 0, 0, 0.15) 100%);
+}
+
+.performance-features__banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.8rem;
+}
+
+.performance-features__banner-title {
+  font-family: var(--font-heading-family);
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.performance-features__banner-desc {
+  font-family: var(--font-body-family);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.performance-features__banner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 3rem;
+  border-radius: 40px;
+  background-color: var(--brand-highlight-color, #CBD64A);
+  color: #0A0A0A;
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.performance-features__banner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(203, 214, 74, 0.35);
+  background-color: #d8e548;
+}
+
+/* Fade Up Scroll Animation */
+.fade-up-item {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-up-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Layout */
+@media screen and (max-width: 989px) {
+  .performance-features__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .performance-features__banner {
+    padding: 4rem 3.5rem;
+    min-height: 320px;
+  }
+
+  .performance-features__banner-title {
+    font-size: 2.6rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .performance-features__grid {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  .performance-features__card {
+    padding: 3rem 2.2rem;
+  }
+
+  .performance-features__banner {
+    padding: 3rem 2rem;
+    border-radius: 16px;
+  }
+
+  .performance-features__banner-title {
+    font-size: 2.2rem;
+  }
+}

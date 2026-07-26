@@ -49,12 +49,14 @@
         "menu_info"
       ],
       "settings": {
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
         "footer_heading_scale": 100,
         "footer_body_scale": 105,
         "footer_accent_color": "#cbd64a",
         "footer_logo": "shopify://shop_images/favicon_3.png",
         "footer_logo_width": 140,
-        "footer_description": "<p>Kore is a versatile material known for its strength and durability. Whether used in construction, manufacturing, or everyday products, kore provides reliable performance and long-lasting quality. Its natural properties make it an excellent choice for applications requiring both resilience and aesthetic appeal. Choose kore for projects where dependability matters.</p>",
+        "footer_description": "<p>KØRE is a versatile material known for its strength and durability. Whether used in padel playing or everyday products, kore provides reliable performance and long-lasting quality. Its natural properties make it an excellent choice for applications requiring both resilience and aesthetic appeal. Choose KØRE for projects where dependability matters.</p>",
         "color_scheme": "scheme-2",
         "newsletter_enable": true,
         "newsletter_heading": "Join Our <em>Newsletter</em>",

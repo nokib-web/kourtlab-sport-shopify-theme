@@ -1,0 +1,229 @@
+.why-choose-us-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.why-choose-us__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.why-choose-us__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.why-choose-us__subtitle {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--brand-highlight-color, #CBD64A);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.why-choose-us__heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  color: rgb(var(--color-foreground));
+}
+
+.why-choose-us__heading em {
+  font-style: italic;
+  font-family: var(--font-heading-family);
+  color: var(--brand-highlight-color, #CBD64A);
+}
+
+.why-choose-us__controls {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.why-choose-us__btn {
+  background-color: rgba(var(--color-foreground), 0.06);
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-choose-us__btn:hover {
+  background-color: var(--brand-highlight-color, #CBD64A);
+  color: #0A0A0A;
+  border-color: var(--brand-highlight-color, #CBD64A);
+  transform: scale(1.06);
+}
+
+/* Full Width Stage */
+.why-choose-us__container {
+  position: relative;
+  width: 100%;
+}
+
+.why-choose-us__deck {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+/* Accordion Stacking Cards */
+.why-choose-us__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--card-bg-custom, #F5F3ED);
+  color: var(--card-text-custom, #111111);
+  border-radius: 24px;
+  padding: 3.2rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.06);
+  transition: left 0.65s cubic-bezier(0.16, 1, 0.3, 1), width 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.why-choose-us__card.is-active {
+  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.why-choose-us__card-header {
+  margin-bottom: 1.5rem;
+}
+
+/* Hand-drawn style circular step pill */
+.why-choose-us__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+  color: inherit;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.why-choose-us__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 2;
+  margin-bottom: auto;
+  max-width: 440px;
+}
+
+.why-choose-us__card-title {
+  font-family: var(--font-heading-family);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: inherit;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.why-choose-us__card-description {
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  color: inherit;
+  opacity: 0.82;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Decorative Illustration in Bottom Right */
+.why-choose-us__card-media {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: 140px;
+  height: 120px;
+  pointer-events: none;
+  opacity: 0.35;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.why-choose-us__full-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.why-choose-us__card:hover .why-choose-us__card-media {
+  opacity: 0.65;
+  transform: scale(1.05);
+}
+
+.why-choose-us__vector-icon {
+  width: 100px;
+  height: 100px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 989px) {
+  .why-choose-us__deck {
+    height: 440px;
+  }
+
+  .why-choose-us__card {
+    padding: 2.4rem 2rem;
+  }
+
+  .why-choose-us__card-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .why-choose-us__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .why-choose-us__controls {
+    align-self: flex-end;
+  }
+
+  .why-choose-us__deck {
+    height: 400px;
+  }
+
+  .why-choose-us__card {
+    padding: 2rem 1.6rem;
+  }
+
+  .why-choose-us__card-title {
+    font-size: 2rem;
+  }
+}

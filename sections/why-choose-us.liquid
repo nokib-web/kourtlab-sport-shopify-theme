@@ -1,0 +1,425 @@
+{{ 'section-why-choose-us.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #WhyChooseUs-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+    {% endif %}
+  }
+
+  #WhyChooseUs-{{ section.id }} .why-choose-us__subtitle {
+    color: {{ section.settings.label_color }};
+  }
+
+  #WhyChooseUs-{{ section.id }} .why-choose-us__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #WhyChooseUs-{{ section.id }} .why-choose-us__heading em {
+    color: {{ section.settings.accent_color }};
+  }
+{%- endstyle -%}
+
+<div class="why-choose-us-section color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-padding" id="WhyChooseUs-{{ section.id }}">
+  <div class="page-width">
+    <!-- Header with Controls -->
+    <div class="why-choose-us__header">
+      <div class="why-choose-us__header-text">
+        {%- if section.settings.subtitle != blank -%}
+          <span class="why-choose-us__subtitle">{{ section.settings.subtitle }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="why-choose-us__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+      </div>
+
+      <div class="why-choose-us__controls">
+        <button type="button" class="why-choose-us__btn why-choose-us__btn--prev" aria-label="Move left">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button type="button" class="why-choose-us__btn why-choose-us__btn--next" aria-label="Move right">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Full Width Accordion Card Deck Container -->
+    <div class="why-choose-us__container">
+      <div class="why-choose-us__deck" id="WhyChooseUsDeck-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          <div
+            class="why-choose-us__card"
+            data-index="{{ forloop.index0 }}"
+            style="
+              --card-bg-custom: {{ block.settings.card_bg | default: '#E9E5FC' }};
+              --card-text-custom: {{ block.settings.card_text_color | default: '#111111' }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            <div class="why-choose-us__card-header">
+              {%- if block.settings.number != blank -%}
+                <span class="why-choose-us__number">{{ block.settings.number }}</span>
+              {%- endif -%}
+            </div>
+
+            <div class="why-choose-us__card-body">
+              <h3 class="why-choose-us__card-title">{{ block.settings.title }}</h3>
+              <p class="why-choose-us__card-description">{{ block.settings.description }}</p>
+            </div>
+
+            <div class="why-choose-us__card-media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 600 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  class="why-choose-us__full-img"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                >
+              {%- else -%}
+                <svg class="why-choose-us__vector-icon" viewBox="0 0 64 64">
+                  <rect x="8" y="16" width="48" height="32" rx="4" />
+                  <path d="M16 28h32M16 36h20" />
+                </svg>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initWhyChooseUs(sectionContainer) {
+      if (!sectionContainer) return;
+      if (sectionContainer.dataset.initialized === 'true') {
+        if (typeof sectionContainer._updateDeckPositions === 'function') {
+          sectionContainer._updateDeckPositions();
+        }
+        return;
+      }
+      sectionContainer.dataset.initialized = 'true';
+
+      const deck = sectionContainer.querySelector('.why-choose-us__deck');
+      if (!deck) return;
+
+      const cards = Array.from(deck.querySelectorAll('.why-choose-us__card'));
+      const prevBtn = sectionContainer.querySelector('.why-choose-us__btn--prev');
+      const nextBtn = sectionContainer.querySelector('.why-choose-us__btn--next');
+      
+      if (!cards.length) return;
+
+      let activeIndex = 0;
+
+      function updateDeckPositions() {
+        const containerWidth = deck.offsetWidth || sectionContainer.offsetWidth || 1200;
+        const totalCards = cards.length;
+        if (!totalCards) return;
+
+        const isMobile = window.innerWidth < 750;
+        const peekGap = isMobile ? 54 : 96;
+
+        const remainingForActive = containerWidth - ((totalCards - 1) * peekGap);
+        const cardWidth = isMobile ? Math.min(containerWidth * 0.85, 300) : Math.max(480, Math.min(640, remainingForActive));
+
+        cards.forEach((card, index) => {
+          let targetLeft = 0;
+
+          if (index <= activeIndex) {
+            targetLeft = index * peekGap;
+          } else {
+            const rightCardsCount = totalCards - 1 - activeIndex;
+            const rightIndex = index - activeIndex - 1;
+            const startRight = (activeIndex * peekGap) + cardWidth;
+            const remainingRightWidth = Math.max(0, containerWidth - startRight);
+
+            if (rightCardsCount === 1) {
+              targetLeft = Math.min(containerWidth - cardWidth, startRight);
+            } else {
+              const rightSpacing = remainingRightWidth > (rightCardsCount * peekGap)
+                ? (remainingRightWidth / rightCardsCount)
+                : peekGap;
+              targetLeft = startRight + (rightIndex * rightSpacing);
+            }
+          }
+
+          card.style.left = `${targetLeft}px`;
+          card.style.width = `${cardWidth}px`;
+
+          if (index === activeIndex) {
+            card.style.zIndex = 30;
+            card.classList.add('is-active');
+          } else if (index < activeIndex) {
+            card.style.zIndex = index + 1;
+            card.classList.remove('is-active');
+          } else {
+            card.style.zIndex = totalCards - index + 10;
+            card.classList.remove('is-active');
+          }
+        });
+      }
+
+      sectionContainer._updateDeckPositions = updateDeckPositions;
+
+      // Left Arrow (<) button moves cards LEFTWARD (1 -> 2 -> 3 -> 4)
+      prevBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (activeIndex < cards.length - 1) {
+          activeIndex++;
+          updateDeckPositions();
+        }
+      });
+
+      // Right Arrow (>) button moves cards RIGHTWARD (4 -> 3 -> 2 -> 1)
+      nextBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (activeIndex > 0) {
+          activeIndex--;
+          updateDeckPositions();
+        }
+      });
+
+      cards.forEach((card, index) => {
+        card.addEventListener('click', function(e) {
+          e.stopPropagation();
+          activeIndex = index;
+          updateDeckPositions();
+        });
+      });
+
+      window.addEventListener('resize', updateDeckPositions);
+      setTimeout(updateDeckPositions, 50);
+      setTimeout(updateDeckPositions, 200);
+      updateDeckPositions();
+    }
+
+    function setup() {
+      const section = document.getElementById('WhyChooseUs-{{ section.id }}');
+      if (section) initWhyChooseUs(section);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        const section = document.getElementById('WhyChooseUs-{{ section.id }}');
+        if (section) {
+          section.dataset.initialized = 'false';
+          initWhyChooseUs(section);
+        }
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "class": "section-why-choose-us-wrapper",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "default": "transparent",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Section Background Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "default": "DISCOVER HOW IT WORKS",
+      "label": "Small Top Label"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "default": "#CBD64A",
+      "label": "Label Color"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Why Choose <em>Us</em>",
+      "label": "Heading (Use italic for accent)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Accent Color"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "default": "1",
+          "label": "Step Number or Tag"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "Create and Log In to Your Account",
+          "label": "Card Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "default": "Sign up on our platform and log in to access all our features. Set up your account quickly and start learning immediately.",
+          "label": "Card Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image or Icon"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card Background Color",
+          "default": "#E9E5FC"
+        },
+        {
+          "type": "color",
+          "id": "card_text_color",
+          "label": "Card Text Color",
+          "default": "#111111"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "number": "1",
+            "title": "Create and Log In to Your Account",
+            "description": "Sign up on our platform and log in to access all our features. Set up your account quickly and start learning immediately.",
+            "card_bg": "#E9E5FC",
+            "card_text_color": "#111111"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "number": "2",
+            "title": "Learn E-Commerce Basics",
+            "description": "Dive into essential topics that cover the basics of running an online store, including product listing, pricing strategies, and customer service.",
+            "card_bg": "#FDF0D5",
+            "card_text_color": "#111111"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "number": "3",
+            "title": "Optimize Your Store Setup",
+            "description": "Use our advanced tools to set up your online store efficiently. Learn how to design your store layout, manage inventory, and implement marketing strategies.",
+            "card_bg": "#E2F4F8",
+            "card_text_color": "#111111"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "number": "4",
+            "title": "Monitor Security Reports",
+            "description": "Our platform provides regular security reports for your products. Monitor these reports to detect potential threats early.",
+            "card_bg": "#FCE3D8",
+            "card_text_color": "#111111"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

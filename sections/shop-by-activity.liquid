@@ -1,0 +1,454 @@
+{{ 'section-shop-by-activity.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #ShopByActivity-{{ section.id }} .shop-by-activity__label {
+    color: {{ section.settings.label_color }};
+  }
+
+  #ShopByActivity-{{ section.id }} .shop-by-activity__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #ShopByActivity-{{ section.id }} .shop-by-activity__heading em {
+    color: {{ section.settings.accent_color }};
+  }
+
+  #ShopByActivity-{{ section.id }} .shop-by-activity__subtitle {
+    color: {{ section.settings.subtitle_color }};
+  }
+{%- endstyle -%}
+
+<div class="shop-by-activity-section color-{{ section.settings.color_scheme }} isolate gradient section-{{ section.id }}-padding" id="ShopByActivity-{{ section.id }}">
+  <div class="page-width">
+    <!-- Left-aligned Header & Navigation Controls -->
+    <div class="shop-by-activity__header">
+      <div class="shop-by-activity__header-text">
+        {%- if section.settings.label != blank -%}
+          <span class="shop-by-activity__label">{{ section.settings.label }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.title != blank -%}
+          <h2 class="shop-by-activity__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="shop-by-activity__subtitle">
+            {{ section.settings.subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+
+      <div class="shop-by-activity__controls">
+        <button
+          type="button"
+          class="shop-by-activity__btn shop-by-activity__btn--prev"
+          id="ActivityPrev-{{ section.id }}"
+          aria-label="Previous activity"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="shop-by-activity__btn shop-by-activity__btn--next"
+          id="ActivityNext-{{ section.id }}"
+          aria-label="Next activity"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Editorial Horizontal Slider Stage -->
+    <div class="shop-by-activity__carousel-wrapper">
+      <div class="shop-by-activity__track" id="ActivityTrack-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign collection = block.settings.collection
+            assign card_link = block.settings.link
+            if card_link == blank and collection != blank
+              assign card_link = collection.url
+            endif
+            if card_link == blank
+              assign card_link = '#'
+            endif
+
+            assign overlay_val = block.settings.overlay_opacity | default: 45 | divided_by: 100.0
+          -%}
+
+          <div
+            class="shop-by-activity__card-item fade-up-card"
+            data-index="{{ forloop.index0 }}"
+            style="
+              --card-bg-custom: {{ block.settings.card_bg }};
+              --card-title-custom: {{ block.settings.title_color }};
+              --card-desc-custom: {{ block.settings.desc_color }};
+              --card-cta-custom: {{ block.settings.cta_color }};
+              --overlay-opacity-custom: {{ overlay_val }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            <a href="{{ card_link }}" class="shop-by-activity__card">
+              <!-- Background Image & Gradient Overlay -->
+              <div class="shop-by-activity__card-media">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 850 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    class="shop-by-activity__img"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                  >
+                {%- elsif collection.featured_image != blank -%}
+                  <img
+                    src="{{ collection.featured_image | image_url: width: 850 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    class="shop-by-activity__img"
+                    width="{{ collection.featured_image.width }}"
+                    height="{{ collection.featured_image.height }}"
+                  >
+                {%- else -%}
+                  <div class="shop-by-activity__placeholder">
+                    {%- assign placeholder_idx = forloop.index | modulo: 3 | plus: 1 -%}
+                    {{ 'collection-' | append: placeholder_idx | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+
+                <div class="shop-by-activity__overlay"></div>
+              </div>
+
+              <!-- Card Content -->
+              <div class="shop-by-activity__card-content">
+                <div class="shop-by-activity__card-bottom">
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="shop-by-activity__card-title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.description != blank -%}
+                    <p class="shop-by-activity__card-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+
+                  <div class="shop-by-activity__cta-btn">
+                    <span>EXPLORE COLLECTION</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" class="shop-by-activity__cta-arrow">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('ActivityTrack-{{ section.id }}');
+    const prevBtn = document.getElementById('ActivityPrev-{{ section.id }}');
+    const nextBtn = document.getElementById('ActivityNext-{{ section.id }}');
+    const fadeCards = document.querySelectorAll('#ShopByActivity-{{ section.id }} .fade-up-card');
+
+    if (!track) return;
+
+    let currentIndex = 0;
+    const cards = Array.from(track.querySelectorAll('.shop-by-activity__card-item'));
+    const totalCards = cards.length;
+
+    function getVisibleCount() {
+      if (window.innerWidth < 750) return 1;
+      if (window.innerWidth < 990) return 2;
+      return 3;
+    }
+
+    function updateSliderPosition() {
+      const maxIndex = Math.max(0, totalCards - getVisibleCount());
+      currentIndex = Math.min(Math.max(0, currentIndex), maxIndex);
+      
+      const firstCard = cards[0];
+      if (!firstCard) return;
+      const cardWidth = firstCard.offsetWidth + 24; // Width + Gap
+      const offset = currentIndex * cardWidth;
+      
+      track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    prevBtn?.addEventListener('click', function() {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = Math.max(0, totalCards - getVisibleCount());
+      }
+      updateSliderPosition();
+    });
+
+    nextBtn?.addEventListener('click', function() {
+      const maxIndex = Math.max(0, totalCards - getVisibleCount());
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      updateSliderPosition();
+    });
+
+    window.addEventListener('resize', updateSliderPosition);
+
+    if ('IntersectionObserver' in window && fadeCards.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      fadeCards.forEach((card, index) => {
+        card.style.transitionDelay = `${(index % 4) * 0.1}s`;
+        observer.observe(card);
+      });
+    } else {
+      fadeCards.forEach(card => card.classList.add('is-visible'));
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Shop by Activity",
+  "class": "section-shop-by-activity-wrapper",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "default": "BUILT FOR THE COURT. DESIGNED FOR EVERYDAY.",
+      "label": "Small Top Label"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "default": "#CBD64A",
+      "label": "Label Color"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Shop by <em>Activity</em>",
+      "label": "Main Heading (Use italic/emphasis to highlight)"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Highlight Accent Color"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "default": "Engineered apparel built for every movement—from the court to everyday life.",
+      "label": "Subheading"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "default": "#666666",
+      "label": "Subheading Text Color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 104
+    }
+  ],
+  "blocks": [
+    {
+      "type": "activity_card",
+      "name": "Activity Card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom Link (Optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Editorial Photo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Padel",
+          "label": "Activity Name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "default": "Built for speed, precision, and court performance.",
+          "label": "Short Description"
+        },
+        {
+          "type": "header",
+          "content": "Card Color Customization"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "default": "#FFFFFF",
+          "label": "Card Title Color"
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "default": "#EFEFEF",
+          "label": "Card Description Color"
+        },
+        {
+          "type": "color",
+          "id": "cta_color",
+          "default": "#CBD64A",
+          "label": "Card CTA Accent Color"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "default": "#111111",
+          "label": "Card Fallback Background Color"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "label": "Image Dark Overlay Opacity",
+          "default": 45
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Activity",
+      "blocks": [
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "Padel",
+            "description": "Built for speed, precision, and court performance."
+          }
+        },
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "Training",
+            "description": "Engineered for strength, mobility, and every workout."
+          }
+        },
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "Running",
+            "description": "Lightweight comfort built for every mile."
+          }
+        },
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "Recovery",
+            "description": "Relax in premium comfort after every session."
+          }
+        },
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "Lifestyle",
+            "description": "Designed to move effortlessly from the court to the city."
+          }
+        },
+        {
+          "type": "activity_card",
+          "settings": {
+            "title": "New Arrivals",
+            "description": "Discover the latest performance collection."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

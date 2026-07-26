@@ -12,19 +12,60 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  #FeaturedProductCarousel-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+    {% endif %}
+  }
+
+  #FeaturedProductCarousel-{{ section.id }} .product-carousel__heading {
+    color: {{ section.settings.heading_color }};
+  }
+
+  #FeaturedProductCarousel-{{ section.id }} .product-carousel__heading em {
+    color: {{ section.settings.accent_color }};
+  }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} isolate gradient">
+<div class="color-{{ section.settings.color_scheme }} isolate gradient" id="FeaturedProductCarousel-{{ section.id }}">
   <div class="featured-product-carousel-wrapper page-width section-{{ section.id }}-padding">
-    {%- if section.settings.title != blank -%}
-      <div class="product-carousel__header">
+    <div class="product-carousel__header">
+      {%- if section.settings.title != blank -%}
         <h2 class="product-carousel__heading inline-richtext {{ section.settings.heading_size }}">
           {{ section.settings.title }}
         </h2>
-      </div>
-    {%- endif -%}
+      {%- endif -%}
 
-    <div class="product-carousel-container" id="ProductCarouselContainer-{{ section.id }}" data-auto-slide="{{ section.settings.auto_slide }}" data-auto-slide-interval="{{ section.settings.auto_slide_interval }}">
+      <!-- Header Arrow Controls -->
+      <div class="product-carousel__controls">
+        <button
+          type="button"
+          class="product-carousel__btn product-carousel__btn--prev"
+          id="ProductPrev-{{ section.id }}"
+          aria-label="Previous products"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="product-carousel__btn product-carousel__btn--next"
+          id="ProductNext-{{ section.id }}"
+          aria-label="Next products"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="product-carousel-container" id="ProductCarouselContainer-{{ section.id }}">
       <div class="product-carousel" id="ProductCarousel-{{ section.id }}">
         {%- assign collection = section.settings.collection -%}
         {%- if collection != blank and collection.products_count > 0 -%}
@@ -44,6 +85,8 @@
                       alt="{{ product.featured_media.alt | escape }}"
                       loading="lazy"
                       class="product-carousel__img"
+                      width="{{ product.featured_media.width }}"
+                      height="{{ product.featured_media.height }}"
                     >
                   {%- else -%}
                     <div class="product-carousel__placeholder">
@@ -141,202 +184,30 @@
           {%- endfor -%}
         {%- endif -%}
       </div>
-
-      <div class="product-carousel__controls">
-        <div class="product-carousel__arrows">
-          <button type="button" class="product-carousel__arrow product-carousel__arrow--prev" aria-label="Previous">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </button>
-          <button type="button" class="product-carousel__arrow product-carousel__arrow--next" aria-label="Next">
-            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-
-        <div class="product-carousel__progress-bar">
-          <div class="product-carousel__progress-fill"></div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const containers = document.querySelectorAll('.product-carousel-container');
-    containers.forEach(container => {
-      const carousel = container.querySelector('.product-carousel');
-      const prevBtn = container.querySelector('.product-carousel__arrow--prev');
-      const nextBtn = container.querySelector('.product-carousel__arrow--next');
-      const progressFill = container.querySelector('.product-carousel__progress-fill');
+    const track = document.getElementById('ProductCarousel-{{ section.id }}');
+    const prevBtn = document.getElementById('ProductPrev-{{ section.id }}');
+    const nextBtn = document.getElementById('ProductNext-{{ section.id }}');
 
-      let currentStep = 0;
-      let isAnimating = false;
-      let currentX = 0;
-      const totalCards = carousel.querySelectorAll('.product-carousel__card').length;
-
-      function updateProgress() {
-        if (progressFill && totalCards > 0) {
-          const progressPercent = Math.min(100, Math.max(15, (((currentStep % totalCards) + 1) / totalCards) * 100));
-          progressFill.style.width = progressPercent + '%';
-        }
+    if (track && prevBtn && nextBtn) {
+      function getScrollDistance() {
+        const firstCard = track.querySelector('.product-carousel__card');
+        return firstCard ? (firstCard.offsetWidth + 20) * 1.5 : 450;
       }
 
-      function slideNext() {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const firstCard = carousel.querySelector('.product-carousel__card');
-        if (!firstCard) {
-          isAnimating = false;
-          return;
-        }
-
-        const cardWidth = firstCard.offsetWidth + 16;
-        carousel.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-        carousel.style.transform = `translateX(-${cardWidth}px)`;
-
-        setTimeout(() => {
-          carousel.style.transition = 'none';
-          carousel.appendChild(firstCard);
-          carousel.style.transform = 'translateX(0)';
-          currentStep = (currentStep + 1) % totalCards;
-          updateProgress();
-          currentX = 0;
-          isAnimating = false;
-        }, 450);
-      }
-
-      function slidePrev() {
-        if (isAnimating) return;
-        isAnimating = true;
-
-        const lastCard = carousel.lastElementChild;
-        if (!lastCard) {
-          isAnimating = false;
-          return;
-        }
-
-        const cardWidth = lastCard.offsetWidth + 16;
-        carousel.style.transition = 'none';
-        carousel.insertBefore(lastCard, carousel.firstElementChild);
-        carousel.style.transform = `translateX(-${cardWidth}px)`;
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            carousel.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-            carousel.style.transform = 'translateX(0)';
-            setTimeout(() => {
-              carousel.style.transition = 'none';
-              currentStep = (currentStep - 1 + totalCards) % totalCards;
-              updateProgress();
-              currentX = 0;
-              isAnimating = false;
-            }, 450);
-          });
-        });
-      }
-
-      if (nextBtn) nextBtn.addEventListener('click', slideNext);
-      if (prevBtn) prevBtn.addEventListener('click', slidePrev);
-
-      // Drag Handlers for Mouse & Touch
-      let isDown = false;
-      let startX = 0;
-      let dragDist = 0;
-
-      carousel.addEventListener('mousedown', (e) => {
-        isDown = true;
-        dragDist = 0;
-        startX = e.pageX;
-        carousel.classList.add('dragging');
+      prevBtn.addEventListener('click', function() {
+        track.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
       });
 
-      window.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        dragDist = e.pageX - startX;
+      nextBtn.addEventListener('click', function() {
+        track.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
       });
-
-      window.addEventListener('mouseup', () => {
-        if (!isDown) return;
-        isDown = false;
-        carousel.classList.remove('dragging');
-        if (dragDist < -30) slideNext();
-        else if (dragDist > 30) slidePrev();
-      });
-
-      carousel.addEventListener('touchstart', (e) => {
-        isDown = true;
-        dragDist = 0;
-        startX = e.touches[0].pageX;
-      }, { passive: true });
-
-      carousel.addEventListener('touchmove', (e) => {
-        if (!isDown) return;
-        dragDist = e.touches[0].pageX - startX;
-      }, { passive: true });
-
-      carousel.addEventListener('touchend', () => {
-        if (!isDown) return;
-        isDown = false;
-        if (dragDist < -30) slideNext();
-        else if (dragDist > 30) slidePrev();
-      });
-
-      // Auto Slide Logic (Continuous Smooth Marquee)
-      const autoSlideEnabled = container.getAttribute('data-auto-slide') === 'true';
-      const autoSlideInterval = parseInt(container.getAttribute('data-auto-slide-interval')) || 4;
-      let animationFrameId;
-      let isHovered = false;
-      let lastTime = 0;
-
-      function continuousLoop(timestamp) {
-        if (!lastTime) lastTime = timestamp;
-        const deltaTime = timestamp - lastTime;
-        lastTime = timestamp;
-
-        if (autoSlideEnabled && !isHovered && !isDown && !isAnimating && totalCards > 1) {
-           const firstCard = carousel.firstElementChild;
-           if (firstCard) {
-             const cardWidth = firstCard.offsetWidth + 16;
-             // speed: cardWidth pixels over autoSlideInterval seconds
-             const speed = cardWidth / (autoSlideInterval * 1000);
-             currentX -= speed * deltaTime;
-
-             if (Math.abs(currentX) >= cardWidth) {
-               carousel.style.transition = 'none';
-               carousel.appendChild(firstCard);
-               currentX += cardWidth; // carry over remainder to prevent stutter
-               currentStep = (currentStep + 1) % totalCards;
-               updateProgress();
-             }
-             carousel.style.transform = `translateX(${currentX}px)`;
-           }
-        }
-        animationFrameId = requestAnimationFrame(continuousLoop);
-      }
-
-      function startAutoSlide() {
-        isHovered = false;
-        lastTime = 0;
-        if (autoSlideEnabled && totalCards > 1 && !animationFrameId) {
-          animationFrameId = requestAnimationFrame(continuousLoop);
-        }
-      }
-
-      function stopAutoSlide() {
-        isHovered = true;
-      }
-
-      startAutoSlide();
-
-      // Pause auto slide on interaction
-      container.addEventListener('mouseenter', stopAutoSlide);
-      container.addEventListener('mouseleave', startAutoSlide);
-      carousel.addEventListener('touchstart', stopAutoSlide, { passive: true });
-      carousel.addEventListener('touchend', startAutoSlide);
-
-      updateProgress();
-    });
+    }
   });
 </script>
 
@@ -350,30 +221,44 @@
   },
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "default": "transparent",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Section Background Image"
+    },
+    {
       "type": "inline_richtext",
       "id": "title",
-      "default": "For when the heat rises",
+      "default": "For playing <em>on hot</em> days",
       "label": "Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "default": "#111111",
+      "label": "Heading Main Text Color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#CBD64A",
+      "label": "Heading Accent Color"
     },
     {
       "type": "select",
       "id": "heading_size",
       "options": [
-        {
-          "value": "h2",
-          "label": "Small"
-        },
-        {
-          "value": "h1",
-          "label": "Medium"
-        },
-        {
-          "value": "h0",
-          "label": "Large"
-        }
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
       ],
       "default": "h1",
-      "label": "Heading size"
+      "label": "Heading Size"
     },
     {
       "type": "collection",
@@ -390,22 +275,6 @@
       "label": "Maximum products to show"
     },
     {
-      "type": "checkbox",
-      "id": "auto_slide",
-      "label": "Enable auto slide",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "auto_slide_interval",
-      "min": 2,
-      "max": 10,
-      "step": 1,
-      "unit": "s",
-      "label": "Auto slide interval",
-      "default": 4
-    },
-    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color scheme",
@@ -415,21 +284,21 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Top padding",
-      "default": 48
+      "label": "Padding Top",
+      "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 4,
+      "max": 160,
+      "step": 8,
       "unit": "px",
-      "label": "Bottom padding",
-      "default": 48
+      "label": "Padding Bottom",
+      "default": 64
     }
   ],
   "presets": [

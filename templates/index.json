@@ -105,6 +105,65 @@
         "padding_bottom": 36
       }
     },
+    "why_choose_us": {
+      "type": "why-choose-us",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "number": "01",
+            "title": "Engineered Silhouettes",
+            "description": "Architectural cuts engineered for explosive movement and effortless court presence.",
+            "card_bg": "#E9E5FC",
+            "card_text_color": "#111111"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "number": "02",
+            "title": "Thermoregulating Fabric",
+            "description": "Ultra-lightweight technical textiles designed to perform under intense heat.",
+            "card_bg": "#FDF0D5",
+            "card_text_color": "#111111"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "number": "03",
+            "title": "Court to City",
+            "description": "Lifestyle versatility designed to seamlessly transition from active play to urban wear.",
+            "card_bg": "#E2F4F8",
+            "card_text_color": "#111111"
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "number": "04",
+            "title": "Unmatched Durability",
+            "description": "Reinforced stitching and abrasion-resistant materials built for continuous play.",
+            "card_bg": "#FCE3D8",
+            "card_text_color": "#111111"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ],
+      "settings": {
+        "subtitle": "Discover How It Works",
+        "title": "Why Choose Us",
+        "heading_size": "h1",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "expanding_carousel": {
       "type": "expanding-carousel",
       "blocks": {
@@ -196,12 +255,80 @@
         "slide_5"
       ],
       "settings": {
-        "title": "Lookbook & <span>essentials</span>",
+        "title": "Lookbook & <em>Essentials</em>",
         "heading_size": "h1",
         "subtitle": "Explore our high-performance editorial collections",
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
+      }
+    },
+    "shop_by_activity": {
+      "type": "shop-by-activity",
+      "blocks": {
+        "activity_padel": {
+          "type": "activity_card",
+          "settings": {
+            "title": "Padel",
+            "description": "Built for speed, precision, and court performance.",
+            "product_count": "32 Products"
+          }
+        },
+        "activity_training": {
+          "type": "activity_card",
+          "settings": {
+            "title": "Training",
+            "description": "Engineered for strength, mobility, and every workout.",
+            "product_count": "18 Products"
+          }
+        },
+        "activity_running": {
+          "type": "activity_card",
+          "settings": {
+            "title": "Running",
+            "description": "Lightweight comfort built for every mile.",
+            "product_count": "24 Products"
+          }
+        },
+        "activity_recovery": {
+          "type": "activity_card",
+          "settings": {
+            "title": "Recovery",
+            "description": "Relax in premium comfort after every session.",
+            "product_count": "12 Products"
+          }
+        },
+        "activity_lifestyle": {
+          "type": "activity_card",
+          "settings": {
+            "title": "Lifestyle",
+            "description": "Designed to move effortlessly from the court to the city.",
+            "product_count": "41 Products"
+          }
+        },
+        "activity_new_arrivals": {
+          "type": "activity_card",
+          "settings": {
+            "title": "New Arrivals",
+            "description": "Discover the latest performance collection.",
+            "product_count": "15 Products"
+          }
+        }
+      },
+      "block_order": [
+        "activity_padel",
+        "activity_training",
+        "activity_running",
+        "activity_recovery",
+        "activity_lifestyle",
+        "activity_new_arrivals"
+      ],
+      "settings": {
+        "label": "BUILT FOR THE COURT. DESIGNED FOR EVERYDAY.",
+        "title": "Shop by <em>Activity</em>",
+        "subtitle": "Engineered apparel built for every movement—from the court to everyday life.",
+        "padding_top": 104,
+        "padding_bottom": 104
       }
     },
     "featured_product_carousel": {
@@ -212,10 +339,68 @@
         "collection": "best-seller",
         "products_to_show": 8,
         "auto_slide": true,
-        "auto_slide_interval": 3,
+        "auto_slide_interval": 8,
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
+      }
+    },
+    "performance_features": {
+      "type": "performance-features",
+      "blocks": {
+        "feature_moisture": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "droplet",
+            "title": "Moisture Wicking",
+            "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout."
+          }
+        },
+        "feature_stretch": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "stretch",
+            "title": "4-Way Stretch",
+            "description": "Maximum flexibility and unrestricted movement for peak athletic performance."
+          }
+        },
+        "feature_lightweight": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "feather",
+            "title": "Lightweight Comfort",
+            "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long."
+          }
+        },
+        "feature_durable": {
+          "type": "feature_card",
+          "settings": {
+            "icon": "shield",
+            "title": "Durable Performance",
+            "description": "Premium materials engineered to withstand intense training and repeated wear."
+          }
+        }
+      },
+      "block_order": [
+        "feature_moisture",
+        "feature_stretch",
+        "feature_lightweight",
+        "feature_durable"
+      ],
+      "settings": {
+        "label": "ENGINEERED FOR PERFORMANCE",
+        "title": "Performance <em>Features</em>",
+        "heading_size": "h1",
+        "subtitle": "Every stitch, fabric, and detail is designed to maximize comfort, movement, and performance—on and off the court.",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "show_banner": true,
+        "banner_image": "shopify://shop_images/hero-2.webp",
+        "banner_title": "BUILT TO MOVE. DESIGNED TO PERFORM.",
+        "banner_desc": "Premium apparel engineered with technical fabrics, modern craftsmanship, and uncompromising comfort for athletes who never settle.",
+        "banner_button_label": "Explore Performance →",
+        "banner_button_link": "/collections/all"
       }
     },
     "featured_blog_slider": {
@@ -234,8 +419,11 @@
   "order": [
     "image_banner",
     "collection_list_XPKfRX",
+    "why_choose_us",
     "expanding_carousel",
+    "shop_by_activity",
     "featured_product_carousel",
+    "performance_features",
     "featured_blog_slider"
   ]
 }
