@@ -51,7 +51,7 @@
         "desktop_content_position": "bottom-left",
         "desktop_content_alignment": "left",
         "show_text_box": false,
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-eeffc6e4-3cb7-42d4-91de-8827fd6cf136",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "left",
         "show_text_below": false
@@ -173,9 +173,9 @@
       ],
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "subtitle": "Discover How It Works",
+        "subtitle": "",
         "label_color": "#cbd64a",
-        "title": "Why Choose Us",
+        "title": "Why <strong>Choose</strong> Us",
         "heading_color": "#111111",
         "accent_color": "#cbd64a",
         "heading_size": "h1",
@@ -304,13 +304,13 @@
       ],
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "label": "LOOKBOOK & ESSENTIALS",
+        "label": "",
         "label_color": "#cbd64a",
         "title": "Lookbook & <em>Essentials</em>",
         "heading_color": "#111111",
         "accent_color": "#cbd64a",
         "heading_size": "h1",
-        "subtitle": "Explore our high-performance editorial collections",
+        "subtitle": "",
         "subtitle_color": "#666666",
         "color_scheme": "scheme-1",
         "padding_top": 48,
@@ -420,13 +420,13 @@
         "activity_new_arrivals"
       ],
       "settings": {
-        "label": "BUILT FOR THE COURT. DESIGNED FOR EVERYDAY.",
+        "label": "",
         "label_color": "#cbd64a",
         "title": "Shop by <em>Activity</em>",
         "heading_color": "#111111",
         "accent_color": "#cbd64a",
         "heading_size": "h1",
-        "subtitle": "Engineered apparel built for every movement—from the court to everyday life.",
+        "subtitle": "",
         "subtitle_color": "#666666",
         "color_scheme": "",
         "padding_top": 104,
@@ -520,13 +520,13 @@
       ],
       "settings": {
         "bg_color": "#ffffff",
-        "label": "ENGINEERED FOR PERFORMANCE",
+        "label": "",
         "label_color": "#cbd64a",
         "title": "Performance <em>Features</em>",
         "heading_color": "#111111",
         "accent_color": "#cbd64a",
         "heading_size": "h1",
-        "subtitle": "Every stitch, fabric, and detail is designed to maximize comfort, movement, and performance—on and off the court.",
+        "subtitle": "",
         "subtitle_color": "#666666",
         "color_scheme": "scheme-1",
         "padding_top": 120,
@@ -537,6 +537,49 @@
         "banner_desc": "Premium apparel engineered with technical fabrics, modern craftsmanship, and uncompromising comfort for athletes who never settle.",
         "banner_button_label": "Explore Performance →",
         "banner_button_link": "/collections/all"
+      }
+    },
+    "17850441245e4f0ed8": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_QGi7PW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "star_rating": "all",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "medium",
+            "text_size": "medium",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#f9f9f9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "What our Customers are saying",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_QGi7PW"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "featured_blog_slider": {
@@ -566,6 +609,7 @@
     "shop_by_activity",
     "featured_product_carousel",
     "performance_features",
+    "17850441245e4f0ed8",
     "featured_blog_slider"
   ]
 }
