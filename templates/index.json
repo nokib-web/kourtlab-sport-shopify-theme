@@ -597,7 +597,7 @@
         "blog": "nieuws",
         "show_view_all": true,
         "view_all_text": "Read all blog",
-        "view_all_style_secondary": true,
+        "view_all_style_secondary": false,
         "post_limit": 4,
         "color_scheme": "scheme-1",
         "padding_top": 48,

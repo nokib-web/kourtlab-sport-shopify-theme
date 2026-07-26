@@ -42,10 +42,10 @@
       {%- endif -%}
     </div>
 
-    <!-- Two Column Layout -->
+    <!-- Two Column Layout (Desktop) / Vertical Expandable Topic Accordions (Mobile) -->
     <div class="kore-faq-layout">
 
-      <!-- LEFT: Category Sidebar -->
+      <!-- LEFT: Category Sidebar (Desktop Only) -->
       <aside class="kore-faq-sidebar">
         <p class="kore-faq-sidebar__heading">Topics</p>
         <ul class="kore-faq-sidebar__list" id="KoreFaqSidebarList">
@@ -66,10 +66,10 @@
         </ul>
       </aside>
 
-      <!-- RIGHT: Search + Category Panels -->
+      <!-- RIGHT / MAIN: Search + Category Accordions -->
       <main class="kore-faq-main">
 
-        <!-- Search -->
+        <!-- Search Bar -->
         <div class="kore-faq-search-wrap">
           <svg class="kore-faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input
@@ -97,35 +97,55 @@
           <p>No results found. Try a different keyword.</p>
         </div>
 
-        <!-- Category Panels -->
-        {%- for cat in categories_arr -%}
-          {%- assign cat_slug = cat | handleize -%}
-          <div
-            class="kore-faq-panel{% if forloop.first %} is-active{% endif %}"
-            id="panel-{{ cat_slug }}"
-            data-panel="{{ cat_slug }}"
-          >
-            <h2 class="kore-faq-panel__heading">{{ cat }}</h2>
+        <!-- Topic Category Panels / Mobile Accordion Blocks -->
+        <div class="kore-faq-topics-wrapper">
+          {%- for cat in categories_arr -%}
+            {%- assign cat_slug = cat | handleize -%}
+            {%- assign cat_count = 0 -%}
             {%- for block in section.blocks -%}
               {%- if block.settings.category == cat -%}
-                <details
-                  class="kore-faq-accordion"
-                  {{ block.shopify_attributes }}
-                  data-search-text="{{ block.settings.question | downcase }} {{ block.settings.answer | strip_html | downcase }}"
-                  data-category="{{ cat_slug }}"
-                >
-                  <summary>
-                    <span>{{ block.settings.question }}</span>
-                    <span class="kore-faq-accordion__icon">+</span>
-                  </summary>
-                  <div class="kore-faq-accordion__body">
-                    {{ block.settings.answer }}
-                  </div>
-                </details>
+                {%- assign cat_count = cat_count | plus: 1 -%}
               {%- endif -%}
             {%- endfor -%}
-          </div>
-        {%- endfor -%}
+
+            <div
+              class="kore-faq-panel{% if forloop.first %} is-active is-open{% endif %}"
+              id="panel-{{ cat_slug }}"
+              data-panel="{{ cat_slug }}"
+            >
+              <!-- Clickable Topic Header (Expandable on Mobile, Heading on Desktop) -->
+              <div class="kore-faq-panel__header" data-toggle-topic="{{ cat_slug }}">
+                <h2 class="kore-faq-panel__heading">
+                  <span>{{ cat }}</span>
+                  <span class="kore-faq-panel__count">({{ cat_count }})</span>
+                </h2>
+                <span class="kore-faq-panel__arrow">→</span>
+              </div>
+
+              <!-- Topic Accordion Questions Content -->
+              <div class="kore-faq-panel__content">
+                {%- for block in section.blocks -%}
+                  {%- if block.settings.category == cat -%}
+                    <details
+                      class="kore-faq-accordion"
+                      {{ block.shopify_attributes }}
+                      data-search-text="{{ block.settings.question | downcase }} {{ block.settings.answer | strip_html | downcase }}"
+                      data-category="{{ cat_slug }}"
+                    >
+                      <summary>
+                        <span>{{ block.settings.question }}</span>
+                        <span class="kore-faq-accordion__icon">+</span>
+                      </summary>
+                      <div class="kore-faq-accordion__body">
+                        {{ block.settings.answer }}
+                      </div>
+                    </details>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
 
         <!-- Bottom Contact CTA -->
         {%- if section.settings.cta_heading != blank -%}
@@ -153,23 +173,30 @@
 (function () {
   var sidebarLinks = document.querySelectorAll('#KoreFaqSidebarList .kore-faq-sidebar__link');
   var panels = document.querySelectorAll('.kore-faq-panel');
+  var panelHeaders = document.querySelectorAll('.kore-faq-panel__header');
   var searchInput = document.getElementById('KoreFaqSearch');
   var chips = document.querySelectorAll('.kore-faq-chip');
   var noResults = document.getElementById('KoreFaqNoResults');
   var allAccordions = document.querySelectorAll('.kore-faq-accordion');
 
-  // ── Sidebar Tab Switch ──
-  function showPanel(slug) {
+  // ── Desktop Sidebar Tab Switch ──
+  function showDesktopPanel(slug) {
     sidebarLinks.forEach(function(link) {
-      link.classList.toggle('is-active', link.getAttribute('data-target') === slug);
+      var isActive = link.getAttribute('data-target') === slug;
+      link.classList.toggle('is-active', isActive);
     });
     panels.forEach(function(panel) {
-      panel.classList.toggle('is-active', panel.getAttribute('data-panel') === slug);
+      var isActive = panel.getAttribute('data-panel') === slug;
+      panel.classList.toggle('is-active', isActive);
+      if (isActive) {
+        panel.classList.add('is-open');
+      }
     });
     if (searchInput) { searchInput.value = ''; }
     chips.forEach(function(c) { c.classList.remove('is-active'); });
     if (noResults) { noResults.style.display = 'none'; }
-    // Reset all accordions in visible panel to closed
+    
+    // Reset accordions in visible panel
     var active = document.querySelector('.kore-faq-panel.is-active');
     if (active) {
       active.querySelectorAll('details').forEach(function(d) { d.style.display = ''; d.removeAttribute('open'); });
@@ -179,7 +206,20 @@
   sidebarLinks.forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      showPanel(this.getAttribute('data-target'));
+      showDesktopPanel(this.getAttribute('data-target'));
+    });
+  });
+
+  // ── Mobile Expandable Topic Cards Toggle ──
+  panelHeaders.forEach(function(header) {
+    header.addEventListener('click', function() {
+      if (window.innerWidth < 768) {
+        var panel = this.closest('.kore-faq-panel');
+        if (panel) {
+          var isOpen = panel.classList.contains('is-open');
+          panel.classList.toggle('is-open', !isOpen);
+        }
+      }
     });
   });
 
@@ -189,16 +229,25 @@
     var anyVisible = false;
 
     if (q === '') {
-      // Restore all panels to default (show first panel)
+      // Restore all panels
       allAccordions.forEach(function(d) { d.style.display = ''; d.removeAttribute('open'); });
-      var firstSlug = sidebarLinks.length ? sidebarLinks[0].getAttribute('data-target') : null;
-      if (firstSlug) { showPanel(firstSlug); }
+      if (window.innerWidth >= 768) {
+        var firstSlug = sidebarLinks.length ? sidebarLinks[0].getAttribute('data-target') : null;
+        if (firstSlug) { showDesktopPanel(firstSlug); }
+      } else {
+        panels.forEach(function(p, idx) {
+          p.classList.toggle('is-open', idx === 0);
+        });
+      }
       if (noResults) { noResults.style.display = 'none'; }
       return;
     }
 
-    // In search mode: show ALL panels, filter accordions
-    panels.forEach(function(p) { p.classList.add('is-active'); });
+    // In search mode: expand ALL panels, filter accordions
+    panels.forEach(function(p) { 
+      p.classList.add('is-active');
+      p.classList.add('is-open');
+    });
     sidebarLinks.forEach(function(l) { l.classList.remove('is-active'); });
 
     allAccordions.forEach(function(accordion) {
@@ -213,11 +262,12 @@
       }
     });
 
-    // Hide empty panels
+    // Hide panels with 0 visible items
     panels.forEach(function(panel) {
       var visibleItems = Array.from(panel.querySelectorAll('.kore-faq-accordion')).filter(function(d) {
         return d.style.display !== 'none';
       });
+      panel.classList.toggle('is-open', visibleItems.length > 0);
       panel.classList.toggle('is-active', visibleItems.length > 0);
     });
 

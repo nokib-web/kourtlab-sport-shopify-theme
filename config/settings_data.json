@@ -15,7 +15,7 @@
     "type_header_font": "host_grotesk_n4",
     "heading_scale": 100,
     "type_body_font": "host_grotesk_n4",
-    "body_scale": 115,
+    "body_scale": 110,
     "page_width": 1600,
     "spacing_sections": 0,
     "spacing_grid_horizontal": 8,
@@ -156,7 +156,7 @@
           "background": "#ffffff",
           "background_gradient": "",
           "text": "#121212",
-          "button": "#121212",
+          "button": "#C8D64A",
           "button_label": "#ffffff",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
@@ -167,7 +167,7 @@
           "background": "#f3f3f3",
           "background_gradient": "",
           "text": "#121212",
-          "button": "#121212",
+          "button": "#C8D64A",
           "button_label": "#f3f3f3",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
@@ -212,7 +212,7 @@
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#C8D64A",
-          "button_label": "#FFFFFF",
+          "button_label": "#020202",
           "secondary_button_label": "#ffffff",
           "shadow": "#ffffff"
         }
