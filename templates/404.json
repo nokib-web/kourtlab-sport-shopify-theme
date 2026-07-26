@@ -11,7 +11,15 @@
   "sections": {
     "main": {
       "type": "main-404",
-      "settings": {}
+      "settings": {
+        "subtitle": "404 - Not Found",
+        "title": "Oops. You've run off course ...\nHead back home to try a different route.",
+        "button_label": "Home",
+        "bg_image": "shopify://shop_images/bg-2.webp",
+        "text_color": "#FFFFFF",
+        "button_bg_color": "#C8D64A",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [

@@ -49,8 +49,9 @@
         "menu_info"
       ],
       "settings": {
+        "bg_image": "shopify://shop_images/bg-3.webp",
         "overlay_color": "#000000",
-        "overlay_opacity": 30,
+        "overlay_opacity": 0,
         "footer_heading_scale": 100,
         "footer_body_scale": 105,
         "footer_accent_color": "#cbd64a",
