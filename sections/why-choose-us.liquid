@@ -159,15 +159,17 @@
       let activeIndex = 0;
 
       function updateDeckPositions() {
-        const containerWidth = deck.offsetWidth || sectionContainer.offsetWidth || 1200;
+        const containerWidth = deck.offsetWidth || sectionContainer.offsetWidth || 360;
         const totalCards = cards.length;
         if (!totalCards) return;
 
         const isMobile = window.innerWidth < 750;
-        const peekGap = isMobile ? 54 : 96;
+        const peekGap = isMobile ? 26 : 96;
 
-        const remainingForActive = containerWidth - ((totalCards - 1) * peekGap);
-        const cardWidth = isMobile ? Math.min(containerWidth * 0.85, 300) : Math.max(480, Math.min(640, remainingForActive));
+        const maxAvailableWidth = containerWidth - ((totalCards - 1) * peekGap);
+        const cardWidth = isMobile
+          ? Math.max(260, containerWidth - ((totalCards - 1) * peekGap) - 10)
+          : Math.max(480, Math.min(640, maxAvailableWidth));
 
         cards.forEach((card, index) => {
           let targetLeft = 0;
@@ -235,6 +237,34 @@
           updateDeckPositions();
         });
       });
+
+      // Touch Swipe Gestures for Mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      deck.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      deck.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 35) {
+          if (diffX < 0) {
+            // Swipe Left -> move left (1 -> 2 -> 3 -> 4)
+            if (activeIndex < cards.length - 1) {
+              activeIndex++;
+              updateDeckPositions();
+            }
+          } else {
+            // Swipe Right -> move right (4 -> 3 -> 2 -> 1)
+            if (activeIndex > 0) {
+              activeIndex--;
+              updateDeckPositions();
+            }
+          }
+        }
+      }, { passive: true });
 
       window.addEventListener('resize', updateDeckPositions);
       setTimeout(updateDeckPositions, 50);

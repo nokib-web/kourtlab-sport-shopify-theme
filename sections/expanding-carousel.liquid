@@ -146,45 +146,95 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const section = document.getElementById('ExpandingCarousel-{{ section.id }}');
-    if (!section) return;
+  (function() {
+    function initExpandingCarousel(section) {
+      if (!section) return;
 
-    const cards = Array.from(section.querySelectorAll('.expanding-card'));
-    const prevBtn = section.querySelector('.expanding-carousel__btn--prev');
-    const nextBtn = section.querySelector('.expanding-carousel__btn--next');
+      const cards = Array.from(section.querySelectorAll('.expanding-card'));
+      const prevBtn = section.querySelector('.expanding-carousel__btn--prev');
+      const nextBtn = section.querySelector('.expanding-carousel__btn--next');
+      const track = section.querySelector('.expanding-carousel');
 
-    if (!cards.length) return;
+      if (!cards.length) return;
 
-    let activeIndex = 0;
+      let activeIndex = 0;
 
-    function setActiveCard(index) {
-      cards.forEach((card, i) => {
-        if (i === index) {
-          card.classList.add('is-active');
-        } else {
-          card.classList.remove('is-active');
-        }
+      function setActiveCard(index) {
+        cards.forEach((card, i) => {
+          if (i === index) {
+            card.classList.add('is-active');
+            if (window.innerWidth < 750) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+          } else {
+            card.classList.remove('is-active');
+          }
+        });
+        activeIndex = index;
+      }
+
+      cards.forEach((card, index) => {
+        card.addEventListener('click', function() {
+          setActiveCard(index);
+        });
       });
-      activeIndex = index;
+
+      nextBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        const nextIndex = (activeIndex + 1) % cards.length;
+        setActiveCard(nextIndex);
+      });
+
+      prevBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+        setActiveCard(prevIndex);
+      });
+
+      // Mobile Touch Swipe Drag Gestures
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      if (track) {
+        track.addEventListener('touchstart', function(e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        track.addEventListener('touchend', function(e) {
+          touchEndX = e.changedTouches[0].screenX;
+          const diffX = touchEndX - touchStartX;
+          if (Math.abs(diffX) > 30) {
+            if (diffX < 0) {
+              // Swipe Left -> Next Slide
+              const nextIndex = (activeIndex + 1) % cards.length;
+              setActiveCard(nextIndex);
+            } else {
+              // Swipe Right -> Prev Slide
+              const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+              setActiveCard(prevIndex);
+            }
+          }
+        }, { passive: true });
+      }
     }
 
-    cards.forEach((card, index) => {
-      card.addEventListener('click', function() {
-        setActiveCard(index);
-      });
-    });
+    function setup() {
+      const section = document.getElementById('ExpandingCarousel-{{ section.id }}');
+      if (section) initExpandingCarousel(section);
+    }
 
-    nextBtn?.addEventListener('click', function() {
-      const nextIndex = (activeIndex + 1) % cards.length;
-      setActiveCard(nextIndex);
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
 
-    prevBtn?.addEventListener('click', function() {
-      const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
-      setActiveCard(prevIndex);
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        setup();
+      }
     });
-  });
+  })();
 </script>
 
 {% schema %}

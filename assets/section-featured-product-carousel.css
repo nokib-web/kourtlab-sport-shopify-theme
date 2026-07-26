@@ -207,6 +207,7 @@
   .product-carousel {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .product-carousel__card {
@@ -218,7 +219,15 @@
 
 @media screen and (max-width: 749px) {
   .product-carousel__header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1.8rem;
+  }
+
+  /* Hide header arrow controls on mobile screens */
+  .product-carousel__controls {
+    display: none !important;
   }
 
   .product-carousel__card {

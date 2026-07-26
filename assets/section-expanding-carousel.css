@@ -279,11 +279,12 @@
   .expanding-carousel__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
+  /* Hide header arrow controls on mobile screens */
   .expanding-carousel__controls {
-    align-self: flex-end;
+    display: none !important;
   }
 
   .expanding-carousel {

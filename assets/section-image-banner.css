@@ -490,3 +490,25 @@
     color: currentColor;
   }
 }
+
+/* Mobile Hero Banner Height & Bottom Alignment Customization */
+@media screen and (max-width: 749px) {
+  .banner:not(.banner--mobile-bottom) {
+    min-height: 48rem !important;
+  }
+
+  .banner:not(.banner--mobile-bottom) .banner__media {
+    height: 100% !important;
+    min-height: 48rem !important;
+  }
+
+  .banner:not(.banner--mobile-bottom) .banner__content {
+    min-height: 48rem !important;
+    align-items: flex-end !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .banner:not(.banner--mobile-bottom) .banner__box {
+    padding-bottom: 1rem !important;
+  }
+}

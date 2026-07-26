@@ -67,14 +67,19 @@
 
 @media screen and (max-width: 749px) {
   .blog-slider__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 
   .blog-slider__header-right {
-    width: 100%;
-    justify-content: space-between;
+    width: auto;
+  }
+
+  /* Hide header arrow controls on mobile screens */
+  .blog-slider__controls {
+    display: none !important;
   }
 }
 
@@ -192,6 +197,7 @@
   .blog-slider {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .blog-slider__card {

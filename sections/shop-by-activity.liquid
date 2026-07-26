@@ -165,78 +165,133 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const track = document.getElementById('ActivityTrack-{{ section.id }}');
-    const prevBtn = document.getElementById('ActivityPrev-{{ section.id }}');
-    const nextBtn = document.getElementById('ActivityNext-{{ section.id }}');
-    const fadeCards = document.querySelectorAll('#ShopByActivity-{{ section.id }} .fade-up-card');
+  (function() {
+    function initShopByActivity(section) {
+      if (!section) return;
 
-    if (!track) return;
+      const track = section.querySelector('.shop-by-activity__track');
+      const prevBtn = section.querySelector('.shop-by-activity__btn--prev');
+      const nextBtn = section.querySelector('.shop-by-activity__btn--next');
+      const fadeCards = section.querySelectorAll('.fade-up-card');
 
-    let currentIndex = 0;
-    const cards = Array.from(track.querySelectorAll('.shop-by-activity__card-item'));
-    const totalCards = cards.length;
+      if (!track) return;
 
-    function getVisibleCount() {
-      if (window.innerWidth < 750) return 1;
-      if (window.innerWidth < 990) return 2;
-      return 3;
-    }
+      let currentIndex = 0;
+      const cards = Array.from(track.querySelectorAll('.shop-by-activity__card-item'));
+      const totalCards = cards.length;
 
-    function updateSliderPosition() {
-      const maxIndex = Math.max(0, totalCards - getVisibleCount());
-      currentIndex = Math.min(Math.max(0, currentIndex), maxIndex);
-      
-      const firstCard = cards[0];
-      if (!firstCard) return;
-      const cardWidth = firstCard.offsetWidth + 24; // Width + Gap
-      const offset = currentIndex * cardWidth;
-      
-      track.style.transform = `translateX(-${offset}px)`;
-    }
-
-    prevBtn?.addEventListener('click', function() {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = Math.max(0, totalCards - getVisibleCount());
+      function getVisibleCount() {
+        if (window.innerWidth < 750) return 1;
+        if (window.innerWidth < 990) return 2;
+        return 3;
       }
-      updateSliderPosition();
-    });
 
-    nextBtn?.addEventListener('click', function() {
-      const maxIndex = Math.max(0, totalCards - getVisibleCount());
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
+      function updateSliderPosition() {
+        const maxIndex = Math.max(0, totalCards - getVisibleCount());
+        currentIndex = Math.min(Math.max(0, currentIndex), maxIndex);
+        
+        const firstCard = cards[0];
+        if (!firstCard) return;
+        const cardWidth = firstCard.offsetWidth + 24; // Width + Gap
+        const offset = currentIndex * cardWidth;
+        
+        track.style.transform = `translateX(-${offset}px)`;
       }
-      updateSliderPosition();
-    });
 
-    window.addEventListener('resize', updateSliderPosition);
+      prevBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = Math.max(0, totalCards - getVisibleCount());
+        }
+        updateSliderPosition();
+      });
 
-    if ('IntersectionObserver' in window && fadeCards.length > 0) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
+      nextBtn?.addEventListener('click', function(e) {
+        e.preventDefault();
+        const maxIndex = Math.max(0, totalCards - getVisibleCount());
+        if (currentIndex < maxIndex) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        updateSliderPosition();
+      });
+
+      // Mobile Touch Swipe Drag Gestures
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      track.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchEndX - touchStartX;
+        if (Math.abs(diffX) > 30) {
+          const maxIndex = Math.max(0, totalCards - getVisibleCount());
+          if (diffX < 0) {
+            // Swipe Left -> Next
+            if (currentIndex < maxIndex) {
+              currentIndex++;
+            } else {
+              currentIndex = 0;
+            }
+          } else {
+            // Swipe Right -> Prev
+            if (currentIndex > 0) {
+              currentIndex--;
+            } else {
+              currentIndex = maxIndex;
+            }
           }
-        });
-      }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-      });
+          updateSliderPosition();
+        }
+      }, { passive: true });
 
-      fadeCards.forEach((card, index) => {
-        card.style.transitionDelay = `${(index % 4) * 0.1}s`;
-        observer.observe(card);
-      });
-    } else {
-      fadeCards.forEach(card => card.classList.add('is-visible'));
+      window.addEventListener('resize', updateSliderPosition);
+
+      if ('IntersectionObserver' in window && fadeCards.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -50px 0px'
+        });
+
+        fadeCards.forEach((card, index) => {
+          card.style.transitionDelay = `${(index % 4) * 0.1}s`;
+          observer.observe(card);
+        });
+      } else {
+        fadeCards.forEach(card => card.classList.add('is-visible'));
+      }
     }
-  });
+
+    function setup() {
+      const section = document.getElementById('ShopByActivity-{{ section.id }}');
+      if (section) initShopByActivity(section);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        setup();
+      }
+    });
+  })();
 </script>
 
 {% schema %}

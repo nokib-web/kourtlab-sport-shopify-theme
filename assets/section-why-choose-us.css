@@ -76,6 +76,7 @@
   height: 480px;
   margin: 1.5rem 0;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 /* Accordion Stacking Cards */
@@ -208,24 +209,47 @@
 
 @media screen and (max-width: 749px) {
   .why-choose-us__header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8rem;
   }
 
+  /* Show compact arrow controls on mobile for Why Choose Us */
   .why-choose-us__controls {
-    align-self: flex-end;
+    display: flex !important;
+    gap: 0.8rem;
+  }
+
+  .why-choose-us__btn {
+    width: 42px;
+    height: 42px;
   }
 
   .why-choose-us__deck {
-    height: 400px;
+    height: 440px;
+    margin: 1rem 0;
+    border-radius: 18px;
   }
 
   .why-choose-us__card {
-    padding: 2rem 1.6rem;
+    border-radius: 20px;
+    padding: 2.2rem 1.8rem;
+  }
+
+  .why-choose-us__number {
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
   }
 
   .why-choose-us__card-title {
-    font-size: 2rem;
+    font-size: 2.1rem;
+    line-height: 1.2;
+  }
+
+  .why-choose-us__card-description {
+    font-size: 1.35rem;
+    line-height: 1.5;
   }
 }
