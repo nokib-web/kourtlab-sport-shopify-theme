@@ -69,42 +69,64 @@
     <div class="why-choose-us__container">
       <div class="why-choose-us__deck" id="WhyChooseUsDeck-{{ section.id }}">
         {%- for block in section.blocks -%}
+          {%- liquid
+            assign overlay_val = block.settings.overlay_opacity | default: 35 | divided_by: 100.0
+
+            assign gen_text_color = block.settings.card_text_color
+            if gen_text_color == blank or gen_text_color == 'rgba(0,0,0,0)'
+              assign gen_text_color = '#111111'
+            endif
+
+            assign num_color = block.settings.number_color
+            if num_color == blank or num_color == 'rgba(0,0,0,0)'
+              assign num_color = gen_text_color
+            endif
+
+            assign t_color = block.settings.title_color
+            if t_color == blank or t_color == 'rgba(0,0,0,0)'
+              assign t_color = gen_text_color
+            endif
+
+            assign d_color = block.settings.description_color
+            if d_color == blank or d_color == 'rgba(0,0,0,0)'
+              assign d_color = gen_text_color
+            endif
+          -%}
           <div
             class="why-choose-us__card"
             data-index="{{ forloop.index0 }}"
             style="
               --card-bg-custom: {{ block.settings.card_bg | default: '#E9E5FC' }};
-              --card-text-custom: {{ block.settings.card_text_color | default: '#111111' }};
+              --overlay-val: {{ overlay_val }};
             "
             {{ block.shopify_attributes }}
           >
-            <div class="why-choose-us__card-header">
-              {%- if block.settings.number != blank -%}
-                <span class="why-choose-us__number">{{ block.settings.number }}</span>
-              {%- endif -%}
-            </div>
-
-            <div class="why-choose-us__card-body">
-              <h3 class="why-choose-us__card-title">{{ block.settings.title }}</h3>
-              <p class="why-choose-us__card-description">{{ block.settings.description }}</p>
-            </div>
-
-            <div class="why-choose-us__card-media">
-              {%- if block.settings.image != blank -%}
+            <!-- Full Card Background Image -->
+            {%- if block.settings.image != blank -%}
+              <div class="why-choose-us__card-bg">
                 <img
-                  src="{{ block.settings.image | image_url: width: 600 }}"
+                  src="{{ block.settings.image | image_url: width: 1200 }}"
                   alt="{{ block.settings.title | escape }}"
                   loading="lazy"
                   class="why-choose-us__full-img"
                   width="{{ block.settings.image.width }}"
                   height="{{ block.settings.image.height }}"
                 >
-              {%- else -%}
-                <svg class="why-choose-us__vector-icon" viewBox="0 0 64 64">
-                  <rect x="8" y="16" width="48" height="32" rx="4" />
-                  <path d="M16 28h32M16 36h20" />
-                </svg>
+                <div class="why-choose-us__card-overlay"></div>
+              </div>
+            {%- endif -%}
+
+            <div class="why-choose-us__card-header">
+              {%- if block.settings.number != blank -%}
+                <span class="why-choose-us__number" style="color: {{ num_color }}; border-color: {{ num_color }};">
+                  {{ block.settings.number }}
+                </span>
               {%- endif -%}
+            </div>
+
+            <div class="why-choose-us__card-body">
+              <h3 class="why-choose-us__card-title" style="color: {{ t_color }};">{{ block.settings.title }}</h3>
+              <p class="why-choose-us__card-description" style="color: {{ d_color }};">{{ block.settings.description }}</p>
             </div>
           </div>
         {%- endfor -%}
@@ -357,18 +379,50 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Card Image or Icon"
+          "label": "Card Full Background Image"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "label": "Image Overlay Opacity",
+          "default": 35
+        },
+        {
+          "type": "header",
+          "content": "Card Color Customization"
         },
         {
           "type": "color",
           "id": "card_bg",
-          "label": "Card Background Color",
+          "label": "Card Fallback Background Color",
           "default": "#E9E5FC"
         },
         {
           "type": "color",
           "id": "card_text_color",
-          "label": "Card Text Color",
+          "label": "General Text Color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "number_color",
+          "label": "Step Number Color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color",
           "default": "#111111"
         }
       ]
