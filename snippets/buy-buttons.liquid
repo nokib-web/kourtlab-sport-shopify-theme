@@ -1,14 +1,11 @@
 {% comment %}
-  Renders product buy-buttons.
+  Renders product buy-buttons with Pre-Order functionality support.
   Accepts:
   - product: {Object} product object.
   - block: {Object} passing the block information.
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
-  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
-
-  Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+  - show_pickup_availability: {Boolean} for the pickup availability (optional).
 {% endcomment %}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
@@ -21,6 +18,22 @@
       assign show_dynamic_checkout = false
       if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
         assign show_dynamic_checkout = true
+      endif
+
+      assign is_preorder = false
+      assign current_variant = product.selected_or_first_available_variant
+
+      if product.tags contains 'pre-order' or product.tags contains 'preorder' or product.tags contains 'Pre-Order' or product.tags contains 'Pre-order'
+        assign is_preorder = true
+      elsif product.metafields.custom.is_preorder == true or current_variant.metafields.custom.is_preorder == true
+        assign is_preorder = true
+      elsif current_variant.inventory_management == 'shopify' and current_variant.inventory_policy == 'continue' and current_variant.inventory_quantity <= 0
+        assign is_preorder = true
+      endif
+
+      assign preorder_date = product.metafields.custom.preorder_shipping_date | default: current_variant.metafields.custom.preorder_shipping_date
+      if preorder_date == blank
+        assign preorder_date = '2-3 weeks'
       endif
     -%}
 
@@ -47,14 +60,18 @@
           type="hidden"
           name="id"
           value="{{ product.selected_or_first_available_variant.id }}"
-          {% if product.selected_or_first_available_variant.available == false
-            or quantity_rule_soldout
+          {% if product.selected_or_first_available_variant.available == false and is_preorder == false
+            or quantity_rule_soldout and is_preorder == false
             or product.selected_or_first_available_variant == null
           %}
             disabled
           {% endif %}
           class="product-variant-id"
         >
+
+        {%- if is_preorder -%}
+          <input type="hidden" name="properties[Pre-Order Status]" value="Pre-Order (Ships in {{ preorder_date }})">
+        {%- endif -%}
 
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
@@ -66,7 +83,7 @@
             if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
               assign check_against_inventory = false
             endif
-            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory and is_preorder == false
               assign quantity_rule_soldout = true
             endif
           -%}
@@ -74,16 +91,18 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
+            class="product-form__submit button button--full-width {% if show_dynamic_checkout and is_preorder == false %}button--secondary{% else %}button--primary{% endif %}"
+            {% if product.selected_or_first_available_variant.available == false and is_preorder == false
+              or quantity_rule_soldout and is_preorder == false
               or product.selected_or_first_available_variant == null
             %}
               disabled
             {% endif %}
           >
             <span>
-              {%- if product.selected_or_first_available_variant == null -%}
+              {%- if is_preorder -%}
+                PRE-ORDER NOW
+              {%- elsif product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
@@ -93,11 +112,27 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
-          {%- if show_dynamic_checkout -%}
+
+          {%- if show_dynamic_checkout and is_preorder == false -%}
             {{ form | payment_button }}
           {%- endif -%}
         </div>
       {%- endform -%}
+
+      {%- if is_preorder -%}
+        <div class="kore-preorder-notice">
+          <span class="kore-preorder-notice__icon">
+            {%- if block.settings.preorder_icon != blank -%}
+              <img src="{{ block.settings.preorder_icon | image_url: width: 60 }}" alt="Pre-order icon" width="22" height="22" loading="lazy" style="display: block; object-fit: contain;">
+            {%- else -%}
+              ⚡
+            {%- endif -%}
+          </span>
+          <span class="kore-preorder-notice__text">
+            <strong>LIMITED DROP PRE-ORDER:</strong> Estimated dispatch {{ preorder_date }}
+          </span>
+        </div>
+      {%- endif -%}
     </product-form>
   {%- else -%}
     <div class="product-form">

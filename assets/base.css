@@ -3692,3 +3692,51 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* ==========================================================================
+   KØRĒ (Kourtlab) — Pre-Order System Styling
+   ========================================================================== */
+.kore-preorder-notice {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1.4rem 1.8rem;
+  border-radius: 8px;
+  background-color: rgba(var(--color-foreground), 0.04);
+  border: 1.5px solid var(--nav-active-color, #CBD64A);
+  font-size: 1.35rem;
+  line-height: 1.4;
+  color: rgb(var(--color-foreground));
+}
+
+.kore-preorder-notice__icon {
+  font-size: 1.8rem;
+}
+
+.kore-preorder-notice__text strong {
+  color: var(--nav-active-color, #CBD64A);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kore-badge-preorder {
+  background-color: var(--nav-active-color, #CBD64A) !important;
+  color: #0A0A0A !important;
+  font-weight: 900 !important;
+  border-color: var(--nav-active-color, #CBD64A) !important;
+  letter-spacing: 0.08em;
+}
+
+.kore-cart-preorder-badge {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  background-color: var(--nav-active-color, #CBD64A);
+  color: #0A0A0A;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+}

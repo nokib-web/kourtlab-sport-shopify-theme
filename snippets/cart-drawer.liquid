@@ -156,6 +156,9 @@
                             <a href="{{ item.url }}" class="cart-item__name h4 break">
                               {{- item.product.title | escape -}}
                             </a>
+                            {%- if item.properties['Pre-Order Status'] != blank or item.product.tags contains 'pre-order' or item.product.tags contains 'preorder' or item.product.tags contains 'Pre-Order' -%}
+                              <span class="kore-cart-preorder-badge">PRE-ORDER</span>
+                            {%- endif -%}
                             {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-drawer-' | append: item.key | replace: ':', '-' -%}
                             {%- render 'cart-disclosure-indicator',
                               product: item.product,

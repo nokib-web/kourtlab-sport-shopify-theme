@@ -1,8 +1,5 @@
 {%- comment -%}
   Renders the country picker for the localization form
-
-  Accepts:
-    - localPosition: pass in the position in which the form is coming up to create specific IDs
 {%- endcomment -%}
 
 {%- liquid
@@ -23,7 +20,7 @@
   if currencies.size > 1
     assign show_currencies = true
   endif
-%}
+-%}
 
 <div class="disclosure">
   <button
