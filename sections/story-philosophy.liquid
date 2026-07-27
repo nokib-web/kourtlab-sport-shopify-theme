@@ -79,16 +79,27 @@
             {%- for block in section.blocks -%}
               <div class="story-phil-card" {{ block.shopify_attributes }}>
                 <div class="story-phil-card__icon">
-                  {%- case block.settings.icon -%}
-                    {%- when 'target' -%}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                    {%- when 'leaf' -%}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 1.4 9-1 7.7-8.6 9-8.4 9z"/><path d="M11 20v-6"/></svg>
-                    {%- when 'diamond' -%}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
-                    {%- when 'community' -%}
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                  {%- endcase -%}
+                  {%- if block.settings.custom_icon != blank -%}
+                    <img
+                      src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      loading="lazy"
+                      class="story-phil-card__custom-icon"
+                      width="{{ block.settings.custom_icon.width }}"
+                      height="{{ block.settings.custom_icon.height }}"
+                    >
+                  {%- else -%}
+                    {%- case block.settings.icon -%}
+                      {%- when 'target' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                      {%- when 'leaf' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 1.4 9-1 7.7-8.6 9-8.4 9z"/><path d="M11 20v-6"/></svg>
+                      {%- when 'diamond' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/></svg>
+                      {%- when 'community' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    {%- endcase -%}
+                  {%- endif -%}
                 </div>
                 <h3 class="story-phil-card__title">{{ block.settings.title }}</h3>
                 <p class="story-phil-card__desc">{{ block.settings.description }}</p>
@@ -208,9 +219,14 @@
       "limit": 4,
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "Preset Icon",
           "options": [
             { "value": "target", "label": "Target (Purpose)" },
             { "value": "leaf", "label": "Leaf (Performance)" },

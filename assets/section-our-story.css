@@ -274,38 +274,40 @@
    3. Modern Story Mindset (Redesigned Editorial Cards)
    -------------------------------------------------------------------------- */
 .story-mindset {
-  padding-top: var(--padding-top, 90px);
-  padding-bottom: var(--padding-bottom, 90px);
+  padding-top: var(--padding-top, 60px);
+  padding-bottom: var(--padding-bottom, 60px);
   width: 100%;
 }
 
 .story-mindset__header {
   max-width: 800px;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .story-mindset__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.4rem;
 }
 
 .story-mindset-card {
   position: relative;
   background-color: rgba(var(--color-foreground), 0.03);
   border: 1px solid rgba(var(--color-foreground), 0.15);
-  padding: 4rem 3.2rem 3.5rem 3.2rem;
+  padding: 2.6rem 2.4rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 280px;
+  justify-content: flex-start;
+  gap: 1.8rem;
+  min-height: auto;
   overflow: hidden;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media screen and (max-width: 749px) {
   .story-mindset-card {
-    padding: 3rem 2.2rem;
+    padding: 2.2rem 1.8rem;
+    gap: 1.4rem;
     min-height: auto;
   }
 }
@@ -322,10 +324,10 @@
 }
 
 .story-mindset-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: var(--nav-active-color, #CBD64A);
   background-color: rgba(var(--color-foreground), 0.05);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .story-mindset-card:hover::before {
@@ -336,7 +338,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 }
 
 .story-mindset-card__num {
@@ -880,3 +882,26 @@
   gap: 1.5rem;
   flex-wrap: wrap;
 }
+
+/* Custom Icon Image Helpers */
+.story-phil-card__icon,
+.story-mindset-card__icon,
+.story-perf-box__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-phil-card__custom-icon,
+.story-mindset-card__custom-icon,
+.story-value-card__custom-icon,
+.story-journey-step__custom-icon,
+.story-perf-box__custom-icon {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+

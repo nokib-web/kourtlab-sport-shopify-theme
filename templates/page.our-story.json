@@ -33,6 +33,7 @@
         "f1": {
           "type": "feature",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "target",
             "title": "Direct",
             "description": "Short sentences, active voice, no filler."
@@ -90,6 +91,7 @@
         "m1": {
           "type": "card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_3.png",
             "icon": "dumbbell",
             "title": "Train",
             "description": "Every session matters. No shortcuts."
@@ -98,6 +100,7 @@
         "m2": {
           "type": "card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_3.png",
             "icon": "chart",
             "title": "Improve",
             "description": "Progress comes from continuous repetition."
@@ -106,6 +109,7 @@
         "m3": {
           "type": "card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_3.png",
             "icon": "repeat",
             "title": "Repeat",
             "description": "Keep showing up. Stay relentless."
@@ -134,6 +138,7 @@
         "v1": {
           "type": "value_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "precision",
             "title": "Precision",
             "description": "Designed with purpose. No unnecessary details."
@@ -142,6 +147,7 @@
         "v2": {
           "type": "value_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "lightning",
             "title": "Performance",
             "description": "4-way stretch fabrics built for movement."
@@ -150,6 +156,7 @@
         "v3": {
           "type": "value_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "shield",
             "title": "Durability",
             "description": "Tested across 200 sessions before earning the K."
@@ -158,6 +165,7 @@
         "v4": {
           "type": "value_card",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "wave",
             "title": "Comfort",
             "description": "Closed mesh panels. Packable & breathable."
@@ -209,7 +217,9 @@
         "image": "shopify://shop_images/hero-2.webp",
         "label": "CRAFTED FOR ATHLETES",
         "heading": "Engineered for performance.",
-        "body": "<p>4-way stretch woven shell, closed mesh panels, packable in its own pocket. Premium materials engineered for every condition.</p>"
+        "body": "<p>4-way stretch woven shell, closed mesh panels, packable in its own pocket. Premium materials engineered for every condition.</p>",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "s7_community": {
@@ -230,6 +240,7 @@
         "j1": {
           "type": "step",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "target",
             "year": "2024",
             "title": "Idea born",
@@ -239,6 +250,7 @@
         "j2": {
           "type": "step",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "hanger",
             "year": "2025",
             "title": "First collection",
@@ -248,6 +260,7 @@
         "j3": {
           "type": "step",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "community",
             "year": "2026",
             "title": "Growing community",
@@ -257,6 +270,7 @@
         "j4": {
           "type": "step",
           "settings": {
+            "custom_icon": "shopify://shop_images/favicon_4.png",
             "icon": "flag",
             "year": "2027+",
             "title": "Next chapter",

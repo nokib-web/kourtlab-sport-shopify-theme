@@ -56,16 +56,27 @@
         {%- for block in section.blocks -%}
           <div class="story-journey-step" {{ block.shopify_attributes }}>
             <div class="story-journey-step__icon-wrap">
-              {%- case block.settings.icon -%}
-                {%- when 'target' -%}
-                  <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                {%- when 'hanger' -%}
-                  <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8L2 15v3h20v-3L13 7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3z"/></svg>
-                {%- when 'community' -%}
-                  <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                {%- when 'flag' -%}
-                  <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-              {%- endcase -%}
+              {%- if block.settings.custom_icon != blank -%}
+                <img
+                  src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  class="story-journey-step__icon story-journey-step__custom-icon"
+                  width="{{ block.settings.custom_icon.width }}"
+                  height="{{ block.settings.custom_icon.height }}"
+                >
+              {%- else -%}
+                {%- case block.settings.icon -%}
+                  {%- when 'target' -%}
+                    <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  {%- when 'hanger' -%}
+                    <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3c0 1.3.8 2.4 2 2.8L2 15v3h20v-3L13 7.8c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-3-3z"/></svg>
+                  {%- when 'community' -%}
+                    <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  {%- when 'flag' -%}
+                    <svg class="story-journey-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                {%- endcase -%}
+              {%- endif -%}
             </div>
             <div class="story-journey-step__year">{{ block.settings.year }}</div>
             <h3 class="story-journey-step__title">{{ block.settings.title }}</h3>
@@ -167,9 +178,14 @@
       "limit": 4,
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "Preset Icon",
           "options": [
             { "value": "target", "label": "Target (Idea)" },
             { "value": "hanger", "label": "Hanger (Collection)" },

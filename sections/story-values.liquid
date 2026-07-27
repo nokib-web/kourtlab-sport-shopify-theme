@@ -61,16 +61,27 @@
             <span class="story-value-card__tag">0{{ forloop.index }} // {{ block.settings.title }}</span>
 
             <div class="story-value-card__icon-wrap">
-              {%- case block.settings.icon -%}
-                {%- when 'precision' -%}
-                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
-                {%- when 'lightning' -%}
-                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                {%- when 'shield' -%}
-                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                {%- when 'wave' -%}
-                  <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.5 0 2.5-2 5-2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
-              {%- endcase -%}
+              {%- if block.settings.custom_icon != blank -%}
+                <img
+                  src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  class="story-value-card__icon story-value-card__custom-icon"
+                  width="{{ block.settings.custom_icon.width }}"
+                  height="{{ block.settings.custom_icon.height }}"
+                >
+              {%- else -%}
+                {%- case block.settings.icon -%}
+                  {%- when 'precision' -%}
+                    <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                  {%- when 'lightning' -%}
+                    <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  {%- when 'shield' -%}
+                    <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {%- when 'wave' -%}
+                    <svg class="story-value-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.5 0 2.5-2 5-2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+                {%- endcase -%}
+              {%- endif -%}
             </div>
 
             <h3 class="story-value-card__title">{{ block.settings.title }}</h3>
@@ -168,9 +179,14 @@
       "limit": 4,
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "Preset Icon",
           "options": [
             { "value": "precision", "label": "Precision (Crosshair)" },
             { "value": "lightning", "label": "Performance (Lightning)" },

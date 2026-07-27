@@ -1,6 +1,48 @@
 {{ 'section-our-story.css' | asset_url | stylesheet_tag }}
 
-<section id="section-{{ section.id }}" class="story-performance color-{{ section.settings.color_scheme }} gradient">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  {%- if section.settings.bg_image != blank -%}
+    #section-{{ section.id }} {
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+
+    #section-{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: {{ section.settings.overlay_color }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      z-index: 1;
+    }
+
+    #section-{{ section.id }} > div {
+      position: relative;
+      z-index: 2;
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+<section id="section-{{ section.id }}" class="story-performance color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="page-width">
     <div class="story-performance__grid">
       <!-- Left Column Text -->
@@ -33,31 +75,71 @@
           {%- endif -%}
         </div>
 
-        <div class="story-performance__boxes">
-          <div class="story-perf-box">
-            <div class="story-perf-box__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4-4-4z"/></svg>
-            </div>
-            <h3 class="story-perf-box__title">PREMIUM FABRICS</h3>
-            <p class="story-perf-box__desc">High performance materials for every condition.</p>
+        {%- if section.blocks.size > 0 -%}
+          <div class="story-performance__boxes">
+            {%- for block in section.blocks -%}
+              <div class="story-perf-box" {{ block.shopify_attributes }}>
+                <div class="story-perf-box__icon">
+                  {%- if block.settings.custom_icon != blank -%}
+                    <img
+                      src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      loading="lazy"
+                      class="story-perf-box__custom-icon"
+                      width="{{ block.settings.custom_icon.width }}"
+                      height="{{ block.settings.custom_icon.height }}"
+                    >
+                  {%- else -%}
+                    {%- case block.settings.icon -%}
+                      {%- when 'circle' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4-4-4z"/></svg>
+                      {%- when 'droplet' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                      {%- when 'lines' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3M21 16H3"/></svg>
+                      {%- when 'shield' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                      {%- when 'stretch' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                      {%- when 'feather' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L3 13.5V21h7.5z"/><line x1="16" y1="8" x2="2" y2="22"/></svg>
+                      {%- else -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4-4-4z"/></svg>
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+                <h3 class="story-perf-box__title">{{ block.settings.title }}</h3>
+                <p class="story-perf-box__desc">{{ block.settings.description }}</p>
+              </div>
+            {%- endfor -%}
           </div>
+        {%- else -%}
+          <div class="story-performance__boxes">
+            <div class="story-perf-box">
+              <div class="story-perf-box__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 4-4 4-4-4z"/></svg>
+              </div>
+              <h3 class="story-perf-box__title">PREMIUM FABRICS</h3>
+              <p class="story-perf-box__desc">High performance materials for every condition.</p>
+            </div>
 
-          <div class="story-perf-box">
-            <div class="story-perf-box__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <div class="story-perf-box">
+              <div class="story-perf-box__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              </div>
+              <h3 class="story-perf-box__title">MOISTURE MANAGEMENT</h3>
+              <p class="story-perf-box__desc">Stay dry. Stay focused.</p>
             </div>
-            <h3 class="story-perf-box__title">MOISTURE MANAGEMENT</h3>
-            <p class="story-perf-box__desc">Stay dry. Stay focused.</p>
-          </div>
 
-          <div class="story-perf-box">
-            <div class="story-perf-box__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3M21 16H3"/></svg>
+            <div class="story-perf-box">
+              <div class="story-perf-box__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3M21 16H3"/></svg>
+              </div>
+              <h3 class="story-perf-box__title">ATHLETIC FIT</h3>
+              <p class="story-perf-box__desc">Ergonomic fit for unrestricted movement.</p>
             </div>
-            <h3 class="story-perf-box__title">ATHLETIC FIT</h3>
-            <p class="story-perf-box__desc">Ergonomic fit for unrestricted movement.</p>
           </div>
-        </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -121,11 +203,101 @@
       "id": "body",
       "label": "Paragraph",
       "default": "<p>Every stitch. Every seam. Every fabric. We obsess over details because athletes deserve gear that performs under pressure.<br><br>Minimal in appearance. Maximum in function.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_box",
+      "name": "Performance Box",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Preset Icon",
+          "options": [
+            { "value": "circle", "label": "Circle Target (Fabrics)" },
+            { "value": "droplet", "label": "Water Droplet (Moisture)" },
+            { "value": "lines", "label": "Equal Lines (Athletic Fit)" },
+            { "value": "shield", "label": "Shield (Durability)" },
+            { "value": "stretch", "label": "Stretch Arrows" },
+            { "value": "feather", "label": "Feather (Lightweight)" }
+          ],
+          "default": "circle"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Box Title",
+          "default": "PREMIUM FABRICS"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Box Description",
+          "default": "High performance materials for every condition."
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Story 6. Performance"
+      "name": "Story 6. Performance",
+      "blocks": [
+        {
+          "type": "feature_box",
+          "settings": {
+            "icon": "circle",
+            "title": "PREMIUM FABRICS",
+            "description": "High performance materials for every condition."
+          }
+        },
+        {
+          "type": "feature_box",
+          "settings": {
+            "icon": "droplet",
+            "title": "MOISTURE MANAGEMENT",
+            "description": "Stay dry. Stay focused."
+          }
+        },
+        {
+          "type": "feature_box",
+          "settings": {
+            "icon": "lines",
+            "title": "ATHLETIC FIT",
+            "description": "Ergonomic fit for unrestricted movement."
+          }
+        }
+      ]
     }
   ]
 }

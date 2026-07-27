@@ -60,14 +60,25 @@
             <div class="story-mindset-card__top">
               <span class="story-mindset-card__num">0{{ forloop.index }}</span>
               <div class="story-mindset-card__icon">
-                {%- case block.settings.icon -%}
-                  {%- when 'dumbbell' -%}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
-                  {%- when 'chart' -%}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 7 7 4-4 7 7"/><path d="M14 6h7v7"/></svg>
-                  {%- when 'repeat' -%}
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
-                {%- endcase -%}
+                {%- if block.settings.custom_icon != blank -%}
+                  <img
+                    src="{{ block.settings.custom_icon | image_url: width: 120 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    class="story-mindset-card__custom-icon"
+                    width="{{ block.settings.custom_icon.width }}"
+                    height="{{ block.settings.custom_icon.height }}"
+                  >
+                {%- else -%}
+                  {%- case block.settings.icon -%}
+                    {%- when 'dumbbell' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+                    {%- when 'chart' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 3 7 7 4-4 7 7"/><path d="M14 6h7v7"/></svg>
+                    {%- when 'repeat' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+                  {%- endcase -%}
+                {%- endif -%}
               </div>
             </div>
 
@@ -168,9 +179,14 @@
       "limit": 3,
       "settings": [
         {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon Image (Overrides Preset Icon)"
+        },
+        {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "Preset Icon",
           "options": [
             { "value": "dumbbell", "label": "Dumbbell (Train)" },
             { "value": "chart", "label": "Chart Up (Improve)" },
