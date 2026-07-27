@@ -455,6 +455,10 @@
                       </volume-pricing>
                     {%- endif -%}
                   </div>
+                {%- when 'gender_switcher' -%}
+                  <div {{ block.shopify_attributes }}>
+                    {% render 'gender-switcher', product: product, block: block %}
+                  </div>
                 {%- when 'popup' -%}
                   <modal-opener
                     class="product-popup-modal__opener quick-add-hidden"
@@ -467,7 +471,7 @@
                       type="button"
                       aria-haspopup="dialog"
                     >
-                      {{ block.settings.text | default: block.settings.page.title | escape }}
+                      {{ block.settings.text | default: block.settings.page.title | default: 'Size Guide' | escape }}
                     </button>
                   </modal-opener>
                 {%- when 'share' -%}
@@ -719,8 +723,33 @@
               {{- 'icon-close.svg' | inline_asset_content -}}
             </button>
             <div class="product-popup-modal__content-info">
-              <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
-              {{ block.settings.page.content }}
+              {%- assign popup_image = block.settings.image -%}
+              {%- assign custom_size_chart = product.metafields.custom.size_chart -%}
+
+              {%- if custom_size_chart != blank -%}
+                <h1 class="h2">{{ block.settings.text | default: 'Size Guide' | escape }}</h1>
+                {%- if custom_size_chart.type == 'page_reference' -%}
+                  {{ custom_size_chart.value.content }}
+                {%- else -%}
+                  <img
+                    src="{{ custom_size_chart | image_url: width: 1200 }}"
+                    alt="{{ product.title | escape }} Size Guide"
+                    loading="lazy"
+                    style="width: 100%; height: auto; display: block; margin-top: 1.5rem; border-radius: 4px;"
+                  >
+                {%- endif -%}
+              {%- elsif popup_image != blank -%}
+                <h1 class="h2">{{ block.settings.text | default: block.settings.page.title | escape }}</h1>
+                <img
+                  src="{{ popup_image | image_url: width: 1200 }}"
+                  alt="{{ block.settings.text | escape }}"
+                  loading="lazy"
+                  style="width: 100%; height: auto; display: block; margin-top: 1.5rem; border-radius: 4px;"
+                >
+              {%- elsif block.settings.page != blank -%}
+                <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
+                {{ block.settings.page.content }}
+              {%- endif -%}
             </div>
           </div>
         </modal-dialog>
@@ -1241,6 +1270,56 @@
           "id": "page",
           "type": "page",
           "label": "t:sections.main-product.blocks.popup.settings.page.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Size Chart Image / File (File Metafield Compatible)"
+        }
+      ]
+    },
+    {
+      "type": "gender_switcher",
+      "name": "Gender Switcher",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows Women's / Men's toggle. Set the 'gender' and 'sibling_product' metafields on each product in Shopify Admin."
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Button Style",
+          "options": [
+            { "value": "pill", "label": "Pill (rounded)" },
+            { "value": "tab", "label": "Tab (sharp)" },
+            { "value": "underline", "label": "Underline" }
+          ],
+          "default": "pill"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Button Size",
+          "options": [
+            { "value": "small", "label": "Small" },
+            { "value": "medium", "label": "Medium" },
+            { "value": "large", "label": "Large (full width)" }
+          ],
+          "default": "medium"
+        },
+        {
+          "type": "color",
+          "id": "active_color",
+          "label": "Active Button Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "active_bg",
+          "label": "Active Button Background",
+          "default": "#000000"
         }
       ]
     },

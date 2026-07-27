@@ -31,6 +31,13 @@
           "type": "price",
           "settings": {}
         },
+        "gender_switcher": {
+          "type": "gender_switcher",
+          "settings": {
+            "style": "pill",
+            "size": "medium"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -79,11 +86,12 @@
         "vendor",
         "title",
         "price",
-        "variant_picker",
-        "quantity_selector",
-        "buy_buttons",
+        "gender_switcher",
         "description",
         "complementary_C8PnfU",
+        "quantity_selector",
+        "variant_picker",
+        "buy_buttons",
         "share"
       ],
       "settings": {

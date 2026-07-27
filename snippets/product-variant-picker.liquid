@@ -1,13 +1,28 @@
 {% comment %}
-  Renders product variant-picker
-
+  Renders product variant-picker with On.com Gender Switcher & Size Popover
   Accepts:
   - product: {Object} product object.
   - block: {Object} passing the block information.
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
-  Usage:
-  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
+
+{%- liquid
+  assign custom_g = product.metafields.custom.gender.value | default: product.metafields.custom.gender | downcase
+  assign p_title = product.title | downcase
+  assign p_tags = product.tags | join: ' ' | downcase
+  
+  assign gender_type = ''
+  if custom_g contains 'women' or custom_g contains 'female'
+    assign gender_type = 'Women'
+  elsif custom_g contains 'men' or custom_g contains 'male'
+    assign gender_type = 'Men'
+  elsif p_title contains 'women' or p_tags contains 'women' or p_tags contains 'womens' or p_tags contains 'female' or p_title contains 'dress'
+    assign gender_type = 'Women'
+  elsif p_title contains 'men' or p_tags contains 'men' or p_tags contains 'mens' or p_tags contains 'male'
+    assign gender_type = 'Men'
+  endif
+-%}
+
 {%- unless product.has_only_default_variant -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
@@ -23,6 +38,12 @@
   >
     {%- for option in product.options_with_values -%}
       {%- liquid
+        assign option_name_lower = option.name | downcase
+        assign is_size_option = false
+        if option_name_lower contains 'size' or option_name_lower contains 'size'
+          assign is_size_option = true
+        endif
+
         assign swatch_count = option.values | map: 'swatch' | compact | size
         assign picker_type = block.settings.picker_type
 
@@ -34,64 +55,117 @@
           endif
         endif
       -%}
-      {%- if picker_type == 'swatch' -%}
-        <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
-            {{ option.name }}:
-            <span data-selected-value>
-              {{- option.selected_value -}}
+
+      {%- if is_size_option -%}
+        <div class="on-size-picker-container" data-option-index="{{ forloop.index0 }}">
+          <button
+            type="button"
+            class="on-size-trigger-button"
+            aria-expanded="false"
+            aria-controls="OnSizePopover-{{ section.id }}"
+            onclick="toggleOnSizePopover(this)"
+          >
+            <span class="on-size-trigger-label">
+              {%- if option.selected_value -%}
+                Selected size: <strong class="on-size-selected-name">{{ option.selected_value }}</strong>
+              {%- else -%}
+                Select a size
+              {%- endif -%}
             </span>
-          </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
-        </fieldset>
-      {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
-        </fieldset>
-      {%- else -%}
-        <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-            {{ option.name }}
-          </label>
-          <div class="select">
-            {%- if picker_type == 'swatch_dropdown' -%}
-              <span
-                data-selected-value
-                class="dropdown-swatch"
-              >
-                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+            <svg class="on-size-trigger-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Floating On.com Size Popover Panel -->
+          <div id="OnSizePopover-{{ section.id }}" class="on-size-popover-panel" aria-hidden="true">
+            <div class="on-size-popover-header">
+              <span class="on-size-popover-title">
+                {%- if gender_type != blank -%}
+                  {{ gender_type }}'s Sizes
+                {%- else -%}
+                  Select Size
+                {%- endif -%}
               </span>
-            {%- endif -%}
-            <select
-              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
-              name="options[{{ option.name | escape }}]"
-              form="{{ product_form_id }}"
-            >
-              {% render 'product-variant-options',
-                product: product,
-                option: option,
-                block: block,
-                picker_type: picker_type
-              %}
-            </select>
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+              <button type="button" class="on-size-popover-close" onclick="closeOnSizePopover(this)" aria-label="Close size options">
+                &times;
+              </button>
+            </div>
+
+            <div class="on-size-popover-list">
+              {%- for value in option.values -%}
+                {%- liquid
+                  assign variant_qty = 0
+                  assign is_available = value.available
+                  for variant in product.variants
+                    if variant.options[forloop.parentloop.index0] == value
+                      assign variant_qty = variant.inventory_quantity
+                      break
+                    endif
+                  endfor
+                -%}
+                <div
+                  class="on-size-row-item{% if value.selected %} is-selected{% endif %}{% unless is_available %} is-out-of-stock{% endunless %}"
+                  onclick="selectOnSizeVariant(this, '{{ value | escape }}', 'Option-{{ section.id }}-{{ forloop.parentloop.index0 }}')"
+                >
+                  <span class="on-size-name">{{ value }}</span>
+                  <span class="on-size-stock-badge">
+                    {%- if is_available -%}
+                      {%- if variant_qty > 0 and variant_qty <= 10 -%}
+                        <span class="on-stock-low">Only {{ variant_qty }} left</span>
+                      {%- else -%}
+                        <span class="on-stock-in">In stock</span>
+                      {%- endif -%}
+                    {%- else -%}
+                      <span class="on-stock-notify">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        Notify me
+                      </span>
+                    {%- endif -%}
+                  </span>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            <div class="on-size-popover-footer">
+              <button type="button" class="on-popover-size-chart-link" onclick="openSizeGuideFromPopover()">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><line x1="2" y1="12" x2="22" y2="12"/><line x1="6" y1="8" x2="6" y2="12"/><line x1="10" y1="9" x2="10" y2="12"/><line x1="14" y1="8" x2="14" y2="12"/><line x1="18" y1="9" x2="18" y2="12"/></svg>
+                Size chart
+              </button>
+
+              {%- assign fit_note = product.metafields.custom.fit_recommendation.value | default: product.metafields.custom.fit_recommendation -%}
+              <span class="on-popover-fit-note">
+                {{ fit_note | default: 'True to size' }}
+              </span>
+            </div>
           </div>
         </div>
       {%- endif -%}
+
+      <!-- Standard form input for native form submission & variant switching -->
+      <div class="product-form__input product-form__input--dropdown{% if is_size_option %} hidden-native-size-picker{% endif %}">
+        <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+          {{ option.name }}
+        </label>
+        <div class="select">
+          <select
+            id="Option-{{ section.id }}-{{ forloop.index0 }}"
+            class="select__select"
+            name="options[{{ option.name | escape }}]"
+            form="{{ product_form_id }}"
+          >
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: 'dropdown'
+            %}
+          </select>
+          <span class="svg-wrapper">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </div>
+      </div>
     {%- endfor -%}
 
     <script type="application/json" data-selected-variant>
@@ -99,3 +173,62 @@
     </script>
   </variant-selects>
 {%- endunless -%}
+
+<script>
+  function toggleOnSizePopover(btn) {
+    const container = btn.closest('.on-size-picker-container');
+    const popover = container.querySelector('.on-size-popover-panel');
+    const isOpen = popover.classList.contains('is-open');
+    
+    if (isOpen) {
+      popover.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      document.querySelectorAll('.on-size-popover-panel').forEach(p => p.classList.remove('is-open'));
+      popover.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  function closeOnSizePopover(closeBtn) {
+    const popover = closeBtn.closest('.on-size-popover-panel');
+    const container = closeBtn.closest('.on-size-picker-container');
+    const btn = container.querySelector('.on-size-trigger-button');
+    if (popover) popover.classList.remove('is-open');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function selectOnSizeVariant(row, valueName, optionSelectId) {
+    const container = row.closest('.on-size-picker-container');
+    const selectedNameEl = container.querySelector('.on-size-selected-name');
+    
+    container.querySelectorAll('.on-size-row-item').forEach(r => r.classList.remove('is-selected'));
+    row.classList.add('is-selected');
+    
+    if (selectedNameEl) {
+      selectedNameEl.textContent = valueName;
+    }
+    
+    const nativeSelect = document.getElementById(optionSelectId);
+    if (nativeSelect) {
+      nativeSelect.value = valueName;
+      nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+    
+    closeOnSizePopover(row);
+  }
+
+  function openSizeGuideFromPopover() {
+    const modalTrigger = document.querySelector('.product-popup-modal__button') || document.querySelector('modal-opener[data-modal^="#PopupModal"] button');
+    if (modalTrigger) {
+      modalTrigger.click();
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.on-size-picker-container')) {
+      document.querySelectorAll('.on-size-popover-panel').forEach(p => p.classList.remove('is-open'));
+      document.querySelectorAll('.on-size-trigger-button').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    }
+  });
+</script>

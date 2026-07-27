@@ -1491,3 +1491,357 @@ a.product__text {
     border: none;
   }
 }
+
+/* ==========================================================================
+   On.com Style Product Page Components (KØRĒ)
+   ========================================================================== */
+
+/* 1. Gender Switcher Toggle */
+.on-gender-switcher-wrapper {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  display: block;
+}
+
+.on-gender-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(var(--color-foreground), 0.06);
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.on-gender-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.6rem;
+  padding: 0 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  color: rgba(var(--color-foreground), 0.7);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  line-height: 1;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.on-gender-pill.is-active {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  border-color: rgba(var(--color-foreground), 0.2);
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.on-gender-pill:hover:not(.is-active) {
+  color: rgb(var(--color-foreground));
+}
+
+.on-gender-pill.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* --- Style Modifiers (tab / underline / pill) --- */
+.on-gs--tab .on-gender-segmented-control {
+  background: transparent;
+  border: 1.5px solid rgba(var(--color-foreground), 0.15);
+  border-radius: 6px;
+  padding: 0;
+  gap: 0;
+}
+.on-gs--tab .on-gender-pill {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid rgba(var(--color-foreground), 0.15);
+  height: 4.4rem;
+}
+.on-gs--tab .on-gender-pill:last-child { border-right: none; }
+.on-gs--tab .on-gender-pill.is-active {
+  background-color: var(--gs-active-bg, #000);
+  color: var(--gs-active-color, #fff);
+  box-shadow: none;
+}
+.on-gs--underline .on-gender-segmented-control {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.12);
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+}
+.on-gs--underline .on-gender-pill {
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  height: 4.4rem;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.on-gs--underline .on-gender-pill.is-active {
+  color: rgb(var(--color-foreground));
+  border-bottom-color: rgb(var(--color-foreground));
+}
+.on-gs--pill .on-gender-pill.is-active {
+  background-color: var(--gs-active-bg, rgb(var(--color-background)));
+  color: var(--gs-active-color, rgb(var(--color-foreground)));
+}
+
+/* --- Size Modifiers --- */
+.on-gs--small .on-gender-pill {
+  height: 3rem;
+  font-size: 1.2rem;
+  padding: 0 1.4rem;
+}
+.on-gs--large .on-gender-segmented-control {
+  display: flex;
+  width: 100%;
+}
+.on-gs--large .on-gender-pill {
+  flex: 1;
+  height: 5rem;
+  font-size: 1.4rem;
+}
+
+/* 2. On.com Size Trigger Button */
+.on-size-picker-container {
+  position: relative;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.on-size-trigger-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 2rem;
+  min-height: 5rem;
+  height: 5rem;
+  background-color: rgb(var(--color-background));
+  border: 1.5px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 6px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Consistent Product Action Buttons (KØRĒ Modern Square Radius Style) */
+.product-form__buttons {
+  max-width: 100% !important;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-form__submit,
+.shopify-payment-button__button,
+.shopify-payment-button__button--unbranded {
+  min-height: 5rem !important;
+  height: 5rem !important;
+  padding: 1.4rem 2rem !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+}
+
+.on-size-trigger-button:hover {
+  border-color: rgb(var(--color-foreground));
+}
+
+.on-size-trigger-icon {
+  transition: transform 0.2s ease;
+}
+
+.on-size-trigger-button[aria-expanded="true"] .on-size-trigger-icon {
+  transform: rotate(180deg);
+}
+
+.hidden-native-size-picker {
+  display: none !important;
+}
+
+/* 3. On.com Floating Size Popover Panel */
+.on-size-popover-panel {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  top: auto;
+  right: 0;
+  width: 100%;
+  max-width: 420px;
+  background-color: rgb(var(--color-background));
+  border: 1.5px solid rgba(var(--color-foreground), 0.15);
+  border-radius: 8px;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.16);
+  z-index: 9999;
+  overflow: hidden;
+  animation: onFadeInUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes onFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .on-size-popover-panel {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    border: none;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+  }
+}
+
+.on-size-popover-panel.is-open {
+  display: block;
+}
+
+.on-size-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 2rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+.on-size-popover-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: rgb(var(--color-foreground));
+  letter-spacing: 0.02em;
+}
+
+.on-size-popover-close {
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: rgba(var(--color-foreground), 0.6);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.on-size-popover-close:hover {
+  color: rgb(var(--color-foreground));
+}
+
+.on-size-popover-list {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.on-size-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.05);
+}
+
+.on-size-row-item:last-child {
+  border-bottom: none;
+}
+
+.on-size-row-item:hover {
+  background-color: rgba(var(--color-foreground), 0.04);
+}
+
+.on-size-row-item.is-selected {
+  background-color: rgba(var(--color-foreground), 0.08);
+  font-weight: 800;
+}
+
+.on-size-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgb(var(--color-foreground));
+}
+
+.on-size-stock-badge {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.on-stock-low {
+  color: #D97706;
+}
+
+.on-stock-in {
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.on-stock-notify {
+  color: rgba(var(--color-foreground), 0.4);
+  display: inline-flex;
+  align-items: center;
+}
+
+.on-size-row-item.is-out-of-stock {
+  opacity: 0.6;
+}
+
+.on-size-popover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 2rem;
+  background-color: rgba(var(--color-foreground), 0.03);
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  font-size: 1.25rem;
+}
+
+.on-popover-size-chart-link {
+  background: none;
+  border: none;
+  color: rgb(var(--color-foreground));
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.on-popover-fit-note {
+  color: rgba(var(--color-foreground), 0.7);
+  font-weight: 600;
+}
+
+@keyframes onFadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

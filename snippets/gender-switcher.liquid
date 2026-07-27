@@ -1,0 +1,70 @@
+{% comment %}
+  Renders On.com style Gender Switcher — supports style, size, color settings
+  Accepts:
+  - product: {Object} product object
+  - block: {Object} block settings (optional)
+{% endcomment %}
+
+{%- liquid
+  assign sibling_product = product.metafields.custom.sibling_product.value
+
+  assign custom_g = product.metafields.custom.gender | downcase
+  if custom_g == blank
+    assign custom_g = product.metafields.custom.gender.value | downcase
+  endif
+
+  assign gender_type = ''
+  if custom_g contains 'women'
+    assign gender_type = 'Women'
+  elsif custom_g contains 'men'
+    assign gender_type = 'Men'
+  endif
+
+  # Fallback: infer from sibling product's gender metafield (opposite)
+  if gender_type == '' and sibling_product != blank
+    assign sibling_g = sibling_product.metafields.custom.gender | downcase
+    if sibling_g == blank
+      assign sibling_g = sibling_product.metafields.custom.gender.value | downcase
+    endif
+    if sibling_g contains 'women'
+      assign gender_type = 'Men'
+    elsif sibling_g contains 'men'
+      assign gender_type = 'Women'
+    endif
+  endif
+
+  # Block settings
+  assign gs_style = 'pill'
+  assign gs_size = 'medium'
+  assign gs_active_color = '#FFFFFF'
+  assign gs_active_bg = '#000000'
+  if block != blank
+    assign gs_style = block.settings.style | default: 'pill'
+    assign gs_size = block.settings.size | default: 'medium'
+    assign gs_active_color = block.settings.active_color | default: '#FFFFFF'
+    assign gs_active_bg = block.settings.active_bg | default: '#000000'
+  endif
+-%}
+
+{%- if gender_type != '' or sibling_product != blank -%}
+  <div class="on-gender-switcher-wrapper on-gs--{{ gs_style }} on-gs--{{ gs_size }}" {{ block.shopify_attributes }}>
+    <div class="on-gender-segmented-control"
+      style="--gs-active-color: {{ gs_active_color }}; --gs-active-bg: {{ gs_active_bg }};">
+      {%- if gender_type == 'Men' -%}
+        {%- if sibling_product != blank -%}
+          <a href="{{ sibling_product.url }}" class="on-gender-pill">Women's</a>
+        {%- else -%}
+          <span class="on-gender-pill is-disabled">Women's</span>
+        {%- endif -%}
+        <span class="on-gender-pill is-active">Men's</span>
+      {%- else -%}
+        <span class="on-gender-pill is-active">Women's</span>
+        {%- if sibling_product != blank -%}
+          <a href="{{ sibling_product.url }}" class="on-gender-pill">Men's</a>
+        {%- else -%}
+          <span class="on-gender-pill is-disabled">Men's</span>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
