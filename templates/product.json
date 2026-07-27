@@ -35,26 +35,9 @@
           "type": "gender_switcher",
           "settings": {
             "style": "pill",
-            "size": "medium"
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true,
-            "preorder_icon": "shopify://shop_images/favicon_4.png"
+            "size": "medium",
+            "active_color": "#020202",
+            "active_bg": "#C8D64A"
           }
         },
         "description": {
@@ -74,6 +57,32 @@
             "enable_quick_add": true
           }
         },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "popup_zaCQRn": {
+          "type": "popup",
+          "settings": {
+            "text": "Size Guide",
+            "page": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true,
+            "preorder_icon": "shopify://shop_images/favicon_4.png"
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -91,8 +100,12 @@
         "complementary_C8PnfU",
         "quantity_selector",
         "variant_picker",
+        "popup_zaCQRn",
         "buy_buttons",
         "share"
+      ],
+      "custom_css": [
+        "/* Hide duplicate Size Chart popup block button (triggered from size popover instead) */.product-popup-modal__opener {display: none !important;}"
       ],
       "settings": {
         "enable_sticky_info": true,
