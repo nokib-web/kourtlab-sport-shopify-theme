@@ -8,71 +8,68 @@
  * ------------------------------------------------------------
  */
 {
-  "name": "t:sections.footer.name",
+  "name": "Footer",
   "type": "footer",
   "sections": {
     "footer": {
       "type": "footer",
       "blocks": {
-        "brand_info": {
-          "type": "brand_information",
+        "flag_GkJaCX": {
+          "type": "flag",
           "settings": {
-            "show_social": true
+            "country_name": "Germany",
+            "flag_emoji": "🇩🇪",
+            "flag_image": "shopify://shop_images/favicon_4.png"
           }
         },
-        "menu_trending": {
-          "type": "link_list",
+        "flag_YzJQfm": {
+          "type": "flag",
           "settings": {
-            "heading": "Trending",
-            "menu": "main-menu"
+            "country_name": "Germany",
+            "flag_emoji": "🇩🇪"
           }
         },
-        "menu_quick_links": {
-          "type": "link_list",
+        "flag_QpXfLL": {
+          "type": "flag",
           "settings": {
-            "heading": "Quick Links",
-            "menu": "footer"
-          }
-        },
-        "menu_info": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Information",
-            "menu": "footer"
+            "country_name": "Germany",
+            "flag_emoji": "🇩🇪"
           }
         }
       },
       "block_order": [
-        "brand_info",
-        "menu_trending",
-        "menu_quick_links",
-        "menu_info"
+        "flag_GkJaCX",
+        "flag_YzJQfm",
+        "flag_QpXfLL"
       ],
       "settings": {
-        "bg_image": "shopify://shop_images/bg-3.webp",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0,
-        "footer_heading_scale": 100,
-        "footer_body_scale": 105,
-        "footer_accent_color": "#cbd64a",
-        "footer_logo": "shopify://shop_images/favicon_3.png",
-        "footer_logo_width": 140,
-        "footer_description": "<p>KØRE is a versatile material known for its strength and durability. Whether used in padel playing or everyday products, kore provides reliable performance and long-lasting quality. Its natural properties make it an excellent choice for applications requiring both resilience and aesthetic appeal. Choose KØRE for projects where dependability matters.</p>",
-        "color_scheme": "scheme-2",
-        "newsletter_enable": true,
-        "newsletter_heading": "Join Our <em>Newsletter</em>",
-        "newsletter_subtext": "Get 10% off your first drop, early access to new releases,\nand exclusive padel content.",
-        "newsletter_placeholder": "Enter your email address",
-        "newsletter_button": "Subscribe",
-        "enable_follow_on_shop": true,
+        "bg_color": "#0a0a0a",
+        "bg_image": "shopify://shop_images/bg-curbline.webp",
+        "bg_image_opacity": 25,
+        "heading_font_size": 18,
+        "link_font_size": 17,
+        "body_font_size": 17,
+        "footer_logo": "shopify://shop_images/logo-dark.png",
+        "footer_logo_width": 300,
+        "subheading": "BUILT FOR REPEAT.",
+        "subheading_color": "#cbd64a",
+        "description": "<p>Premium performance apparel and essentials for the modern athlete. Engineered to perform on court. Designed to live in.</p>",
+        "location_info": "CURAÇAO, DUTCH CARIBBEAN\n12.1696° N, 68.9900° W",
         "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 60,
-        "padding_bottom": 36
+        "contact_email": "info@kourtlab.com",
+        "menu_1_heading": "SHOP",
+        "menu_1": "main-menu",
+        "menu_2_heading": "COMPANY",
+        "menu_2": "footer",
+        "menu_3_heading": "SUPPORT",
+        "menu_3": "footer",
+        "eu_heading": "AVAILABLE IN THE EUROPEAN UNION",
+        "eu_subheading": "We ship to all EU member states.",
+        "eu_footer_text": "And all other EU countries.",
+        "copyright_text": "© 2026 KOURTLAB. ALL RIGHTS RESERVED.",
+        "bottom_tagline": "BUILT FOR REPEAT.",
+        "padding_top": 10,
+        "padding_bottom": 10
       }
     }
   },

@@ -1,0 +1,746 @@
+{%- style -%}
+  .kore-founding-1000--{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#0A0A0A' }} !important;
+    position: relative;
+    padding-top: {{ section.settings.padding_top | default: 68 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | default: 68 }}px !important;
+    overflow: hidden;
+    width: 100%;
+    color: #FFFFFF;
+  }
+
+  {% if section.settings.bg_image != blank %}
+    .kore-founding-1000--{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      opacity: {{ section.settings.bg_overlay_opacity | default: 40 | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 1;
+    }
+  {% endif %}
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__container {
+      padding-left: 3.95rem;
+      padding-right: 3.95rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__container {
+      padding-left: 5.75rem;
+      padding-right: 5.75rem;
+    }
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4.5rem;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__left-col {
+    flex: 0 0 52%;
+    max-width: 52%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__tagline {
+    font-size: {{ section.settings.tagline_font_size | default: 18 }}px !important;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ section.settings.tagline_color | default: '#CBD64A' }} !important;
+    margin-bottom: 0.85rem;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__heading {
+    font-size: clamp(2.8rem, 5.5vw, 4.6rem) !important;
+    font-weight: 900 !important;
+    line-height: 0.98 !important;
+    letter-spacing: 0.01em !important;
+    text-transform: uppercase !important;
+    color: {{ section.settings.heading_color | default: '#FFFFFF' }} !important;
+    margin: 0 0 1.25rem 0 !important;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__desc {
+    font-size: {{ section.settings.description_font_size | default: 20 }}px !important;
+    line-height: 1.5;
+    font-weight: 500;
+    color: {{ section.settings.description_color | default: '#E0E0E0' }} !important;
+    margin-bottom: 2.2rem;
+    max-width: 580px;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: {{ section.settings.button_bg | default: '#CBD64A' }} !important;
+    color: {{ section.settings.button_text_color | default: '#0A0A0A' }} !important;
+    padding: 1.1rem 2.6rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.25s ease, opacity 0.2s ease, box-shadow 0.25s ease;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+    margin-bottom: 2.75rem;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__btn:hover {
+    opacity: 0.92;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(203, 214, 74, 0.3);
+  }
+
+  /* Progress Counter Box */
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__counter-box {
+    width: 100%;
+    max-width: 580px;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__counter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #B0B0B0;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__counter-claimed {
+    color: #FFFFFF;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__progress-track {
+    width: 100%;
+    height: 12px;
+    background-color: #262626 !important;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 0.85rem;
+    position: relative;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__progress-fill {
+    height: 100%;
+    background-color: {{ section.settings.progress_color | default: '#CBD64A' }} !important;
+    border-radius: 999px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 14px rgba(203, 214, 74, 0.6) !important;
+    display: block;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__counter-footer {
+    font-size: 0.95rem;
+    color: #999999;
+    line-height: 1.45;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  /* Right Column (Divider & Perks List) */
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__right-col {
+    flex: 0 0 42%;
+    max-width: 42%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+    padding-left: 3.5rem;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__right-col::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: {{ section.settings.divider_color | default: '#CBD64A' }};
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.35rem;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    color: {{ section.settings.perk_icon_color | default: '#CBD64A' }};
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-icon-box svg {
+    width: 42px;
+    height: 42px;
+    stroke-width: 1.5;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__custom-img {
+    max-width: 42px;
+    max-height: 42px;
+    object-fit: contain;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-title {
+    font-size: {{ section.settings.perk_title_font_size | default: 21 }}px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #FFFFFF !important;
+    line-height: 1.15 !important;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-founding-1000--{{ section.id }} .kore-founding-1000__perk-subtitle {
+    font-size: {{ section.settings.perk_subtitle_font_size | default: 16 }}px !important;
+    color: #BBBBBB !important;
+    line-height: 1.4 !important;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 989px) {
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__grid {
+      flex-direction: column;
+      gap: 3rem;
+    }
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__left-col,
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__right-col {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__right-col {
+      padding-left: 0;
+      padding-top: 2.5rem;
+    }
+    .kore-founding-1000--{{ section.id }} .kore-founding-1000__right-col::before {
+      width: 100%;
+      height: 2px;
+      top: 0;
+      bottom: auto;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign claimed_val = section.settings.claimed_count | default: 247
+  assign total_val = section.settings.total_count | default: 1000
+
+  if section.settings.progress_mode == 'manual'
+    assign fill_percentage = section.settings.manual_progress_percent | default: 25
+  else
+    if total_val > 0
+      assign fill_percentage = claimed_val | times: 100.0 | divided_by: total_val
+    else
+      assign fill_percentage = 0
+    endif
+  endif
+
+  if fill_percentage > 100.0
+    assign fill_percentage = 100.0
+  endif
+-%}
+
+<div class="kore-founding-1000 kore-founding-1000--{{ section.id }}">
+  <div class="kore-founding-1000__container">
+    <div class="kore-founding-1000__grid">
+      {%- comment -%} Left Column (Hero Content & Claimed Progress Counter) {%- endcomment -%}
+      <div class="kore-founding-1000__left-col">
+        {%- if section.settings.tagline != blank -%}
+          <div class="kore-founding-1000__tagline">{{ section.settings.tagline }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="kore-founding-1000__heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="kore-founding-1000__desc">{{ section.settings.description | newline_to_br }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '/account/register' }}" class="kore-founding-1000__btn">
+            <span>{{ section.settings.button_label }}</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        {%- endif -%}
+
+        <div class="kore-founding-1000__counter-box">
+          <div class="kore-founding-1000__counter-header">
+            <span>{{ section.settings.counter_label | default: 'FOUNDING MEMBERS' }}</span>
+            <span class="kore-founding-1000__counter-claimed">
+              <strong style="color: {{ section.settings.progress_color | default: '#CBD64A' }}; font-weight: 900;">
+                {{ section.settings.claimed_count | default: 247 }} / {{ section.settings.total_count | default: 1000 }}
+              </strong> CLAIMED
+            </span>
+          </div>
+
+          <div class="kore-founding-1000__progress-track">
+            <div class="kore-founding-1000__progress-fill" style="width: {{ fill_percentage }}% !important;"></div>
+          </div>
+
+          {%- if section.settings.counter_footer_text != blank -%}
+            <div class="kore-founding-1000__counter-footer">
+              {{ section.settings.counter_footer_text | newline_to_br }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Right Column (5 Perks & Benefits) {%- endcomment -%}
+      <div class="kore-founding-1000__right-col">
+        {%- for block in section.blocks -%}
+          <div class="kore-founding-1000__perk-item" {{ block.shopify_attributes }}>
+            <div class="kore-founding-1000__perk-icon-box">
+              {%- case block.settings.icon -%}
+                {%- when 'crown' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"></path>
+                    <circle cx="12" cy="18" r="1" fill="currentColor"></circle>
+                  </svg>
+                {%- when 'clock' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                {%- when 'star_badge' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <polygon points="12 8 13.5 11 17 11.5 14.5 14 15 17.5 12 15.8 9 17.5 9.5 14 7 11.5 10.5 11 12 8"></polygon>
+                  </svg>
+                {%- when 'gift' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect x="2" y="7" width="20" height="5"></rect>
+                    <line x1="12" y1="22" x2="12" y2="7"></line>
+                    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                    <path d="M12 7h4.5a2.5 2.5 0 0 1 0-5C13 2 12 7 12 7z"></path>
+                  </svg>
+                {%- when 'ticket' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 9a3 3 0 0 1 0 6v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a3 3 0 0 1 0-6V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v5z"></path>
+                    <line x1="9" y1="12" x2="15" y2="12"></line>
+                  </svg>
+                {%- when 'custom_image' -%}
+                  {%- if block.settings.custom_image != blank -%}
+                    {{ block.settings.custom_image | image_url: width: 100 | image_tag: class: 'kore-founding-1000__custom-img' }}
+                  {%- endif -%}
+                {%- when 'custom_svg' -%}
+                  {%- if block.settings.custom_svg != blank -%}
+                    {{ block.settings.custom_svg }}
+                  {%- endif -%}
+              {%- endcase -%}
+            </div>
+
+            <div class="kore-founding-1000__perk-content">
+              <div class="kore-founding-1000__perk-title">{{ block.settings.title }}</div>
+              {%- if block.settings.subtitle != blank -%}
+                <div class="kore-founding-1000__perk-subtitle">{{ block.settings.subtitle }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KØRĒ Founding 1000 VIP",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background & Overlay Options"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Texture / Photo Image"
+    },
+    {
+      "type": "range",
+      "id": "bg_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background Image Opacity",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Left Column Headline & Button"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "default": "THE FOUNDING 1000",
+      "label": "Eyebrow Tagline"
+    },
+    {
+      "type": "range",
+      "id": "tagline_font_size",
+      "min": 14,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Tagline Font Size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Eyebrow Color",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "default": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
+      "label": "Main Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Become one of the first 1,000 members of KOURTLAB and unlock benefits that will never be offered again.",
+      "label": "Description Paragraph"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "JOIN THE FOUNDING 1000",
+      "label": "CTA Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background Color",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "header",
+      "content": "Claimed Members Progress Bar Control"
+    },
+    {
+      "type": "select",
+      "id": "progress_mode",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatic (Calculated from Claimed vs Total Count)"
+        },
+        {
+          "value": "manual",
+          "label": "Manual Percentage Slider (0% to 100%)"
+        }
+      ],
+      "default": "auto",
+      "label": "Progress Fill Control Mode"
+    },
+    {
+      "type": "range",
+      "id": "manual_progress_percent",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Manual Progress Fill Percentage (0% - 100%)",
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "counter_label",
+      "default": "FOUNDING MEMBERS",
+      "label": "Counter Header Label"
+    },
+    {
+      "type": "number",
+      "id": "claimed_count",
+      "default": 247,
+      "label": "Claimed Members Count"
+    },
+    {
+      "type": "number",
+      "id": "total_count",
+      "default": 1000,
+      "label": "Total Members Limit"
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress Bar Fill Color",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "textarea",
+      "id": "counter_footer_text",
+      "default": "Only 1,000 memberships worldwide.\nOnce they're gone, they're gone forever.",
+      "label": "Counter Footer Note"
+    },
+    {
+      "type": "header",
+      "content": "Right Column Divider & Styling"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Vertical Divider Color",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "color",
+      "id": "perk_icon_color",
+      "label": "Perk Icon Color",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "range",
+      "id": "perk_title_font_size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Perk Title Font Size",
+      "default": 21
+    },
+    {
+      "type": "range",
+      "id": "perk_subtitle_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Perk Subtitle Font Size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 68
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 68
+    }
+  ],
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk / Benefit Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "crown",
+              "label": "Crown Icon (Founding Status)"
+            },
+            {
+              "value": "clock",
+              "label": "Clock Icon (Early Access)"
+            },
+            {
+              "value": "star_badge",
+              "label": "Star Badge Icon (Exclusive Products)"
+            },
+            {
+              "value": "gift",
+              "label": "Gift Box Icon (Welcome Gift)"
+            },
+            {
+              "value": "ticket",
+              "label": "Ticket Icon (Members Events)"
+            },
+            {
+              "value": "custom_image",
+              "label": "Custom Image Upload"
+            },
+            {
+              "value": "custom_svg",
+              "label": "Custom SVG Code"
+            }
+          ],
+          "default": "crown",
+          "label": "Icon Option"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image Upload (if selected)"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Code (if selected)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "LIFETIME FOUNDING STATUS",
+          "label": "Perk Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "default": "Your name in our history.",
+          "label": "Perk Subtitle / Detail"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Founding 1000 VIP",
+      "blocks": [
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "crown",
+            "title": "LIFETIME FOUNDING STATUS",
+            "subtitle": "Your name in our history."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "clock",
+            "title": "EARLY ACCESS TO EVERY DROP",
+            "subtitle": "48 hours before the public."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "star_badge",
+            "title": "EXCLUSIVE PRODUCTS",
+            "subtitle": "Founding 1000 only."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "PREMIUM WELCOME GIFT",
+            "subtitle": "Curated. Limited. For you."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "ticket",
+            "title": "MEMBERS-ONLY EVENTS",
+            "subtitle": "Connect. Play. Repeat."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

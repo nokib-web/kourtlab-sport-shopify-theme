@@ -1,0 +1,543 @@
+{%- style -%}
+  .kore-first-drop--{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#EFECE6' }} !important;
+    position: relative;
+    padding-top: {{ section.settings.padding_top | default: 28 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | default: 28 }}px !important;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  {% if section.settings.bg_image != blank %}
+    .kore-first-drop--{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ section.settings.bg_image | image_url: width: 1800 }}');
+      background-size: cover;
+      background-position: left center;
+      opacity: {{ section.settings.bg_image_opacity | default: 30 | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 1;
+    }
+  {% endif %}
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__container {
+      padding-left: 3.95rem;
+      padding-right: 3.95rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__container {
+      padding-left: 5.75rem;
+      padding-right: 5.75rem;
+    }
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__content-col {
+    flex: 0 0 26%;
+    max-width: 26%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__tagline {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: {{ section.settings.tagline_color | default: '#A6B828' }} !important;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__heading {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem) !important;
+    font-weight: 900 !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.01em !important;
+    text-transform: uppercase !important;
+    color: {{ section.settings.heading_color | default: '#0A0A0A' }} !important;
+    margin: 0 0 1rem 0 !important;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__desc {
+    font-size: {{ section.settings.description_font_size | default: 20 }}px !important;
+    line-height: 1.45;
+    font-weight: 500;
+    color: {{ section.settings.description_color | default: '#444444' }} !important;
+    margin-bottom: 1.75rem;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background-color: {{ section.settings.button_bg | default: '#CBD64A' }} !important;
+    color: {{ section.settings.button_text_color | default: '#0A0A0A' }} !important;
+    padding: 0.95rem 2.2rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+    white-space: nowrap;
+    border: none;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__btn:hover {
+    opacity: 0.92;
+    transform: translateY(-2px);
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__btn svg {
+    color: {{ section.settings.button_arrow_color | default: '#0A0A0A' }} !important;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__cards-col {
+    flex: 0 0 72%;
+    max-width: 72%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #0A0A0A;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-media {
+    width: 100%;
+    {% case section.settings.card_aspect_ratio %}
+      {% when 'portrait' %}
+        aspect-ratio: 3 / 4;
+      {% when 'tall' %}
+        aspect-ratio: 4 / 5;
+      {% when 'square' %}
+        aspect-ratio: 1 / 1;
+      {% else %}
+        aspect-ratio: 3 / 4;
+    {% endcase %}
+    position: relative;
+    overflow: hidden;
+    background-color: #1A1A1A;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.5s ease;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-img {
+    transform: scale(1.05);
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0A0A0A;
+    padding: 1rem 1.3rem;
+    color: #FFFFFF;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-title {
+    font-size: {{ section.settings.card_title_font_size | default: 19 }}px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow {
+    color: #CBD64A;
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Responsive Breakpoints */
+  @media screen and (max-width: 989px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__grid {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .kore-first-drop--{{ section.id }} .kore-first-drop__content-col,
+    .kore-first-drop--{{ section.id }} .kore-first-drop__cards-col {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+    .kore-first-drop--{{ section.id }} .kore-first-drop__cards-col {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__cards-col {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="kore-first-drop kore-first-drop--{{ section.id }}">
+  <div class="kore-first-drop__container">
+    <div class="kore-first-drop__grid">
+      {%- comment -%} Left Column Content {%- endcomment -%}
+      <div class="kore-first-drop__content-col">
+        {%- if section.settings.tagline != blank -%}
+          <div class="kore-first-drop__tagline">{{ section.settings.tagline }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="kore-first-drop__heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="kore-first-drop__desc">{{ section.settings.description | newline_to_br }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="kore-first-drop__btn">
+            <span>{{ section.settings.button_label }}</span>
+            {%- if section.settings.show_button_arrow or section.settings.show_button_arrow == nil -%}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Right Column Category Cards {%- endcomment -%}
+      <div class="kore-first-drop__cards-col">
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.link | default: '/collections/all' }}" class="kore-first-drop__card" {{ block.shopify_attributes }}>
+            <div class="kore-first-drop__card-media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'kore-first-drop__card-img' }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg kore-first-drop__card-img' }}
+              {%- endif -%}
+            </div>
+            <div class="kore-first-drop__card-bar" style="{% if block.settings.card_bg != blank %}background-color: {{ block.settings.card_bg }} !important;{% endif %}">
+              <span class="kore-first-drop__card-title" style="{% if block.settings.title_color != blank %}color: {{ block.settings.title_color }} !important;{% endif %}">
+                {{ block.settings.title }}
+              </span>
+              <span class="kore-first-drop__card-arrow" style="{% if block.settings.arrow_color != blank %}color: {{ block.settings.arrow_color }} !important;{% endif %}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KØRĒ First Drop Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Background & Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Sand Color",
+      "default": "#EFECE6"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Texture / Overlay Image (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "bg_image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background Image Opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Card Size & Aspect Ratio"
+    },
+    {
+      "type": "select",
+      "id": "card_aspect_ratio",
+      "options": [
+        {
+          "value": "portrait",
+          "label": "Portrait (3:4 Ratio - Full Model)"
+        },
+        {
+          "value": "tall",
+          "label": "Tall (4:5 Ratio)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1 Ratio)"
+        }
+      ],
+      "default": "portrait",
+      "label": "Card Image Aspect Ratio"
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Title Font Size",
+      "default": 19
+    },
+    {
+      "type": "header",
+      "content": "Left Column Content"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "default": "FIRST DROP",
+      "label": "Eyebrow / Tagline Text"
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Eyebrow Color",
+      "default": "#A6B828"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "default": "OCT / NOV 2026.",
+      "label": "Main Heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Designed for performance.\nInspired by movement.",
+      "label": "Description Text"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Description Font Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#444444"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "EXPLORE DROP 01",
+      "label": "Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background Color (Primary Lime Accent)",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "button_arrow_color",
+      "label": "Button Arrow Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_arrow",
+      "default": true,
+      "label": "Show Arrow Icon (→) in Button"
+    },
+    {
+      "type": "header",
+      "content": "Section Height & Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 8,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding (Section Height Control)",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 8,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding (Section Height Control)",
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Category / Drop Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image Upload"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "MEN",
+          "label": "Card Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Bottom Bar Background Color",
+          "default": "#0A0A0A"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "arrow_color",
+          "label": "Arrow Color",
+          "default": "#CBD64A"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ First Drop Showcase",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "MEN"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "WOMEN"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "ACCESSORIES"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

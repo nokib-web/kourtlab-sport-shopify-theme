@@ -15,39 +15,63 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Built for the repeat.",
-            "heading_size": "h0"
+            "heading": "BUILT FOR\nREPEAT.",
+            "heading_size": "custom_huge",
+            "custom_font_size": 0,
+            "heading_color": "#ffffff",
+            "highlight_text": "REPEAT.",
+            "highlight_color": "#cbd64a"
+          }
+        },
+        "subheading_kore": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ENGINEERED FOR PERFORMANCE.",
+            "subheading_color": "#cbd64a",
+            "font_size": 15,
+            "letter_spacing": 15,
+            "show_line": true
           }
         },
         "text_ka8zHm": {
           "type": "text",
           "settings": {
-            "text": "Engineered for athletes who train harder, move faster, and never settle. Premium apparel and essentials designed to perform on every court.",
-            "text_style": "subtitle"
+            "text": "Premium apparel and essentials designed to perform on every court.",
+            "font_size": 18,
+            "line_height": 15,
+            "text_color": "#e0e0e0",
+            "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop Now",
+            "button_label_1": "SHOP NOW",
             "button_link_1": "shopify://collections/all",
+            "show_arrow_1": true,
+            "button_bg_1": "#cbd64a",
+            "button_text_color_1": "#0a0a0a",
             "button_style_secondary_1": false,
-            "button_label_2": "Explore",
+            "button_label_2": "EXPLORE",
             "button_link_2": "shopify://collections/all",
-            "button_style_secondary_2": false
+            "button_border_2": "#cbd64a",
+            "button_text_2": "#ffffff",
+            "button_style_secondary_2": true
           }
         }
       },
       "block_order": [
         "heading",
+        "subheading_kore",
         "text_ka8zHm",
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/hero-2.webp",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "ambient",
+        "image": "shopify://shop_images/hero-final.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "content_max_width": 680,
         "desktop_content_position": "bottom-left",
         "desktop_content_alignment": "left",
         "show_text_box": false,
@@ -55,6 +79,227 @@
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "left",
         "show_text_below": false
+      }
+    },
+    "kore_trust_bar": {
+      "type": "kore-trust-bar",
+      "blocks": {
+        "item_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "globe",
+            "custom_svg": "",
+            "title": "SHIPPING ACROSS EUROPE",
+            "show_eu_flag": true,
+            "subtitle": "We deliver to all EU countries.",
+            "link": ""
+          }
+        },
+        "item_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "materials",
+            "custom_svg": "",
+            "title": "PREMIUM MATERIALS",
+            "show_eu_flag": false,
+            "subtitle": "Built to last.",
+            "link": ""
+          }
+        },
+        "item_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "lock",
+            "custom_svg": "",
+            "title": "SECURE PAYMENTS",
+            "show_eu_flag": false,
+            "subtitle": "Safe, easy & encrypted.",
+            "link": ""
+          }
+        },
+        "item_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "palm",
+            "custom_svg": "",
+            "title": "DESIGNED IN CURAÇAO",
+            "show_eu_flag": false,
+            "subtitle": "Inspired by sport & culture.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4"
+      ],
+      "settings": {
+        "bg_color": "#f4f3ef",
+        "text_color": "#0a0a0a",
+        "subtitle_color": "#666666",
+        "icon_color": "#0a0a0a",
+        "divider_color": "#cbd64a",
+        "border_color": "#eae8e3",
+        "show_dividers": true,
+        "font_family": "body",
+        "title_font_size": 13,
+        "subtitle_font_size": 12,
+        "padding_top": 18,
+        "padding_bottom": 18
+      }
+    },
+    "kore_first_drop": {
+      "type": "kore-first-drop",
+      "blocks": {
+        "card_men": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/men-collection.webp",
+            "title": "MEN",
+            "link": "/collections/men",
+            "card_bg": "#0a0a0a",
+            "title_color": "#ffffff",
+            "arrow_color": "#cbd64a"
+          }
+        },
+        "card_women": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/wemen-collection.webp",
+            "title": "WOMEN",
+            "link": "/collections/women",
+            "card_bg": "#0a0a0a",
+            "title_color": "#ffffff",
+            "arrow_color": "#cbd64a"
+          }
+        },
+        "card_accessories": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/accessories.webp",
+            "title": "ACCESSORIES",
+            "link": "/collections/accessories",
+            "card_bg": "#0a0a0a",
+            "title_color": "#ffffff",
+            "arrow_color": "#cbd64a"
+          }
+        }
+      },
+      "block_order": [
+        "card_men",
+        "card_women",
+        "card_accessories"
+      ],
+      "settings": {
+        "bg_color": "#efece6",
+        "bg_image": "shopify://shop_images/bg-pulm.webp",
+        "bg_image_opacity": 100,
+        "card_aspect_ratio": "portrait",
+        "card_title_font_size": 19,
+        "tagline": "FIRST DROP",
+        "tagline_color": "#a6b828",
+        "heading": "OCT / NOV 2026.",
+        "heading_color": "#0a0a0a",
+        "description": "Designed for performance.\nInspired by movement.",
+        "description_font_size": 20,
+        "description_color": "#444444",
+        "button_label": "EXPLORE DROP 01",
+        "button_link": "shopify://collections/all",
+        "button_bg": "#cbd64a",
+        "button_text_color": "#0a0a0a",
+        "button_arrow_color": "#0a0a0a",
+        "show_button_arrow": true,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "kore_founding_1000": {
+      "type": "kore-founding-1000",
+      "blocks": {
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon": "crown",
+            "custom_svg": "",
+            "title": "LIFETIME FOUNDING STATUS",
+            "subtitle": "Your name in our history."
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon": "clock",
+            "custom_svg": "",
+            "title": "EARLY ACCESS TO EVERY DROP",
+            "subtitle": "48 hours before the public."
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon": "star_badge",
+            "custom_svg": "",
+            "title": "EXCLUSIVE PRODUCTS",
+            "subtitle": "Founding 1000 only."
+          }
+        },
+        "perk_4": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "custom_svg": "",
+            "title": "PREMIUM WELCOME GIFT",
+            "subtitle": "Curated. Limited. For you."
+          }
+        },
+        "perk_5": {
+          "type": "perk",
+          "settings": {
+            "icon": "ticket",
+            "custom_svg": "",
+            "title": "MEMBERS-ONLY EVENTS",
+            "subtitle": "Connect. Play. Repeat."
+          }
+        }
+      },
+      "block_order": [
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "perk_4",
+        "perk_5"
+      ],
+      "settings": {
+        "bg_color": "#0a0a0a",
+        "bg_image": "shopify://shop_images/bg-curbline.webp",
+        "bg_overlay_opacity": 40,
+        "tagline": "THE FOUNDING 1000",
+        "tagline_font_size": 18,
+        "tagline_color": "#cbd64a",
+        "heading": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
+        "heading_color": "#ffffff",
+        "description": "Become one of the first 1,000 members of KOURTLAB and unlock benefits that will never be offered again.",
+        "description_font_size": 20,
+        "description_color": "#d1d1d1",
+        "button_label": "JOIN THE FOUNDING 1000",
+        "button_link": "shopify://collections/all",
+        "button_bg": "#cbd64a",
+        "button_text_color": "#0a0a0a",
+        "progress_mode": "auto",
+        "manual_progress_percent": 25,
+        "counter_label": "FOUNDING MEMBERS",
+        "claimed_count": 247,
+        "total_count": 1000,
+        "progress_color": "#cbd64a",
+        "counter_footer_text": "Only 1,000 memberships worldwide.\nOnce they're gone, they're gone forever.",
+        "divider_color": "#cbd64a",
+        "perk_icon_color": "#cbd64a",
+        "perk_title_font_size": 21,
+        "perk_subtitle_font_size": 16,
+        "padding_top": 68,
+        "padding_bottom": 68
       }
     },
     "collection_list_XPKfRX": {
@@ -91,6 +336,7 @@
         "featured_collection_Dz7iRw",
         "featured_collection_UB6XKG"
       ],
+      "disabled": true,
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "Our <em>collections</em>",
@@ -175,6 +421,7 @@
         "card_3",
         "card_4"
       ],
+      "disabled": true,
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
         "subtitle": "",
@@ -306,6 +553,7 @@
         "slide_4",
         "slide_5"
       ],
+      "disabled": true,
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
         "label": "",
@@ -326,14 +574,15 @@
       "blocks": {
         "activity_padel": {
           "type": "activity_card",
+          "name": "Collection Card",
           "settings": {
             "collection": "",
             "link": "",
-            "image": "shopify://shop_images/31uX7lOPs8L.jpg",
-            "title": "Padel",
+            "image": "shopify://shop_images/men-collection.webp",
+            "title": "Men",
             "description": "Built for speed, precision, and court performance.",
-            "title_color": "#000000",
-            "desc_color": "#020202",
+            "title_color": "#ffffff",
+            "desc_color": "#ffffff",
             "cta_color": "#cbd64a",
             "card_bg": "#111111",
             "overlay_opacity": 45
@@ -344,8 +593,8 @@
           "settings": {
             "collection": "",
             "link": "",
-            "image": "shopify://shop_images/41QZFiw-cpL.jpg",
-            "title": "Training",
+            "image": "shopify://shop_images/wemen-collection.webp",
+            "title": "Wemen",
             "description": "Engineered for strength, mobility, and every workout.",
             "title_color": "#ffffff",
             "desc_color": "#efefef",
@@ -359,54 +608,9 @@
           "settings": {
             "collection": "",
             "link": "",
-            "image": "shopify://shop_images/317Xz6AkjGL.jpg",
-            "title": "Running",
+            "image": "shopify://shop_images/accessories.webp",
+            "title": "Accessories",
             "description": "Lightweight comfort built for every mile.",
-            "title_color": "#ffffff",
-            "desc_color": "#efefef",
-            "cta_color": "#cbd64a",
-            "card_bg": "#111111",
-            "overlay_opacity": 45
-          }
-        },
-        "activity_recovery": {
-          "type": "activity_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "image": "shopify://shop_images/31bv_mIT7GL.jpg",
-            "title": "Recovery",
-            "description": "Relax in premium comfort after every session.",
-            "title_color": "#ffffff",
-            "desc_color": "#efefef",
-            "cta_color": "#cbd64a",
-            "card_bg": "#111111",
-            "overlay_opacity": 45
-          }
-        },
-        "activity_lifestyle": {
-          "type": "activity_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "image": "shopify://shop_images/41me8EhjOcL.jpg",
-            "title": "Lifestyle",
-            "description": "Designed to move effortlessly from the court to the city.",
-            "title_color": "#ffffff",
-            "desc_color": "#efefef",
-            "cta_color": "#cbd64a",
-            "card_bg": "#111111",
-            "overlay_opacity": 45
-          }
-        },
-        "activity_new_arrivals": {
-          "type": "activity_card",
-          "settings": {
-            "collection": "",
-            "link": "",
-            "image": "shopify://shop_images/31gMycW2N7L.jpg",
-            "title": "New Arrivals",
-            "description": "Discover the latest performance collection.",
             "title_color": "#ffffff",
             "desc_color": "#efefef",
             "cta_color": "#cbd64a",
@@ -418,15 +622,14 @@
       "block_order": [
         "activity_padel",
         "activity_training",
-        "activity_running",
-        "activity_recovery",
-        "activity_lifestyle",
-        "activity_new_arrivals"
+        "activity_running"
       ],
+      "disabled": true,
+      "name": "Shop by Collection",
       "settings": {
         "label": "",
         "label_color": "#cbd64a",
-        "title": "Shop by <em>Activity</em>",
+        "title": "Shop Our Collection",
         "heading_color": "#111111",
         "accent_color": "#cbd64a",
         "heading_size": "h1",
@@ -439,6 +642,7 @@
     },
     "featured_product_carousel": {
       "type": "featured-product-carousel",
+      "disabled": true,
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
         "title": "For playing<em> on hot</em> days",
@@ -522,6 +726,7 @@
         "feature_lightweight",
         "feature_durable"
       ],
+      "disabled": true,
       "settings": {
         "bg_color": "#ffffff",
         "label": "",
@@ -549,9 +754,12 @@
         "judge_me_reviews_cards_carousel_QGi7PW": {
           "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "show_sample_reviews": true,
+            "show_sample_reviews": false,
             "reviews_selection": "all",
             "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
             "star_rating": "all",
             "show_review_media": true,
             "display_order": "media_first",
@@ -588,25 +796,114 @@
     },
     "featured_blog_slider": {
       "type": "featured-blog-slider",
+      "blocks": {
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/bg-5.webp",
+            "title": "FROM COURT TO COAST",
+            "excerpt": "Our roots. Our inspiration.",
+            "read_more_text": "READ MORE",
+            "link": "/blogs/nieuws"
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/bg-3.webp",
+            "title": "BEHIND THE FIRST DROP",
+            "excerpt": "The process, the materials, the details.",
+            "read_more_text": "READ MORE",
+            "link": "/blogs/nieuws"
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/hero-2.webp",
+            "title": "WHY WE BUILT KOURTLAB",
+            "excerpt": "More than apparel. A mindset.",
+            "read_more_text": "READ MORE",
+            "link": "/blogs/nieuws"
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/bg-5.webp",
+            "title": "PERFORMANCE GUIDE",
+            "excerpt": "What to wear, when and why.",
+            "read_more_text": "READ MORE",
+            "link": "/blogs/nieuws"
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/bg-3.webp",
+            "title": "MEET THE FOUNDER",
+            "excerpt": "Justin Niessen on passion and purpose.",
+            "read_more_text": "READ MORE",
+            "link": "/blogs/nieuws"
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5"
+      ],
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
-        "title": "Stories that<em> move</em>",
-        "heading_color": "#111111",
-        "accent_color": "#cbd64a",
-        "heading_size": "h1",
-        "blog": "nieuws",
+        "tagline": "THE FOUNDING 1000",
+        "tagline_color": "#a6b828",
+        "title": "STORIES THAT MOVE.",
+        "heading_color": "#0a0a0a",
+        "card_title_font_size": 21,
+        "card_excerpt_font_size": 17,
+        "blog": "",
         "show_view_all": true,
-        "view_all_text": "Read all blog",
-        "view_all_style_secondary": false,
-        "post_limit": 4,
-        "color_scheme": "scheme-1",
+        "view_all_text": "VIEW ALL STORIES",
+        "post_limit": 5,
         "padding_top": 48,
         "padding_bottom": 48
+      }
+    },
+    "kore_newsletter": {
+      "type": "kore-newsletter",
+      "settings": {
+        "bg_color": "#efece6",
+        "bg_image": "shopify://shop_images/bg-sand-pulm.webp",
+        "bg_image_opacity": 35,
+        "heading": "JOIN THE KOURTLAB COMMUNITY.",
+        "heading_color": "#0a0a0a",
+        "heading_font_size": 36,
+        "subtext": "Be the first to discover new drops, early access releases, exclusive content and more.",
+        "subtext_color": "#444444",
+        "subtext_font_size": 19,
+        "placeholder_text": "Enter your email address",
+        "input_font_size": 18,
+        "button_label": "SUBSCRIBE",
+        "button_bg": "#0a0a0a",
+        "button_text_color": "#ffffff",
+        "button_arrow_color": "#ffffff",
+        "button_hover_bg": "#cbd64a",
+        "button_hover_text": "#0a0a0a",
+        "promo_note": "Get 10% off your first order.",
+        "promo_note_color": "#0a0a0a",
+        "promo_note_font_size": 17,
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     }
   },
   "order": [
     "image_banner",
+    "kore_trust_bar",
+    "kore_first_drop",
+    "kore_founding_1000",
     "collection_list_XPKfRX",
     "why_choose_us",
     "expanding_carousel",
@@ -614,6 +911,7 @@
     "featured_product_carousel",
     "performance_features",
     "17850441245e4f0ed8",
-    "featured_blog_slider"
+    "featured_blog_slider",
+    "kore_newsletter"
   ]
 }

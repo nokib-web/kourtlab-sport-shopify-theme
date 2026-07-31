@@ -1,102 +1,568 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main_faq": {
       "type": "on-faq-categories",
       "blocks": {
-        "o1": { "type": "faq_item", "settings": { "category": "Orders", "question": "Will I be notified about my order status?", "answer": "<p>Yes. You will receive automated email updates at every key stage — order confirmation, dispatch notification with tracking link, and delivery confirmation. You can also view live order status under your KØRE account profile at any time.</p>" } },
-        "o2": { "type": "faq_item", "settings": { "category": "Orders", "question": "What if my email address on my order is incorrect?", "answer": "<p>Contact support@kourtlab.com immediately with your order number and the correct email address. Our team processes this quickly — especially during active drop windows — so the sooner you reach out, the better.</p>" } },
-        "o3": { "type": "faq_item", "settings": { "category": "Orders", "question": "What payment methods does KØRE accept?", "answer": "<p>We accept Visa, Mastercard, American Express, Apple Pay, Google Pay, and Klarna (Buy Now Pay Later). All major currencies are supported at checkout.</p>" } },
-        "o4": { "type": "faq_item", "settings": { "category": "Orders", "question": "When will I see the payment reflected in my account?", "answer": "<p>Your payment is captured the moment your order is confirmed. Bank processing times vary by institution — typically 1–3 business days for the charge to reflect on your statement.</p>" } },
-        "o5": { "type": "faq_item", "settings": { "category": "Orders", "question": "Can I make changes to my order after placing it?", "answer": "<p>Our fulfillment team begins processing orders within 60 minutes of placement to ensure fastest possible dispatch. If you need to change a size, color, or shipping address, contact support@kourtlab.com immediately — we cannot guarantee changes after the processing window closes.</p>" } },
-        "o6": { "type": "faq_item", "settings": { "category": "Orders", "question": "How can I cancel my order?", "answer": "<p>Cancellations are possible within 60 minutes of placing your order. Contact support@kourtlab.com with your order number immediately. Once an order has entered fulfillment, it cannot be cancelled — but you can initiate a return once it arrives.</p>" } },
-        "o7": { "type": "faq_item", "settings": { "category": "Orders", "question": "Can I order KØRE products in bulk for my team or club?", "answer": "<p>Yes. KØRE offers bespoke bulk and team kit orders for padel clubs, academies, and corporate partners. Contact clubs@kourtlab.com with your requirements — minimum quantities, sizing, and customisation options.</p>" } },
-        "o8": { "type": "faq_item", "settings": { "category": "Orders", "question": "Does KØRE offer gift cards?", "answer": "<p>Yes. Digital Gift Cards are available in multiple denominations and can be delivered instantly via email to any address worldwide. Perfect for padel partners and court-day gifts.</p>" } },
-        "o9": { "type": "faq_item", "settings": { "category": "Orders", "question": "Do you offer any promotions or discount codes?", "answer": "<p>Seasonal promotions and exclusive member-only drops are announced via our newsletter and social channels. Club partner and student discounts are available — contact us to verify eligibility.</p>" } },
-        "o10": { "type": "faq_item", "settings": { "category": "Orders", "question": "Do I need a KØRE account to place an order?", "answer": "<p>No account is required to place an order as a guest. However, creating a KØRE account gives you access to order tracking, early-drop access, exclusive member pricing, and the founding member benefits programme.</p>" } },
-
-        "r1": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "What is the KØRE return policy?", "answer": "<p>We stand behind every garment on court. If your KØRE gear doesn't meet your performance standard within 30 days of delivery, return it — worn or unworn — for a full refund or exchange. Court-tested returns are accepted.</p>" } },
-        "r2": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "How do I return my order?", "answer": "<p>Email support@kourtlab.com with your order number and reason for return. We will provide a pre-paid return shipping label and step-by-step instructions. Caribbean returns ship via our island courier network.</p>" } },
-        "r3": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "Do you offer free return shipping?", "answer": "<p>Yes. All returns within the Caribbean region and European markets include free pre-paid return labels. International returns outside these regions may have a flat-rate return shipping fee that will be communicated clearly in your return confirmation.</p>" } },
-        "r4": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "When will I receive my refund?", "answer": "<p>Once your return is received and inspected at our facility, refunds are processed within 3–5 business days. The credit will appear on your original payment method within 5–10 business days depending on your bank.</p>" } },
-        "r5": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "What is the process for exchanging my order for a different size?", "answer": "<p>Contact support@kourtlab.com with your order number and the size or style you want instead. If your requested size is in stock, we will ship the exchange immediately upon receipt of your return. Size exchanges ship for free.</p>" } },
-        "r6": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "Can I return Limited Edition or Club Drop items?", "answer": "<p>Limited Edition and exclusive Club Drop items follow the same 30-day performance trial policy. However, size exchanges on limited edition pieces are subject to availability and cannot be guaranteed.</p>" } },
-        "r7": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "Can I receive my exchange before returning the original item?", "answer": "<p>In select cases, priority exchanges can be arranged for founding members and club partners. Contact support@kourtlab.com to discuss your situation — we will always try to keep you on court.</p>" } },
-        "r8": { "type": "faq_item", "settings": { "category": "Returns & Exchanges", "question": "How do I track my return shipment?", "answer": "<p>Your pre-paid return label includes a tracking number. Once you drop off the return, you can track it through our courier partner's portal. You will also receive an email confirmation once we receive and process your return.</p>" } },
-
-        "s1": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "Where can I track my order?", "answer": "<p>A tracking link is sent by email as soon as your order is dispatched from our Curaçao facility or EU distribution hub. You can also access live tracking under your KØRE account under 'My Orders'.</p>" } },
-        "s2": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "Which countries does KØRE ship to?", "answer": "<p>KØRE ships worldwide. We have dedicated shipping lanes for the Caribbean region (Curaçao, Aruba, Bonaire, Trinidad, and across the Dutch Caribbean), Europe (including Netherlands, Germany, Spain, France, UK), and international via DHL Express and FedEx.</p>" } },
-        "s3": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "How long will my order take to arrive?", "answer": "<p>Caribbean delivery: 2–4 business days. European Standard: 3–5 business days. European Express: 1–2 business days. International (Americas, Asia, Middle East): 4–7 business days. All orders are dispatched within 24–48 hours.</p>" } },
-        "s4": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "How much does shipping cost?", "answer": "<p>Free shipping is available on orders above the threshold for your region (shown at checkout). Standard shipping rates start from a flat fee that varies by destination zone. Express shipping is always available as an upgrade at checkout.</p>" } },
-        "s5": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "Will I have to pay customs or import duties?", "answer": "<p>Customs duties and taxes are calculated and displayed transparently at checkout — there are no surprise fees upon delivery. For Caribbean shipments, KØRE handles all island customs clearance directly.</p>" } },
-        "s6": { "type": "faq_item", "settings": { "category": "Shipping & Delivery", "question": "What should I do if my package hasn't arrived?", "answer": "<p>If your order has passed its estimated delivery window, first check your tracking link. If it shows delivered but you haven't received it, contact support@kourtlab.com within 7 days and we will open an investigation with our courier partner immediately.</p>" } },
-
-        "p1": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "Are KØRE pieces true to size?", "answer": "<p>All KØRE performance apparel is cut with an athletic tailored fit specifically engineered for padel court mobility — full shoulder rotation, extended reach, and Caribbean heat management. If you prefer a relaxed lifestyle fit, size up one.</p>" } },
-        "p2": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "How do I know which size to order?", "answer": "<p>Each product page includes a detailed size guide with chest, waist, and hip measurements in both EU and US sizing. If you are between sizes, our performance pieces are designed to accommodate — but for maximum court mobility, size down.</p>" } },
-        "p3": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "What materials are used in KØRE performance apparel?", "answer": "<p>KØRE uses a blend of high-performance recycled polyester and elastane engineered specifically for high-intensity sport in tropical and sub-tropical conditions. All fabrics are OEKO-TEX certified, moisture-wicking, and UV protective.</p>" } },
-        "p4": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "How do I care for my KØRE gear?", "answer": "<p>Machine wash cold (30°C max) on a gentle cycle with like colours. Do not use fabric softeners or bleach — they degrade moisture-wicking performance. Hang dry or tumble dry on low heat. Do not iron directly on printed or embroidered details.</p>" } },
-        "p5": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "Is KØRE apparel suitable for everyday wear beyond padel?", "answer": "<p>Absolutely. KØRE is engineered for the court but designed for the lifestyle. Our pieces move effortlessly from post-match coffee to weekend markets. The athletic silhouette and premium materials make them ideal for everyday performance living.</p>" } },
-        "p6": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "What do I do if a product I want is out of stock in my size?", "answer": "<p>Join the waitlist directly on the product page by entering your email and size. KØRE founding members receive priority restock notifications before they go live. Drop restocks are announced via our newsletter and Instagram.</p>" } },
-        "p7": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "Where is KØRE apparel designed and produced?", "answer": "<p>KØRE is designed in Curaçao, Dutch Caribbean, with manufacturing partnerships across responsible factories in Portugal and the Netherlands that meet our strict quality and ethical production standards.</p>" } },
-        "p8": { "type": "faq_item", "settings": { "category": "Product Info & Sizing", "question": "How do I submit feedback about a KØRE product?", "answer": "<p>We genuinely value court feedback from our community. Submit product feedback via support@kourtlab.com or tag @kourtlab on Instagram. Our design team reviews all product feedback before every new season drop.</p>" } },
-
-        "su1": { "type": "faq_item", "settings": { "category": "Sustainability", "question": "What is KØRE's environmental mission?", "answer": "<p>KØRE is built on the belief that high-performance sport gear and responsible production are not opposites. Our mission is to reduce our environmental footprint at every stage — materials sourcing, manufacturing, packaging, and end-of-life product recovery.</p>" } },
-        "su2": { "type": "faq_item", "settings": { "category": "Sustainability", "question": "What packaging does KØRE use?", "answer": "<p>All KØRE packaging is 100% recyclable. We use FSC-certified paper mailers, soy-based inks, and zero single-use plastic in our shipping materials. Polybags, where required for moisture protection, are made from recycled LDPE and fully recyclable.</p>" } },
-        "su3": { "type": "faq_item", "settings": { "category": "Sustainability", "question": "Does KØRE use recycled materials?", "answer": "<p>Yes. Our core performance fabrics include a minimum 40% recycled polyester content, with ongoing R&D to increase this across all product lines. We are committed to transitioning all synthetic materials to recycled or bio-based alternatives by 2027.</p>" } },
-        "su4": { "type": "faq_item", "settings": { "category": "Sustainability", "question": "What are KØRE's fair production standards?", "answer": "<p>All manufacturing partners are required to meet our Supplier Code of Conduct — covering fair wages, safe working conditions, no child labour, and environmental management. We conduct annual audits and publish supplier transparency reports.</p>" } },
-        "su5": { "type": "faq_item", "settings": { "category": "Sustainability", "question": "What are KØRE's commitments to people and the planet?", "answer": "<p>KØRE commits to: (1) Carbon-neutral shipping by 2026. (2) 100% recycled packaging by 2025. (3) Full supply chain transparency report annually. (4) Community reinvestment into Caribbean youth padel access programmes.</p>" } },
-
-        "c1": { "type": "faq_item", "settings": { "category": "Club Membership & Drops", "question": "What is the KØRE Founding Member programme?", "answer": "<p>Founding Members are the first 100 individuals to join the KØRE community before our official launch. They receive lifetime priority access to all product drops, exclusive Founding Member colourways, early sale access, and a personal thank-you from our Curaçao team.</p>" } },
-        "c2": { "type": "faq_item", "settings": { "category": "Club Membership & Drops", "question": "How can my padel club partner with KØRE?", "answer": "<p>KØRE partners with selected padel clubs globally for custom team kit drops, tournament sponsorships, court-day pop-ups, and exclusive club colourways. Contact clubs@kourtlab.com with your club name, location, and member count to start the conversation.</p>" } },
-        "c3": { "type": "faq_item", "settings": { "category": "Club Membership & Drops", "question": "How does the Club Drop system work?", "answer": "<p>Club Drops are exclusive limited-production releases available only to KØRE club community members. They are announced with a 72-hour pre-drop window exclusive to members, before opening to the general public (subject to availability).</p>" } },
-        "c4": { "type": "faq_item", "settings": { "category": "Club Membership & Drops", "question": "Can I trade in KØRE gear through a recycling programme?", "answer": "<p>Yes. KØRE is developing a Court-to-Cradle take-back programme for worn performance gear. Returned items are assessed for resale, upcycling, or responsible material recycling. Details and launch regions will be announced via our newsletter.</p>" } },
-        "c5": { "type": "faq_item", "settings": { "category": "Club Membership & Drops", "question": "How do I get early access to limited drops?", "answer": "<p>Join the KØRE newsletter and create a free account. Founding Members, Club Partners, and Ambassador affiliates receive exclusive 72-hour early-drop windows before items go live to the general public.</p>" } },
-
-        "a1": { "type": "faq_item", "settings": { "category": "Ambassador & Partnerships", "question": "Does KØRE have an ambassador programme?", "answer": "<p>Yes. The KØRE Ambassador Programme connects high-level padel players, content creators, and community builders with our brand. Ambassadors receive product allocations, commission-based affiliate codes, and co-creation opportunities on future drops.</p>" } },
-        "a2": { "type": "faq_item", "settings": { "category": "Ambassador & Partnerships", "question": "How does the KØRE affiliate programme work?", "answer": "<p>Affiliates receive a unique tracking code to share with their community. For every sale made through your code, you earn a commission. Payouts are made monthly via bank transfer or Stripe. Apply via our website ambassador portal.</p>" } },
-        "a3": { "type": "faq_item", "settings": { "category": "Ambassador & Partnerships", "question": "Where can I find more about current brand partnerships?", "answer": "<p>Current and upcoming KØRE collaborations and brand partnerships are announced via our Instagram (@kourtlab) and newsletter. Collaboration enquiries from brands, athletes, and creative studios can be sent to studio@kourtlab.com.</p>" } },
-        "a4": { "type": "faq_item", "settings": { "category": "Ambassador & Partnerships", "question": "Can I submit a collaboration or co-design proposal?", "answer": "<p>Yes. KØRE is open to creative collaborations that align with our brand values: performance, island culture, and minimalist design. Send your proposal with portfolio or concept brief to studio@kourtlab.com.</p>" } },
-
-        "t1": { "type": "faq_item", "settings": { "category": "KØRE Technology", "question": "What makes KØRE fabrics different from other padel apparel?", "answer": "<p>KØRE fabrics are engineered specifically for high-intensity lateral court movement in hot and humid Caribbean conditions. Our proprietary weave offers 4-way stretch, rapid moisture transport, and UV 50+ protection — without sacrificing the sharp silhouette the brand is known for.</p>" } },
-        "t2": { "type": "faq_item", "settings": { "category": "KØRE Technology", "question": "Are KØRE pieces UV protective?", "answer": "<p>Yes. All KØRE performance pieces carry a minimum UPF 50+ rating, blocking over 98% of UV radiation — critical for outdoor padel sessions in the Caribbean sun and Mediterranean summer tournaments.</p>" } },
-        "t3": { "type": "faq_item", "settings": { "category": "KØRE Technology", "question": "How does KØRE approach moisture management?", "answer": "<p>KØRE uses a dual-layer moisture transport system — a hydrophobic outer face that repels surface moisture, and a capillary-action inner face that draws sweat away from skin to the outer surface for rapid evaporation. Court-dry in conditions where other apparel soaks through.</p>" } },
-        "t4": { "type": "faq_item", "settings": { "category": "KØRE Technology", "question": "What is KØRE's quality guarantee?", "answer": "<p>Every KØRE piece undergoes 120-hour accelerated wear testing before release — covering colorfastness, seam stress, stretch recovery, and wash durability. If a product fails within 6 months under normal court use, we replace it. No questions.</p>" } },
-
-        "ac1": { "type": "faq_item", "settings": { "category": "Account & Profile", "question": "Do I need a KØRE account to order?", "answer": "<p>No — you can check out as a guest. However, a KØRE account gives you access to order tracking, drop early access, founding member benefits, and saved size profiles for faster future checkout.</p>" } },
-        "ac2": { "type": "faq_item", "settings": { "category": "Account & Profile", "question": "How do I reset my password?", "answer": "<p>Click 'Forgot Password' on the login page and enter your registered email. A secure reset link will be sent within 2 minutes. Check your spam folder if it does not appear in your inbox.</p>" } },
-        "ac3": { "type": "faq_item", "settings": { "category": "Account & Profile", "question": "How do I update my shipping address or personal details?", "answer": "<p>Log in to your KØRE account, navigate to 'Account Settings', and update your details. Changes apply to future orders only — for address changes on an existing open order, contact support@kourtlab.com immediately.</p>" } },
-        "ac4": { "type": "faq_item", "settings": { "category": "Account & Profile", "question": "How do I unsubscribe from the KØRE newsletter?", "answer": "<p>Click 'Unsubscribe' at the bottom of any KØRE newsletter email. Alternatively, you can manage your communication preferences from your account settings page. Note: unsubscribing may cause you to miss exclusive drop announcements and member-only offers.</p>" } },
-
-        "sp1": { "type": "faq_item", "settings": { "category": "Security & Privacy", "question": "Is it safe to use my credit card on kourtlab.com?", "answer": "<p>Absolutely. All payment processing on kourtlab.com is handled by Shopify Payments with 256-bit SSL encryption — the same security standard used by the world's largest financial institutions. We never store your full card details on our servers.</p>" } },
-        "sp2": { "type": "faq_item", "settings": { "category": "Security & Privacy", "question": "How will KØRE use my personal data?", "answer": "<p>Your personal information is used only to process your order, communicate with you about your purchase, and (with your consent) keep you informed about new drops and community events. We never sell your data to third parties. Full privacy policy available at kourtlab.com/privacy.</p>" } },
-        "sp3": { "type": "faq_item", "settings": { "category": "Security & Privacy", "question": "How do I know if a website selling KØRE products is legitimate?", "answer": "<p>The only official KØRE online store is kourtlab.com. KØRE does not authorise resellers at this stage. If you see KØRE products sold on any other website, please report it to support@kourtlab.com so we can investigate.</p>" } },
-        "sp4": { "type": "faq_item", "settings": { "category": "Security & Privacy", "question": "How can I delete my KØRE account?", "answer": "<p>To request full account and data deletion, email privacy@kourtlab.com with the subject line 'Account Deletion Request'. We will process your request within 30 days in accordance with GDPR and applicable data protection regulations.</p>" } }
+        "faq_item_PGr4hj": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Where can I track the status of my order?",
+            "answer": "<p>You will receive a confirmation email with a direct tracking link as soon as your order leaves our Curaçao facility. You can also view live updates under your account.</p>"
+          }
+        },
+        "o1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Will I be notified about my order status?",
+            "answer": "<p>Yes. You will receive automated email updates at every key stage — order confirmation, dispatch notification with tracking link, and delivery confirmation. You can also view live order status under your KØRE account profile at any time.</p>"
+          }
+        },
+        "o2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "What if my email address on my order is incorrect?",
+            "answer": "<p>Contact support@kourtlab.com immediately with your order number and the correct email address. Our team processes this quickly — especially during active drop windows — so the sooner you reach out, the better.</p>"
+          }
+        },
+        "o3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "What payment methods does KØRE accept?",
+            "answer": "<p>We accept Visa, Mastercard, American Express, Apple Pay, Google Pay, and Klarna (Buy Now Pay Later). All major currencies are supported at checkout.</p>"
+          }
+        },
+        "o4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "When will I see the payment reflected in my account?",
+            "answer": "<p>Your payment is captured the moment your order is confirmed. Bank processing times vary by institution — typically 1–3 business days for the charge to reflect on your statement.</p>"
+          }
+        },
+        "o5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Can I make changes to my order after placing it?",
+            "answer": "<p>Our fulfillment team begins processing orders within 60 minutes of placement to ensure fastest possible dispatch. If you need to change a size, color, or shipping address, contact support@kourtlab.com immediately — we cannot guarantee changes after the processing window closes.</p>"
+          }
+        },
+        "o6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "How can I cancel my order?",
+            "answer": "<p>Cancellations are possible within 60 minutes of placing your order. Contact support@kourtlab.com with your order number immediately. Once an order has entered fulfillment, it cannot be cancelled — but you can initiate a return once it arrives.</p>"
+          }
+        },
+        "o7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Can I order KØRE products in bulk for my team or club?",
+            "answer": "<p>Yes. KØRE offers bespoke bulk and team kit orders for padel clubs, academies, and corporate partners. Contact clubs@kourtlab.com with your requirements — minimum quantities, sizing, and customisation options.</p>"
+          }
+        },
+        "o8": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Does KØRE offer gift cards?",
+            "answer": "<p>Yes. Digital Gift Cards are available in multiple denominations and can be delivered instantly via email to any address worldwide. Perfect for padel partners and court-day gifts.</p>"
+          }
+        },
+        "o9": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Do you offer any promotions or discount codes?",
+            "answer": "<p>Seasonal promotions and exclusive member-only drops are announced via our newsletter and social channels. Club partner and student discounts are available — contact us to verify eligibility.</p>"
+          }
+        },
+        "o10": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Orders",
+            "question": "Do I need a KØRE account to place an order?",
+            "answer": "<p>No account is required to place an order as a guest. However, creating a KØRE account gives you access to order tracking, early-drop access, exclusive member pricing, and the founding member benefits programme.</p>"
+          }
+        },
+        "r1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "What is the KØRE return policy?",
+            "answer": "<p>We stand behind every garment on court. If your KØRE gear doesn't meet your performance standard within 30 days of delivery, return it — worn or unworn — for a full refund or exchange. Court-tested returns are accepted.</p>"
+          }
+        },
+        "r2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "How do I return my order?",
+            "answer": "<p>Email support@kourtlab.com with your order number and reason for return. We will provide a pre-paid return shipping label and step-by-step instructions. Caribbean returns ship via our island courier network.</p>"
+          }
+        },
+        "r3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "Do you offer free return shipping?",
+            "answer": "<p>Yes. All returns within the Caribbean region and European markets include free pre-paid return labels. International returns outside these regions may have a flat-rate return shipping fee that will be communicated clearly in your return confirmation.</p>"
+          }
+        },
+        "r4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "When will I receive my refund?",
+            "answer": "<p>Once your return is received and inspected at our facility, refunds are processed within 3–5 business days. The credit will appear on your original payment method within 5–10 business days depending on your bank.</p>"
+          }
+        },
+        "r5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "What is the process for exchanging my order for a different size?",
+            "answer": "<p>Contact support@kourtlab.com with your order number and the size or style you want instead. If your requested size is in stock, we will ship the exchange immediately upon receipt of your return. Size exchanges ship for free.</p>"
+          }
+        },
+        "r6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "Can I return Limited Edition or Club Drop items?",
+            "answer": "<p>Limited Edition and exclusive Club Drop items follow the same 30-day performance trial policy. However, size exchanges on limited edition pieces are subject to availability and cannot be guaranteed.</p>"
+          }
+        },
+        "r7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "Can I receive my exchange before returning the original item?",
+            "answer": "<p>In select cases, priority exchanges can be arranged for founding members and club partners. Contact support@kourtlab.com to discuss your situation — we will always try to keep you on court.</p>"
+          }
+        },
+        "r8": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Returns & Exchanges",
+            "question": "How do I track my return shipment?",
+            "answer": "<p>Your pre-paid return label includes a tracking number. Once you drop off the return, you can track it through our courier partner's portal. You will also receive an email confirmation once we receive and process your return.</p>"
+          }
+        },
+        "s1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "Where can I track my order?",
+            "answer": "<p>A tracking link is sent by email as soon as your order is dispatched from our Curaçao facility or EU distribution hub. You can also access live tracking under your KØRE account under 'My Orders'.</p>"
+          }
+        },
+        "s2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "Which countries does KØRE ship to?",
+            "answer": "<p>KØRE ships worldwide. We have dedicated shipping lanes for the Caribbean region (Curaçao, Aruba, Bonaire, Trinidad, and across the Dutch Caribbean), Europe (including Netherlands, Germany, Spain, France, UK), and international via DHL Express and FedEx.</p>"
+          }
+        },
+        "s3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "How long will my order take to arrive?",
+            "answer": "<p>Caribbean delivery: 2–4 business days. European Standard: 3–5 business days. European Express: 1–2 business days. International (Americas, Asia, Middle East): 4–7 business days. All orders are dispatched within 24–48 hours.</p>"
+          }
+        },
+        "s4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "How much does shipping cost?",
+            "answer": "<p>Free shipping is available on orders above the threshold for your region (shown at checkout). Standard shipping rates start from a flat fee that varies by destination zone. Express shipping is always available as an upgrade at checkout.</p>"
+          }
+        },
+        "s5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "Will I have to pay customs or import duties?",
+            "answer": "<p>Customs duties and taxes are calculated and displayed transparently at checkout — there are no surprise fees upon delivery. For Caribbean shipments, KØRE handles all island customs clearance directly.</p>"
+          }
+        },
+        "s6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Shipping & Delivery",
+            "question": "What should I do if my package hasn't arrived?",
+            "answer": "<p>If your order has passed its estimated delivery window, first check your tracking link. If it shows delivered but you haven't received it, contact support@kourtlab.com within 7 days and we will open an investigation with our courier partner immediately.</p>"
+          }
+        },
+        "p1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "Are KØRE pieces true to size?",
+            "answer": "<p>All KØRE performance apparel is cut with an athletic tailored fit specifically engineered for padel court mobility — full shoulder rotation, extended reach, and Caribbean heat management. If you prefer a relaxed lifestyle fit, size up one.</p>"
+          }
+        },
+        "p2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "How do I know which size to order?",
+            "answer": "<p>Each product page includes a detailed size guide with chest, waist, and hip measurements in both EU and US sizing. If you are between sizes, our performance pieces are designed to accommodate — but for maximum court mobility, size down.</p>"
+          }
+        },
+        "p3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "What materials are used in KØRE performance apparel?",
+            "answer": "<p>KØRE uses a blend of high-performance recycled polyester and elastane engineered specifically for high-intensity sport in tropical and sub-tropical conditions. All fabrics are OEKO-TEX certified, moisture-wicking, and UV protective.</p>"
+          }
+        },
+        "p4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "How do I care for my KØRE gear?",
+            "answer": "<p>Machine wash cold (30°C max) on a gentle cycle with like colours. Do not use fabric softeners or bleach — they degrade moisture-wicking performance. Hang dry or tumble dry on low heat. Do not iron directly on printed or embroidered details.</p>"
+          }
+        },
+        "p5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "Is KØRE apparel suitable for everyday wear beyond padel?",
+            "answer": "<p>Absolutely. KØRE is engineered for the court but designed for the lifestyle. Our pieces move effortlessly from post-match coffee to weekend markets. The athletic silhouette and premium materials make them ideal for everyday performance living.</p>"
+          }
+        },
+        "p6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "What do I do if a product I want is out of stock in my size?",
+            "answer": "<p>Join the waitlist directly on the product page by entering your email and size. KØRE founding members receive priority restock notifications before they go live. Drop restocks are announced via our newsletter and Instagram.</p>"
+          }
+        },
+        "p7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "Where is KØRE apparel designed and produced?",
+            "answer": "<p>KØRE is designed in Curaçao, Dutch Caribbean, with manufacturing partnerships across responsible factories in Portugal and the Netherlands that meet our strict quality and ethical production standards.</p>"
+          }
+        },
+        "p8": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Product Info & Sizing",
+            "question": "How do I submit feedback about a KØRE product?",
+            "answer": "<p>We genuinely value court feedback from our community. Submit product feedback via support@kourtlab.com or tag @kourtlab on Instagram. Our design team reviews all product feedback before every new season drop.</p>"
+          }
+        },
+        "su1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Sustainability",
+            "question": "What is KØRE's environmental mission?",
+            "answer": "<p>KØRE is built on the belief that high-performance sport gear and responsible production are not opposites. Our mission is to reduce our environmental footprint at every stage — materials sourcing, manufacturing, packaging, and end-of-life product recovery.</p>"
+          }
+        },
+        "su2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Sustainability",
+            "question": "What packaging does KØRE use?",
+            "answer": "<p>All KØRE packaging is 100% recyclable. We use FSC-certified paper mailers, soy-based inks, and zero single-use plastic in our shipping materials. Polybags, where required for moisture protection, are made from recycled LDPE and fully recyclable.</p>"
+          }
+        },
+        "su3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Sustainability",
+            "question": "Does KØRE use recycled materials?",
+            "answer": "<p>Yes. Our core performance fabrics include a minimum 40% recycled polyester content, with ongoing R&D to increase this across all product lines. We are committed to transitioning all synthetic materials to recycled or bio-based alternatives by 2027.</p>"
+          }
+        },
+        "su4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Sustainability",
+            "question": "What are KØRE's fair production standards?",
+            "answer": "<p>All manufacturing partners are required to meet our Supplier Code of Conduct — covering fair wages, safe working conditions, no child labour, and environmental management. We conduct annual audits and publish supplier transparency reports.</p>"
+          }
+        },
+        "su5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Sustainability",
+            "question": "What are KØRE's commitments to people and the planet?",
+            "answer": "<p>KØRE commits to: (1) Carbon-neutral shipping by 2026. (2) 100% recycled packaging by 2025. (3) Full supply chain transparency report annually. (4) Community reinvestment into Caribbean youth padel access programmes.</p>"
+          }
+        },
+        "c1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Club Membership & Drops",
+            "question": "What is the KØRE Founding Member programme?",
+            "answer": "<p>Founding Members are the first 100 individuals to join the KØRE community before our official launch. They receive lifetime priority access to all product drops, exclusive Founding Member colourways, early sale access, and a personal thank-you from our Curaçao team.</p>"
+          }
+        },
+        "c2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Club Membership & Drops",
+            "question": "How can my padel club partner with KØRE?",
+            "answer": "<p>KØRE partners with selected padel clubs globally for custom team kit drops, tournament sponsorships, court-day pop-ups, and exclusive club colourways. Contact clubs@kourtlab.com with your club name, location, and member count to start the conversation.</p>"
+          }
+        },
+        "c3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Club Membership & Drops",
+            "question": "How does the Club Drop system work?",
+            "answer": "<p>Club Drops are exclusive limited-production releases available only to KØRE club community members. They are announced with a 72-hour pre-drop window exclusive to members, before opening to the general public (subject to availability).</p>"
+          }
+        },
+        "c4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Club Membership & Drops",
+            "question": "Can I trade in KØRE gear through a recycling programme?",
+            "answer": "<p>Yes. KØRE is developing a Court-to-Cradle take-back programme for worn performance gear. Returned items are assessed for resale, upcycling, or responsible material recycling. Details and launch regions will be announced via our newsletter.</p>"
+          }
+        },
+        "c5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Club Membership & Drops",
+            "question": "How do I get early access to limited drops?",
+            "answer": "<p>Join the KØRE newsletter and create a free account. Founding Members, Club Partners, and Ambassador affiliates receive exclusive 72-hour early-drop windows before items go live to the general public.</p>"
+          }
+        },
+        "a1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Ambassador & Partnerships",
+            "question": "Does KØRE have an ambassador programme?",
+            "answer": "<p>Yes. The KØRE Ambassador Programme connects high-level padel players, content creators, and community builders with our brand. Ambassadors receive product allocations, commission-based affiliate codes, and co-creation opportunities on future drops.</p>"
+          }
+        },
+        "a2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Ambassador & Partnerships",
+            "question": "How does the KØRE affiliate programme work?",
+            "answer": "<p>Affiliates receive a unique tracking code to share with their community. For every sale made through your code, you earn a commission. Payouts are made monthly via bank transfer or Stripe. Apply via our website ambassador portal.</p>"
+          }
+        },
+        "a3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Ambassador & Partnerships",
+            "question": "Where can I find more about current brand partnerships?",
+            "answer": "<p>Current and upcoming KØRE collaborations and brand partnerships are announced via our Instagram (@kourtlab) and newsletter. Collaboration enquiries from brands, athletes, and creative studios can be sent to studio@kourtlab.com.</p>"
+          }
+        },
+        "a4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Ambassador & Partnerships",
+            "question": "Can I submit a collaboration or co-design proposal?",
+            "answer": "<p>Yes. KØRE is open to creative collaborations that align with our brand values: performance, island culture, and minimalist design. Send your proposal with portfolio or concept brief to studio@kourtlab.com.</p>"
+          }
+        },
+        "t1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "KØRE Technology",
+            "question": "What makes KØRE fabrics different from other padel apparel?",
+            "answer": "<p>KØRE fabrics are engineered specifically for high-intensity lateral court movement in hot and humid Caribbean conditions. Our proprietary weave offers 4-way stretch, rapid moisture transport, and UV 50+ protection — without sacrificing the sharp silhouette the brand is known for.</p>"
+          }
+        },
+        "t2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "KØRE Technology",
+            "question": "Are KØRE pieces UV protective?",
+            "answer": "<p>Yes. All KØRE performance pieces carry a minimum UPF 50+ rating, blocking over 98% of UV radiation — critical for outdoor padel sessions in the Caribbean sun and Mediterranean summer tournaments.</p>"
+          }
+        },
+        "t3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "KØRE Technology",
+            "question": "How does KØRE approach moisture management?",
+            "answer": "<p>KØRE uses a dual-layer moisture transport system — a hydrophobic outer face that repels surface moisture, and a capillary-action inner face that draws sweat away from skin to the outer surface for rapid evaporation. Court-dry in conditions where other apparel soaks through.</p>"
+          }
+        },
+        "t4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "KØRE Technology",
+            "question": "What is KØRE's quality guarantee?",
+            "answer": "<p>Every KØRE piece undergoes 120-hour accelerated wear testing before release — covering colorfastness, seam stress, stretch recovery, and wash durability. If a product fails within 6 months under normal court use, we replace it. No questions.</p>"
+          }
+        },
+        "ac1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Account & Profile",
+            "question": "Do I need a KØRE account to order?",
+            "answer": "<p>No — you can check out as a guest. However, a KØRE account gives you access to order tracking, drop early access, founding member benefits, and saved size profiles for faster future checkout.</p>"
+          }
+        },
+        "ac2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Account & Profile",
+            "question": "How do I reset my password?",
+            "answer": "<p>Click 'Forgot Password' on the login page and enter your registered email. A secure reset link will be sent within 2 minutes. Check your spam folder if it does not appear in your inbox.</p>"
+          }
+        },
+        "ac3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Account & Profile",
+            "question": "How do I update my shipping address or personal details?",
+            "answer": "<p>Log in to your KØRE account, navigate to 'Account Settings', and update your details. Changes apply to future orders only — for address changes on an existing open order, contact support@kourtlab.com immediately.</p>"
+          }
+        },
+        "ac4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Account & Profile",
+            "question": "How do I unsubscribe from the KØRE newsletter?",
+            "answer": "<p>Click 'Unsubscribe' at the bottom of any KØRE newsletter email. Alternatively, you can manage your communication preferences from your account settings page. Note: unsubscribing may cause you to miss exclusive drop announcements and member-only offers.</p>"
+          }
+        },
+        "sp1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Security & Privacy",
+            "question": "Is it safe to use my credit card on kourtlab.com?",
+            "answer": "<p>Absolutely. All payment processing on kourtlab.com is handled by Shopify Payments with 256-bit SSL encryption — the same security standard used by the world's largest financial institutions. We never store your full card details on our servers.</p>"
+          }
+        },
+        "sp2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Security & Privacy",
+            "question": "How will KØRE use my personal data?",
+            "answer": "<p>Your personal information is used only to process your order, communicate with you about your purchase, and (with your consent) keep you informed about new drops and community events. We never sell your data to third parties. Full privacy policy available at kourtlab.com/privacy.</p>"
+          }
+        },
+        "sp3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Security & Privacy",
+            "question": "How do I know if a website selling KØRE products is legitimate?",
+            "answer": "<p>The only official KØRE online store is kourtlab.com. KØRE does not authorise resellers at this stage. If you see KØRE products sold on any other website, please report it to support@kourtlab.com so we can investigate.</p>"
+          }
+        },
+        "sp4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Security & Privacy",
+            "question": "How can I delete my KØRE account?",
+            "answer": "<p>To request full account and data deletion, email privacy@kourtlab.com with the subject line 'Account Deletion Request'. We will process your request within 30 days in accordance with GDPR and applicable data protection regulations.</p>"
+          }
+        }
       },
       "block_order": [
-        "o1","o2","o3","o4","o5","o6","o7","o8","o9","o10",
-        "r1","r2","r3","r4","r5","r6","r7","r8",
-        "s1","s2","s3","s4","s5","s6",
-        "p1","p2","p3","p4","p5","p6","p7","p8",
-        "su1","su2","su3","su4","su5",
-        "c1","c2","c3","c4","c5",
-        "a1","a2","a3","a4",
-        "t1","t2","t3","t4",
-        "ac1","ac2","ac3","ac4",
-        "sp1","sp2","sp3","sp4"
+        "faq_item_PGr4hj",
+        "o1",
+        "o2",
+        "o3",
+        "o4",
+        "o5",
+        "o6",
+        "o7",
+        "o8",
+        "o9",
+        "o10",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "r6",
+        "r7",
+        "r8",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6",
+        "p7",
+        "p8",
+        "su1",
+        "su2",
+        "su3",
+        "su4",
+        "su5",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "ac1",
+        "ac2",
+        "ac3",
+        "ac4",
+        "sp1",
+        "sp2",
+        "sp3",
+        "sp4"
       ],
       "settings": {
         "color_scheme": "scheme-1",
         "full_width": false,
-        "title": "How can we help you<span>?</span>",
+        "title": "How can we help you?",
         "subtext": "Find answers to your most commonly asked questions.",
         "search_placeholder": "Search for your answer…",
         "chips": "track my order, returns, sizing, club drops, sustainability",
-        "cta_heading": "STILL NEED HELP<span>?</span>",
+        "cta_heading": "STILL NEED HELP?",
         "cta_sub": "Our team is here for sizing, orders, or club drops.",
         "cta_label": "CONTACT US",
+        "cta_link": "",
         "padding_top": 60,
         "padding_bottom": 100
       }
     }
   },
-  "order": ["main_faq"]
+  "order": [
+    "main_faq"
+  ]
 }

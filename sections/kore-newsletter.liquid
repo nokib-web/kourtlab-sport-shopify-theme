@@ -1,0 +1,444 @@
+{%- style -%}
+  .kore-newsletter--{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#EFECE6' }} !important;
+    position: relative;
+    padding-top: {{ section.settings.padding_top | default: 48 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | default: 48 }}px !important;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  {% if section.settings.bg_image != blank %}
+    .kore-newsletter--{{ section.id }}::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2200 }}');
+      background-size: cover;
+      background-position: center;
+      opacity: {{ section.settings.bg_image_opacity | default: 35 | divided_by: 100.0 }};
+      pointer-events: none;
+      z-index: 1;
+    }
+  {% endif %}
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-newsletter--{{ section.id }} .kore-newsletter__container {
+      padding-left: 3.95rem;
+      padding-right: 3.95rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-newsletter--{{ section.id }} .kore-newsletter__container {
+      padding-left: 5.75rem;
+      padding-right: 5.75rem;
+    }
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__content-col {
+    flex: 0 0 50%;
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__heading {
+    font-size: {{ section.settings.heading_font_size | default: 36 }}px !important;
+    font-weight: 900 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.01em !important;
+    text-transform: uppercase !important;
+    color: {{ section.settings.heading_color | default: '#0A0A0A' }} !important;
+    margin: 0 0 0.6rem 0 !important;
+    font-family: var(--font-heading-family) !important;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__subtext {
+    font-size: {{ section.settings.subtext_font_size | default: 19 }}px !important;
+    line-height: 1.45 !important;
+    font-weight: 500 !important;
+    color: {{ section.settings.subtext_color | default: '#333333' }} !important;
+    margin: 0 !important;
+    font-family: var(--font-body-family) !important;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__form-col {
+    flex: 0 0 46%;
+    max-width: 46%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__form {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__input-group {
+    display: flex;
+    width: 100%;
+    height: 58px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(10, 10, 10, 0.25);
+    background-color: #F4F3EF;
+    margin-bottom: 0.6rem;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 0 1.4rem;
+    font-size: {{ section.settings.input_font_size | default: 18 }}px !important;
+    color: #0A0A0A !important;
+    font-family: var(--font-body-family) !important;
+    outline: none;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__input::placeholder {
+    color: #666666 !important;
+    font-size: {{ section.settings.input_font_size | default: 18 }}px !important;
+    font-family: var(--font-body-family) !important;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: {{ section.settings.button_bg | default: '#0A0A0A' }} !important;
+    color: {{ section.settings.button_text_color | default: '#FFFFFF' }} !important;
+    border: none;
+    padding: 0 2.2rem;
+    font-size: 0.95rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    cursor: pointer;
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease;
+    font-family: var(--font-heading-family) !important;
+    white-space: nowrap;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__submit svg {
+    color: {{ section.settings.button_arrow_color | default: '#FFFFFF' }};
+    transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__submit:hover {
+    background-color: {{ section.settings.button_hover_bg | default: '#CBD64A' }} !important;
+    color: {{ section.settings.button_hover_text | default: '#0A0A0A' }} !important;
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__submit:hover svg {
+    color: {{ section.settings.button_hover_text | default: '#0A0A0A' }} !important;
+    transform: translateX(3px);
+  }
+
+  .kore-newsletter--{{ section.id }} .kore-newsletter__promo-note {
+    font-size: {{ section.settings.promo_note_font_size | default: 17 }}px !important;
+    font-weight: 800 !important;
+    color: {{ section.settings.promo_note_color | default: '#0A0A0A' }} !important;
+    font-family: var(--font-heading-family) !important;
+    margin: 0 !important;
+    width: 100%;
+    max-width: 560px;
+    text-align: left;
+  }
+
+  /* Responsive Breakpoints */
+  @media screen and (max-width: 989px) {
+    .kore-newsletter--{{ section.id }} .kore-newsletter__grid {
+      flex-direction: column;
+      gap: 2rem;
+      align-items: stretch;
+    }
+    .kore-newsletter--{{ section.id }} .kore-newsletter__content-col,
+    .kore-newsletter--{{ section.id }} .kore-newsletter__form-col {
+      flex: 0 0 100%;
+      max-width: 100%;
+      width: 100%;
+      align-items: stretch;
+    }
+    .kore-newsletter--{{ section.id }} .kore-newsletter__form {
+      max-width: 100%;
+    }
+    .kore-newsletter--{{ section.id }} .kore-newsletter__promo-note {
+      max-width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+<div class="kore-newsletter kore-newsletter--{{ section.id }}">
+  <div class="kore-newsletter__container">
+    <div class="kore-newsletter__grid">
+      {%- comment -%} Left Column (Headline & Subtext) {%- endcomment -%}
+      <div class="kore-newsletter__content-col">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="kore-newsletter__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtext != blank -%}
+          <p class="kore-newsletter__subtext">{{ section.settings.subtext }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Right Column (Form Input & Promo Note) {%- endcomment -%}
+      <div class="kore-newsletter__form-col">
+        <div class="kore-newsletter__form">
+          {%- form 'customer', class: 'kore-newsletter__form-element' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="kore-newsletter__input-group">
+              <input
+                type="email"
+                name="contact[email]"
+                class="kore-newsletter__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="{{ section.settings.placeholder_text | default: 'Enter your email address' }}"
+                required
+              >
+              <button
+                type="submit"
+                class="kore-newsletter__submit"
+                name="commit"
+                aria-label="{{ section.settings.button_label | default: 'SUBSCRIBE' }}"
+              >
+                <span>{{ section.settings.button_label | default: 'SUBSCRIBE' }}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+            {%- if form.posted_successfully? -%}
+              <p class="form-status form-status-list form__message" style="color: #2e7d32; font-weight: 600; font-size: 0.95rem; margin-top: 0.4rem;">
+                Thanks for subscribing!
+              </p>
+            {%- endif -%}
+          {%- endform -%}
+
+          {%- if section.settings.promo_note != blank -%}
+            <p class="kore-newsletter__promo-note">{{ section.settings.promo_note }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KØRĒ Newsletter",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Background & Options"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#EFECE6"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Texture / Image Upload"
+    },
+    {
+      "type": "range",
+      "id": "bg_image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background Image Opacity",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Left Side Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "JOIN THE KOURTLAB COMMUNITY.",
+      "label": "Heading Title"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 36
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "default": "Be the first to discover new drops, early access releases, exclusive content and more.",
+      "label": "Subtext Paragraph"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "subtext_font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext Font Size",
+      "default": 19
+    },
+    {
+      "type": "header",
+      "content": "Form & Button Options"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "default": "Enter your email address",
+      "label": "Input Placeholder Text"
+    },
+    {
+      "type": "range",
+      "id": "input_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Input Field Font Size",
+      "default": 18
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "SUBSCRIBE",
+      "label": "Button Label"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_arrow_color",
+      "label": "Button Arrow Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button Hover Background (Lime)",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "text",
+      "id": "promo_note",
+      "default": "Get 10% off your first order.",
+      "label": "Promo Note Under Form"
+    },
+    {
+      "type": "color",
+      "id": "promo_note_color",
+      "label": "Promo Note Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "range",
+      "id": "promo_note_font_size",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Promo Note Font Size",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Section Height & Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Newsletter"
+    }
+  ]
+}
+{% endschema %}

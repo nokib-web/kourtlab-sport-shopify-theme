@@ -18,39 +18,207 @@
   {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 {% endif %}
 
+{%- style -%}
+  .kore-announcement-bar--{{ section.id }} {
+    {% if section.settings.use_custom_colors %}
+      background-color: {{ section.settings.bg_color }} !important;
+      color: {{ section.settings.text_color }} !important;
+    {% endif %}
+    padding-top: {{ section.settings.padding_top }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom }}px !important;
+    {% if section.settings.show_line_separator %}
+      border-bottom: 1px solid {{ section.settings.border_color }} !important;
+    {% else %}
+      border-bottom: none !important;
+    {% endif %}
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .kore-announcement-bar--{{ section.id }},
+  .kore-announcement-bar--{{ section.id }} * {
+    {% case section.settings.font_family %}
+      {% when 'heading' %}
+        font-family: var(--font-heading-family), sans-serif !important;
+      {% when 'barlow' %}
+        font-family: 'Barlow Condensed', var(--font-heading-family), sans-serif !important;
+      {% when 'inter' %}
+        font-family: 'Inter', var(--font-body-family), sans-serif !important;
+      {% else %}
+        font-family: var(--font-body-family), sans-serif !important;
+    {% endcase %}
+    font-size: {{ section.settings.font_size }}px !important;
+    font-weight: {{ section.settings.font_weight }} !important;
+    letter-spacing: {{ section.settings.letter_spacing | divided_by: 100.0 }}em !important;
+    text-transform: {{ section.settings.text_transform }} !important;
+    line-height: 1.3;
+  }
+
+  /* Exact width and padding alignment with Header Logo & Icons */
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__container {
+      padding-left: 3.95rem;
+      padding-right: 3.95rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__container {
+      padding-left: 5.75rem;
+      padding-right: 5.75rem;
+    }
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__col {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__col--left {
+    justify-content: flex-start;
+    flex: 1;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__col--center {
+    justify-content: center;
+    flex: 2;
+    text-align: center;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__col--right {
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__block-wrapper {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__item:hover {
+    opacity: 0.85;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__item--highlight {
+    color: {{ section.settings.highlight_color }} !important;
+    font-weight: 700 !important;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__item--muted {
+    opacity: 0.7 !important;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__divider {
+    color: {{ section.settings.divider_color }} !important;
+    font-weight: 300;
+    margin: 0 0.6rem;
+    user-select: none;
+    display: inline-block;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__divider--vertical-line {
+    width: 1px;
+    height: 12px;
+    background-color: {{ section.settings.divider_color }} !important;
+    margin: 0 0.8rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-icon {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  .kore-announcement-bar--{{ section.id }} .kore-announcement-icon--palm svg {
+    fill: {{ section.settings.highlight_color }} !important;
+  }
+
+  /* Mobile Responsive Scroll */
+  @media screen and (max-width: 989px) {
+    .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__flex {
+      justify-content: flex-start;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1.5rem;
+    }
+    .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__flex::-webkit-scrollbar {
+      display: none;
+    }
+    .kore-announcement-bar--{{ section.id }} .kore-announcement-bar__col {
+      flex: none;
+    }
+  }
+{%- endstyle -%}
+
 <div
-  class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
+  class="utility-bar kore-announcement-bar kore-announcement-bar--{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
 >
-  <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
-    {%- if section.settings.show_social and social_icons -%}
-      {%- render 'social-icons' -%}
-    {%- endif -%}
-    {%- if section.blocks.size == 1 -%}
-      <div
-        class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
-        role="region"
-        aria-label="{{ 'sections.header.announcement' | t }}"
-        {{ section.blocks.first.shopify_attributes }}
-      >
-        {%- if section.blocks.first.settings.text != blank -%}
-          {%- if section.blocks.first.settings.link != blank -%}
-            <a
-              href="{{ section.blocks.first.settings.link }}"
-              class="announcement-bar__link link link--text focus-inset animate-arrow"
-            >
-          {%- endif -%}
-          <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- if section.blocks.first.settings.link != blank -%}
-              {{- 'icon-arrow.svg' | inline_asset_content -}}
-            {%- endif -%}
-          </p>
-          {%- if section.blocks.first.settings.link != blank -%}
-            </a>
-          {%- endif -%}
+  <div class="kore-announcement-bar__container page-width">
+    {%- if section.settings.desktop_layout == 'spread' or section.settings.desktop_layout == blank -%}
+      <div class="kore-announcement-bar__flex">
+        {%- if section.blocks.size >= 3 -%}
+          {%- comment -%} Left Column (First Block) {%- endcomment -%}
+          <div class="kore-announcement-bar__col kore-announcement-bar__col--left">
+            {%- assign first_block = section.blocks.first -%}
+            {%- render 'kore-announcement-item', block: first_block, section: section -%}
+          </div>
+
+          {%- comment -%} Center Column (Middle Blocks) {%- endcomment -%}
+          <div class="kore-announcement-bar__col kore-announcement-bar__col--center">
+            {%- for block in section.blocks -%}
+              {%- unless forloop.first or forloop.last -%}
+                {%- render 'kore-announcement-item', block: block, section: section -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+
+          {%- comment -%} Right Column (Last Block) {%- endcomment -%}
+          <div class="kore-announcement-bar__col kore-announcement-bar__col--right">
+            {%- assign last_block = section.blocks.last -%}
+            {%- render 'kore-announcement-item', block: last_block, section: section -%}
+          </div>
+        {%- else -%}
+          {%- comment -%} Less than 3 blocks {%- endcomment -%}
+          <div class="kore-announcement-bar__col kore-announcement-bar__col--center" style="width:100%;">
+            {%- for block in section.blocks -%}
+              {%- render 'kore-announcement-item', block: block, section: section -%}
+            {%- endfor -%}
+          </div>
         {%- endif -%}
       </div>
-    {%- elsif section.blocks.size > 1 -%}
+    {%- elsif section.settings.desktop_layout == 'carousel' -%}
+      {%- comment -%} Carousel mode fallback {%- endcomment -%}
       <slideshow-component
         class="announcement-bar"
         role="region"
@@ -100,7 +268,7 @@
                       >
                     {%- endif -%}
                     <p class="announcement-bar__message h5">
-                      <span>{{ block.settings.text | escape }}</span>
+                      <span>{{ block.settings.text }}</span>
                       {%- if block.settings.link != blank -%}
                         {{- 'icon-arrow.svg' | inline_asset_content -}}
                       {%- endif -%}
@@ -126,16 +294,8 @@
           </button>
         </div>
       </slideshow-component>
-      {%- if request.design_mode -%}
-        <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
-        <style>
-          /* theme editor power preview fix */
-          .announcement-bar-slider .slider__slide[aria-hidden='true'] {
-            visibility: hidden;
-          }
-        </style>
-      {%- endif -%}
     {%- endif -%}
+
     <div class="localization-wrapper">
       {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
         <localization-form class="small-hide medium-hide">
@@ -172,6 +332,222 @@
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "options": [
+        {
+          "value": "spread",
+          "label": "Spread Across Bar (Left, Center, Right)"
+        },
+        {
+          "value": "carousel",
+          "label": "Carousel / Slideshow"
+        }
+      ],
+      "default": "spread",
+      "label": "Desktop Layout Style"
+    },
+    {
+      "type": "select",
+      "id": "separator_style",
+      "options": [
+        {
+          "value": "pipe",
+          "label": "| Pipe"
+        },
+        {
+          "value": "line",
+          "label": "| Vertical Divider Line"
+        },
+        {
+          "value": "dot",
+          "label": "• Dot"
+        }
+      ],
+      "default": "pipe",
+      "label": "Separator Line Style in Middle"
+    },
+    {
+      "type": "header",
+      "content": "Typography Options"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "options": [
+        {
+          "value": "body",
+          "label": "Global Body Font (Theme Default)"
+        },
+        {
+          "value": "heading",
+          "label": "Global Heading Font (Theme Default)"
+        },
+        {
+          "value": "barlow",
+          "label": "Barlow Condensed"
+        },
+        {
+          "value": "inter",
+          "label": "Inter"
+        }
+      ],
+      "default": "body",
+      "label": "Font Family Option"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 9,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "400 (Regular)"
+        },
+        {
+          "value": "500",
+          "label": "500 (Medium)"
+        },
+        {
+          "value": "600",
+          "label": "600 (SemiBold)"
+        },
+        {
+          "value": "700",
+          "label": "700 (Bold)"
+        },
+        {
+          "value": "800",
+          "label": "800 (ExtraBold)"
+        }
+      ],
+      "default": "600",
+      "label": "Font Weight"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 25,
+      "step": 1,
+      "unit": "em",
+      "label": "Letter Spacing (divide by 100)",
+      "default": 9
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "options": [
+        {
+          "value": "uppercase",
+          "label": "UPPERCASE"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "none",
+          "label": "Normal Case"
+        }
+      ],
+      "default": "uppercase",
+      "label": "Text Transform"
+    },
+    {
+      "type": "header",
+      "content": "Color Customization Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_colors",
+      "default": true,
+      "label": "Enable Custom Bar Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Default Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight Color (e.g. BUILT FOR REPEAT / Icons)",
+      "default": "#cbd64a"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Separator Line Color (|)",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom Border Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Theme Color Scheme (Fallback)",
+      "default": "scheme-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "Show Bottom Border Line"
+    },
+    {
+      "type": "header",
+      "content": "Bar Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 4,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Carousel Options (If Carousel Mode)"
+    },
+    {
       "type": "checkbox",
       "id": "auto_rotate",
       "label": "t:sections.announcement-bar.settings.auto_rotate.label",
@@ -186,47 +562,28 @@
       "unit": "s",
       "label": "t:sections.announcement-bar.settings.change_slides_speed.label",
       "default": 5
-    },    
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-4"
-    },  
-    {
-      "type": "checkbox",
-      "id": "show_line_separator",
-      "default": true,
-      "label": "t:sections.header.settings.show_line_separator.label"
     },
     {
       "type": "header",
       "content": "t:sections.announcement-bar.settings.heading_utilities.content"
     },
     {
-      "type": "paragraph",
-         "content": "t:sections.announcement-bar.settings.paragraph.content"
-    },             
-    {
       "type": "checkbox",
       "id": "show_social",
       "default": false,
-      "label": "t:sections.announcement-bar.settings.show_social.label",
-      "info": "t:sections.announcement-bar.settings.show_social.info"
+      "label": "t:sections.announcement-bar.settings.show_social.label"
     },
     {
       "type": "checkbox",
       "id": "enable_country_selector",
       "default": false,
-      "label": "t:sections.announcement-bar.settings.enable_country_selector.label",
-      "info": "t:sections.announcement-bar.settings.enable_country_selector.info"
+      "label": "t:sections.announcement-bar.settings.enable_country_selector.label"
     },
     {
       "type": "checkbox",
       "id": "enable_language_selector",
       "default": false,
-      "label": "t:sections.announcement-bar.settings.enable_language_selector.label",
-      "info": "t:sections.announcement-bar.settings.enable_language_selector.info"
+      "label": "t:sections.announcement-bar.settings.enable_language_selector.label"
     }
   ],
   "blocks": [
@@ -235,10 +592,84 @@
       "name": "t:sections.announcement-bar.blocks.announcement.name",
       "settings": [
         {
-          "type": "text",
+          "type": "inline_richtext",
           "id": "text",
-          "default": "t:sections.announcement-bar.blocks.announcement.settings.text.default",
+          "default": "BUILT FOR REPEAT.",
           "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_color",
+          "options": [
+            {
+              "value": "default",
+              "label": "Default Text Color"
+            },
+            {
+              "value": "highlight",
+              "label": "Highlight Color (Brand Lime)"
+            },
+            {
+              "value": "muted",
+              "label": "Muted Text Color"
+            },
+            {
+              "value": "custom",
+              "label": "Custom Text Color"
+            }
+          ],
+          "default": "default",
+          "label": "Text Color Option"
+        },
+        {
+          "type": "color",
+          "id": "custom_text_color",
+          "label": "Custom Text Color",
+          "default": "#cbd64a"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "eu_flag",
+              "label": "European Union Flag"
+            },
+            {
+              "value": "palm_tree",
+              "label": "Curaçao Palm Tree"
+            },
+            {
+              "value": "custom_image",
+              "label": "Custom Image Upload"
+            },
+            {
+              "value": "custom_svg",
+              "label": "Custom SVG Code"
+            }
+          ],
+          "default": "none",
+          "label": "Icon Option"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Icon Image (if selected)"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Code (if selected)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_divider",
+          "default": false,
+          "label": "Show Separator Line After Text"
         },
         {
           "type": "url",
@@ -253,7 +684,32 @@
       "name": "t:sections.announcement-bar.presets.name",
       "blocks": [
         {
-          "type": "announcement"
+          "type": "announcement",
+          "settings": {
+            "text": "BUILT FOR REPEAT.",
+            "text_color": "highlight"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING ON ORDERS OVER €100",
+            "show_divider": true
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "SHIPPING ACROSS THE EUROPEAN UNION",
+            "icon": "eu_flag"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "DESIGNED IN CURAÇAO",
+            "icon": "palm_tree"
+          }
         }
       ]
     }

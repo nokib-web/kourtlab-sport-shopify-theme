@@ -1,332 +1,270 @@
-{% comment %}theme-check-disable UndefinedObject{% endcomment %}
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
-{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
-{{ 'component-localization-form.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .footer {
-    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
-    --footer-heading-scale: {{ section.settings.footer_heading_scale | divided_by: 100.0 }};
-    --footer-body-scale: {{ section.settings.footer_body_scale | divided_by: 100.0 }};
-    --footer-accent-color: {{ section.settings.footer_accent_color }};
+  .footer-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#0A0A0A' }} !important;
+    padding-top: {{ section.settings.padding_top | default: 48 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 24 }}px;
+    position: relative;
+    overflow: hidden;
+    --footer-heading-font-size: {{ section.settings.heading_font_size | default: 18 }}px;
+    --footer-link-font-size: {{ section.settings.link_font_size | default: 17 }}px;
+    --footer-body-font-size: {{ section.settings.body_font_size | default: 17 }}px;
   }
 
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .footer {
-      margin-top: {{ section.settings.margin_top }}px;
-    }
-
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  {%- if section.settings.bg_image != blank -%}
-    .footer {
-      background-image: url('{{ section.settings.bg_image | image_url: width: 2000 }}');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      position: relative;
-    }
-
-    .footer::before {
+  {% if section.settings.bg_image != blank %}
+    .footer-{{ section.id }}::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: {{ section.settings.overlay_color }};
-      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-      z-index: 1;
+      background-image: url('{{ section.settings.bg_image | image_url: width: 2400 }}');
+      background-size: cover;
+      background-position: center;
+      opacity: {{ section.settings.bg_image_opacity | default: 25 | divided_by: 100.0 }};
       pointer-events: none;
+      z-index: 1;
     }
+  {% endif %}
 
-    .footer > * {
-      position: relative;
-      z-index: 2;
-    }
-  {%- endif -%}
+  .footer-{{ section.id }} .kore-footer__container {
+    position: relative;
+    z-index: 2;
+  }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  {%- liquid
-    assign has_social_icons = true
-    if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-      assign has_social_icons = false
-    endif
+<footer class="footer kore-footer footer-{{ section.id }}">
+  <div class="kore-footer__container">
+    <div class="kore-footer__grid">
+      {%- comment -%} Column 1: Brand Info (Leftmost) {%- endcomment -%}
+      <div class="kore-footer__col kore-footer__col--brand">
+        <div class="kore-footer__logo-wrap">
+          {%- if section.settings.footer_logo != blank -%}
+            <img
+              src="{{ section.settings.footer_logo | image_url: width: 400 }}"
+              alt="{{ shop.name }}"
+              class="kore-footer__logo-img"
+              style="max-width: {{ section.settings.footer_logo_width | default: 160 }}px;"
+              loading="lazy"
+            >
+          {%- else -%}
+            <div class="kore-footer__logo-text">KOURTLAB<span>®</span></div>
+          {%- endif -%}
 
-    if settings.brand_image == blank and settings.brand_headline == blank and settings.brand_description == blank
-      assign brand_empty = true
-    endif
+          {%- if section.settings.subheading != blank -%}
+            <div class="kore-footer__brand-subheading" style="color: {{ section.settings.subheading_color | default: '#CBD64A' }} !important;">
+              {{ section.settings.subheading }}
+            </div>
+          {%- endif -%}
+        </div>
 
-    if section.blocks.size == 1 and section.blocks[0].type == 'brand_information' and brand_empty and has_social_icons == false and section.settings.newsletter_enable == false and section.settings.enable_follow_on_shop == false
-      assign only_empty_brand = true
-    endif
-  -%}
-  {%- if section.blocks.size > 0
-    or section.settings.newsletter_enable
-    or section.settings.show_social
-    and has_social_icons == true
-    or section.settings.enable_follow_on_shop
-  -%}
-    {%- unless only_empty_brand -%}
-      <div class="footer__content-top">
-        {%- if section.settings.newsletter_enable -%}
-          <div class="footer__newsletter-banner">
-            <div class="footer__newsletter-content">
-              <h2 class="footer__newsletter-title">{{ section.settings.newsletter_heading }}</h2>
-              <p class="footer__newsletter-subtext">{{ section.settings.newsletter_subtext }}</p>
-            </div>
-            <div class="footer__newsletter-form-wrap">
-              {%- form 'customer', id: 'ContactFooter', class: 'footer__custom-newsletter-form' -%}
-                <input type="hidden" name="contact[tags]" value="newsletter">
-                <div class="footer__newsletter-input-group">
-                  <input
-                    id="NewsletterForm--{{ section.id }}"
-                    type="email"
-                    name="contact[email]"
-                    class="footer__newsletter-input"
-                    value="{{ form.email }}"
-                    aria-required="true"
-                    autocorrect="off"
-                    autocapitalize="off"
-                    autocomplete="email"
-                    placeholder="{{ section.settings.newsletter_placeholder }}"
-                    required
-                  >
-                  <button
-                    type="submit"
-                    class="footer__newsletter-btn"
-                    name="commit"
-                    id="Subscribe"
-                    aria-label="Subscribe"
-                  >
-                    {{ section.settings.newsletter_button }}
-                  </button>
-                </div>
-              {%- endform -%}
-            </div>
+        {%- if section.settings.description != blank -%}
+          <div class="kore-footer__brand-desc">
+            {{ section.settings.description }}
+          </div>
+        {%- else -%}
+          <div class="kore-footer__brand-desc">
+            <p>Premium performance apparel and essentials for the modern athlete. Engineered to perform on court. Designed to live in.</p>
           </div>
         {%- endif -%}
-        {%- if section.blocks.size > 0 -%}
-          {%- liquid
-            if section.blocks.size == 9
-              assign footer_grid_class = 'grid--3-col-tablet'
-            elsif section.blocks.size > 6
-              assign footer_grid_class = 'grid--4-col-desktop'
-            elsif section.blocks.size > 4
-              assign footer_grid_class = 'grid--3-col-tablet'
-            endif
-          -%}
-          <div
-            class="footer__blocks-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-            {% endif %}
-          >
-            {%- for block in section.blocks -%}
-              <div
-                class="footer-block footer-block--{{ block.type }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
-                {%- endif -%}
 
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    {% render block %}
-                  {%- when 'text' -%}
-                    <div class="footer-block__details-content rte">
-                      {{ block.settings.subtext }}
-                    </div>
-                  {%- when 'link_list' -%}
-                    {%- if block.settings.menu != blank and block.settings.menu.links.size > 1 -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- for link in block.settings.menu.links -%}
-                          <li>
-                            <a
-                              href="{{ link.url }}"
-                              class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
-                            >
-                              {{ link.title | escape }}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {%- else -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- assign heading_lower = block.settings.heading | downcase -%}
-                        {%- if heading_lower contains 'quick' or heading_lower contains 'links' -%}
-                          <li><a href="/pages/about-us" class="link link--text list-menu__item">About KØRE</a></li>
-                          <li><a href="/collections/all" class="link link--text list-menu__item">New Arrivals</a></li>
-                          <li><a href="/pages/lookbook" class="link link--text list-menu__item">Lookbook</a></li>
-                          <li><a href="/pages/contact" class="link link--text list-menu__item">Contact Us</a></li>
-                        {%- else -%}
-                          <li><a href="/policies/privacy-policy" class="link link--text list-menu__item">Privacy Policy</a></li>
-                          <li><a href="/policies/terms-of-service" class="link link--text list-menu__item">Terms of Service</a></li>
-                          <li><a href="/policies/shipping-policy" class="link link--text list-menu__item">Shipping & Returns</a></li>
-                          <li><a href="/pages/faq" class="link link--text list-menu__item">FAQ</a></li>
-                        {%- endif -%}
-                      </ul>
-                    {%- endif -%}
-                  {%- when 'brand_information' -%}
-                    <div class="footer-block__brand-info">
-                      {%- if section.settings.footer_logo != blank -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: {{ section.settings.footer_logo_width }}px; margin-bottom: 1.5rem;"
-                        >
-                          <img
-                            src="{{ section.settings.footer_logo | image_url: width: 600 }}"
-                            alt="{{ shop.name | escape }}"
-                            loading="lazy"
-                            style="width: 100%; height: auto; display: block;"
-                          >
-                        </div>
-                      {%- elsif settings.brand_image != blank -%}
-                        {%- assign brand_image_height = settings.brand_image_width
-                          | divided_by: settings.brand_image.aspect_ratio
-                        -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ settings.brand_image_width }}px); margin-bottom: 1.5rem;"
-                        >
-                          {{
-                            settings.brand_image
-                            | image_url: width: 1100
-                            | image_tag:
-                              loading: 'lazy',
-                              widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
-                              height: brand_image_height,
-                              width: settings.brand_image_width
-                          }}
-                        </div>
-                      {%- else -%}
-                        <h2 class="footer-block__brand-title">KØRE</h2>
-                      {%- endif -%}
-                      {%- if section.settings.footer_description != blank -%}
-                        <div class="footer-brand-desc">{{ section.settings.footer_description }}</div>
-                      {%- elsif settings.brand_description != blank -%}
-                        <div class="footer-brand-desc">{{ settings.brand_description }}</div>
-                      {%- else -%}
-                        <div class="footer-brand-desc">
-                          <p>
-                            At KØRE, we create performance & lifestyle experiences through premium padel apparel designed for modern athletes. Elegant, reliable, and crafted to help you play with confidence.
-                          </p>
-                        </div>
-                      {%- endif -%}
-                      {%- if block.settings.show_social and has_social_icons -%}
-                        {%- render 'social-icons', class: 'footer__list-social' -%}
-                      {%- endif -%}
-                    </div>
-                  {%- when 'image' -%}
-                    <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
-                      {%- if block.settings.image != blank -%}
-                        {%- assign image_size_2x = block.settings.image_width | times: 2 | at_most: 5760 -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ block.settings.image_width }}px);"
-                        >
-                          <img
-                            srcset="{{ block.settings.image | image_url: width: block.settings.image_width }}, {{ block.settings.image | image_url: width: image_size_2x }} 2x"
-                            src="{{ block.settings.image | image_url: width: 760 }}"
-                            alt="{{ block.settings.image.alt | escape }}"
-                            loading="lazy"
-                            width="{{ block.settings.image.width }}"
-                            height="{{ block.settings.image.height }}"
-                          >
-                        </div>
-                      {%- else -%}
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                      {%- endif -%}
-                    </div>
-                {%- endcase -%}
-              </div>
+        {%- if section.settings.location_info != blank -%}
+          <div class="kore-footer__location-info">
+            {{ section.settings.location_info | newline_to_br }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_social -%}
+          <div class="kore-footer__social-links">
+            {%- assign has_any_social = false -%}
+
+            {%- if settings.social_instagram_link != blank -%}
+              {%- assign has_any_social = true -%}
+              <a href="{{ settings.social_instagram_link }}" class="kore-footer__social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_tiktok_link != blank -%}
+              {%- assign has_any_social = true -%}
+              <a href="{{ settings.social_tiktok_link }}" class="kore-footer__social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.378 6.338 6.338 0 0 0 .866 8.528 6.328 6.328 0 0 0 8.046.223 6.336 6.336 0 0 0 2.215-4.836V8.65a8.217 8.217 0 0 0 4.75 1.503V6.708a4.8 4.8 0 0 1-1.25-.022z"/>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_youtube_link != blank -%}
+              {%- assign has_any_social = true -%}
+              <a href="{{ settings.social_youtube_link }}" class="kore-footer__social-icon" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_facebook_link != blank -%}
+              {%- assign has_any_social = true -%}
+              <a href="{{ settings.social_facebook_link }}" class="kore-footer__social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            {%- comment -%} If no social media links are configured in Theme Settings yet, display default Instagram, TikTok & YouTube icons {%- endcomment -%}
+            {%- if has_any_social == false -%}
+              <a href="https://instagram.com" class="kore-footer__social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="https://tiktok.com" class="kore-footer__social-icon" aria-label="TikTok" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 2.378 6.338 6.338 0 0 0 .866 8.528 6.328 6.328 0 0 0 8.046.223 6.336 6.336 0 0 0 2.215-4.836V8.65a8.217 8.217 0 0 0 4.75 1.503V6.708a4.8 4.8 0 0 1-1.25-.022z"/>
+                </svg>
+              </a>
+              <a href="https://youtube.com" class="kore-footer__social-icon" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </a>
+            {%- endif -%}
+
+            {%- assign contact_email = section.settings.contact_email | default: 'info@kourtlab.com' -%}
+            {%- if contact_email != blank -%}
+              <a href="mailto:{{ contact_email }}" class="kore-footer__social-icon" aria-label="Email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Column 2: SHOP Menu {%- endcomment -%}
+      <div class="kore-footer__col">
+        <h3 class="kore-footer__col-heading">{{ section.settings.menu_1_heading | default: 'SHOP' }}</h3>
+        <ul class="kore-footer__menu-list list-unstyled">
+          {%- assign menu_1 = section.settings.menu_1 -%}
+          {%- if menu_1 != blank and linklists[menu_1].links.size > 0 -%}
+            {%- for link in linklists[menu_1].links -%}
+              <li><a href="{{ link.url }}" class="kore-footer__menu-link">{{ link.title }}</a></li>
             {%- endfor -%}
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.show_social and has_social_icons -%}
-          {%- render 'social-icons', class: 'footer__list-social' -%}
-        {%- endif -%}
-      </div>
-    {%- endunless -%}
-  {%- endif -%}
-
-  <div
-    class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    {% if settings.animations_reveal_on_scroll %}
-      data-cascade
-    {% endif %}
-  >
-    <div class="footer__content-bottom-wrapper">
-      <div class="footer__copyright caption">
-        <small class="copyright__content"
-          >&copy; {{ 'now' | date: '%Y' }} KØRE (Kourtlab) Design Themes. All rights reserved.
-        </small>
+          {%- else -%}
+            <li><a href="/collections/men" class="kore-footer__menu-link">Men</a></li>
+            <li><a href="/collections/women" class="kore-footer__menu-link">Women</a></li>
+            <li><a href="/collections/accessories" class="kore-footer__menu-link">Accessories</a></li>
+            <li><a href="/collections/best-sellers" class="kore-footer__menu-link">Best Sellers</a></li>
+            <li><a href="/collections/all" class="kore-footer__menu-link">New Arrivals</a></li>
+          {%- endif -%}
+        </ul>
       </div>
 
-      <div class="footer__bottom-right">
-        {%- if section.settings.enable_country_selector -%}
-          <div class="footer__column footer__localization isolate">
-            <localization-form>
-              {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
-                <div>
-                  {%- render 'country-localization', localPosition: 'FooterCountry' -%}
-                </div>
-              {%- endform -%}
-            </localization-form>
-          </div>
+      {%- comment -%} Column 3: COMPANY Menu {%- endcomment -%}
+      <div class="kore-footer__col">
+        <h3 class="kore-footer__col-heading">{{ section.settings.menu_2_heading | default: 'COMPANY' }}</h3>
+        <ul class="kore-footer__menu-list list-unstyled">
+          {%- assign menu_2 = section.settings.menu_2 -%}
+          {%- if menu_2 != blank and linklists[menu_2].links.size > 0 -%}
+            {%- for link in linklists[menu_2].links -%}
+              <li><a href="{{ link.url }}" class="kore-footer__menu-link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/our-story" class="kore-footer__menu-link">Our Story</a></li>
+            <li><a href="/pages/the-founding-1000" class="kore-footer__menu-link">The Founding 1000</a></li>
+            <li><a href="/pages/sustainability" class="kore-footer__menu-link">Sustainability</a></li>
+            <li><a href="/pages/careers" class="kore-footer__menu-link">Careers</a></li>
+            <li><a href="/pages/contact" class="kore-footer__menu-link">Contact</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      {%- comment -%} Column 4: SUPPORT Menu {%- endcomment -%}
+      <div class="kore-footer__col">
+        <h3 class="kore-footer__col-heading">{{ section.settings.menu_3_heading | default: 'SUPPORT' }}</h3>
+        <ul class="kore-footer__menu-list list-unstyled">
+          {%- assign menu_3 = section.settings.menu_3 -%}
+          {%- if menu_3 != blank and linklists[menu_3].links.size > 0 -%}
+            {%- for link in linklists[menu_3].links -%}
+              <li><a href="{{ link.url }}" class="kore-footer__menu-link">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/policies/shipping-policy" class="kore-footer__menu-link">Shipping & Returns</a></li>
+            <li><a href="/pages/faq" class="kore-footer__menu-link">FAQ</a></li>
+            <li><a href="/pages/size-guide" class="kore-footer__menu-link">Size Guide</a></li>
+            <li><a href="/policies/privacy-policy" class="kore-footer__menu-link">Privacy Policy</a></li>
+            <li><a href="/policies/terms-of-service" class="kore-footer__menu-link">Terms of Service</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      {%- comment -%} Column 5: European Union Shipping Info & Country Flags {%- endcomment -%}
+      <div class="kore-footer__col kore-footer__col--eu">
+        <div class="kore-footer__eu-header">
+          <h3 class="kore-footer__col-heading">{{ section.settings.eu_heading | default: 'AVAILABLE IN THE EUROPEAN UNION' }}</h3>
+          <span class="kore-footer__eu-flag-icon">🇪🇺</span>
+        </div>
+
+        {%- if section.settings.eu_subheading != blank -%}
+          <p class="kore-footer__eu-subheading">{{ section.settings.eu_subheading }}</p>
         {%- endif -%}
 
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <div class="footer__column footer__localization isolate">
-            <localization-form>
-              {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
-                <div>
-                  {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
-                </div>
-              {%- endform -%}
-            </localization-form>
-          </div>
-        {%- endif -%}
+        {%- comment -%} Circular Country Flags Grid {%- endcomment -%}
+        <div class="kore-footer__flags-grid">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'flag' -%}
+                <span class="kore-flag" title="{{ block.settings.country_name }}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.flag_image != blank -%}
+                    <img src="{{ block.settings.flag_image | image_url: width: 60 }}" alt="{{ block.settings.country_name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                  {%- else -%}
+                    {{ block.settings.flag_emoji | default: '🇪🇺' }}
+                  {%- endif -%}
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            <span class="kore-flag" title="Germany">🇩🇪</span>
+            <span class="kore-flag" title="France">🇫🇷</span>
+            <span class="kore-flag" title="Italy">🇮🇹</span>
+            <span class="kore-flag" title="Spain">🇪🇸</span>
+            <span class="kore-flag" title="Netherlands">🇳🇱</span>
+            <span class="kore-flag" title="Belgium">🇧🇪</span>
+            <span class="kore-flag" title="Sweden">🇸🇪</span>
+            <span class="kore-flag" title="Austria">🇦🇹</span>
+            <span class="kore-flag" title="Finland">🇫🇮</span>
+            <span class="kore-flag" title="Ireland">🇮🇪</span>
+            <span class="kore-flag" title="Portugal">🇵🇹</span>
+            <span class="kore-flag kore-flag--more" title="More EU countries">+</span>
+          {%- endif -%}
+        </div>
 
-        {%- if section.settings.payment_enable -%}
-          <div class="footer__payment">
-            <ul class="list list-payment" role="list">
-              {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                </li>
-              {%- endfor -%}
-            </ul>
-          </div>
+        {%- if section.settings.eu_footer_text != blank -%}
+          <p class="kore-footer__eu-footer-text">{{ section.settings.eu_footer_text }}</p>
         {%- endif -%}
+      </div>
+    </div>
 
-        <button
-          class="footer__back-to-top"
-          onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-          aria-label="Back to top"
-        >
-          ↑
-        </button>
+    {%- comment -%} Bottom Bar (Copyright & Bottom Tagline) {%- endcomment -%}
+    <div class="kore-footer__bottom-bar">
+      <div class="kore-footer__copyright">
+        {{ section.settings.copyright_text | default: '© 2026 KOURTLAB. ALL RIGHTS RESERVED.' }}
+      </div>
+      <div class="kore-footer__bottom-tagline">
+        {{ section.settings.bottom_tagline | default: 'BUILT FOR REPEAT.' }}
       </div>
     </div>
   </div>
@@ -334,166 +272,71 @@
 
 {% schema %}
 {
-  "name": "t:sections.footer.name",
-  "blocks": [
-    {
-      "type": "@app"
-    },
-    {
-      "type": "link_list",
-      "name": "t:sections.footer.blocks.link_list.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
-          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "default": "footer",
-          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
-        }
-      ]
-    },
-    {
-      "type": "brand_information",
-      "name": "t:sections.footer.blocks.brand_information.name",
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "t:sections.footer.blocks.brand_information.settings.paragraph.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_social",
-          "default": true,
-          "label": "t:sections.footer.blocks.brand_information.settings.show_social.label",
-          "info": "t:sections.footer.blocks.brand_information.settings.show_social.info"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "t:sections.footer.blocks.text.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
-        },
-        {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "t:sections.footer.blocks.text.settings.subtext.default",
-          "label": "t:sections.footer.blocks.text.settings.subtext.label"
-        }
-      ]
-    },
-    {
-      "type": "image",
-      "name": "Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "range",
-          "id": "image_width",
-          "min": 50,
-          "max": 550,
-          "step": 5,
-          "unit": "px",
-          "label": "Width",
-          "default": 100
-        },
-        {
-          "type": "select",
-          "id": "alignment",
-          "label": "Alignment",
-          "options": [
-            {
-              "value": "",
-              "label": "Left"
-            },
-            {
-              "value": "center",
-              "label": "Center"
-            },
-            {
-              "value": "right",
-              "label": "Right"
-            }
-          ],
-          "default": "center"
-        }
-      ]
-    }
-  ],
+  "name": "KØRĒ Footer",
+  "class": "section-footer",
   "settings": [
     {
       "type": "header",
-      "content": "Footer Typography & Colors"
+      "content": "Footer Colors & Background"
     },
     {
-      "type": "header",
-      "content": "Footer Background Image"
+      "type": "color",
+      "id": "bg_color",
+      "label": "Footer Background Color",
+      "default": "#0A0A0A"
     },
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Background Image"
-    },
-    {
-      "type": "color",
-      "id": "overlay_color",
-      "label": "Overlay color",
-      "default": "#000000"
+      "label": "Footer Background Image Upload"
     },
     {
       "type": "range",
-      "id": "overlay_opacity",
+      "id": "bg_image_opacity",
       "min": 0,
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Overlay opacity",
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "footer_heading_scale",
-      "min": 50,
-      "max": 200,
-      "step": 5,
-      "unit": "%",
-      "label": "Heading Font Scale",
-      "default": 100
-    },
-    {
-      "type": "range",
-      "id": "footer_body_scale",
-      "min": 50,
-      "max": 200,
-      "step": 5,
-      "unit": "%",
-      "label": "Body Font Scale",
-      "default": 100
-    },
-    {
-      "type": "color",
-      "id": "footer_accent_color",
-      "label": "Newsletter Accent Color",
-      "default": "#CBD64A",
-      "info": "Make text bold (B) or italic (I) in the heading to apply this color."
+      "label": "Background Image Opacity",
+      "default": 25
     },
     {
       "type": "header",
-      "content": "Footer Brand Customization"
+      "content": "Font Size Controls"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Column Headings Font Size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "link_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Menu Links Font Size",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Body Description Font Size",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Brand Column Options"
     },
     {
       "type": "image_picker",
@@ -503,153 +346,188 @@
     {
       "type": "range",
       "id": "footer_logo_width",
-      "min": 50,
+      "min": 80,
       "max": 300,
       "step": 10,
       "unit": "px",
       "label": "Footer Logo Width",
-      "default": 140
+      "default": 160
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "default": "BUILT FOR REPEAT.",
+      "label": "Brand Subheading Under Logo"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "default": "#CBD64A",
+      "label": "Subheading Color"
     },
     {
       "type": "richtext",
-      "id": "footer_description",
-      "label": "Footer Description under Logo"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__1.content",
-      "info": "t:sections.footer.settings.header__1.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "newsletter_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.newsletter_enable.label"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "newsletter_heading",
-      "default": "Join the <span>KØRE club</span>",
-      "label": "t:sections.footer.settings.newsletter_heading.label"
+      "id": "description",
+      "default": "<p>Premium performance apparel and essentials for the modern athlete. Engineered to perform on court. Designed to live in.</p>",
+      "label": "Brand Description Paragraph"
     },
     {
       "type": "textarea",
-      "id": "newsletter_subtext",
-      "label": "Newsletter Subtext",
-      "default": "Get 10% off your first drop, early access to new releases, and exclusive padel content."
-    },
-    {
-      "type": "text",
-      "id": "newsletter_placeholder",
-      "label": "Email Input Placeholder",
-      "default": "Enter your email address"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_button",
-      "label": "Subscribe Button Text",
-      "default": "Subscribe"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__9.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_follow_on_shop",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_follow_on_shop.label",
-      "info": "t:sections.footer.settings.enable_follow_on_shop.info"
+      "id": "location_info",
+      "default": "CURAÇAO, DUTCH CARIBBEAN\n12.1696° N, 68.9900° W",
+      "label": "Location & Coordinates Info"
     },
     {
       "type": "checkbox",
       "id": "show_social",
       "default": true,
-      "label": "t:sections.footer.settings.show_social.label",
-      "info": "t:sections.footer.settings.show_social.info"
+      "label": "Show Social Media Icons"
     },
     {
-      "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_country_selector.label",
-      "info": "t:sections.footer.settings.enable_country_selector.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_language_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_language_selector.label",
-      "info": "t:sections.footer.settings.enable_language_selector.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "payment_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.payment_enable.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_policy",
-      "default": true,
-      "label": "t:sections.footer.settings.show_policy.label",
-      "info": "t:sections.footer.settings.show_policy.info"
+      "type": "text",
+      "id": "contact_email",
+      "default": "info@kourtlab.com",
+      "label": "Contact Email Address"
     },
     {
       "type": "header",
-      "content": "t:sections.all.spacing"
+      "content": "Menu Column 1 (SHOP)"
     },
     {
-      "type": "range",
-      "id": "margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.footer.settings.margin_top.label",
-      "default": 0
+      "type": "text",
+      "id": "menu_1_heading",
+      "default": "SHOP",
+      "label": "Menu 1 Heading"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "default": "main-menu",
+      "label": "Menu 1 Selection"
     },
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Menu Column 2 (COMPANY)"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "default": "COMPANY",
+      "label": "Menu 2 Heading"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "default": "footer",
+      "label": "Menu 2 Selection"
+    },
+    {
+      "type": "header",
+      "content": "Menu Column 3 (SUPPORT)"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_heading",
+      "default": "SUPPORT",
+      "label": "Menu 3 Heading"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu 3 Selection"
+    },
+    {
+      "type": "header",
+      "content": "EU Shipping Column"
+    },
+    {
+      "type": "text",
+      "id": "eu_heading",
+      "default": "AVAILABLE IN THE EUROPEAN UNION",
+      "label": "EU Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "eu_subheading",
+      "default": "We ship to all EU member states.",
+      "label": "EU Subheading / Description"
+    },
+    {
+      "type": "text",
+      "id": "eu_footer_text",
+      "default": "And all other EU countries.",
+      "label": "EU Bottom Note"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom Legal Bar"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "default": "© 2026 KOURTLAB. ALL RIGHTS RESERVED.",
+      "label": "Copyright Text"
+    },
+    {
+      "type": "text",
+      "id": "bottom_tagline",
+      "default": "BUILT FOR REPEAT.",
+      "label": "Bottom Right Tagline"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 0,
+      "min": 10,
       "max": 100,
-      "step": 4,
+      "step": 2,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "label": "Top Padding",
+      "default": 48
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 0,
+      "min": 10,
       "max": 100,
-      "step": 4,
+      "step": 2,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "label": "Bottom Padding",
+      "default": 24
     }
   ],
-  "default": {
-    "blocks": [
-      {
-        "type": "link_list"
-      },
-      {
-        "type": "text"
-      }
-    ]
-  }
+  "blocks": [
+    {
+      "type": "flag",
+      "name": "EU Country Flag",
+      "settings": [
+        {
+          "type": "text",
+          "id": "country_name",
+          "default": "Germany",
+          "label": "Country Name"
+        },
+        {
+          "type": "text",
+          "id": "flag_emoji",
+          "default": "🇩🇪",
+          "label": "Flag Emoji"
+        },
+        {
+          "type": "image_picker",
+          "id": "flag_image",
+          "label": "Custom Flag Image (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Footer"
+    }
+  ]
 }
 {% endschema %}

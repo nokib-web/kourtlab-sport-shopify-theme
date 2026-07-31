@@ -17,19 +17,78 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "BUILT FOR REPEAT.",
+            "text_color": "highlight",
+            "custom_text_color": "#cbd64a",
+            "icon": "none",
+            "custom_svg": "",
+            "show_divider": false,
+            "link": ""
+          }
+        },
+        "announcement-bar-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING ON ORDERS OVER €100",
+            "text_color": "default",
+            "custom_text_color": "#cbd64a",
+            "icon": "none",
+            "custom_svg": "",
+            "show_divider": true,
+            "link": ""
+          }
+        },
+        "announcement-bar-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "SHIPPING ACROSS THE EUROPEAN UNION",
+            "text_color": "default",
+            "custom_text_color": "#cbd64a",
+            "icon": "eu_flag",
+            "custom_svg": "",
+            "show_divider": false,
+            "link": ""
+          }
+        },
+        "announcement-bar-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "DESIGNED IN CURAÇAO",
+            "text_color": "default",
+            "custom_text_color": "#cbd64a",
+            "icon": "palm_tree",
+            "custom_svg": "",
+            "show_divider": false,
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement-bar-1",
+        "announcement-bar-2",
+        "announcement-bar-3"
       ],
       "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
+        "desktop_layout": "spread",
+        "separator_style": "line",
+        "font_family": "body",
+        "font_size": 11,
+        "font_weight": "600",
+        "letter_spacing": 9,
+        "text_transform": "capitalize",
+        "use_custom_colors": true,
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "highlight_color": "#cbd64a",
+        "divider_color": "#555555",
+        "border_color": "#1a1a1a",
         "color_scheme": "scheme-4",
         "show_line_separator": true,
+        "padding_top": 10,
+        "padding_bottom": 10,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
         "show_social": false,
         "enable_country_selector": false,
         "enable_language_selector": false

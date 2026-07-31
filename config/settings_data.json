@@ -9,8 +9,8 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/favicon_3.png",
-    "logo_width": 100,
+    "logo": "shopify://shop_images/logo-final_1.png",
+    "logo_width": 300,
     "favicon": "shopify://shop_images/favicon_4.png",
     "type_header_font": "host_grotesk_n4",
     "heading_scale": 100,
@@ -110,9 +110,9 @@
     "brand_headline": "",
     "brand_description": "<p></p>",
     "brand_image_width": 100,
-    "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_youtube_link": "",
+    "social_facebook_link": "#",
+    "social_instagram_link": "#",
+    "social_youtube_link": "#",
     "social_tiktok_link": "",
     "social_twitter_link": "",
     "social_snapchat_link": "",
@@ -156,7 +156,7 @@
           "background": "#ffffff",
           "background_gradient": "",
           "text": "#121212",
-          "button": "#C8D64A",
+          "button": "#c8d64a",
           "button_label": "#ffffff",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
@@ -167,7 +167,7 @@
           "background": "#f3f3f3",
           "background_gradient": "",
           "text": "#121212",
-          "button": "#C8D64A",
+          "button": "#c8d64a",
           "button_label": "#f3f3f3",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
@@ -211,7 +211,7 @@
           "background": "#ffffff",
           "background_gradient": "",
           "text": "#ffffff",
-          "button": "#C8D64A",
+          "button": "#c8d64a",
           "button_label": "#020202",
           "secondary_button_label": "#ffffff",
           "shadow": "#ffffff"

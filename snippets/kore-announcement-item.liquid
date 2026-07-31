@@ -1,0 +1,75 @@
+{%- liquid
+  assign item_style = ''
+  assign item_class = ''
+  if block.settings.text_color == 'highlight'
+    assign item_class = ' kore-announcement-bar__item--highlight'
+  elsif block.settings.text_color == 'muted'
+    assign item_class = ' kore-announcement-bar__item--muted'
+  elsif block.settings.text_color == 'custom'
+    assign item_style = 'style="color: ' | append: block.settings.custom_text_color | append: ' !important;"'
+  endif
+-%}
+
+<div {{ block.shopify_attributes }} class="kore-announcement-bar__block-wrapper">
+  {%- if block.settings.link != blank -%}
+    <a href="{{ block.settings.link }}" class="kore-announcement-bar__item{{ item_class }}" {{ item_style }}>
+  {%- else -%}
+    <span class="kore-announcement-bar__item{{ item_class }}" {{ item_style }}>
+  {%- endif -%}
+    <span class="kore-announcement-bar__text">{{ block.settings.text }}</span>
+
+    {%- case block.settings.icon -%}
+      {%- when 'eu_flag' -%}
+        <span class="kore-announcement-icon kore-announcement-icon--eu" aria-label="EU Flag">
+          <svg width="20" height="14" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" style="border-radius:1px;box-shadow:0 0 1px rgba(255,255,255,0.3);margin-left:5px;vertical-align:middle;display:inline-block;">
+            <rect width="600" height="400" fill="#003399"/>
+            <g fill="#FFCC00">
+              <polygon points="300,80 302.4,87.3 310,87.3 303.8,91.8 306.2,99.1 300,94.6 293.8,99.1 296.2,91.8 290,87.3 297.6,87.3"/>
+              <polygon points="360,96.1 362.4,103.4 370,103.4 363.8,107.9 366.2,115.2 360,110.7 353.8,115.2 356.2,107.9 350,103.4 357.6,103.4"/>
+              <polygon points="403.9,140 406.3,147.3 413.9,147.3 407.7,151.8 410.1,159.1 403.9,154.6 397.7,159.1 400.1,151.8 393.9,147.3 401.5,147.3"/>
+              <polygon points="420,200 422.4,207.3 430,207.3 423.8,211.8 426.2,219.1 420,214.6 413.8,219.1 416.2,211.8 410,207.3 417.6,207.3"/>
+              <polygon points="403.9,260 406.3,267.3 413.9,267.3 407.7,271.8 410.1,279.1 403.9,274.6 397.7,279.1 400.1,271.8 393.9,267.3 401.5,267.3"/>
+              <polygon points="360,303.9 362.4,311.2 370,311.2 363.8,315.7 366.2,323 360,318.5 353.8,323 356.2,315.7 350,311.2 357.6,311.2"/>
+              <polygon points="300,320 302.4,327.3 310,327.3 303.8,331.8 306.2,339.1 300,334.6 293.8,339.1 296.2,331.8 290,327.3 297.6,327.3"/>
+              <polygon points="240,303.9 242.4,311.2 250,311.2 243.8,315.7 246.2,323 240,318.5 233.8,323 236.2,315.7 230,311.2 237.6,311.2"/>
+              <polygon points="196.1,260 198.5,267.3 206.1,267.3 199.9,271.8 202.3,279.1 196.1,274.6 189.9,279.1 192.3,271.8 186.1,267.3 193.7,267.3"/>
+              <polygon points="180,200 182.4,207.3 190,207.3 183.8,211.8 186.2,219.1 180,214.6 173.8,219.1 176.2,211.8 170,207.3 177.6,207.3"/>
+              <polygon points="196.1,140 198.5,147.3 206.1,147.3 199.9,151.8 202.3,159.1 196.1,154.6 189.9,159.1 192.3,151.8 186.1,147.3 193.7,147.3"/>
+              <polygon points="240,96.1 242.4,103.4 250,103.4 243.8,107.9 246.2,115.2 240,110.7 233.8,115.2 236.2,107.9 230,103.4 237.6,103.4"/>
+            </g>
+          </svg>
+        </span>
+      {%- when 'palm_tree' -%}
+        <span class="kore-announcement-icon kore-announcement-icon--palm" aria-label="Palm Tree">
+          <svg width="17" height="17" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="margin-left:5px;vertical-align:text-bottom;display:inline-block;">
+            <path d="M11.5 22C11.5 17.5 12.2 13.2 13.5 9.5C10.8 9.5 8.2 10.5 6 12.2C7.5 10 9.8 8.4 12.5 7.8C10.5 5.8 7.8 4.6 4.8 4.5C7.8 4 10.8 4.8 13.2 6.5C14.2 4.2 16.5 2.5 19.5 2C18 3.8 17.2 6 17.2 8.2C19.8 8 22 9 23.5 10.8C21.5 10 19.2 10 17 10.8C15.8 14.2 14.8 18 14.5 22H11.5Z"/>
+          </svg>
+        </span>
+      {%- when 'custom_image' -%}
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 40 }}" alt="" width="16" height="16" style="vertical-align:middle;display:inline-block;margin-left:5px;object-fit:contain;">
+        {%- endif -%}
+      {%- when 'custom_svg' -%}
+        {%- if block.settings.custom_svg != blank -%}
+          <span class="kore-announcement-icon kore-announcement-icon--custom" style="margin-left:5px;vertical-align:middle;display:inline-flex;">
+            {{ block.settings.custom_svg }}
+          </span>
+        {%- endif -%}
+    {%- endcase -%}
+
+  {%- if block.settings.link != blank -%}
+    </a>
+  {%- else -%}
+    </span>
+  {%- endif -%}
+
+  {%- if block.settings.show_divider -%}
+    {%- if section.settings.separator_style == 'line' -%}
+      <span class="kore-announcement-bar__divider kore-announcement-bar__divider--vertical-line"></span>
+    {%- elsif section.settings.separator_style == 'dot' -%}
+      <span class="kore-announcement-bar__divider kore-announcement-bar__divider--dot">•</span>
+    {%- else -%}
+      <span class="kore-announcement-bar__divider kore-announcement-bar__divider--pipe">|</span>
+    {%- endif -%}
+  {%- endif -%}
+</div>

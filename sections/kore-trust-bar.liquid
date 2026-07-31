@@ -1,0 +1,502 @@
+{%- style -%}
+  .kore-trust-bar--{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#F4F3EF' }} !important;
+    color: {{ section.settings.text_color | default: '#0A0A0A' }} !important;
+    padding-top: {{ section.settings.padding_top | default: 18 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | default: 18 }}px !important;
+    border-bottom: 1px solid {{ section.settings.border_color | default: '#EAE8E3' }};
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__container {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    max-width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__container {
+      padding-left: 3.95rem;
+      padding-right: 3.95rem;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__container {
+      padding-left: 5.75rem;
+      padding-right: 5.75rem;
+    }
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper:first-child {
+    justify-content: flex-start;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper:nth-child(2),
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper:nth-child(3) {
+    justify-content: center;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper:last-child {
+    justify-content: flex-end;
+  }
+
+  {% if section.settings.show_dividers %}
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 34px;
+      width: 1px;
+      background-color: {{ section.settings.divider_color | default: '#CBD64A' }} !important;
+    }
+  {% endif %}
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    color: {{ section.settings.icon_color | default: '#0A0A0A' }};
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__icon-box svg {
+    width: 36px;
+    height: 36px;
+    stroke-width: 1.4;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__custom-img {
+    max-width: 36px;
+    max-height: 36px;
+    object-fit: contain;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__title {
+    font-size: {{ section.settings.title_font_size | default: 13 }}px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    color: {{ section.settings.text_color | default: '#0A0A0A' }} !important;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    {% case section.settings.font_family %}
+      {% when 'heading' %}
+        font-family: var(--font-heading-family), sans-serif !important;
+      {% when 'barlow' %}
+        font-family: 'Barlow Condensed', var(--font-heading-family), sans-serif !important;
+      {% else %}
+        font-family: var(--font-body-family), sans-serif !important;
+    {% endcase %}
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-trust-bar__subtitle {
+    font-size: {{ section.settings.subtitle_font_size | default: 12 }}px !important;
+    font-weight: 400 !important;
+    color: {{ section.settings.subtitle_color | default: '#666666' }} !important;
+    line-height: 1.3;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  .kore-trust-bar--{{ section.id }} .kore-eu-flag-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 14px;
+    background-color: #003399;
+    border-radius: 1px;
+    margin-left: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Responsive layout on mobile/tablet */
+  @media screen and (max-width: 989px) {
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 1rem;
+    }
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper {
+      justify-content: flex-start !important;
+    }
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__item-wrapper::after {
+      display: none !important;
+    }
+  }
+
+  @media screen and (max-width: 540px) {
+    .kore-trust-bar--{{ section.id }} .kore-trust-bar__grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="kore-trust-bar kore-trust-bar--{{ section.id }}">
+  <div class="kore-trust-bar__container">
+    <div class="kore-trust-bar__grid">
+      {%- for block in section.blocks -%}
+        <div class="kore-trust-bar__item-wrapper" {{ block.shopify_attributes }}>
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="kore-trust-bar__item">
+          {%- else -%}
+            <div class="kore-trust-bar__item">
+          {%- endif -%}
+
+          <div class="kore-trust-bar__icon-box">
+            {%- case block.settings.icon -%}
+              {%- when 'globe' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              {%- when 'materials' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              {%- when 'lock' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  <circle cx="12" cy="16" r="1" fill="currentColor"></circle>
+                </svg>
+              {%- when 'palm' -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 8c0-2.5 1.5-4.5 4-5 0 3-1.5 4.5-4 5z"></path>
+                  <path d="M11 8c0-2.5-1.5-4.5-4-5 0 3 1.5 4.5 4 5z"></path>
+                  <path d="M13 10c2.5 0 4.5-1.5 5-4-3 0-4.5 1.5-5 4z"></path>
+                  <path d="M11 10c-2.5 0-4.5-1.5-5-4 3 0 4.5 1.5 5 4z"></path>
+                  <path d="M12 10v12" stroke-width="2"></path>
+                </svg>
+              {%- when 'custom_image' -%}
+                {%- if block.settings.custom_image != blank -%}
+                  {{ block.settings.custom_image | image_url: width: 100 | image_tag: class: 'kore-trust-bar__custom-img' }}
+                {%- endif -%}
+              {%- when 'custom_svg' -%}
+                {%- if block.settings.custom_svg != blank -%}
+                  {{ block.settings.custom_svg }}
+                {%- endif -%}
+            {%- endcase -%}
+          </div>
+
+          <div class="kore-trust-bar__content">
+            <div class="kore-trust-bar__title">
+              <span>{{ block.settings.title }}</span>
+              {%- if block.settings.show_eu_flag -%}
+                <span class="kore-eu-flag-badge">
+                  <svg width="14" height="10" viewBox="0 0 600 400" fill="#FFCC00">
+                    <rect width="600" height="400" fill="#003399"/>
+                    <g transform="translate(300,200)">
+                      <circle cx="0" cy="-100" r="8"/>
+                      <circle cx="50" cy="-86" r="8"/>
+                      <circle cx="86" cy="-50" r="8"/>
+                      <circle cx="100" cy="0" r="8"/>
+                      <circle cx="86" cy="50" r="8"/>
+                      <circle cx="50" cy="86" r="8"/>
+                      <circle cx="0" cy="100" r="8"/>
+                      <circle cx="-50" cy="86" r="8"/>
+                      <circle cx="-86" cy="50" r="8"/>
+                      <circle cx="-100" cy="0" r="8"/>
+                      <circle cx="-86" cy="-50" r="8"/>
+                      <circle cx="-50" cy="-86" r="8"/>
+                    </g>
+                  </svg>
+                </span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.subtitle != blank -%}
+              <div class="kore-trust-bar__subtitle">{{ block.settings.subtitle }}</div>
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KØRĒ Trust / Feature Bar",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Color Customizations"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F4F3EF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Title Text Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Separator Line Color (|)",
+      "default": "#CBD64A"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom Border Color",
+      "default": "#EAE8E3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "default": true,
+      "label": "Show Vertical Divider Lines (|) Between Items"
+    },
+    {
+      "type": "header",
+      "content": "Typography & Sizes"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "options": [
+        {
+          "value": "body",
+          "label": "Global Body Font (Theme Default)"
+        },
+        {
+          "value": "heading",
+          "label": "Global Heading Font (Theme Default)"
+        },
+        {
+          "value": "barlow",
+          "label": "Barlow Condensed"
+        }
+      ],
+      "default": "body",
+      "label": "Title Font Family"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Font Size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "subtitle_font_size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Section Padding (Height Control)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 18
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Feature Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "globe",
+              "label": "Globe Icon"
+            },
+            {
+              "value": "materials",
+              "label": "Stacked Layers / Materials Icon"
+            },
+            {
+              "value": "lock",
+              "label": "Lock / Secure Icon"
+            },
+            {
+              "value": "palm",
+              "label": "Curaçao Palm Tree Icon"
+            },
+            {
+              "value": "custom_image",
+              "label": "Custom Image Upload"
+            },
+            {
+              "value": "custom_svg",
+              "label": "Custom SVG Code"
+            }
+          ],
+          "default": "globe",
+          "label": "Icon Option"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image Upload (if selected)"
+        },
+        {
+          "type": "html",
+          "id": "custom_svg",
+          "label": "Custom SVG Code (if selected)"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "SHIPPING ACROSS EUROPE",
+          "label": "Title Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_eu_flag",
+          "default": false,
+          "label": "Show EU Flag Badge Next to Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "default": "We deliver to all EU countries.",
+          "label": "Subtitle / Short Description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Item Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Trust / Feature Bar",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "globe",
+            "title": "SHIPPING ACROSS EUROPE",
+            "show_eu_flag": true,
+            "subtitle": "We deliver to all EU countries."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "materials",
+            "title": "PREMIUM MATERIALS",
+            "show_eu_flag": false,
+            "subtitle": "Built to last."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "lock",
+            "title": "SECURE PAYMENTS",
+            "show_eu_flag": false,
+            "subtitle": "Safe, easy & encrypted."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "palm",
+            "title": "DESIGNED IN CURAÇAO",
+            "show_eu_flag": false,
+            "subtitle": "Inspired by sport & culture."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

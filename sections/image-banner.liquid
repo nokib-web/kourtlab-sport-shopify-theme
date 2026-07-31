@@ -1,31 +1,96 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
-{%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
-  {%- style -%}
-    @media screen and (max-width: 749px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before,
-      #Banner-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-
-    @media screen and (min-width: 750px) {
-      #Banner-{{ section.id }}::before,
-      #Banner-{{ section.id }} .banner__media::before {
-        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
-      }
-    }
-  {%- endstyle -%}
-{%- endif -%}
-
 {%- style -%}
   #Banner-{{ section.id }}::after {
     opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+  }
+
+  .banner--{{ section.id }} .banner__box {
+    max-width: {{ section.settings.content_max_width | default: 680 }}px;
+    padding: {{ section.settings.content_padding | default: 20 }}px;
+  }
+
+  .banner--{{ section.id }} .banner__heading--custom-huge {
+    font-size: clamp(3.2rem, 7vw, 6.8rem) !important;
+    line-height: 0.92 !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    word-break: break-word;
+  }
+
+  .banner--{{ section.id }} .banner__heading em,
+  .banner--{{ section.id }} .banner__heading-highlight {
+    font-style: normal;
+    color: {{ section.settings.highlight_color | default: '#cbd64a' }};
+  }
+
+  .banner--{{ section.id }} .banner__subheading {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #cbd64a;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .banner--{{ section.id }} .banner__subheading--line::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 2px;
+    background-color: currentColor;
+    margin-bottom: 0.6rem;
+  }
+
+  .banner--{{ section.id }} .banner__text-custom {
+    line-height: 1.5;
+    color: #e0e0e0;
+    margin-bottom: 1.8rem;
+    max-width: 540px;
+  }
+
+  .banner--{{ section.id }} .banner__button-primary {
+    background-color: #cbd64a !important;
+    color: #0a0a0a !important;
+    border: none !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 0.85rem 2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    border-radius: 0 !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+    text-decoration: none !important;
+  }
+
+  .banner--{{ section.id }} .banner__button-primary:hover {
+    background-color: #dbe468 !important;
+    transform: translateY(-1px);
+  }
+
+  .banner--{{ section.id }} .banner__button-secondary {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border: 1px solid #cbd64a !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    padding: 0.85rem 2rem !important;
+    border-radius: 0 !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease !important;
+    text-decoration: none !important;
+  }
+
+  .banner--{{ section.id }} .banner__button-secondary:hover {
+    background-color: rgba(203, 214, 74, 0.1) !important;
+    border-color: #ffffff !important;
   }
 {%- endstyle -%}
 
@@ -53,7 +118,7 @@
 
 <div
   id="Banner-{{ section.id }}"
-  class="banner banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  class="banner banner--{{ section.id }} banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
   {%- if section.settings.image != blank -%}
     <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -120,14 +185,40 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'heading' -%}
+            {%- liquid
+              assign formatted_heading = block.settings.heading | newline_to_br
+              if block.settings.highlight_text != blank
+                capture highlight_span
+                  echo '<span class="banner__heading-highlight" style="color: '
+                  echo block.settings.highlight_color | default: '#cbd64a'
+                  echo ' !important;">'
+                  echo block.settings.highlight_text
+                  echo '</span>'
+                endcapture
+                assign formatted_heading = formatted_heading | replace: block.settings.highlight_text, highlight_span
+              endif
+            -%}
             <h2
-              class="banner__heading inline-richtext {{ block.settings.heading_size }}"
+              class="banner__heading {% if block.settings.heading_size == 'custom_huge' %}banner__heading--custom-huge{% else %}{{ block.settings.heading_size }}{% endif %}"
+              style="{% if block.settings.custom_font_size > 0 %}font-size: {{ block.settings.custom_font_size }}px !important;{% endif %}{% if block.settings.heading_color != blank %}color: {{ block.settings.heading_color }} !important;{% endif %}"
               {{ block.shopify_attributes }}
             >
-              {{ block.settings.heading }}
+              {{ formatted_heading }}
             </h2>
+          {%- when 'subheading' -%}
+            <div
+              class="banner__subheading{% if block.settings.show_line %} banner__subheading--line{% endif %}"
+              style="{% if block.settings.subheading_color != blank %}color: {{ block.settings.subheading_color }} !important;{% endif %}{% if block.settings.font_size > 0 %}font-size: {{ block.settings.font_size }}px !important;{% endif %}{% if block.settings.letter_spacing > 0 %}letter-spacing: {{ block.settings.letter_spacing | divided_by: 100.0 }}em !important;{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.subheading }}
+            </div>
           {%- when 'text' -%}
-            <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
+            <div
+              class="banner__text banner__text-custom rte {{ block.settings.text_style }}"
+              style="{% if block.settings.font_size > 0 %}font-size: {{ block.settings.font_size }}px !important;{% endif %}{% if block.settings.line_height > 0 %}line-height: {{ block.settings.line_height | divided_by: 10.0 }} !important;{% endif %}{% if block.settings.text_color != blank %}color: {{ block.settings.text_color }} !important;{% endif %}"
+              {{ block.shopify_attributes }}
+            >
               <p>{{ block.settings.text }}</p>
             </div>
           {%- when 'buttons' -%}
@@ -142,9 +233,16 @@
                   {% else %}
                     href="{{ block.settings.button_link_1 }}"
                   {% endif %}
-                  class="button{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                  class="button banner__button-primary{% if block.settings.button_style_secondary_1 %} button--secondary{% else %} button--primary{% endif %}"
+                  style="{% if block.settings.button_bg_1 != blank %}background-color: {{ block.settings.button_bg_1 }} !important;{% endif %}{% if block.settings.button_text_color_1 != blank %}color: {{ block.settings.button_text_color_1 }} !important;{% endif %}"
                 >
-                  {{- block.settings.button_label_1 | escape -}}
+                  <span>{{- block.settings.button_label_1 | escape -}}</span>
+                  {%- if block.settings.show_arrow_1 or block.settings.show_arrow_1 == nil -%}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="button-arrow" style="margin-left: 6px; display: inline-block; vertical-align: middle;">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  {%- endif -%}
                 </a>
               {%- endif -%}
               {%- if block.settings.button_label_2 != blank -%}
@@ -154,9 +252,10 @@
                   {% else %}
                     href="{{ block.settings.button_link_2 }}"
                   {% endif %}
-                  class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                  class="button banner__button-secondary{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                  style="{% if block.settings.button_border_2 != blank %}border-color: {{ block.settings.button_border_2 }} !important;{% endif %}{% if block.settings.button_text_2 != blank %}color: {{ block.settings.button_text_2 }} !important;{% endif %}"
                 >
-                  {{- block.settings.button_label_2 | escape -}}
+                  <span>{{- block.settings.button_label_2 | escape -}}</span>
                 </a>
               {%- endif -%}
             </div>
@@ -245,7 +344,17 @@
     },
     {
       "type": "header",
-      "content": "t:sections.image-banner.settings.content.content"
+      "content": "Content Box & Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 400,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Content Box Max Width",
+      "default": 680
     },
     {
       "type": "select",
@@ -288,7 +397,7 @@
           "label": "t:sections.image-banner.settings.desktop_content_position.options__9.label"
         }
       ],
-      "default": "middle-center",
+      "default": "bottom-left",
       "label": "t:sections.image-banner.settings.desktop_content_position.label"
     },
     {
@@ -308,13 +417,13 @@
           "label": "t:sections.image-banner.settings.desktop_content_alignment.options__3.label"
         }
       ],
-      "default": "center",
+      "default": "left",
       "label": "t:sections.image-banner.settings.desktop_content_alignment.label"
     },
     {
       "type": "checkbox",
       "id": "show_text_box",
-      "default": true,
+      "default": false,
       "label": "t:sections.image-banner.settings.show_text_box.label"
     },
     {
@@ -350,13 +459,13 @@
           "label": "t:sections.image-banner.settings.mobile_content_alignment.options__3.label"
         }
       ],
-      "default": "center",
+      "default": "left",
       "label": "t:sections.image-banner.settings.mobile_content_alignment.label"
     },
     {
       "type": "checkbox",
       "id": "show_text_below",
-      "default": true,
+      "default": false,
       "label": "t:sections.image-banner.settings.show_text_below.label"
     }
   ],
@@ -367,15 +476,19 @@
       "limit": 1,
       "settings": [
         {
-          "type": "inline_richtext",
+          "type": "textarea",
           "id": "heading",
-          "default": "t:sections.image-banner.blocks.heading.settings.heading.default",
-          "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
+          "default": "BUILT FOR\nREPEAT.",
+          "label": "Heading Text (Press Enter for Line Break)"
         },
         {
           "type": "select",
           "id": "heading_size",
           "options": [
+            {
+              "value": "custom_huge",
+              "label": "Huge Bold Display (KØRĒ Mockup Style)"
+            },
             {
               "value": "h2",
               "label": "t:sections.all.heading_size.options__1.label"
@@ -397,8 +510,85 @@
               "label": "t:sections.all.heading_size.options__5.label"
             }
           ],
-          "default": "h1",
+          "default": "custom_huge",
           "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "range",
+          "id": "custom_font_size",
+          "min": 0,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Custom Font Size (0 for responsive default)",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading Primary Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Title Highlight Word/Phrase"
+        },
+        {
+          "type": "text",
+          "id": "highlight_text",
+          "default": "REPEAT.",
+          "label": "Highlight Word/Phrase (e.g. REPEAT.)"
+        },
+        {
+          "type": "color",
+          "id": "highlight_color",
+          "label": "Highlight Word Color",
+          "default": "#cbd64a"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading / Tagline",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "ENGINEERED FOR PERFORMANCE.",
+          "label": "Subheading Text"
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading Color",
+          "default": "#cbd64a"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Font Size",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "letter_spacing",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "em",
+          "label": "Letter Spacing (divide by 100)",
+          "default": 15
+        },
+        {
+          "type": "checkbox",
+          "id": "show_line",
+          "default": true,
+          "label": "Show Top Accent Line"
         }
       ]
     },
@@ -410,8 +600,34 @@
         {
           "type": "inline_richtext",
           "id": "text",
-          "default": "t:sections.image-banner.blocks.text.settings.text.default",
+          "default": "Premium apparel and essentials designed to perform on every court.",
           "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "label": "Description Font Size",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "line_height",
+          "min": 10,
+          "max": 22,
+          "step": 1,
+          "unit": "em",
+          "label": "Line Height (divide by 10)",
+          "default": 15
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Description Color",
+          "default": "#e0e0e0"
         },
         {
           "type": "select",
@@ -441,20 +657,37 @@
       "limit": 1,
       "settings": [
         {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_1.content"
+          "type": "header",
+          "content": "Primary Button Options"
         },
         {
           "type": "text",
           "id": "button_label_1",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_1.default",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+          "default": "SHOP NOW",
+          "label": "Button Label 1"
         },
         {
           "type": "url",
           "id": "button_link_1",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_1.label"
+          "label": "Button Link 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_arrow_1",
+          "default": true,
+          "label": "Show Arrow Icon (→) in Primary Button"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_1",
+          "label": "Button 1 Background Color",
+          "default": "#cbd64a"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color_1",
+          "label": "Button 1 Text Color",
+          "default": "#0a0a0a"
         },
         {
           "type": "checkbox",
@@ -463,25 +696,36 @@
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_1.label"
         },
         {
-        "type": "header",
-        "content": "t:sections.image-banner.blocks.buttons.settings.header_2.content"
+          "type": "header",
+          "content": "Secondary Button Options"
         },
         {
           "type": "text",
           "id": "button_label_2",
-          "default": "t:sections.image-banner.blocks.buttons.settings.button_label_2.default",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_label_2.label",
-          "info": "t:sections.image-banner.blocks.buttons.settings.button_label_2.info"
+          "default": "EXPLORE",
+          "label": "Button Label 2"
         },
         {
           "type": "url",
           "id": "button_link_2",
-          "label": "t:sections.image-banner.blocks.buttons.settings.button_link_2.label"
+          "label": "Button Link 2"
+        },
+        {
+          "type": "color",
+          "id": "button_border_2",
+          "label": "Button 2 Border Color",
+          "default": "#cbd64a"
+        },
+        {
+          "type": "color",
+          "id": "button_text_2",
+          "label": "Button 2 Text Color",
+          "default": "#ffffff"
         },
         {
           "type": "checkbox",
           "id": "button_style_secondary_2",
-          "default": false,
+          "default": true,
           "label": "t:sections.image-banner.blocks.buttons.settings.button_style_secondary_2.label"
         }
       ]
@@ -492,13 +736,35 @@
       "name": "t:sections.image-banner.presets.name",
       "blocks": [
         {
-          "type": "heading"
+          "type": "heading",
+          "settings": {
+            "heading": "BUILT FOR\nREPEAT.",
+            "heading_size": "custom_huge",
+            "highlight_text": "REPEAT.",
+            "highlight_color": "#cbd64a"
+          }
         },
         {
-          "type": "text"
+          "type": "subheading",
+          "settings": {
+            "subheading": "ENGINEERED FOR PERFORMANCE.",
+            "show_line": true
+          }
         },
         {
-          "type": "buttons"
+          "type": "text",
+          "settings": {
+            "text": "Premium apparel and essentials designed to perform on every court.",
+            "font_size": 18
+          }
+        },
+        {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "SHOP NOW",
+            "show_arrow_1": true,
+            "button_label_2": "EXPLORE"
+          }
         }
       ]
     }
