@@ -44,7 +44,8 @@
             "text": "SHIPPING ACROSS THE EUROPEAN UNION",
             "text_color": "default",
             "custom_text_color": "#cbd64a",
-            "icon": "eu_flag",
+            "icon": "custom_image",
+            "image": "shopify://shop_images/curacao.png",
             "custom_svg": "",
             "show_divider": false,
             "link": ""

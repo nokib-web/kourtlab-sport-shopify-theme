@@ -87,10 +87,11 @@
         "item_1": {
           "type": "trust_item",
           "settings": {
-            "icon": "globe",
+            "icon": "custom_image",
+            "custom_image": "shopify://shop_images/european.png",
             "custom_svg": "",
             "title": "SHIPPING ACROSS EUROPE",
-            "show_eu_flag": true,
+            "show_eu_flag": false,
             "subtitle": "We deliver to all EU countries.",
             "link": ""
           }
@@ -863,7 +864,7 @@
         "heading_color": "#0a0a0a",
         "card_title_font_size": 21,
         "card_excerpt_font_size": 17,
-        "blog": "",
+        "blog": "nieuws",
         "show_view_all": true,
         "view_all_text": "VIEW ALL STORIES",
         "post_limit": 5,
