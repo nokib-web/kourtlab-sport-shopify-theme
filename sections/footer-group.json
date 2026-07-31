@@ -14,33 +14,44 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "flag_GkJaCX": {
+        "flag_irEFgM": {
           "type": "flag",
           "settings": {
             "country_name": "Germany",
             "flag_emoji": "🇩🇪",
-            "flag_image": "shopify://shop_images/favicon_4.png"
+            "flag_image": "shopify://shop_images/curacao.png"
           }
         },
-        "flag_YzJQfm": {
+        "flag_U6aGrM": {
           "type": "flag",
           "settings": {
             "country_name": "Germany",
-            "flag_emoji": "🇩🇪"
+            "flag_emoji": "🇩🇪",
+            "flag_image": "shopify://shop_images/germany.png"
           }
         },
         "flag_QpXfLL": {
           "type": "flag",
           "settings": {
             "country_name": "Germany",
-            "flag_emoji": "🇩🇪"
+            "flag_emoji": "🇩🇪",
+            "flag_image": "shopify://shop_images/france.png"
+          }
+        },
+        "flag_YzJQfm": {
+          "type": "flag",
+          "settings": {
+            "country_name": "Germany",
+            "flag_emoji": "🇩🇪",
+            "flag_image": "shopify://shop_images/european.png"
           }
         }
       },
       "block_order": [
-        "flag_GkJaCX",
-        "flag_YzJQfm",
-        "flag_QpXfLL"
+        "flag_irEFgM",
+        "flag_U6aGrM",
+        "flag_QpXfLL",
+        "flag_YzJQfm"
       ],
       "settings": {
         "bg_color": "#0a0a0a",

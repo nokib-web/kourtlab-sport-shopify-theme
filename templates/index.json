@@ -800,51 +800,51 @@
         "story_1": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/bg-5.webp",
+            "image": "shopify://shop_images/blog-1.webp",
             "title": "FROM COURT TO COAST",
             "excerpt": "Our roots. Our inspiration.",
             "read_more_text": "READ MORE",
-            "link": "/blogs/nieuws"
+            "link": "shopify://blogs/nieuws/demo-blog-4"
           }
         },
         "story_2": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/bg-3.webp",
+            "image": "shopify://shop_images/blog-2.webp",
             "title": "BEHIND THE FIRST DROP",
             "excerpt": "The process, the materials, the details.",
             "read_more_text": "READ MORE",
-            "link": "/blogs/nieuws"
+            "link": "shopify://blogs/nieuws/demo-blog-3"
           }
         },
         "story_3": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/hero-2.webp",
+            "image": "shopify://shop_images/blog-3.webp",
             "title": "WHY WE BUILT KOURTLAB",
             "excerpt": "More than apparel. A mindset.",
             "read_more_text": "READ MORE",
-            "link": "/blogs/nieuws"
+            "link": "shopify://blogs/nieuws/demo-blog-2"
           }
         },
         "story_4": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/bg-5.webp",
+            "image": "shopify://shop_images/blog-4.webp",
             "title": "PERFORMANCE GUIDE",
             "excerpt": "What to wear, when and why.",
             "read_more_text": "READ MORE",
-            "link": "/blogs/nieuws"
+            "link": "shopify://blogs/nieuws/demo-blog"
           }
         },
         "story_5": {
           "type": "story",
           "settings": {
-            "image": "shopify://shop_images/bg-3.webp",
+            "image": "shopify://shop_images/blog-5.webp",
             "title": "MEET THE FOUNDER",
             "excerpt": "Justin Niessen on passion and purpose.",
             "read_more_text": "READ MORE",
-            "link": "/blogs/nieuws"
+            "link": "shopify://blogs/nieuws/meet-the-founder"
           }
         }
       },
