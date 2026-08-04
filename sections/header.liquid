@@ -132,677 +132,304 @@
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
 
-  .section-header {
-    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
-    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+  /* Editorial Immersive Header (Specific Pages) */
+  body.template-index.gradient,
+  body.page-about-kourtlab.gradient,
+  body.page-contact.gradient {
+    margin: 0;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-header {
-      margin-bottom: {{ section.settings.margin_bottom }}px;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .header {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-
-  .header--full-width {
-    max-width: 100% !important;
-  }
-
-  /* Default logo display for all pages (only main logo visible by default) */
-  .header__heading-logo--overlay {
-    display: none !important;
-  }
-
-  .header__heading-logo--main {
-    display: block !important;
-  }
-
-{%- assign has_dark_hero = false -%}
-{%- if request.page_type == 'index' or page.handle == 'about-kourtlab' or page.handle == 'contact' or request.page_type == '404' -%}
-  {%- assign has_dark_hero = true -%}
-{%- endif -%}
-
-{%- if has_dark_hero -%}
-  /* Hide announcement bar on homepage hero for pure editorial look */
-  .announcement-bar-section,
-  .shopify-section-announcement-bar,
-  #shopify-section-sections--{{ section.id }}__announcement-bar {
-    display: none !important;
-  }
-
-  /* ── Transparent Header Overlay on Hero Images ── */
-  .section-header {
-    position: absolute !important;
+  body.template-index .section-header,
+  body.page-about-kourtlab .section-header,
+  body.page-contact .section-header {
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
     width: 100%;
-    z-index: 100;
+    z-index: 999;
+    margin-bottom: 0 !important;
   }
-
-  /* Top State (over hero image): Transparent background, white text & icons */
-  .section-header:not(.scrolled-past-header) .header-wrapper {
-    background-color: transparent !important;
-    background-image: none !important;
+  
+  body.template-index .header-wrapper,
+  body.page-about-kourtlab .header-wrapper,
+  body.page-contact .header-wrapper {
+    background: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
-    transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: background-color 0.3s ease, border-bottom 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .section-header:not(.scrolled-past-header) .header__menu-item,
-  .section-header:not(.scrolled-past-header) .header__heading-link,
-  .section-header:not(.scrolled-past-header) .header__icon,
-  .section-header:not(.scrolled-past-header) .header__icon .icon,
-  .section-header:not(.scrolled-past-header) .header__heading-link span,
-  .section-header:not(.scrolled-past-header) .header__menu-item span,
-  .section-header:not(.scrolled-past-header) .header__inline-menu summary,
-  .section-header:not(.scrolled-past-header) .header__inline-menu a {
-    color: #ffffff !important;
+  body.template-index .section-header.scrolled-past-header,
+  body.page-about-kourtlab .section-header.scrolled-past-header,
+  body.page-contact .section-header.scrolled-past-header {
+    position: fixed; /* Stick to top */
   }
 
-  .section-header:not(.scrolled-past-header) .header__active-menu-item {
-    color: #cbd64a !important;
-  }
-
-  /* Dropdown & Mega Menu for Top State (over dark hero photo): Dark Glass Background & White/Lime Text */
-  .section-header:not(.scrolled-past-header) .mega-menu__content,
-  .section-header:not(.scrolled-past-header) .header__submenu {
-    background-color: rgba(10, 10, 10, 0.95) !important;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-radius: 0 !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important;
-  }
-
-  .section-header:not(.scrolled-past-header) .mega-menu__column-title,
-  .section-header:not(.scrolled-past-header) .mega-menu__promo-title,
-  .section-header:not(.scrolled-past-header) .header__submenu .header__menu-item {
-    color: #ffffff !important;
-  }
-
-  .section-header:not(.scrolled-past-header) .mega-menu__sublink {
-    color: rgba(255, 255, 255, 0.72) !important;
-  }
-
-  .section-header:not(.scrolled-past-header) .mega-menu__sublink:hover,
-  .section-header:not(.scrolled-past-header) .mega-menu__column-title:hover,
-  .section-header:not(.scrolled-past-header) .header__submenu .header__menu-item:hover {
-    color: #cbd64a !important;
-    background-color: rgba(255, 255, 255, 0.05) !important;
-  }
-
-  /* Dual Logo Display & Auto Inversion over Dark Hero */
-  .section-header:not(.scrolled-past-header) .header__heading-logo--main {
-    display: none !important;
-  }
-  .section-header:not(.scrolled-past-header) .header__heading-logo--overlay {
-    display: block !important;
-    filter: none !important;
-  }
-{%- else -%}
-  /* Standard Header for Light Canvas Pages (e.g. founding-member, collections, products) */
-  .section-header .header-wrapper {
+  body.template-index .section-header.scrolled-past-header .header-wrapper,
+  body.page-about-kourtlab .section-header.scrolled-past-header .header-wrapper,
+  body.page-contact .section-header.scrolled-past-header .header-wrapper {
     background-color: #ffffff !important;
-    border-bottom: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.08) !important;
   }
 
-  .section-header .header__menu-item,
-  .section-header .header__heading-link,
-  .section-header .header__icon,
-  .section-header .header__icon .icon,
-  .section-header .header__heading-link span,
-  .section-header .header__menu-item span,
-  .section-header .header__inline-menu summary,
-  .section-header .header__inline-menu a {
-    color: #0a0a0a !important;
+  /* Text color inversion for scrolled header on light background */
+  body.template-index .section-header.scrolled-past-header .header__menu-item,
+  body.page-about-kourtlab .section-header.scrolled-past-header .header__menu-item,
+  body.page-contact .section-header.scrolled-past-header .header__menu-item,
+  body.template-index .section-header.scrolled-past-header .header__icon,
+  body.page-about-kourtlab .section-header.scrolled-past-header .header__icon,
+  body.page-contact .section-header.scrolled-past-header .header__icon,
+  body.template-index .section-header.scrolled-past-header .header__heading-link,
+  body.page-about-kourtlab .section-header.scrolled-past-header .header__heading-link,
+  body.page-contact .section-header.scrolled-past-header .header__heading-link {
+    color: #000000 !important;
   }
 
-  .section-header .header__heading-logo--main {
-    display: none !important;
+  /* Text color inversion for transparent header on dark hero */
+  body.template-index .section-header:not(.scrolled-past-header) .header__menu-item,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__menu-item,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__menu-item,
+  body.template-index .section-header:not(.scrolled-past-header) .header__icon,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__icon,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__icon,
+  body.template-index .section-header:not(.scrolled-past-header) .header__heading-link,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__heading-link,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__heading-link {
+    color: #ffffff !important;
   }
 
-  .section-header .header__heading-logo--overlay {
-    display: block !important;
-    filter: brightness(0) !important;
+  /* Fix huge dropdown arrow in localization/currency selector */
+  .localization-form__select svg,
+  .disclosure__button svg {
+    width: 1.2rem !important;
+    height: 1.2rem !important;
+    margin-left: 0.5rem !important;
+  }
+  
+  /* Mega menu and submenu styling when header is transparent */
+  body.template-index .section-header:not(.scrolled-past-header) .header__submenu,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__submenu,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__submenu,
+  body.template-index .section-header:not(.scrolled-past-header) .mega-menu__content,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .mega-menu__content,
+  body.page-contact .section-header:not(.scrolled-past-header) .mega-menu__content {
+    background-color: #000000 !important;
   }
 
-  .section-header .mega-menu__content,
-  .section-header .header__submenu {
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-radius: 0 !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+  /* Ensure text inside dropdowns is white when background is black */
+  body.template-index .section-header:not(.scrolled-past-header) .header__submenu *,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__submenu *,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__submenu *,
+  body.template-index .section-header:not(.scrolled-past-header) .mega-menu__content *,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .mega-menu__content *,
+  body.page-contact .section-header:not(.scrolled-past-header) .mega-menu__content * {
+    color: #ffffff !important;
   }
 
-  .section-header .mega-menu__column-title,
-  .section-header .mega-menu__promo-title,
-  .section-header .header__submenu .header__menu-item {
-    color: #0a0a0a !important;
+  /* Dual Logo Styles */
+  .header__heading-logo-wrapper {
+    position: relative;
+    display: inline-block;
   }
-{%- endif -%}
-
-  /* Scrolled State (over white canvas): White glass background, dark text & icons */
-  .section-header.scrolled-past-header {
-    position: fixed !important;
+  .header__heading-logo--overlay {
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
     width: 100%;
-    z-index: 1000;
-    animation: headerSlideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
-
-  .section-header.scrolled-past-header .header-wrapper {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border-bottom: none !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  
+  /* Show transparent logo before scrolling */
+  body.template-index .section-header:not(.scrolled-past-header) .header__heading-logo--overlay,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__heading-logo--overlay,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__heading-logo--overlay {
+    opacity: 1;
+    visibility: visible;
   }
-
-  .section-header.scrolled-past-header .header__menu-item,
-  .section-header.scrolled-past-header .header__heading-link,
-  .section-header.scrolled-past-header .header__icon,
-  .section-header.scrolled-past-header .header__icon .icon,
-  .section-header.scrolled-past-header .header__heading-link span,
-  .section-header.scrolled-past-header .header__menu-item span,
-  .section-header.scrolled-past-header .header__inline-menu summary,
-  .section-header.scrolled-past-header .header__inline-menu a {
-    color: #0a0a0a !important;
+  body.template-index .section-header:not(.scrolled-past-header) .header__heading-logo--main,
+  body.page-about-kourtlab .section-header:not(.scrolled-past-header) .header__heading-logo--main,
+  body.page-contact .section-header:not(.scrolled-past-header) .header__heading-logo--main {
+    opacity: 0;
+    visibility: hidden;
   }
-
-  .section-header.scrolled-past-header .header__heading-logo--main {
-    display: none !important;
-  }
-
-  .section-header.scrolled-past-header .header__heading-logo--overlay {
-    display: block !important;
-    filter: brightness(0) !important;
-  }
-
-  /* Dropdown & Mega Menu for Scrolled State (over white canvas): White Glass Background & Dark Text */
-  .section-header.scrolled-past-header .mega-menu__content,
-  .section-header.scrolled-past-header .header__submenu {
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-radius: 0 !important;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .section-header.scrolled-past-header .mega-menu__column-title,
-  .section-header.scrolled-past-header .mega-menu__promo-title,
-  .section-header.scrolled-past-header .header__submenu .header__menu-item {
-    color: #0a0a0a !important;
-  }
-
-  .section-header.scrolled-past-header .mega-menu__sublink {
-    color: rgba(10, 10, 10, 0.72) !important;
-  }
-
-  .section-header.scrolled-past-header .mega-menu__sublink:hover,
-  .section-header.scrolled-past-header .mega-menu__column-title:hover,
-  .section-header.scrolled-past-header .header__submenu .header__menu-item:hover {
-    color: #cbd64a !important;
-    background-color: rgba(0, 0, 0, 0.03) !important;
-  }
-
-  @keyframes headerSlideDown {
-    from {
-      transform: translateY(-100%);
+  /* Desktop Layout: Force Menu to Center (like on.com) */
+  @media screen and (min-width: 990px) {
+    .header {
+      display: grid !important;
+      grid-template-columns: 1fr auto 1fr !important;
+      align-items: center !important;
     }
-    to {
-      transform: translateY(0);
+    
+    .header__heading, .header__heading-link {
+      justify-self: start !important;
+      margin: 0 !important;
+    }
+    
+    .header__inline-menu {
+      justify-self: center !important;
+      margin: 0 !important;
+    }
+    
+    .header__icons {
+      justify-self: end !important;
     }
   }
 
-  /* ── 1:1 On-Running Style Full-Width Mobile Bottom Dock & Top-Left Logo ── */
+
+  /* On.com 1:1 Mobile Header & Native Bottom Dock */
   @media screen and (max-width: 989px) {
-    /* Ensure header wrapper does not become sticky or animate */
-    .shopify-section-group-header-group,
-    sticky-header,
-    .shopify-section-header-sticky,
-    .shopify-section-header-hidden {
-      position: static !important;
-      top: auto !important;
-      visibility: visible !important;
-      transform: none !important;
-      transition: none !important;
-      animation: none !important;
+    /* Center Logo at Top */
+    .header__heading {
+      grid-area: heading !important;
+      justify-self: center !important;
+      text-align: center !important;
+      margin: 0 auto !important;
+      width: 100% !important;
+      padding: 12px 0 !important;
+    }
+    
+    .header__heading-link {
+      display: inline-flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100%;
+    }
+    
+    .header__heading-logo-wrapper {
+      display: inline-flex !important;
+      justify-content: center !important;
+    }
+    
+    .header__heading-logo {
+      margin: 0 auto !important;
     }
 
-    {%- if has_dark_hero -%}
-      .section-header {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        z-index: 100 !important;
-        background: transparent !important;
-      }
-      .section-header .header-wrapper {
-        background-color: transparent !important;
-        background-image: none !important;
-        border: none !important;
-        box-shadow: none !important;
-      }
-    {%- else -%}
-      .section-header {
-        position: static !important;
-      }
-    {%- endif -%}
-
-    /* Hide top header right icons and top hamburger summary button on mobile */
-    .header .header__icons,
-    .header > header-drawer > details > summary {
-      display: none !important;
+    /* Create the Bottom Dock Environment */
+    .header {
+      display: block !important; /* Override grid */
+      padding: 0 !important;
     }
 
-    /* ── Full-Screen Menu Drawer ── */
+    .header__icons {
+      position: fixed !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 60px !important;
+      background-color: rgba(255, 255, 255, 0.98) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+      z-index: 999999999 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-around !important;
+      padding: 0 25% 0 0 !important; /* Leave 25% space on the right for the menu */
+      margin: 0 !important;
+    }
+
+    /* Make dock transparent before scrolling on hero pages */
+    :is(body.template-index, body.page-about-kourtlab, body.page-contact) .section-header:not(.scrolled-past-header) .header__icons {
+      background-color: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-top: none !important;
+    }
+
     header-drawer {
       display: block !important;
     }
 
-    /* Target .menu-drawer directly — override all Dawn hiding/positioning */
-    header-drawer details[open] > .menu-drawer {
+    /* Allow Logo/Header to scroll away on mobile instead of sticking */
+    body.template-index .section-header,
+    body.page-about-kourtlab .section-header,
+    body.page-contact .section-header,
+    body.template-index .section-header.scrolled-past-header,
+    body.page-about-kourtlab .section-header.scrolled-past-header,
+    body.page-contact .section-header.scrolled-past-header {
+      position: absolute !important; /* Unfix the header so it scrolls with the page */
+    }
+
+    /* Move Menu Drawer Summary into the Dock on the Right */
+    .header > header-drawer {
+      position: fixed !important;
+      bottom: 0 !important; /* Explicitly stick to bottom */
+      right: 0 !important; /* Rightmost position */
+      left: auto !important;
+      width: 25% !important;
+      height: 60px !important;
+      margin: 0 !important; /* Remove any margins pushing it up */
+      z-index: 1000000000 !important;
+      transform: none !important; /* Remove any weird transforms */
+    }
+    
+    header-drawer > details {
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    header-drawer > details > summary {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    
+    .header__icons {
+      /* Removed duplicate padding-left */
+    }
+    
+    .header__icon {
+      width: auto !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex: 1 !important;
+    }
+
+    /* Style the Modals to take full screen over everything */
+    .menu-drawer {
       position: fixed !important;
       top: 0 !important;
       left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
       width: 100vw !important;
-      height: 100dvh !important;       /* override Dawn's calc(100vh - 100%) = 0px bug */
-      transform: translateX(0) !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      display: block !important;
-      z-index: 99999999 !important;
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
-      background-color: #ffffff !important;
+      height: 100vh !important;
+      max-width: 100% !important;
+      transform: translateY(100%) !important; /* Slide up from bottom */
+      z-index: 1000000000 !important;
+      padding-bottom: 60px !important; /* Avoid dock overlap if we keep dock visible */
     }
-
-    /* ── Inner container — no overflow:hidden so content renders ── */
-    header-drawer .menu-drawer__inner-container {
-      display: block !important;
-      padding: 0 !important;
-      background-color: #ffffff !important;
+    
+    details[open] > .menu-drawer {
+      transform: translateY(0) !important;
     }
-
-    header-drawer .menu-drawer__header-logo {
-      padding: 24px 24px 0 24px !important;
-      margin-bottom: 2rem !important;
-    }
-
-    /* Navigation area padding — only inside drawer */
-    header-drawer .menu-drawer__navigation {
-      padding: 0 24px 120px 24px !important;
-    }
-
-    /* ── MAIN NAV LINKS — large bold like on.com ── */
-    header-drawer .menu-drawer__menu > li > a.menu-drawer__menu-item,
-    header-drawer .menu-drawer__menu > li > details > summary.menu-drawer__menu-item {
-      font-family: var(--font-heading-family), sans-serif !important;
-      font-size: 2.4rem !important;
-      font-weight: 900 !important;
-      letter-spacing: -0.02em !important;
-      color: #0a0a0a !important;
-      padding: 0.5rem 0 !important;
-      border: none !important;
-      background: transparent !important;
-      line-height: 1.15 !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      width: 100% !important;
-      text-decoration: none !important;
-    }
-
-    /* ── + / − toggle icons ── */
-    header-drawer .menu-drawer__menu > li > details > summary.menu-drawer__menu-item::after {
-      content: '+' !important;
-      font-size: 1.8rem !important;
-      font-weight: 300 !important;
-      line-height: 1 !important;
-      flex-shrink: 0 !important;
-    }
-
-    header-drawer .menu-drawer__menu > li > details[open] > summary.menu-drawer__menu-item::after {
-      content: '−' !important;
-    }
-
-    /* ── LEVEL 2 SUBMENU: Slide-in panel (← Shop Now) ── */
-    header-drawer .menu-drawer__submenu {
-      background-color: #ffffff !important;
-      padding: 0 !important;
-    }
-
-    header-drawer .menu-drawer__inner-submenu {
-      height: 100% !important;
-      overflow-x: hidden !important;
-      overflow-y: auto !important;
-      padding: 0 24px 100px 24px !important;
-      box-sizing: border-box !important;
-    }
-
-    /* ── BACK BUTTON ← (Only in Level 2 panel) ── */
-    header-drawer .menu-drawer__close-button {
-      display: flex !important;
-      align-items: center !important;
-      gap: 10px !important;
-      font-family: var(--font-heading-family), sans-serif !important;
-      font-size: 1.8rem !important;
-      font-weight: 800 !important;
-      color: #0a0a0a !important;
-      text-transform: none !important;
-      letter-spacing: -0.01em !important;
-      padding: 24px 0 20px 0 !important;
-      border: none !important;
-      background: transparent !important;
-      cursor: pointer !important;
-      width: 100% !important;
-      text-align: left !important;
-      box-sizing: border-box !important;
-    }
-
-    header-drawer .menu-drawer__close-button::before {
-      content: '←' !important;
-      font-size: 2rem !important;
-      color: #0a0a0a !important;
-      font-weight: 400 !important;
-    }
-
-    header-drawer .menu-drawer__close-button .svg-wrapper {
-      display: none !important;
-    }
-
-    /* ── LEVEL 3 SUBMENU: INLINE ACCORDION ON SAME PAGE ── */
-    /* Nested submenu inside Level 2 does NOT slide, it expands inline */
-    header-drawer .menu-drawer__submenu .menu-drawer__submenu {
-      position: static !important;
-      transform: none !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: 0 !important;
-      background: transparent !important;
-      padding: 0 !important;
-      display: none !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      transition: none !important;
-    }
-
-    /* Show inline when details is open */
-    header-drawer .menu-drawer__submenu details[open] > .menu-drawer__submenu {
-      display: block !important;
-    }
-
-    header-drawer .menu-drawer__submenu .menu-drawer__submenu .menu-drawer__inner-submenu {
-      padding: 4px 0 12px 16px !important;
-      height: auto !important;
-      min-height: 0 !important;
-      background: transparent !important;
-      overflow: visible !important;
-    }
-
-    /* Hide back button in Level 3 nested inline submenu */
-    header-drawer .menu-drawer__submenu .menu-drawer__submenu .menu-drawer__close-button {
-      display: none !important;
-    }
-
-    /* Prevent parent Level 2 menu container from hiding when Level 3 details opens */
-    header-drawer .menu-drawer__submenu .submenu-open,
-    header-drawer .menu-drawer__submenu.submenu-open {
-      visibility: visible !important;
-    }
-
-    /* ── TYPOGRAPHY FOR ALL LEVELS ── */
-    /* Level 1 links */
-    header-drawer .menu-drawer__menu > li > a.menu-drawer__menu-item,
-    header-drawer .menu-drawer__menu > li > details > summary.menu-drawer__menu-item {
-      font-family: var(--font-heading-family), sans-serif !important;
-      font-size: 2.4rem !important;
-      font-weight: 900 !important;
-      letter-spacing: -0.02em !important;
-      color: #0a0a0a !important;
-      line-height: 1.15 !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      width: 100% !important;
-      text-decoration: none !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0.5rem 0 !important;
-    }
-
-    /* Level 2 links (inside ← Shop Now panel, e.g., Men, Women, Accessories) */
-    header-drawer .menu-drawer__submenu .menu-drawer__menu > li > details > summary.menu-drawer__menu-item,
-    header-drawer .menu-drawer__submenu .menu-drawer__menu > li > a.menu-drawer__menu-item {
-      font-family: var(--font-heading-family), sans-serif !important;
-      font-size: 2rem !important;
-      font-weight: 800 !important;
-      letter-spacing: -0.01em !important;
-      color: #0a0a0a !important;
-      padding: 0.5rem 0 !important;
-      line-height: 1.2 !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      width: 100% !important;
-      text-decoration: none !important;
-      background: transparent !important;
-      border: none !important;
-    }
-
-    /* Level 3 inline links (e.g., Tops & Tees, Shorts & Bottoms) */
-    header-drawer .menu-drawer__submenu .menu-drawer__submenu .menu-drawer__menu-item {
-      font-family: var(--font-heading-family), sans-serif !important;
-      font-size: 1.35rem !important;
-      font-weight: 700 !important;
-      color: #333333 !important;
-      letter-spacing: 0 !important;
-      padding: 0.4rem 0 !important;
-      display: block !important;
-      text-decoration: none !important;
-    }
-
-    /* Hide Dawn's SVG arrows inside drawer only */
-    header-drawer .menu-drawer__navigation .svg-wrapper {
-      display: none !important;
-    }
-
-    /* ── + / − TOGGLE ICONS ── */
-    header-drawer details > summary.menu-drawer__menu-item::after {
-      content: '+' !important;
-      font-size: 1.8rem !important;
-      font-weight: 300 !important;
-      line-height: 1 !important;
-      flex-shrink: 0 !important;
-    }
-
-    header-drawer details[open] > summary.menu-drawer__menu-item::after {
-      content: '−' !important;
-    }
-
-    /* Hover styling */
-    header-drawer .menu-drawer__menu-item:hover {
-      background: transparent !important;
-      color: #cbd64a !important;
-    }
-
-    /* Hide utility box & account */
-    header-drawer .menu-drawer__utility-links {
-      display: none !important;
-    }
-
-    header-drawer .menu-drawer__account {
-      display: none !important;
-    }
-
-    /* Toggle Hamburger ↔ Close X in bottom dock */
-    body:has(header-drawer > details[open]) .icon-hamburger-dock {
-      display: none !important;
-    }
-
-    body:has(header-drawer > details[open]) .icon-close-dock {
-      display: inline-block !important;
-    }
-
-    body:not(:has(header-drawer > details[open])) .icon-close-dock {
-      display: none !important;
-    }
-
-    body:not(:has(header-drawer > details[open])) .icon-hamburger-dock {
-      display: inline-block !important;
-    }
-
-    /* When drawer is open — dock turns white to match the white drawer menu */
-    body:has(header-drawer > details[open]) .kore-mobile-dock__inner {
-      background-color: rgba(255, 255, 255, 0.98) !important;
-      border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    body:has(header-drawer > details[open]) .kore-mobile-dock__icon,
-    body:has(header-drawer > details[open]) .header__icon--search {
-      color: #0a0a0a !important;
-    }
-
-    /* Dock Search Icon Styling */
-    .kore-mobile-dock .header__search {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .kore-mobile-dock .header__search details {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .kore-mobile-dock .header__icon--search {
-      color: #ffffff !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      position: relative !important;
-      width: 44px !important;
-      height: 44px !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      cursor: pointer !important;
-    }
-
-    .kore-mobile-dock .header__icon--search .header__icon-close {
-      display: none !important;
-    }
-
-    /* Full-Width Sticky Bottom Navigation Dock (100% Fixed at Bottom) */
-    .kore-mobile-dock {
+    
+    /* Search Modal Full Screen */
+    .search-modal {
       position: fixed !important;
-      bottom: 0 !important;
-      top: auto !important;
+      top: auto !important; /* Fix for backdrop-filter containing block */
+      bottom: 0 !important; /* Anchor to the bottom of the dock */
       left: 0 !important;
-      right: 0 !important;
-      width: 100% !important;
-      height: 58px !important;
-      z-index: 999999999 !important;
-      display: block !important;
-      transform: none !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: #111111 !important; /* Ensure dark premium background */
+      backdrop-filter: blur(20px) !important;
+      z-index: 1000000000 !important;
+      transform: translateY(100%) !important;
+      transition: transform 0.3s ease !important;
     }
 
-    .kore-mobile-dock__inner {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-around !important;
-      width: 100% !important;
-      height: 100% !important;
-      padding: 0 12px !important;
-      box-sizing: border-box !important;
-      background-color: rgba(10, 10, 10, 0.92) !important;
-      backdrop-filter: blur(20px) saturate(180%) !important;
-      -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-      border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-    }
-
-    /* Light Canvas / Scrolled Dock State */
-    .section-header.scrolled-past-header ~ .kore-mobile-dock .kore-mobile-dock__inner,
-    body:has(.scrolled-past-header) .kore-mobile-dock__inner {
-      background-color: rgba(255, 255, 255, 0.98) !important;
-      border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06) !important;
-    }
-
-    .kore-mobile-dock__icon {
-      color: #ffffff !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      position: relative !important;
-      width: 44px !important;
-      height: 44px !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      cursor: pointer !important;
-      text-decoration: none !important;
-    }
-
-    .section-header.scrolled-past-header ~ .kore-mobile-dock .kore-mobile-dock__icon,
-    body:has(.scrolled-past-header) .kore-mobile-dock__icon {
-      color: #0a0a0a !important;
-    }
-
-    .kore-mobile-dock .svg-wrapper,
-    .kore-mobile-dock svg {
-      width: 20px !important;
-      height: 20px !important;
-      color: currentColor !important;
-    }
-
-    .kore-mobile-dock__icon--cart .svg-wrapper,
-    .kore-mobile-dock__icon--cart svg,
-    .kore-mobile-dock__icon--cart .icon-cart-empty,
-    .kore-mobile-dock__icon--cart .icon-cart {
-      width: 28px !important;
-      height: 28px !important;
-    }
-
-    .kore-mobile-dock .cart-count-bubble {
-      position: absolute !important;
-      top: 4px !important;
-      right: 4px !important;
-      background-color: #cbd64a !important;
-      color: #0a0a0a !important;
-      font-weight: 900 !important;
-      font-size: 0.7rem !important;
-      width: 16px !important;
-      height: 16px !important;
-      border-radius: 50% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+    details[open] > .search-modal {
+      transform: translateY(0) !important;
     }
   }
 {%- endstyle -%}
@@ -845,9 +472,7 @@
   -%}
   <header class="header header--full-width header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
-      if section.settings.menu != blank
-        render 'header-drawer'
-      endif
+      render 'header-drawer'
 
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
         render 'header-search', input_id: 'Search-In-Modal-1'
@@ -919,24 +544,41 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if settings.logo != blank or settings.logo_transparent != blank -%}
           <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+            {%- assign logo_alt = settings.logo.alt | default: settings.logo_transparent.alt | default: shop.name | escape -%}
+            {%- assign ref_logo = settings.logo | default: settings.logo_transparent -%}
+            {%- assign logo_height = settings.logo_width | divided_by: ref_logo.aspect_ratio -%}
             {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
             {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
+            {%- if settings.logo_transparent != blank -%}
+              {{
+                settings.logo_transparent
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo header__heading-logo--overlay motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            {%- endif -%}
+            {%- if settings.logo != blank -%}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo header__heading-logo--main motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            {%- endif -%}
           </div>
         {%- else -%}
           <span class="h2">{{ shop.name }}</span>
@@ -976,7 +618,7 @@
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+          class="header__icon header__icon--account link focus-inset"
           rel="nofollow"
         >
           {%- if section.settings.enable_customer_avatar -%}
@@ -1028,39 +670,6 @@
     </div>
   </header>
 </{{ header_tag }}>
-
-{%- comment -%} On-Running Style Full-Width Mobile Bottom Navigation Dock {%- endcomment -%}
-<div class="kore-mobile-dock medium-hide large-up-hide">
-  <div class="kore-mobile-dock__inner">
-    {% render 'header-search', input_id: 'Search-In-Modal-Dock' %}
-
-    <a href="{{ routes.cart_url }}" class="kore-mobile-dock__icon kore-mobile-dock__icon--cart link focus-inset" id="cart-icon-bubble-dock">
-      {% if cart == empty %}
-        <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-      {% else %}
-        <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-      {% endif %}
-      {%- if cart != empty -%}
-        <div class="cart-count-bubble">
-          {%- if cart.item_count < 100 -%}
-            <span aria-hidden="true">{{ cart.item_count }}</span>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-    </a>
-
-    {%- if shop.customer_accounts_enabled -%}
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="kore-mobile-dock__icon link focus-inset" aria-label="Account">
-        <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-      </a>
-    {%- endif -%}
-
-    <button type="button" class="kore-mobile-dock__icon kore-mobile-dock__menu-btn link focus-inset" onclick="var hd=document.querySelector('header-drawer > details');if(hd){if(hd.hasAttribute('open')){document.querySelectorAll('header-drawer details').forEach(function(el){el.removeAttribute('open');el.classList.remove('menu-opening');});document.querySelectorAll('header-drawer .submenu-open').forEach(function(el){el.classList.remove('submenu-open');});document.body.classList.remove('overflow-hidden-mobile');}else{hd.setAttribute('open','');document.body.classList.add('overflow-hidden-mobile');}}" aria-label="Toggle Menu">
-      <span class="svg-wrapper icon-hamburger-dock">{{ 'icon-hamburger.svg' | inline_asset_content }}</span>
-      <span class="svg-wrapper icon-close-dock">{{ 'icon-close.svg' | inline_asset_content }}</span>
-    </button>
-  </div>
-</div>
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
