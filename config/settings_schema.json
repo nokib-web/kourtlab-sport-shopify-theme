@@ -16,6 +16,12 @@
         "label": "t:settings_schema.logo.settings.logo_image.label"
       },
       {
+        "type": "image_picker",
+        "id": "logo_transparent",
+        "label": "Transparent / Overlay Logo (White)",
+        "info": "Displayed when the header is transparent over the hero banner"
+      },
+      {
         "type": "range",
         "id": "logo_width",
         "min": 50,

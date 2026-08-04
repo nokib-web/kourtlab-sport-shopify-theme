@@ -92,6 +92,38 @@
     background-color: rgba(203, 214, 74, 0.1) !important;
     border-color: #ffffff !important;
   }
+
+  @media screen and (max-width: 749px) {
+    .banner--{{ section.id }} .banner__content {
+      padding-bottom: 78px !important;
+    }
+
+    .banner--{{ section.id }} .banner__box {
+      padding-bottom: 30px !important;
+      margin-bottom: 20px !important;
+    }
+
+    .banner--{{ section.id }} .banner__heading--custom-huge {
+      font-size: clamp(2.4rem, 8.5vw, 3.6rem) !important;
+      margin-bottom: 0.6rem !important;
+    }
+
+    .banner--{{ section.id }} .banner__text-custom {
+      margin-bottom: 1.2rem !important;
+      font-size: 0.95rem !important;
+    }
+
+    {%- if section.settings.image_mobile != blank -%}
+      .banner--{{ section.id }} .banner__media:not(.banner__media-mobile) {
+        display: none !important;
+      }
+      .banner--{{ section.id }} .banner__media-mobile {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+    {%- endif -%}
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -120,6 +152,23 @@
   id="Banner-{{ section.id }}"
   class="banner banner--{{ section.id }} banner--content-align-{{ section.settings.desktop_content_alignment }} banner--content-align-mobile-{{ section.settings.mobile_content_alignment }} banner--{{ section.settings.image_height }}{% if section.settings.stack_images_on_mobile and section.settings.image != blank and section.settings.image_2 != blank %} banner--stacked{% endif %}{% if section.settings.image_height == 'adapt' and section.settings.image != blank %} banner--adapt{% endif %}{% if section.settings.show_text_below %} banner--mobile-bottom{%- endif -%}{% if section.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
 >
+  {%- if section.settings.image_mobile != blank -%}
+    <div class="banner__media media banner__media-mobile small-hide medium-hide large-up-hide-override">
+      {%- assign image_height_mobile = section.settings.image_mobile.width | divided_by: section.settings.image_mobile.aspect_ratio -%}
+      {{
+        section.settings.image_mobile
+        | image_url: width: 1500
+        | image_tag:
+          width: section.settings.image_mobile.width,
+          height: image_height_mobile,
+          class: 'banner__media-image-mobile',
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100',
+          fetchpriority: fetch_priority
+      }}
+    </div>
+  {%- endif -%}
+
   {%- if section.settings.image != blank -%}
     <div class="banner__media media{% if section.settings.image == blank and section.settings.image_2 == blank %} placeholder{% endif %}{% if section.settings.image_2 != blank %} banner__media-half{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- liquid
@@ -285,6 +334,11 @@
       "label": "t:sections.image-banner.settings.image_2.label"
     },
     {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Hero Image (Optional Portrait Image)"
+    },
+    {
       "type": "range",
       "id": "image_overlay_opacity",
       "min": 0,
@@ -301,6 +355,10 @@
         {
           "value": "adapt",
           "label": "t:sections.image-banner.settings.image_height.options__1.label"
+        },
+        {
+          "value": "full_screen",
+          "label": "Full Screen (100vh Editorial)"
         },
         {
           "value": "small",

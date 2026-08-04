@@ -69,7 +69,7 @@
       "settings": {
         "image": "shopify://shop_images/hero-final.webp",
         "image_overlay_opacity": 0,
-        "image_height": "medium",
+        "image_height": "full_screen",
         "image_behavior": "none",
         "content_max_width": 680,
         "desktop_content_position": "bottom-left",
@@ -136,19 +136,20 @@
         "item_3",
         "item_4"
       ],
+      "disabled": true,
       "settings": {
-        "bg_color": "#f4f3ef",
+        "bg_color": "#ffffff",
         "text_color": "#0a0a0a",
         "subtitle_color": "#666666",
         "icon_color": "#0a0a0a",
-        "divider_color": "#cbd64a",
-        "border_color": "#eae8e3",
+        "divider_color": "#e5e5e5",
+        "border_color": "#eeeeee",
         "show_dividers": true,
         "font_family": "body",
-        "title_font_size": 13,
-        "subtitle_font_size": 12,
-        "padding_top": 18,
-        "padding_bottom": 18
+        "title_font_size": 12,
+        "subtitle_font_size": 11,
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "kore_first_drop": {
@@ -160,9 +161,9 @@
             "image": "shopify://shop_images/men-collection.webp",
             "title": "MEN",
             "link": "/collections/men",
-            "card_bg": "#0a0a0a",
-            "title_color": "#ffffff",
-            "arrow_color": "#cbd64a"
+            "card_bg": "#ffffff",
+            "title_color": "#0a0a0a",
+            "arrow_color": "#0a0a0a"
           }
         },
         "card_women": {
@@ -171,9 +172,9 @@
             "image": "shopify://shop_images/wemen-collection.webp",
             "title": "WOMEN",
             "link": "/collections/women",
-            "card_bg": "#0a0a0a",
-            "title_color": "#ffffff",
-            "arrow_color": "#cbd64a"
+            "card_bg": "#ffffff",
+            "title_color": "#0a0a0a",
+            "arrow_color": "#0a0a0a"
           }
         },
         "card_accessories": {
@@ -182,9 +183,9 @@
             "image": "shopify://shop_images/accessories.webp",
             "title": "ACCESSORIES",
             "link": "/collections/accessories",
-            "card_bg": "#0a0a0a",
-            "title_color": "#ffffff",
-            "arrow_color": "#cbd64a"
+            "card_bg": "#ffffff",
+            "title_color": "#0a0a0a",
+            "arrow_color": "#0a0a0a"
           }
         }
       },
@@ -194,17 +195,16 @@
         "card_accessories"
       ],
       "settings": {
-        "bg_color": "#efece6",
-        "bg_image": "shopify://shop_images/bg-pulm.webp",
-        "bg_image_opacity": 100,
+        "bg_color": "#ffffff",
+        "bg_image_opacity": 0,
         "card_aspect_ratio": "portrait",
-        "card_title_font_size": 19,
+        "card_title_font_size": 18,
         "tagline": "FIRST DROP",
-        "tagline_color": "#a6b828",
+        "tagline_color": "#666666",
         "heading": "OCT / NOV 2026.",
         "heading_color": "#0a0a0a",
         "description": "Designed for performance.\nInspired by movement.",
-        "description_font_size": 20,
+        "description_font_size": 18,
         "description_color": "#444444",
         "button_label": "EXPLORE DROP 01",
         "button_link": "shopify://collections/all",
@@ -212,8 +212,8 @@
         "button_text_color": "#0a0a0a",
         "button_arrow_color": "#0a0a0a",
         "show_button_arrow": true,
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "kore_founding_1000": {
@@ -273,17 +273,16 @@
         "perk_5"
       ],
       "settings": {
-        "bg_color": "#0a0a0a",
-        "bg_image": "shopify://shop_images/bg-curbline.webp",
-        "bg_overlay_opacity": 40,
+        "bg_color": "#f8f8f8",
+        "bg_overlay_opacity": 0,
         "tagline": "THE FOUNDING 1000",
         "tagline_font_size": 18,
-        "tagline_color": "#cbd64a",
+        "tagline_color": "#666666",
         "heading": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
-        "heading_color": "#ffffff",
+        "heading_color": "#0a0a0a",
         "description": "Become one of the first 1,000 members of KOURTLAB and unlock benefits that will never be offered again.",
-        "description_font_size": 20,
-        "description_color": "#d1d1d1",
+        "description_font_size": 19,
+        "description_color": "#555555",
         "button_label": "JOIN THE FOUNDING 1000",
         "button_link": "shopify://collections/all",
         "button_bg": "#cbd64a",
@@ -295,12 +294,12 @@
         "total_count": 1000,
         "progress_color": "#cbd64a",
         "counter_footer_text": "Only 1,000 memberships worldwide.\nOnce they're gone, they're gone forever.",
-        "divider_color": "#cbd64a",
-        "perk_icon_color": "#cbd64a",
-        "perk_title_font_size": 21,
-        "perk_subtitle_font_size": 16,
-        "padding_top": 68,
-        "padding_bottom": 68
+        "divider_color": "#e0e0e0",
+        "perk_icon_color": "#0a0a0a",
+        "perk_title_font_size": 20,
+        "perk_subtitle_font_size": 15,
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     },
     "collection_list_XPKfRX": {
@@ -857,46 +856,45 @@
         "story_5"
       ],
       "settings": {
-        "bg_color": "rgba(0,0,0,0)",
-        "tagline": "THE FOUNDING 1000",
-        "tagline_color": "#a6b828",
+        "bg_color": "#ffffff",
+        "tagline": "STORIES & JOURNAL",
+        "tagline_color": "#666666",
         "title": "STORIES THAT MOVE.",
         "heading_color": "#0a0a0a",
-        "card_title_font_size": 21,
-        "card_excerpt_font_size": 17,
+        "card_title_font_size": 20,
+        "card_excerpt_font_size": 16,
         "blog": "nieuws",
         "show_view_all": true,
         "view_all_text": "VIEW ALL STORIES",
         "post_limit": 5,
-        "padding_top": 48,
-        "padding_bottom": 48
+        "padding_top": 88,
+        "padding_bottom": 88
       }
     },
     "kore_newsletter": {
       "type": "kore-newsletter",
       "settings": {
-        "bg_color": "#efece6",
-        "bg_image": "shopify://shop_images/bg-sand-pulm.webp",
-        "bg_image_opacity": 35,
+        "bg_color": "#f8f8f8",
+        "bg_image_opacity": 0,
         "heading": "JOIN THE KOURTLAB COMMUNITY.",
         "heading_color": "#0a0a0a",
         "heading_font_size": 36,
         "subtext": "Be the first to discover new drops, early access releases, exclusive content and more.",
-        "subtext_color": "#444444",
-        "subtext_font_size": 19,
+        "subtext_color": "#555555",
+        "subtext_font_size": 18,
         "placeholder_text": "Enter your email address",
-        "input_font_size": 18,
+        "input_font_size": 17,
         "button_label": "SUBSCRIBE",
-        "button_bg": "#0a0a0a",
-        "button_text_color": "#ffffff",
-        "button_arrow_color": "#ffffff",
-        "button_hover_bg": "#cbd64a",
-        "button_hover_text": "#0a0a0a",
+        "button_bg": "#cbd64a",
+        "button_text_color": "#0a0a0a",
+        "button_arrow_color": "#0a0a0a",
+        "button_hover_bg": "#0a0a0a",
+        "button_hover_text": "#ffffff",
         "promo_note": "Get 10% off your first order.",
-        "promo_note_color": "#0a0a0a",
-        "promo_note_font_size": 17,
-        "padding_top": 40,
-        "padding_bottom": 40
+        "promo_note_color": "#666666",
+        "promo_note_font_size": 16,
+        "padding_top": 88,
+        "padding_bottom": 88
       }
     }
   },

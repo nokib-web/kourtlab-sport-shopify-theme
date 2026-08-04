@@ -55,8 +55,8 @@
       ],
       "settings": {
         "bg_color": "#0a0a0a",
-        "bg_image": "shopify://shop_images/bg-curbline.webp",
-        "bg_image_opacity": 25,
+        "bg_image": "",
+        "bg_image_opacity": 0,
         "heading_font_size": 18,
         "link_font_size": 17,
         "body_font_size": 17,
