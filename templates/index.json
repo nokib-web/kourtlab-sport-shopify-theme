@@ -81,6 +81,47 @@
         "show_text_below": false
       }
     },
+    "collection_list_XPKfRX": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_bYAWAX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "men"
+          }
+        },
+        "featured_collection_Dz7iRw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "women"
+          }
+        },
+        "featured_collection_UB6XKG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "accessories"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_bYAWAX",
+        "featured_collection_Dz7iRw",
+        "featured_collection_UB6XKG"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Shop",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 100,
+        "padding_bottom": 36
+      }
+    },
     "kore_trust_bar": {
       "type": "kore-trust-bar",
       "blocks": {
@@ -275,7 +316,7 @@
       "settings": {
         "bg_color": "#f8f8f8",
         "bg_overlay_opacity": 0,
-        "tagline": "THE FOUNDING 1000",
+        "tagline": "",
         "tagline_font_size": 18,
         "tagline_color": "#666666",
         "heading": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
@@ -300,55 +341,6 @@
         "perk_subtitle_font_size": 15,
         "padding_top": 96,
         "padding_bottom": 96
-      }
-    },
-    "collection_list_XPKfRX": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_M6qaTt": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "best-seller"
-          }
-        },
-        "featured_collection_bYAWAX": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "best-seller"
-          }
-        },
-        "featured_collection_Dz7iRw": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "best-seller"
-          }
-        },
-        "featured_collection_UB6XKG": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "best-seller"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_M6qaTt",
-        "featured_collection_bYAWAX",
-        "featured_collection_Dz7iRw",
-        "featured_collection_UB6XKG"
-      ],
-      "disabled": true,
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Our <em>collections</em>",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 4,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "why_choose_us": {
@@ -642,7 +634,6 @@
     },
     "featured_product_carousel": {
       "type": "featured-product-carousel",
-      "disabled": true,
       "settings": {
         "bg_color": "rgba(0,0,0,0)",
         "title": "For playing<em> on hot</em> days",
@@ -652,100 +643,8 @@
         "collection": "best-seller",
         "products_to_show": 8,
         "color_scheme": "scheme-1",
-        "padding_top": 48,
+        "padding_top": 72,
         "padding_bottom": 48
-      }
-    },
-    "performance_features": {
-      "type": "performance-features",
-      "blocks": {
-        "feature_moisture": {
-          "type": "feature_card",
-          "settings": {
-            "custom_icon": "shopify://shop_images/favicon_4.png",
-            "icon": "feather",
-            "title": "Moisture Wicking",
-            "description": "Advanced moisture-wicking fabric keeps you cool and dry through every match and workout.",
-            "card_bg": "#ffffff",
-            "card_border": "#eaeaea",
-            "title_color": "#111111",
-            "desc_color": "#666666",
-            "icon_color": "#111111",
-            "accent_line": "#cbd64a"
-          }
-        },
-        "feature_stretch": {
-          "type": "feature_card",
-          "settings": {
-            "custom_icon": "shopify://shop_images/favicon_4.png",
-            "icon": "stretch",
-            "title": "4-Way Stretch",
-            "description": "Maximum flexibility and unrestricted movement for peak athletic performance.",
-            "card_bg": "#ffffff",
-            "card_border": "#eaeaea",
-            "title_color": "#111111",
-            "desc_color": "#666666",
-            "icon_color": "#111111",
-            "accent_line": "#cbd64a"
-          }
-        },
-        "feature_lightweight": {
-          "type": "feature_card",
-          "settings": {
-            "custom_icon": "shopify://shop_images/favicon_4.png",
-            "icon": "feather",
-            "title": "Lightweight Comfort",
-            "description": "Ultra-lightweight construction reduces distraction and enhances mobility all day long.",
-            "card_bg": "#ffffff",
-            "card_border": "#eaeaea",
-            "title_color": "#111111",
-            "desc_color": "#666666",
-            "icon_color": "#111111",
-            "accent_line": "#cbd64a"
-          }
-        },
-        "feature_durable": {
-          "type": "feature_card",
-          "settings": {
-            "custom_icon": "shopify://shop_images/favicon_4.png",
-            "icon": "shield",
-            "title": "Durable Performance",
-            "description": "Premium materials engineered to withstand intense training and repeated wear.",
-            "card_bg": "#ffffff",
-            "card_border": "#eaeaea",
-            "title_color": "#111111",
-            "desc_color": "#666666",
-            "icon_color": "#111111",
-            "accent_line": "#cbd64a"
-          }
-        }
-      },
-      "block_order": [
-        "feature_moisture",
-        "feature_stretch",
-        "feature_lightweight",
-        "feature_durable"
-      ],
-      "disabled": true,
-      "settings": {
-        "bg_color": "#ffffff",
-        "label": "",
-        "label_color": "#cbd64a",
-        "title": "Performance <em>Features</em>",
-        "heading_color": "#111111",
-        "accent_color": "#cbd64a",
-        "heading_size": "h1",
-        "subtitle": "",
-        "subtitle_color": "#666666",
-        "color_scheme": "scheme-1",
-        "padding_top": 120,
-        "padding_bottom": 120,
-        "show_banner": true,
-        "banner_image": "shopify://shop_images/hero-2.webp",
-        "banner_title": "BUILT TO MOVE. DESIGNED TO PERFORM.",
-        "banner_desc": "Premium apparel engineered with technical fabrics, modern craftsmanship, and uncompromising comfort for athletes who never settle.",
-        "banner_button_label": "Explore Performance →",
-        "banner_button_link": "/collections/all"
       }
     },
     "17850441245e4f0ed8": {
@@ -857,7 +756,7 @@
       ],
       "settings": {
         "bg_color": "#ffffff",
-        "tagline": "STORIES & JOURNAL",
+        "tagline": "",
         "tagline_color": "#666666",
         "title": "STORIES THAT MOVE.",
         "heading_color": "#0a0a0a",
@@ -900,15 +799,14 @@
   },
   "order": [
     "image_banner",
+    "collection_list_XPKfRX",
     "kore_trust_bar",
     "kore_first_drop",
     "kore_founding_1000",
-    "collection_list_XPKfRX",
     "why_choose_us",
     "expanding_carousel",
     "shop_by_activity",
     "featured_product_carousel",
-    "performance_features",
     "17850441245e4f0ed8",
     "featured_blog_slider",
     "kore_newsletter"
