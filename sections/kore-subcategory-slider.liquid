@@ -1,0 +1,575 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #KoreSubcatSlider-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+<div class="kore-subcat-section section-{{ section.id }}-padding" id="KoreSubcatSlider-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.title != blank or section.settings.subheading != blank -%}
+      <div class="kore-subcat-section__header kore-subcat-section__header--{{ section.settings.header_alignment }}">
+        {%- if section.settings.subheading != blank -%}
+          <span class="kore-subcat-section__subheading">{{ section.settings.subheading }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="kore-subcat-section__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- liquid
+      assign selected_collection = section.settings.collection
+      assign products_limit = section.settings.products_to_show
+    -%}
+
+    <div class="kore-subcat-slider">
+      <div class="kore-subcat-slider__track-wrap" id="KoreSubcatTrackWrap-{{ section.id }}">
+        <div class="kore-subcat-slider__track">
+          {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
+            {%- for product in selected_collection.products limit: products_limit -%}
+              {%- liquid
+                assign display_title = ""
+                if section.settings.title_source == 'metafield' and section.settings.metafield_key != blank
+                  assign mf_parts = section.settings.metafield_key | split: '.'
+                  if mf_parts.size == 2
+                    assign mf_ns = mf_parts[0]
+                    assign mf_k = mf_parts[1]
+                    assign display_title = product.metafields[mf_ns][mf_k].value | default: product.metafields[mf_ns][mf_k]
+                  endif
+                elsif section.settings.title_source == 'vendor'
+                  assign display_title = product.vendor
+                elsif section.settings.title_source == 'type'
+                  assign display_title = product.type
+                elsif section.settings.title_source == 'full'
+                  assign display_title = product.title
+                endif
+
+                if display_title == blank
+                  assign words_limit = section.settings.max_words | default: 2
+                  assign display_title = product.title | truncatewords: words_limit, ""
+                endif
+              -%}
+              <div class="kore-subcat-card">
+                <a href="{{ product.url }}" class="kore-subcat-card__link">
+                  <div class="kore-subcat-card__img-box">
+                    {%- if product.featured_media != blank -%}
+                      {{ product.featured_media | image_url: width: 600 | image_tag:
+                        loading: 'lazy',
+                        class: 'kore-subcat-card__img',
+                        widths: '300, 450, 600',
+                        alt: product.title
+                      }}
+                    {%- else -%}
+                      <div class="kore-subcat-card__placeholder">
+                        {%- assign p_idx = forloop.index | modulo: 6 | plus: 1 -%}
+                        {{ 'product-' | append: p_idx | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  <div class="kore-subcat-card__info">
+                    <span class="kore-subcat-card__title">{{ display_title }}</span>
+                    {%- if section.settings.show_price -%}
+                      <span class="kore-subcat-card__price">{{ product.price | money }}</span>
+                    {%- endif -%}
+                  </div>
+                </a>
+              </div>
+            {%- endfor -%}
+          {%- elsif section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign block_coll = block.settings.collection
+                assign card_title = block.settings.title
+                if card_title == blank and block_coll != blank
+                  assign card_title = block_coll.title
+                endif
+                if card_title == blank
+                  assign card_title = "Collection Title"
+                endif
+
+                assign card_image = block.settings.image
+                if card_image == blank and block_coll != blank
+                  assign card_image = block_coll.featured_image
+                endif
+
+                assign card_url = block.settings.link
+                if card_url == blank and block_coll != blank
+                  assign card_url = block_coll.url
+                endif
+                if card_url == blank
+                  assign card_url = "#"
+                endif
+              -%}
+              <div class="kore-subcat-card" {{ block.shopify_attributes }}>
+                <a href="{{ card_url }}" class="kore-subcat-card__link">
+                  <div class="kore-subcat-card__img-box">
+                    {%- if card_image != blank -%}
+                      {{ card_image | image_url: width: 600 | image_tag:
+                        loading: 'lazy',
+                        class: 'kore-subcat-card__img',
+                        widths: '300, 450, 600',
+                        alt: card_title
+                      }}
+                    {%- else -%}
+                      <div class="kore-subcat-card__placeholder">
+                        {%- assign p_idx = forloop.index | modulo: 6 | plus: 1 -%}
+                        {{ 'product-' | append: p_idx | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  <div class="kore-subcat-card__info">
+                    <span class="kore-subcat-card__title">{{ card_title }}</span>
+                  </div>
+                </a>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..6) -%}
+              <div class="kore-subcat-card">
+                <div class="kore-subcat-card__img-box">
+                  <div class="kore-subcat-card__placeholder">
+                    {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+                <div class="kore-subcat-card__info">
+                  <span class="kore-subcat-card__title">Sample Item {{ i }}</span>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Slider Controls & Progress Bar -->
+      <div class="kore-subcat-slider__controls">
+        <div class="kore-subcat-slider__nav-btns">
+          <button type="button" class="kore-subcat-slider__btn kore-subcat-slider__btn--prev" aria-label="Previous slide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="kore-subcat-slider__btn kore-subcat-slider__btn--next" aria-label="Next slide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="kore-subcat-slider__progress">
+          <div class="kore-subcat-slider__progress-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .kore-subcat-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kore-subcat-section__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .kore-subcat-section__header--left {
+    text-align: left;
+  }
+
+  .kore-subcat-section__header--center {
+    text-align: center;
+  }
+
+  .kore-subcat-section__subheading {
+    display: block;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  .kore-subcat-section__heading {
+    margin: 0;
+  }
+
+  /* Subcategory 6-Card Slider Styles */
+  .kore-subcat-slider {
+    position: relative;
+    width: 100%;
+  }
+
+  .kore-subcat-slider__track-wrap {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .kore-subcat-slider__track-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .kore-subcat-slider__track {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .kore-subcat-card {
+    flex: 0 0 calc((100% - (5 * 1.2rem)) / 6);
+    min-width: 170px;
+    scroll-snap-align: start;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .kore-subcat-card {
+      flex: 0 0 calc((100% - (3 * 1.2rem)) / 4);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .kore-subcat-card {
+      flex: 0 0 calc((100% - (1.2rem)) / 2.2);
+    }
+  }
+
+  .kore-subcat-card__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .kore-subcat-card__img-box {
+    aspect-ratio: 4 / 5;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kore-subcat-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .kore-subcat-card:hover .kore-subcat-card__img {
+    transform: scale(1.06);
+  }
+
+  .kore-subcat-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaeaea;
+  }
+
+  .kore-subcat-card__placeholder svg {
+    width: 70%;
+    height: 70%;
+    opacity: 0.45;
+  }
+
+  .kore-subcat-card__info {
+    padding: 1rem 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .kore-subcat-card__title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: inherit;
+    display: block;
+    line-height: 1.25;
+  }
+
+  .kore-subcat-card__price {
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  /* Slider Controls */
+  .kore-subcat-slider__controls {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 0.2rem;
+  }
+
+  .kore-subcat-slider__nav-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .kore-subcat-slider__btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    transition: opacity 0.2s ease;
+  }
+
+  .kore-subcat-slider__btn:hover {
+    opacity: 0.5;
+  }
+
+  .kore-subcat-slider__progress {
+    height: 2px;
+    width: 160px;
+    background: #e0e0e0;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .kore-subcat-slider__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25%;
+    background: #0a0a0a;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('KoreSubcatSlider-{{ section.id }}');
+    if (!section) return;
+
+    const trackWrap = section.querySelector('#KoreSubcatTrackWrap-{{ section.id }}');
+    const prevBtn = section.querySelector('.kore-subcat-slider__btn--prev');
+    const nextBtn = section.querySelector('.kore-subcat-slider__btn--next');
+    const progressBar = section.querySelector('.kore-subcat-slider__progress-bar');
+
+    if (trackWrap && prevBtn && nextBtn && progressBar) {
+      function updateProgress() {
+        const maxScroll = trackWrap.scrollWidth - trackWrap.clientWidth;
+        if (maxScroll <= 0) {
+          progressBar.style.width = '100%';
+          progressBar.style.left = '0%';
+          return;
+        }
+        const scrollRatio = trackWrap.scrollLeft / maxScroll;
+        const visibleRatio = trackWrap.clientWidth / trackWrap.scrollWidth;
+        const barWidthPercent = Math.max(visibleRatio * 100, 20);
+        progressBar.style.width = `${barWidthPercent}%`;
+        progressBar.style.left = `${scrollRatio * (100 - barWidthPercent)}%`;
+      }
+
+      trackWrap.addEventListener('scroll', updateProgress);
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+
+      prevBtn.addEventListener('click', () => {
+        trackWrap.scrollBy({ left: -320, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        trackWrap.scrollBy({ left: 320, behavior: 'smooth' });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "KØRĒ Subcategory Slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a single Shopify collection to automatically display its products in this 6-card slider"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "select",
+      "id": "title_source",
+      "label": "Card title source",
+      "options": [
+        { "value": "short_title", "label": "Short Title (e.g., 2 words max)" },
+        { "value": "metafield", "label": "Product Metafield (custom short name)" },
+        { "value": "vendor", "label": "Product Vendor / Brand" },
+        { "value": "type", "label": "Product Type" },
+        { "value": "full", "label": "Full Product Title" }
+      ],
+      "default": "short_title",
+      "info": "ON-Running style uses short clean category/model names under each card"
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Product Metafield Key (if Metafield selected)",
+      "default": "custom.short_name",
+      "info": "Format: namespace.key (e.g. custom.short_name or custom.subheading)"
+    },
+    {
+      "type": "range",
+      "id": "max_words",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2,
+      "label": "Maximum title words (if Short Title selected)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "default": false,
+      "label": "Show product prices"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left",
+      "label": "Header alignment"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Custom Collection Card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Card Title",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Card Image",
+          "info": "Leave blank to use collection image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom Link",
+          "info": "Leave blank to use collection URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Subcategory Slider"
+    }
+  ]
+}
+{% endschema %}

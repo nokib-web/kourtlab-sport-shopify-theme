@@ -1,0 +1,593 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #KoreHoverCat-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  #KoreHoverCat-{{ section.id }} .kore-hover-cat__subheading {
+    color: {{ section.settings.subheading_color }};
+  }
+
+  #KoreHoverCat-{{ section.id }} .kore-hover-cat__heading {
+    color: {{ section.settings.text_color }};
+  }
+
+  #KoreHoverCat-{{ section.id }} .kore-hover-cat__title {
+    color: {{ section.settings.text_color }};
+  }
+
+  #KoreHoverCat-{{ section.id }} .kore-hover-cat__item.is-active .kore-hover-cat__title {
+    color: {{ section.settings.accent_color }};
+  }
+{%- endstyle -%}
+
+<div class="kore-hover-cat section-{{ section.id }}-padding" id="KoreHoverCat-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.title != blank or section.settings.subheading != blank -%}
+      <div class="kore-hover-cat__header kore-hover-cat__header--{{ section.settings.header_alignment }}">
+        {%- if section.settings.subheading != blank -%}
+          <span class="kore-hover-cat__subheading">{{ section.settings.subheading }}</span>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="kore-hover-cat__heading inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="kore-hover-cat__grid kore-hover-cat__grid--img-{{ section.settings.image_position }}">
+      <!-- Left / Text Column -->
+      <div class="kore-hover-cat__list-col">
+        <ul class="kore-hover-cat__list" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign collection = block.settings.collection
+              assign title = block.settings.title
+              if title == blank and collection != blank
+                assign title = collection.title
+              endif
+              if title == blank
+                assign title = "Category Title"
+              endif
+
+              assign item_url = block.settings.link
+              if item_url == blank and collection != blank
+                assign item_url = collection.url
+              endif
+              if item_url == blank
+                assign item_url = "#"
+              endif
+            -%}
+            <li 
+              class="kore-hover-cat__item {% if forloop.first %}is-active{% endif %}" 
+              data-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}
+            >
+              <a href="{{ item_url }}" class="kore-hover-cat__link">
+                <span class="kore-hover-cat__title-wrap">
+                  <span class="kore-hover-cat__title">{{ title }}</span>
+                  {%- if block.settings.badge != blank -%}
+                    <span class="kore-hover-cat__badge">{{ block.settings.badge }}</span>
+                  {%- endif -%}
+                </span>
+                <span class="kore-hover-cat__arrow" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Right / Image Column -->
+      <div class="kore-hover-cat__img-col">
+        <div class="kore-hover-cat__stage ratio-{{ section.settings.image_aspect_ratio }}">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign collection = block.settings.collection
+              assign item_image = block.settings.image
+              if item_image == blank and collection != blank
+                assign item_image = collection.featured_image
+              endif
+
+              assign title = block.settings.title
+              if title == blank and collection != blank
+                assign title = collection.title
+              endif
+
+              assign item_url = block.settings.link
+              if item_url == blank and collection != blank
+                assign item_url = collection.url
+              endif
+              if item_url == blank
+                assign item_url = "#"
+              endif
+            -%}
+            <a 
+              href="{{ item_url }}" 
+              class="kore-hover-cat__img-item {% if forloop.first %}is-active{% endif %}" 
+              data-index="{{ forloop.index0 }}"
+              aria-label="{{ title | default: 'Category' | escape }}"
+            >
+              {%- if item_image != blank -%}
+                {{ item_image | image_url: width: 1200 | image_tag:
+                  loading: 'lazy',
+                  class: 'kore-hover-cat__img',
+                  widths: '400, 600, 800, 1000, 1200',
+                  alt: item_image.alt | default: title
+                }}
+              {%- else -%}
+                <div class="kore-hover-cat__placeholder">
+                  {%- assign placeholder_index = forloop.index | modulo: 6 | plus: 1 -%}
+                  {{ 'collection-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .kore-hover-cat {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kore-hover-cat__header {
+    margin-bottom: 3.5rem;
+  }
+
+  .kore-hover-cat__header--left {
+    text-align: left;
+  }
+
+  .kore-hover-cat__header--center {
+    text-align: center;
+  }
+
+  .kore-hover-cat__header--right {
+    text-align: right;
+  }
+
+  .kore-hover-cat__subheading {
+    display: block;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+
+  .kore-hover-cat__heading {
+    margin: 0;
+  }
+
+  .kore-hover-cat__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .kore-hover-cat__grid {
+      grid-template-columns: minmax(320px, 1fr) minmax(420px, 580px);
+      gap: 6rem;
+      justify-content: center;
+    }
+
+    .kore-hover-cat__grid--img-left {
+      grid-template-columns: minmax(420px, 580px) minmax(320px, 1fr);
+    }
+
+    .kore-hover-cat__grid--img-left .kore-hover-cat__list-col {
+      order: 2;
+    }
+
+    .kore-hover-cat__grid--img-left .kore-hover-cat__img-col {
+      order: 1;
+    }
+  }
+
+  .kore-hover-cat__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .kore-hover-cat__item {
+    position: relative;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Dim non-hovered list items */
+  .kore-hover-cat__list:hover .kore-hover-cat__item:not(:hover) {
+    opacity: 0.3;
+  }
+
+  .kore-hover-cat__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: none;
+    transition: padding 0.3s ease;
+  }
+
+  .kore-hover-cat__title-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .kore-hover-cat__title {
+    font-size: clamp(2rem, 2.5vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .kore-hover-cat__item:hover .kore-hover-cat__title {
+    transform: translateX(6px);
+  }
+
+  .kore-hover-cat__badge {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    background: #0a0a0a;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .kore-hover-cat__arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .kore-hover-cat__item:hover .kore-hover-cat__arrow,
+  .kore-hover-cat__item.is-active .kore-hover-cat__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Image Stage Box */
+  .kore-hover-cat__stage {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+    background-color: #f4f4f4;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  }
+
+  .kore-hover-cat__stage.ratio-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .kore-hover-cat__stage.ratio-editorial {
+    aspect-ratio: 4 / 5;
+  }
+
+  .kore-hover-cat__stage.ratio-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .kore-hover-cat__stage.ratio-tall {
+    aspect-ratio: 9 / 16;
+  }
+
+  .kore-hover-cat__img-item {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.05);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+    pointer-events: none;
+  }
+
+  .kore-hover-cat__img-item.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+  .kore-hover-cat__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .kore-hover-cat__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+  }
+
+  .kore-hover-cat__placeholder svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.4;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('KoreHoverCat-{{ section.id }}');
+    if (!section) return;
+
+    const listItems = section.querySelectorAll('.kore-hover-cat__item');
+    const imageItems = section.querySelectorAll('.kore-hover-cat__img-item');
+
+    function setActiveItem(index) {
+      listItems.forEach(item => {
+        if (item.getAttribute('data-index') === index) {
+          item.classList.add('is-active');
+        } else {
+          item.classList.remove('is-active');
+        }
+      });
+
+      imageItems.forEach(img => {
+        if (img.getAttribute('data-index') === index) {
+          img.classList.add('is-active');
+        } else {
+          img.classList.remove('is-active');
+        }
+      });
+    }
+
+    listItems.forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        const index = this.getAttribute('data-index');
+        setActiveItem(index);
+      });
+
+      item.addEventListener('focusin', function() {
+        const index = this.getAttribute('data-index');
+        setActiveItem(index);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "KØRĒ Hover Categories",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "EXPLORE BY ACTIVITY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Heading",
+      "default": "Engineered for Every Discipline."
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left",
+      "label": "Header alignment"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "options": [
+        { "value": "right", "label": "Right" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "right",
+      "label": "Image column position"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "editorial", "label": "Editorial (4:5)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "tall", "label": "Tall (9:16)" }
+      ],
+      "default": "editorial",
+      "label": "Image aspect ratio"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Active title accent color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image",
+          "info": "Leave blank to use collection featured image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom Link",
+          "info": "Leave blank to use collection URL"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge (optional)",
+          "info": "e.g., NEW or 12 ITEMS"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Hover Categories",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Padel Apparel"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Court Performance"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Duffle Bags & Equipment"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "First Drop Capsule"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Training & Practice"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Court Accessories"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Off-Court Lifestyle"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

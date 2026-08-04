@@ -1,0 +1,624 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #KoreMission-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+<div class="kore-mission section-{{ section.id }}-padding" id="KoreMission-{{ section.id }}">
+  <div class="page-width kore-mission__container">
+    <div class="kore-mission__grid">
+      <!-- Left Column: Hero & Mission Text -->
+      <div class="kore-mission__intro-col">
+        <div class="kore-mission__hero-box">
+          {%- if section.settings.hero_image != blank -%}
+            {{ section.settings.hero_image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              class: 'kore-mission__hero-img',
+              widths: '500, 800, 1200',
+              alt: section.settings.title | default: 'Our mission'
+            }}
+          {%- else -%}
+            <div class="kore-mission__hero-placeholder">
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="kore-mission__text-wrap">
+          {%- if section.settings.title != blank -%}
+            <h2 class="kore-mission__heading {{ section.settings.heading_size }}">{{ section.settings.title }}</h2>
+          {%- endif -%}
+
+          {%- if section.settings.description != blank -%}
+            <p class="kore-mission__description">{{ section.settings.description }}</p>
+          {%- endif -%}
+
+          {%- if section.settings.button_text != blank -%}
+            <button type="button" class="kore-mission__expand-btn" id="KoreMissionExpand-{{ section.id }}">
+              <span>{{ section.settings.button_text }}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right Column: Horizontal Story Cards Track -->
+      <div class="kore-mission__cards-col">
+        <div class="kore-mission__track-wrap" id="KoreMissionTrackWrap-{{ section.id }}">
+          <div class="kore-mission__track">
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign card_bg = block.settings.card_bg
+                if block.settings.card_style == 'dark'
+                  assign card_bg = '#0a0a0a'
+                elsif card_bg == blank
+                  assign card_bg = '#111111'
+                endif
+              -%}
+
+              <div 
+                class="kore-mission-card kore-mission-card--{{ block.settings.card_style }}" 
+                style="background-color: {{ card_bg }}; color: {{ block.settings.text_color }};"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank and block.settings.card_style == 'photo' -%}
+                  <div class="kore-mission-card__img-wrap">
+                    {{ block.settings.image | image_url: width: 800 | image_tag:
+                      loading: 'lazy',
+                      class: 'kore-mission-card__img',
+                      widths: '350, 550, 800',
+                      alt: block.settings.title | default: 'Story'
+                    }}
+                    <div class="kore-mission-card__overlay"></div>
+                  </div>
+                {%- endif -%}
+
+                <div class="kore-mission-card__content">
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="kore-mission-card__title">{{ block.settings.title }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="kore-mission-card__desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
+
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}" class="kore-mission-card__link" aria-label="{{ block.settings.title | escape }}"></a>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <!-- Footer Controls -->
+        <div class="kore-mission__footer">
+          <div class="kore-mission__controls">
+            <button type="button" class="kore-mission__arrow-btn kore-mission__arrow-btn--prev" aria-label="Previous slide">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="kore-mission__arrow-btn kore-mission__arrow-btn--next" aria-label="Next slide">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Floating Close (X) button when expanded -->
+          <button type="button" class="kore-mission__close-btn" id="KoreMissionClose-{{ section.id }}" aria-label="Close expanded view">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .kore-mission {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kore-mission__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-mission:not(.is-expanded) .kore-mission__grid {
+      grid-template-columns: minmax(500px, 50%) 1fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .kore-mission:not(.is-expanded) .kore-mission__cards-col {
+      margin-top: 7rem;
+      margin-left: -90px;
+      position: relative;
+      z-index: 5;
+    }
+  }
+
+  .kore-mission__intro-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kore-mission.is-expanded .kore-mission__intro-col {
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .kore-mission.is-expanded .kore-mission__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kore-mission.is-expanded .kore-mission__cards-col {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    width: 100%;
+  }
+
+  .kore-mission__hero-box {
+    width: 100%;
+    aspect-ratio: 1.55 / 1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f4f4f4;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .kore-mission__hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kore-mission__hero-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaeaea;
+  }
+
+  .kore-mission__heading {
+    margin: 0 0 0.6rem 0;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .kore-mission__description {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 0 0 1.5rem 0;
+    font-weight: 500;
+    opacity: 0.85;
+    color: inherit;
+  }
+
+  .kore-mission__expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    background: #0a0a0a;
+    color: #ffffff;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: fit-content;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .kore-mission__expand-btn:hover {
+    background: #222222;
+    transform: scale(1.02);
+  }
+
+  /* Story Cards Track */
+  .kore-mission__cards-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  .kore-mission__track-wrap {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .kore-mission__track-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .kore-mission__track {
+    display: flex;
+    gap: 1.4rem;
+  }
+
+  .kore-mission-card {
+    flex: 0 0 280px;
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    scroll-snap-align: start;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  @media screen and (min-width: 990px) {
+    .kore-mission-card {
+      flex: 0 0 320px;
+    }
+  }
+
+  .kore-mission-card--dark {
+    background-color: #0a0a0a;
+    color: #ffffff;
+  }
+
+  .kore-mission-card__img-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .kore-mission-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kore-mission-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%);
+  }
+
+  .kore-mission-card__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .kore-mission-card__title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: inherit;
+    letter-spacing: -0.02em;
+  }
+
+  .kore-mission-card__desc {
+    font-size: 1.3rem;
+    margin-top: 0.6rem;
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+
+  .kore-mission-card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+
+  /* Footer Controls */
+  .kore-mission__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  .kore-mission__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .kore-mission__arrow-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0a0a0a;
+    transition: opacity 0.2s ease;
+  }
+
+  .kore-mission__arrow-btn:hover {
+    opacity: 0.5;
+  }
+
+  .kore-mission__close-btn {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .kore-mission__close-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .kore-mission.is-expanded .kore-mission__close-btn {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('KoreMission-{{ section.id }}');
+    if (!section) return;
+
+    const expandBtn = section.querySelector('#KoreMissionExpand-{{ section.id }}');
+    const closeBtn = section.querySelector('#KoreMissionClose-{{ section.id }}');
+    const trackWrap = section.querySelector('#KoreMissionTrackWrap-{{ section.id }}');
+    const prevBtn = section.querySelector('.kore-mission__arrow-btn--prev');
+    const nextBtn = section.querySelector('.kore-mission__arrow-btn--next');
+
+    if (expandBtn) {
+      expandBtn.addEventListener('click', function() {
+        section.classList.add('is-expanded');
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        section.classList.remove('is-expanded');
+      });
+    }
+
+    if (trackWrap && prevBtn && nextBtn) {
+      prevBtn.addEventListener('click', function() {
+        trackWrap.scrollBy({ left: -340, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', function() {
+        trackWrap.scrollBy({ left: 340, behavior: 'smooth' });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "KØRĒ Mission Carousel",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our mission"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description / Mission text",
+      "default": "Ignite the human spirit through movement. SHOW UP AGAIN TOMORROW."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Read more"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Left Hero Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story_card",
+      "name": "Story Card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "card_style",
+          "options": [
+            { "value": "photo", "label": "Photo Overlay Card" },
+            { "value": "dark", "label": "Solid Dark Card" }
+          ],
+          "default": "photo",
+          "label": "Card Style"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Inspired by athletes."
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Card Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card background color",
+          "default": "#0a0a0a"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KØRĒ Mission Carousel",
+      "blocks": [
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "Inspired by athletes."
+          }
+        },
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "dark",
+            "title": "Powered by Swiss engineering."
+          }
+        },
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "We believe amazing things happen when we move."
+          }
+        },
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "dark",
+            "title": "Whether that's breaking records on the track..."
+          }
+        },
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "Or developing innovative new technologies."
+          }
+        },
+        {
+          "type": "story_card",
+          "settings": {
+            "card_style": "dark",
+            "title": "Move with us, and Dream On."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

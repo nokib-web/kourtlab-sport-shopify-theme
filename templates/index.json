@@ -561,6 +561,260 @@
         "padding_bottom": 48
       }
     },
+    "kore_hover_categories": {
+      "type": "kore-hover-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "title": "Padel Apparel",
+            "collection": "",
+            "image": "shopify://shop_images/blog-4.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "title": "Court Performance",
+            "collection": "",
+            "image": "shopify://shop_images/blog-5.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "title": "Duffle Bags & Equipment",
+            "collection": "",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "title": "First Drop Capsule",
+            "collection": "",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Training & Practice",
+            "collection": "",
+            "image": "shopify://shop_images/blog-1.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Court Accessories",
+            "collection": "",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "Off-Court Lifestyle",
+            "collection": "",
+            "link": "",
+            "badge": ""
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "heading_size": "h1",
+        "header_alignment": "left",
+        "image_position": "right",
+        "image_aspect_ratio": "editorial",
+        "bg_color": "#ffffff",
+        "text_color": "#0a0a0a",
+        "subheading_color": "#666666",
+        "accent_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 40
+      }
+    },
+    "kore_subcategory_slider": {
+      "type": "kore-subcategory-slider",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "KØRĒ Court Short",
+            "link": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "KØRĒ Vent Polo",
+            "link": ""
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "KØRĒ Grip Tee",
+            "link": ""
+          }
+        },
+        "card_5": {
+          "type": "card",
+          "settings": {
+            "collection": "best-seller",
+            "title": "",
+            "link": ""
+          }
+        },
+        "card_6": {
+          "type": "card",
+          "settings": {
+            "collection": "",
+            "title": "KØRĒ Court Sock",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5",
+        "card_6"
+      ],
+      "settings": {
+        "collection": "best-seller",
+        "products_to_show": 8,
+        "title_source": "short_title",
+        "metafield_key": "custom.short_name",
+        "max_words": 2,
+        "show_price": false,
+        "subheading": "",
+        "title": "",
+        "heading_size": "h1",
+        "header_alignment": "left",
+        "bg_color": "#ffffff",
+        "text_color": "#0a0a0a",
+        "padding_top": 0,
+        "padding_bottom": 80
+      }
+    },
+    "kore_mission_carousel": {
+      "type": "kore-mission-carousel",
+      "blocks": {
+        "story_1": {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "Built for repeat.",
+            "description": "",
+            "image": "shopify://shop_images/accessories.webp",
+            "card_bg": "#0a0a0a",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "story_2": {
+          "type": "story_card",
+          "settings": {
+            "card_style": "dark",
+            "title": "Engineered for performance.",
+            "description": "",
+            "image": "shopify://shop_images/men-collection.webp",
+            "card_bg": "#0a0a0a",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "story_3": {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "Daring design. Court culture.",
+            "description": "",
+            "image": "shopify://shop_images/wemen-collection.webp",
+            "card_bg": "#0a0a0a",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "story_4": {
+          "type": "story_card",
+          "settings": {
+            "card_style": "dark",
+            "title": "SHOW UP AGAIN TOMORROW.",
+            "description": "",
+            "image": "shopify://shop_images/men-collection.webp",
+            "card_bg": "#0a0a0a",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "story_5": {
+          "type": "story_card",
+          "settings": {
+            "card_style": "photo",
+            "title": "Designed for modern padel.",
+            "description": "",
+            "image": "shopify://shop_images/31EgKEX-y1L.jpg",
+            "card_bg": "#0a0a0a",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5"
+      ],
+      "settings": {
+        "title": "Our mission",
+        "heading_size": "h1",
+        "description": "SHOW UP AGAIN TOMORROW.",
+        "button_text": "Read more",
+        "hero_image": "shopify://shop_images/blog-1.webp",
+        "bg_color": "#ffffff",
+        "text_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "shop_by_activity": {
       "type": "shop-by-activity",
       "blocks": {
@@ -805,6 +1059,9 @@
     "kore_founding_1000",
     "why_choose_us",
     "expanding_carousel",
+    "kore_hover_categories",
+    "kore_subcategory_slider",
+    "kore_mission_carousel",
     "shop_by_activity",
     "featured_product_carousel",
     "17850441245e4f0ed8",
