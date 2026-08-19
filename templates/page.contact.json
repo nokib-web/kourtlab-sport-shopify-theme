@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
@@ -18,9 +9,9 @@
         "overlay_opacity": 0,
         "content_alignment": "left",
         "vertical_alignment": "bottom",
-        "label": "CONTACT US // KØRE HQ",
+        "label": "CONTACT US // KOURTLAB HQ",
         "heading": "Get in touch.",
-        "subtext": "<p>Questions about gear, orders, or joining the KØRE community? Reach out to our team. Direct. Grounded. Never loud.</p>",
+        "subtext": "<p>Questions about gear, orders, or joining the KOURTLAB community? Reach out to our team. Direct. Grounded. Never loud.</p>",
         "padding_top": 100,
         "padding_bottom": 80
       }
@@ -30,7 +21,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "full_width": false,
-        "watermark": "KØRE HQ",
+        "watermark": "KOURTLAB HQ",
         "overlay_opacity": 65,
         "label": "REACH OUT DIRECTLY",
         "title": "Our HQ & team<span>.</span>",
@@ -52,7 +43,7 @@
           "type": "faq_item",
           "settings": {
             "tag": "SHIPPING",
-            "question": "How long does shipping take for KØRE drops?",
+            "question": "How long does shipping take for KOURTLAB drops?",
             "answer": "<p>Orders ship directly from our Curaçao facility and European distribution hubs within 24-48 hours. Caribbean delivery typically arrives within 2-4 business days, while international express takes 3-6 business days.</p>"
           }
         },
@@ -60,15 +51,15 @@
           "type": "faq_item",
           "settings": {
             "tag": "SIZING & FIT",
-            "question": "Are KØRE performance apparel pieces true to size?",
-            "answer": "<p>Yes. All KØRE tees, shorts, and performance layers feature an athletic tailored fit engineered specifically for padel court mobility. If you prefer a relaxed lifestyle fit, we recommend ordering one size up.</p>"
+            "question": "Are KOURTLAB performance apparel pieces true to size?",
+            "answer": "<p>Yes. All KOURTLAB tees, shorts, and performance layers feature an athletic tailored fit engineered specifically for padel court mobility. If you prefer a relaxed lifestyle fit, we recommend ordering one size up.</p>"
           }
         },
         "faq_3": {
           "type": "faq_item",
           "settings": {
             "tag": "RETURNS",
-            "question": "What is the KØRE 30-day court performance trial policy?",
+            "question": "What is the KOURTLAB 30-day court performance trial policy?",
             "answer": "<p>We stand behind every garment we make. If your gear doesn't perform to your standard on court within 30 days, reach out to our team for an effortless exchange or full refund.</p>"
           }
         },
@@ -76,7 +67,7 @@
           "type": "faq_item",
           "settings": {
             "tag": "PADEL CLUBS",
-            "question": "How can our padel club or academy partner with KØRE?",
+            "question": "How can our padel club or academy partner with KOURTLAB?",
             "answer": "<p>We collaborate with select padel clubs globally for custom team kit drops, tournament sponsorships, and exclusive club pop-ups. Contact us with subject 'Padel Club Drops' to get started.</p>"
           }
         }

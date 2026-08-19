@@ -16,7 +16,15 @@
 
 <section class="kourtlab-contact-section color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding{% if section.settings.bg_image != blank %} kourtlab-contact-has-bg{% endif %}">
   {%- if section.settings.watermark != blank -%}
-    <div class="kourtlab-contact-watermark">{{ section.settings.watermark }}</div>
+    <div class="kourtlab-contact-watermark">
+      {%- assign watermark_words = section.settings.watermark | split: ' ' -%}
+      {%- if watermark_words.size > 1 -%}
+        <span>{{ watermark_words[0] }}</span>
+        <span>{{ watermark_words | slice: 1, watermark_words.size | join: ' ' }}</span>
+      {%- else -%}
+        <span>{{ section.settings.watermark }}</span>
+      {%- endif -%}
+    </div>
   {%- endif -%}
 
   {%- if section.settings.bg_image != blank -%}
@@ -205,7 +213,7 @@
       "type": "text",
       "id": "watermark",
       "label": "Background Watermark Text",
-      "default": "KØRE HQ"
+      "default": "KOURTLAB HQ"
     },
     {
       "type": "image_picker",
