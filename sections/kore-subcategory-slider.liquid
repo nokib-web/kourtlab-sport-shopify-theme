@@ -12,32 +12,33 @@
   }
 
   #KoreSubcatSlider-{{ section.id }} {
-    background-color: {{ section.settings.bg_color }};
-    color: {{ section.settings.text_color }};
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    color: {{ section.settings.text_color | default: '#0a0a0a' }};
+  }
+
+  #KoreSubcatSlider-{{ section.id }} .kore-subcat-section__heading {
+    color: {{ section.settings.text_color | default: '#0a0a0a' }};
   }
 {%- endstyle -%}
 
 <div class="kore-subcat-section section-{{ section.id }}-padding" id="KoreSubcatSlider-{{ section.id }}">
   <div class="page-width">
-    {%- if section.settings.title != blank or section.settings.subheading != blank -%}
-      <div class="kore-subcat-section__header kore-subcat-section__header--{{ section.settings.header_alignment }}">
-        {%- if section.settings.subheading != blank -%}
-          <span class="kore-subcat-section__subheading">{{ section.settings.subheading }}</span>
-        {%- endif -%}
-        {%- if section.settings.title != blank -%}
-          <h2 class="kore-subcat-section__heading inline-richtext {{ section.settings.heading_size }}">
-            {{ section.settings.title }}
-          </h2>
-        {%- endif -%}
+    {%- if section.settings.title != blank -%}
+      <div class="kore-subcat-section__header kore-subcat-section__header--{{ section.settings.header_alignment | default: 'left' }}">
+        <h2 class="kore-subcat-section__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
       </div>
     {%- endif -%}
 
     {%- liquid
       assign selected_collection = section.settings.collection
-      assign products_limit = section.settings.products_to_show
+      assign products_limit = section.settings.products_to_show | default: 20
+      assign cols_desktop = section.settings.columns_desktop | default: 4
+      assign card_ratio = section.settings.aspect_ratio | default: 'portrait'
     -%}
 
-    <div class="kore-subcat-slider">
+    <div class="kore-subcat-slider" data-cols-desktop="{{ cols_desktop }}">
       <div class="kore-subcat-slider__track-wrap" id="KoreSubcatTrackWrap-{{ section.id }}">
         <div class="kore-subcat-slider__track">
           {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
@@ -66,12 +67,12 @@
               -%}
               <div class="kore-subcat-card">
                 <a href="{{ product.url }}" class="kore-subcat-card__link">
-                  <div class="kore-subcat-card__img-box">
+                  <div class="kore-subcat-card__img-box kore-subcat-card__img-box--{{ card_ratio }}">
                     {%- if product.featured_media != blank -%}
-                      {{ product.featured_media | image_url: width: 600 | image_tag:
+                      {{ product.featured_media | image_url: width: 750 | image_tag:
                         loading: 'lazy',
                         class: 'kore-subcat-card__img',
-                        widths: '300, 450, 600',
+                        widths: '360, 540, 750',
                         alt: product.title
                       }}
                     {%- else -%}
@@ -117,12 +118,12 @@
               -%}
               <div class="kore-subcat-card" {{ block.shopify_attributes }}>
                 <a href="{{ card_url }}" class="kore-subcat-card__link">
-                  <div class="kore-subcat-card__img-box">
+                  <div class="kore-subcat-card__img-box kore-subcat-card__img-box--{{ card_ratio }}">
                     {%- if card_image != blank -%}
-                      {{ card_image | image_url: width: 600 | image_tag:
+                      {{ card_image | image_url: width: 750 | image_tag:
                         loading: 'lazy',
                         class: 'kore-subcat-card__img',
-                        widths: '300, 450, 600',
+                        widths: '360, 540, 750',
                         alt: card_title
                       }}
                     {%- else -%}
@@ -139,15 +140,18 @@
               </div>
             {%- endfor -%}
           {%- else -%}
-            {%- for i in (1..6) -%}
+            {%- for i in (1..8) -%}
               <div class="kore-subcat-card">
-                <div class="kore-subcat-card__img-box">
+                <div class="kore-subcat-card__img-box kore-subcat-card__img-box--{{ card_ratio }}">
                   <div class="kore-subcat-card__placeholder">
                     {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
                   </div>
                 </div>
                 <div class="kore-subcat-card__info">
                   <span class="kore-subcat-card__title">Sample Item {{ i }}</span>
+                  {%- if section.settings.show_price -%}
+                    <span class="kore-subcat-card__price">$120.00</span>
+                  {%- endif -%}
                 </div>
               </div>
             {%- endfor -%}
@@ -159,13 +163,13 @@
       <div class="kore-subcat-slider__controls">
         <div class="kore-subcat-slider__nav-btns">
           <button type="button" class="kore-subcat-slider__btn kore-subcat-slider__btn--prev" aria-label="Previous slide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
           </button>
           <button type="button" class="kore-subcat-slider__btn kore-subcat-slider__btn--next" aria-label="Next slide">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
@@ -184,10 +188,11 @@
   .kore-subcat-section {
     position: relative;
     overflow: hidden;
+    width: 100%;
   }
 
   .kore-subcat-section__header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .kore-subcat-section__header--left {
@@ -198,34 +203,38 @@
     text-align: center;
   }
 
-  .kore-subcat-section__subheading {
-    display: block;
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-    color: inherit;
-    opacity: 0.7;
-  }
-
   .kore-subcat-section__heading {
     margin: 0;
+    font-family: var(--font-heading-family), 'Barlow Condensed', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
-  /* Subcategory 6-Card Slider Styles */
+  /* Slider Container */
   .kore-subcat-slider {
     position: relative;
     width: 100%;
   }
 
   .kore-subcat-slider__track-wrap {
+    width: 100%;
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 0.5rem;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    container-type: inline-size;
+  }
+
+  .kore-subcat-slider__track-wrap.is-dragging {
+    cursor: grabbing !important;
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
   }
 
   .kore-subcat-slider__track-wrap::-webkit-scrollbar {
@@ -234,24 +243,38 @@
 
   .kore-subcat-slider__track {
     display: flex;
-    gap: 1.2rem;
+    gap: 1.5rem;
+    width: max-content;
   }
 
+  /* Cards - 4 Columns Desktop by Default */
   .kore-subcat-card {
-    flex: 0 0 calc((100% - (5 * 1.2rem)) / 6);
-    min-width: 170px;
+    flex: 0 0 calc((100cqw - (3 * 1.5rem)) / 4);
+    width: calc((100cqw - (3 * 1.5rem)) / 4);
+    min-width: 0;
+    max-width: none;
     scroll-snap-align: start;
+    box-sizing: border-box;
   }
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 1024px) {
+    .kore-subcat-slider__track {
+      gap: 1.25rem;
+    }
     .kore-subcat-card {
-      flex: 0 0 calc((100% - (3 * 1.2rem)) / 4);
+      flex: 0 0 calc((100cqw - (2 * 1.25rem)) / 3);
+      width: calc((100cqw - (2 * 1.25rem)) / 3);
     }
   }
 
   @media screen and (max-width: 749px) {
+    .kore-subcat-slider__track {
+      gap: 1rem;
+    }
     .kore-subcat-card {
-      flex: 0 0 calc((100% - (1.2rem)) / 2.2);
+      flex: 0 0 72vw;
+      width: 72vw;
+      max-width: 290px;
     }
   }
 
@@ -262,9 +285,8 @@
   }
 
   .kore-subcat-card__img-box {
-    aspect-ratio: 4 / 5;
-    background-color: #f2f2f2;
-    border-radius: 6px;
+    background-color: #f4f4f4;
+    border-radius: 0;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -272,20 +294,35 @@
     justify-content: center;
   }
 
+  .kore-subcat-card__img-box--portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .kore-subcat-card__img-box--editorial {
+    aspect-ratio: 4 / 5;
+  }
+
+  .kore-subcat-card__img-box--square {
+    aspect-ratio: 1 / 1;
+  }
+
   .kore-subcat-card__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    object-position: center top;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
   }
 
   .kore-subcat-card:hover .kore-subcat-card__img {
-    transform: scale(1.06);
+    transform: scale(1.045);
   }
 
   .kore-subcat-card__placeholder {
     width: 100%;
     height: 100%;
+    min-height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,10 +336,10 @@
   }
 
   .kore-subcat-card__info {
-    padding: 1rem 0.2rem 0;
+    padding: 1.1rem 0.1rem 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
   }
 
   .kore-subcat-card__title {
@@ -312,12 +349,14 @@
     color: inherit;
     display: block;
     line-height: 1.25;
+    font-family: var(--font-body-family), 'Inter', sans-serif;
   }
 
   .kore-subcat-card__price {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 500;
     opacity: 0.75;
+    font-family: var(--font-body-family), 'Inter', sans-serif;
   }
 
   /* Slider Controls */
@@ -325,38 +364,38 @@
     display: flex;
     align-items: center;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     padding: 0 0.2rem;
   }
 
   .kore-subcat-slider__nav-btns {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.8rem;
   }
 
   .kore-subcat-slider__btn {
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 0.3rem;
+    padding: 0.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     color: inherit;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .kore-subcat-slider__btn:hover {
     opacity: 0.5;
+    transform: scale(1.1);
   }
 
   .kore-subcat-slider__progress {
     height: 2px;
-    width: 160px;
-    background: #e0e0e0;
+    width: 180px;
+    background: #e5e5e5;
     position: relative;
-    border-radius: 2px;
     overflow: hidden;
   }
 
@@ -372,17 +411,50 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const section = document.getElementById('KoreSubcatSlider-{{ section.id }}');
-    if (!section) return;
+  (function() {
+    function initSubcatSlider(section) {
+      if (!section) return;
 
-    const trackWrap = section.querySelector('#KoreSubcatTrackWrap-{{ section.id }}');
-    const prevBtn = section.querySelector('.kore-subcat-slider__btn--prev');
-    const nextBtn = section.querySelector('.kore-subcat-slider__btn--next');
-    const progressBar = section.querySelector('.kore-subcat-slider__progress-bar');
+      const sliderEl = section.querySelector('.kore-subcat-slider');
+      const trackWrap = section.querySelector('.kore-subcat-slider__track-wrap');
+      const track = section.querySelector('.kore-subcat-slider__track');
+      const prevBtn = section.querySelector('.kore-subcat-slider__btn--prev');
+      const nextBtn = section.querySelector('.kore-subcat-slider__btn--next');
+      const progressBar = section.querySelector('.kore-subcat-slider__progress-bar');
 
-    if (trackWrap && prevBtn && nextBtn && progressBar) {
+      if (!trackWrap || !track) return;
+
+      const colsDesktop = parseInt(sliderEl?.dataset?.colsDesktop || '4', 10);
+
+      function calculateLayout() {
+        const wrapWidth = trackWrap.clientWidth;
+        if (wrapWidth <= 0) return;
+
+        let cols = colsDesktop;
+        let gap = 24;
+
+        if (window.innerWidth <= 749) {
+          cols = 1.38;
+          gap = 16;
+        } else if (window.innerWidth <= 1024) {
+          cols = Math.min(colsDesktop, 3);
+          gap = 20;
+        }
+
+        const cardWidth = Math.floor((wrapWidth - (Math.floor(cols) - 1) * gap) / cols);
+
+        if (cardWidth > 120) {
+          track.style.gap = `${gap}px`;
+          const cards = track.querySelectorAll('.kore-subcat-card');
+          cards.forEach(card => {
+            card.style.flex = `0 0 ${cardWidth}px`;
+            card.style.width = `${cardWidth}px`;
+          });
+        }
+      }
+
       function updateProgress() {
+        if (!progressBar) return;
         const maxScroll = trackWrap.scrollWidth - trackWrap.clientWidth;
         if (maxScroll <= 0) {
           progressBar.style.width = '100%';
@@ -396,19 +468,102 @@
         progressBar.style.left = `${scrollRatio * (100 - barWidthPercent)}%`;
       }
 
-      trackWrap.addEventListener('scroll', updateProgress);
-      window.addEventListener('resize', updateProgress);
+      calculateLayout();
       updateProgress();
 
-      prevBtn.addEventListener('click', () => {
-        trackWrap.scrollBy({ left: -320, behavior: 'smooth' });
+      window.addEventListener('resize', () => {
+        calculateLayout();
+        updateProgress();
       });
 
-      nextBtn.addEventListener('click', () => {
-        trackWrap.scrollBy({ left: 320, behavior: 'smooth' });
+      trackWrap.addEventListener('scroll', updateProgress, { passive: true });
+
+      function getScrollStep() {
+        const firstCard = track.querySelector('.kore-subcat-card');
+        if (firstCard) {
+          return firstCard.offsetWidth + 24;
+        }
+        return 320;
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          trackWrap.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          trackWrap.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+        });
+      }
+
+      // Mouse Drag to Slide
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+      let hasDragged = false;
+
+      trackWrap.addEventListener('mousedown', function(e) {
+        isDown = true;
+        hasDragged = false;
+        trackWrap.classList.add('is-dragging');
+        startX = e.pageX - trackWrap.offsetLeft;
+        scrollLeft = trackWrap.scrollLeft;
+      });
+
+      window.addEventListener('mouseup', function() {
+        if (!isDown) return;
+        isDown = false;
+        trackWrap.classList.remove('is-dragging');
+      });
+
+      trackWrap.addEventListener('mouseleave', function() {
+        if (!isDown) return;
+        isDown = false;
+        trackWrap.classList.remove('is-dragging');
+      });
+
+      trackWrap.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - trackWrap.offsetLeft;
+        const walk = (x - startX) * 1.3;
+        if (Math.abs(walk) > 6) {
+          hasDragged = true;
+        }
+        trackWrap.scrollLeft = scrollLeft - walk;
+      });
+
+      trackWrap.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          if (hasDragged) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+          }
+        });
       });
     }
-  });
+
+    function setup() {
+      const section = document.getElementById('KoreSubcatSlider-{{ section.id }}');
+      if (section) initSubcatSlider(section);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        setup();
+      }
+    });
+  })();
 </script>
 
 {% schema %}
@@ -421,65 +576,10 @@
   },
   "settings": [
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection",
-      "info": "Select a single Shopify collection to automatically display its products in this 6-card slider"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 4,
-      "max": 16,
-      "step": 1,
-      "default": 8,
-      "label": "Maximum products to show"
-    },
-    {
-      "type": "select",
-      "id": "title_source",
-      "label": "Card title source",
-      "options": [
-        { "value": "short_title", "label": "Short Title (e.g., 2 words max)" },
-        { "value": "metafield", "label": "Product Metafield (custom short name)" },
-        { "value": "vendor", "label": "Product Vendor / Brand" },
-        { "value": "type", "label": "Product Type" },
-        { "value": "full", "label": "Full Product Title" }
-      ],
-      "default": "short_title",
-      "info": "ON-Running style uses short clean category/model names under each card"
-    },
-    {
       "type": "text",
-      "id": "metafield_key",
-      "label": "Product Metafield Key (if Metafield selected)",
-      "default": "custom.short_name",
-      "info": "Format: namespace.key (e.g. custom.short_name or custom.subheading)"
-    },
-    {
-      "type": "range",
-      "id": "max_words",
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 2,
-      "label": "Maximum title words (if Short Title selected)"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_price",
-      "default": false,
-      "label": "Show product prices"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading"
-    },
-    {
-      "type": "inline_richtext",
       "id": "title",
-      "label": "Heading"
+      "label": "Section Heading",
+      "default": "Best Sellers"
     },
     {
       "type": "select",
@@ -503,6 +603,75 @@
       "label": "Header alignment"
     },
     {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a Shopify collection to automatically display its products"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns visible on desktop"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Product Image Aspect Ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "editorial", "label": "Editorial (4:5)" },
+        { "value": "square", "label": "Square (1:1)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 40,
+      "step": 1,
+      "default": 16,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "select",
+      "id": "title_source",
+      "label": "Card title source",
+      "options": [
+        { "value": "short_title", "label": "Short Title (e.g., 2 words max)" },
+        { "value": "metafield", "label": "Product Metafield (custom short name)" },
+        { "value": "vendor", "label": "Product Vendor / Brand" },
+        { "value": "type", "label": "Product Type" },
+        { "value": "full", "label": "Full Product Title" }
+      ],
+      "default": "short_title"
+    },
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Product Metafield Key (if Metafield selected)",
+      "default": "custom.short_name"
+    },
+    {
+      "type": "range",
+      "id": "max_words",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2,
+      "label": "Maximum title words (if Short Title selected)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "default": true,
+      "label": "Show product prices"
+    },
+    {
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
@@ -522,7 +691,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0
+      "default": 48
     },
     {
       "type": "range",
@@ -548,20 +717,17 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Custom Card Title",
-          "info": "Leave blank to use collection title"
+          "label": "Custom Card Title"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Custom Card Image",
-          "info": "Leave blank to use collection image"
+          "label": "Custom Card Image"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Custom Link",
-          "info": "Leave blank to use collection URL"
+          "label": "Custom Link"
         }
       ]
     }

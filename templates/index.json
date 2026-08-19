@@ -82,44 +82,55 @@
       }
     },
     "collection_list_XPKfRX": {
-      "type": "collection-list",
+      "type": "kore-shop-categories",
       "blocks": {
-        "featured_collection_bYAWAX": {
-          "type": "featured_collection",
+        "cat_apparel": {
+          "type": "category_card",
           "settings": {
-            "collection": "men"
+            "title": "Apparel",
+            "collection": "men",
+            "image": "shopify://shop_images/men-collection.webp",
+            "overlay_opacity": 45
           }
         },
-        "featured_collection_Dz7iRw": {
-          "type": "featured_collection",
+        "cat_shoes": {
+          "type": "category_card",
           "settings": {
-            "collection": "women"
+            "title": "Shoes",
+            "collection": "women",
+            "image": "shopify://shop_images/wemen-collection.webp",
+            "overlay_opacity": 45
           }
         },
-        "featured_collection_UB6XKG": {
-          "type": "featured_collection",
+        "cat_accessories": {
+          "type": "category_card",
           "settings": {
-            "collection": "accessories"
+            "title": "Accessories",
+            "collection": "accessories",
+            "image": "shopify://shop_images/accessories.webp",
+            "overlay_opacity": 45
           }
         }
       },
       "block_order": [
-        "featured_collection_bYAWAX",
-        "featured_collection_Dz7iRw",
-        "featured_collection_UB6XKG"
+        "cat_apparel",
+        "cat_shoes",
+        "cat_accessories"
       ],
-      "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "Shop",
-        "heading_size": "h1",
-        "image_ratio": "square",
+        "heading_size": 36,
+        "heading_alignment": "left",
+        "aspect_ratio": "portrait",
+        "image_fit": "cover",
         "columns_desktop": 3,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 100,
-        "padding_bottom": 36
+        "swipe_on_mobile": true,
+        "card_title_font_size": 22,
+        "bg_color": "#ffffff",
+        "heading_color": "#0a0a0a",
+        "card_title_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 24
       }
     },
     "kore_trust_bar": {
@@ -316,9 +327,8 @@
       "settings": {
         "bg_color": "#f8f8f8",
         "bg_overlay_opacity": 0,
-        "tagline": "",
-        "tagline_font_size": 18,
-        "tagline_color": "#666666",
+        "tagline": "LIMITED REGISTRATION",
+        "tagline_color": "#0a0a0a",
         "heading": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
         "heading_color": "#0a0a0a",
         "description": "Become one of the first 1,000 members of KOURTLAB and unlock benefits that will never be offered again.",
@@ -664,6 +674,7 @@
       "blocks": {
         "card_1": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "",
             "title": "",
@@ -672,6 +683,7 @@
         },
         "card_2": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "",
             "title": "KØRĒ Court Short",
@@ -680,6 +692,7 @@
         },
         "card_3": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "",
             "title": "KØRĒ Vent Polo",
@@ -688,6 +701,7 @@
         },
         "card_4": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "",
             "title": "KØRĒ Grip Tee",
@@ -696,6 +710,7 @@
         },
         "card_5": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "best-seller",
             "title": "",
@@ -704,6 +719,7 @@
         },
         "card_6": {
           "type": "card",
+          "disabled": true,
           "settings": {
             "collection": "",
             "title": "KØRĒ Court Sock",
@@ -721,101 +737,19 @@
       ],
       "settings": {
         "collection": "best-seller",
-        "products_to_show": 8,
+        "products_to_show": 16,
         "title_source": "short_title",
         "metafield_key": "custom.short_name",
         "max_words": 2,
-        "show_price": false,
-        "subheading": "",
-        "title": "",
+        "show_price": true,
+        "title": "Best Sellers",
+        "columns_desktop": 4,
+        "aspect_ratio": "portrait",
         "heading_size": "h1",
         "header_alignment": "left",
         "bg_color": "#ffffff",
         "text_color": "#0a0a0a",
-        "padding_top": 0,
-        "padding_bottom": 80
-      }
-    },
-    "kore_mission_carousel": {
-      "type": "kore-mission-carousel",
-      "blocks": {
-        "story_1": {
-          "type": "story_card",
-          "settings": {
-            "card_style": "photo",
-            "title": "Built for repeat.",
-            "description": "",
-            "image": "shopify://shop_images/accessories.webp",
-            "card_bg": "#0a0a0a",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "story_2": {
-          "type": "story_card",
-          "settings": {
-            "card_style": "dark",
-            "title": "Engineered for performance.",
-            "description": "",
-            "image": "shopify://shop_images/men-collection.webp",
-            "card_bg": "#0a0a0a",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "story_3": {
-          "type": "story_card",
-          "settings": {
-            "card_style": "photo",
-            "title": "Daring design. Court culture.",
-            "description": "",
-            "image": "shopify://shop_images/wemen-collection.webp",
-            "card_bg": "#0a0a0a",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "story_4": {
-          "type": "story_card",
-          "settings": {
-            "card_style": "dark",
-            "title": "SHOW UP AGAIN TOMORROW.",
-            "description": "",
-            "image": "shopify://shop_images/men-collection.webp",
-            "card_bg": "#0a0a0a",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "story_5": {
-          "type": "story_card",
-          "settings": {
-            "card_style": "photo",
-            "title": "Designed for modern padel.",
-            "description": "",
-            "image": "shopify://shop_images/31EgKEX-y1L.jpg",
-            "card_bg": "#0a0a0a",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "story_1",
-        "story_2",
-        "story_3",
-        "story_4",
-        "story_5"
-      ],
-      "settings": {
-        "title": "Our mission",
-        "heading_size": "h1",
-        "description": "SHOW UP AGAIN TOMORROW.",
-        "button_text": "Read more",
-        "hero_image": "shopify://shop_images/blog-1.webp",
-        "bg_color": "#ffffff",
-        "text_color": "#0a0a0a",
-        "padding_top": 80,
+        "padding_top": 48,
         "padding_bottom": 80
       }
     },
@@ -1065,7 +999,6 @@
     "expanding_carousel",
     "kore_hover_categories",
     "kore_subcategory_slider",
-    "kore_mission_carousel",
     "shop_by_activity",
     "featured_product_carousel",
     "17850441245e4f0ed8",

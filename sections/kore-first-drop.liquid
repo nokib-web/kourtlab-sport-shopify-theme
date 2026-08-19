@@ -28,41 +28,25 @@
   .kore-first-drop--{{ section.id }} .kore-first-drop__container {
     width: 100%;
     margin: 0 auto;
-    padding-left: 2.25rem;
-    padding-right: 2.25rem;
-    max-width: 100%;
     position: relative;
     z-index: 2;
   }
 
-  @media screen and (min-width: 750px) {
-    .kore-first-drop--{{ section.id }} .kore-first-drop__container {
-      padding-left: 3.95rem;
-      padding-right: 3.95rem;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .kore-first-drop--{{ section.id }} .kore-first-drop__container {
-      padding-left: 5.75rem;
-      padding-right: 5.75rem;
-    }
-  }
-
   .kore-first-drop--{{ section.id }} .kore-first-drop__grid {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__content-col {
-    flex: 0 0 26%;
-    max-width: 26%;
+    flex: 0 0 20%;
+    max-width: 20%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    padding-right: 0.5rem;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__tagline {
@@ -76,7 +60,7 @@
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__heading {
-    font-size: clamp(2.4rem, 4.5vw, 3.8rem) !important;
+    font-size: clamp(2.2rem, 3.2vw, 3.4rem) !important;
     font-weight: 900 !important;
     line-height: 0.98 !important;
     letter-spacing: -0.01em !important;
@@ -87,7 +71,7 @@
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__desc {
-    font-size: {{ section.settings.description_font_size | default: 20 }}px !important;
+    font-size: {{ section.settings.description_font_size | default: 18 }}px !important;
     line-height: 1.45;
     font-weight: 500;
     color: {{ section.settings.description_color | default: '#444444' }} !important;
@@ -101,7 +85,7 @@
     gap: 0.65rem;
     background-color: {{ section.settings.button_bg | default: '#CBD64A' }} !important;
     color: {{ section.settings.button_text_color | default: '#0A0A0A' }} !important;
-    padding: 0.95rem 2.2rem;
+    padding: 0.95rem 2rem;
     border-radius: 0 !important;
     font-size: 0.9rem;
     font-weight: 800;
@@ -124,43 +108,47 @@
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__cards-col {
-    flex: 0 0 72%;
-    max-width: 72%;
+    flex: 0 0 78%;
+    max-width: 78%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
+    display: block;
     position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    text-decoration: none;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: transparent;
-  }
-
-  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover {
-    transform: translateY(-4px);
+    background-color: #111111;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-media {
     width: 100%;
-    {% case section.settings.card_aspect_ratio %}
-      {% when 'portrait' %}
-        aspect-ratio: 3 / 4;
-      {% when 'tall' %}
-        aspect-ratio: 4 / 5;
-      {% when 'square' %}
-        aspect-ratio: 1 / 1;
-      {% else %}
-        aspect-ratio: 3 / 4;
-    {% endcase %}
+    height: 100%;
+    min-height: 520px;
     position: relative;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.04);
+    display: flex;
+    aspect-ratio: 9 / 13;
+    background-color: #1a1a1a;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__card,
+    .kore-first-drop--{{ section.id }} .kore-first-drop__card-media {
+      min-height: 580px;
+    }
+  }
+
+  @media screen and (min-width: 1500px) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__card,
+    .kore-first-drop--{{ section.id }} .kore-first-drop__card-media {
+      min-height: 640px;
+    }
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-img {
@@ -168,43 +156,104 @@
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-img {
-    transform: scale(1.05);
+    transform: scale(1.045);
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.22) 25%,
+      rgba(0, 0, 0, 0) 55%
+    );
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.3) 30%,
+      rgba(0, 0, 0, 0) 60%
+    );
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
-    color: inherit;
+    z-index: 2;
+    pointer-events: none;
+    box-sizing: border-box;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-title {
-    font-size: {{ section.settings.card_title_font_size | default: 19 }}px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.08em !important;
+    font-size: {{ section.settings.card_title_font_size | default: 20 }}px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em !important;
     text-transform: uppercase !important;
-    font-family: var(--font-heading-family), 'Barlow Condensed', sans-serif !important;
+    font-family: var(--font-body-family), 'Inter', sans-serif !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+    display: inline-block;
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0%;
+    height: 2px;
+    background-color: currentColor;
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-title::after {
+    width: 100%;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow {
-    color: #CBD64A;
+    color: #ffffff !important;
     display: flex;
     align-items: center;
-    transition: transform 0.2s ease;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow svg {
     width: 20px;
     height: 20px;
+    display: block;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-arrow {
-    transform: translateX(4px);
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (hover: none) {
+    .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow {
+      opacity: 0.9;
+      transform: translateX(0);
+    }
   }
 
   /* Responsive Breakpoints */
@@ -233,7 +282,7 @@
 {%- endstyle -%}
 
 <div class="kore-first-drop kore-first-drop--{{ section.id }}">
-  <div class="kore-first-drop__container">
+  <div class="page-width kore-first-drop__container">
     <div class="kore-first-drop__grid">
       {%- comment -%} Left Column Content {%- endcomment -%}
       <div class="kore-first-drop__content-col">
@@ -272,17 +321,20 @@
               {%- else -%}
                 {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg kore-first-drop__card-img' }}
               {%- endif -%}
-            </div>
-            <div class="kore-first-drop__card-bar" style="{% if block.settings.card_bg != blank %}background-color: {{ block.settings.card_bg }} !important;{% endif %}">
-              <span class="kore-first-drop__card-title" style="{% if block.settings.title_color != blank %}color: {{ block.settings.title_color }} !important;{% endif %}">
-                {{ block.settings.title }}
-              </span>
-              <span class="kore-first-drop__card-arrow" style="{% if block.settings.arrow_color != blank %}color: {{ block.settings.arrow_color }} !important;{% endif %}">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </span>
+
+              <div class="kore-first-drop__card-overlay"></div>
+
+              <div class="kore-first-drop__card-bar">
+                <span class="kore-first-drop__card-title">
+                  {{ block.settings.title }}
+                </span>
+                <span class="kore-first-drop__card-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </div>
             </div>
           </a>
         {%- endfor -%}

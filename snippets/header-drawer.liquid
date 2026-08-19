@@ -17,8 +17,21 @@
       </span>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
+      <div class="kore-drawer-header">
+        <button
+          class="kore-drawer-close"
+          onclick="this.closest('details').removeAttribute('open'); document.body.classList.remove('overflow-hidden-tablet');"
+          aria-label="Close menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
+
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}

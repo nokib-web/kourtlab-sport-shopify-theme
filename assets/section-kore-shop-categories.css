@@ -1,0 +1,352 @@
+/* KØRĒ - Shop Categories Section (Exact On.com 1:1 Match) */
+
+.kore-shop-cat-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.kore-shop-cat__header {
+  margin-bottom: 2rem;
+}
+
+.kore-shop-cat__header--center {
+  text-align: center;
+}
+
+.kore-shop-cat__header--left {
+  text-align: left;
+}
+
+.kore-shop-cat__heading {
+  margin: 0;
+  font-family: var(--font-heading-family), 'Barlow Condensed', 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: none;
+}
+
+/* Grid & Layout Desktop */
+.kore-shop-cat__grid-wrapper {
+  width: 100%;
+}
+
+.kore-shop-cat__grid {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* Aspect Ratios - Desktop */
+.kore-shop-cat__grid--ratio-portrait .kore-shop-cat__media-wrapper {
+  aspect-ratio: 3 / 4;
+}
+
+.kore-shop-cat__grid--ratio-editorial .kore-shop-cat__media-wrapper {
+  aspect-ratio: 4 / 5;
+}
+
+.kore-shop-cat__grid--ratio-tall .kore-shop-cat__media-wrapper {
+  aspect-ratio: 9 / 16;
+}
+
+.kore-shop-cat__grid--ratio-square .kore-shop-cat__media-wrapper {
+  aspect-ratio: 1 / 1;
+}
+
+@media screen and (min-width: 990px) {
+  .kore-shop-cat__grid--ratio-portrait .kore-shop-cat__media-wrapper {
+    min-height: 560px;
+  }
+  .kore-shop-cat__grid--ratio-tall .kore-shop-cat__media-wrapper {
+    min-height: 640px;
+  }
+}
+
+/* Card */
+.kore-shop-cat__item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.kore-shop-cat__card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  overflow: hidden;
+  background-color: #111111;
+  border-radius: 0;
+}
+
+.kore-shop-cat__media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  background-color: #1a1a1a;
+}
+
+.kore-shop-cat__img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  display: block;
+}
+
+.kore-shop-cat__placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kore-shop-cat__placeholder svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+/* Bottom Dark Gradient for crisp text readability */
+.kore-shop-cat__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, var(--overlay-op, 0.45)) 0%,
+    rgba(0, 0, 0, calc(var(--overlay-op, 0.45) * 0.45)) 22%,
+    rgba(0, 0, 0, 0) 45%
+  );
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+/* Bottom Content Bar */
+.kore-shop-cat__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 1.75rem;
+  z-index: 2;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.kore-shop-cat__bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.kore-shop-cat__title {
+  margin: 0;
+  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #ffffff;
+}
+
+.kore-shop-cat__title span {
+  position: relative;
+  display: inline-block;
+}
+
+/* Animated Underline on Hover */
+.kore-shop-cat__title span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Arrow on Right */
+.kore-shop-cat__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  margin-left: 0.75rem;
+}
+
+.kore-shop-cat__arrow svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Hover Effects Desktop */
+@media (hover: hover) and (pointer: fine) {
+  .kore-shop-cat__card:hover .kore-shop-cat__img {
+    transform: scale(1.045);
+  }
+
+  .kore-shop-cat__card:hover .kore-shop-cat__title span::after {
+    width: 100%;
+  }
+
+  .kore-shop-cat__card:hover .kore-shop-cat__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .kore-shop-cat__card:hover .kore-shop-cat__overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, calc(var(--overlay-op, 0.45) + 0.15)) 0%,
+      rgba(0, 0, 0, calc(var(--overlay-op, 0.45) * 0.65)) 28%,
+      rgba(0, 0, 0, 0) 55%
+    );
+  }
+}
+
+/* Mobile Progress Bar */
+.kore-shop-cat__mobile-progress {
+  display: none;
+}
+
+/* ==========================================================================
+   Mobile Responsiveness - Exact On.com 1:1 Match (Tall, Full Width, Tiny Peek)
+   ========================================================================== */
+@media screen and (max-width: 749px) {
+  .section-kore-shop-categories .page-width,
+  .kore-shop-cat-section .page-width {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .kore-shop-cat__header {
+    margin-bottom: 0.85rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .kore-shop-cat__heading {
+    font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif !important;
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.1 !important;
+    color: #0a0a0a;
+  }
+
+  /* Full-bleed horizontal scroll track */
+  .kore-shop-cat__grid-wrapper--swipe {
+    margin: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 100% !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+    cursor: grab;
+  }
+
+  .kore-shop-cat__grid-wrapper--swipe::-webkit-scrollbar {
+    display: none;
+  }
+
+  .kore-shop-cat__grid-wrapper--swipe .kore-shop-cat__grid {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    padding-right: 1rem;
+  }
+
+  /* Card Sizing: left-padded like On.com, peek on right */
+  .kore-shop-cat__grid-wrapper--swipe .kore-shop-cat__item {
+    flex: 0 0 calc(100vw - 2rem - 36px);
+    width: calc(100vw - 2rem - 36px);
+    max-width: 345px;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+
+  /* Tall Aspect Ratio matching On.com screenshot */
+  .kore-shop-cat__grid--ratio-portrait .kore-shop-cat__media-wrapper,
+  .kore-shop-cat__grid--ratio-editorial .kore-shop-cat__media-wrapper,
+  .kore-shop-cat__media-wrapper {
+    aspect-ratio: 3 / 4.2 !important;
+    min-height: 420px !important;
+  }
+
+  .kore-shop-cat__content {
+    padding: 1.25rem 1.25rem;
+  }
+
+  .kore-shop-cat__title {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  }
+
+  .kore-shop-cat__arrow {
+    opacity: 0.95;
+    transform: translateX(0);
+  }
+
+  .kore-shop-cat__arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.6;
+  }
+
+  /* Left-Aligned Progress Bar */
+  .kore-shop-cat__mobile-progress {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .kore-shop-cat__mobile-progress-track {
+    width: 84px;
+    height: 2px;
+    background-color: #e5e5e5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kore-shop-cat__mobile-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 33.33%;
+    background-color: #0a0a0a;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .kore-shop-cat__grid {
+    gap: 1.25rem;
+  }
+}

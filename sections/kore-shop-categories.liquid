@@ -1,0 +1,418 @@
+{{ 'section-kore-shop-categories.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.7 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.7 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #ShopCategories-{{ section.id }} {
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+  }
+
+  #ShopCategories-{{ section.id }} .kore-shop-cat__heading {
+    color: {{ section.settings.heading_color | default: '#0a0a0a' }};
+    font-size: clamp(24px, 4vw, {{ section.settings.heading_size | default: 36 }}px);
+    text-align: {{ section.settings.heading_alignment | default: 'left' }};
+  }
+
+  #ShopCategories-{{ section.id }} .kore-shop-cat__grid {
+    grid-template-columns: repeat({{ section.settings.columns_desktop | default: 3 }}, 1fr);
+  }
+{%- endstyle -%}
+
+<div class="kore-shop-cat-section section-{{ section.id }}-padding" id="ShopCategories-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <div class="kore-shop-cat__header kore-shop-cat__header--{{ section.settings.heading_alignment | default: 'left' }}">
+        <h2 class="kore-shop-cat__heading">
+          {{ section.settings.title }}
+        </h2>
+      </div>
+    {%- endif -%}
+
+    <div class="kore-shop-cat__grid-wrapper{% if section.settings.swipe_on_mobile %} kore-shop-cat__grid-wrapper--swipe{% endif %}" id="ShopCatTrack-{{ section.id }}">
+      <div class="kore-shop-cat__grid kore-shop-cat__grid--ratio-{{ section.settings.aspect_ratio | default: 'portrait' }}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign collection = block.settings.collection
+            assign card_title = block.settings.title
+            if card_title == blank and collection != blank
+              assign card_title = collection.title
+            endif
+            if card_title == blank
+              assign card_title = 'Category ' | append: forloop.index
+            endif
+
+            assign card_link = block.settings.link
+            if card_link == blank and collection != blank
+              assign card_link = collection.url
+            endif
+            if card_link == blank
+              assign card_link = routes.all_products_collection_url
+            endif
+
+            assign card_image = block.settings.image
+            if card_image == blank and collection != blank and collection.featured_image != blank
+              assign card_image = collection.featured_image
+            endif
+
+            assign overlay_opacity = block.settings.overlay_opacity | default: 40 | divided_by: 100.0
+            assign block_fit = block.settings.image_fit
+            if block_fit == blank or block_fit == 'inherit'
+              assign block_fit = section.settings.image_fit | default: 'cover'
+            endif
+            assign block_pos = block.settings.image_position | default: 'center center'
+          -%}
+
+          <div class="kore-shop-cat__item" {{ block.shopify_attributes }}>
+            <a href="{{ card_link }}" class="kore-shop-cat__card">
+              <div 
+                class="kore-shop-cat__media-wrapper"
+                {% if section.settings.aspect_ratio == 'adapt' and card_image != blank %}
+                  style="aspect-ratio: {{ card_image.aspect_ratio }};"
+                {% endif %}
+              >
+                {%- if card_image != blank -%}
+                  <img
+                    srcset="
+                      {%- if card_image.width >= 360 -%}{{ card_image | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if card_image.width >= 540 -%}{{ card_image | image_url: width: 540 }} 540w,{%- endif -%}
+                      {%- if card_image.width >= 720 -%}{{ card_image | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if card_image.width >= 900 -%}{{ card_image | image_url: width: 900 }} 900w,{%- endif -%}
+                      {%- if card_image.width >= 1200 -%}{{ card_image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                      {{ card_image | image_url }} {{ card_image.width }}w
+                    "
+                    src="{{ card_image | image_url: width: 900 }}"
+                    sizes="(min-width: 1200px) calc((100vw - 100px) / {{ section.settings.columns_desktop | default: 3 }}), (min-width: 750px) calc((100vw - 60px) / 2), 85vw"
+                    alt="{{ card_title | escape }}"
+                    loading="lazy"
+                    width="{{ card_image.width }}"
+                    height="{{ card_image.height }}"
+                    class="kore-shop-cat__img"
+                    style="object-fit: {{ block_fit }}; object-position: {{ block_pos }};"
+                  >
+                {%- else -%}
+                  <div class="kore-shop-cat__placeholder">
+                    {%- assign placeholder_idx = forloop.index0 | modulo: 4 | plus: 1 -%}
+                    {{ 'collection-apparel-' | append: placeholder_idx | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+
+                <div 
+                  class="kore-shop-cat__overlay" 
+                  style="--overlay-op: {{ overlay_opacity }};"
+                ></div>
+              </div>
+
+              <div class="kore-shop-cat__content">
+                <div class="kore-shop-cat__bottom-bar">
+                  <h3 
+                    class="kore-shop-cat__title"
+                    style="color: {{ block.settings.title_color | default: section.settings.card_title_color | default: '#ffffff' }}; font-size: {{ section.settings.card_title_font_size | default: 22 }}px;"
+                  >
+                    <span>{{ card_title }}</span>
+                  </h3>
+                  <span class="kore-shop-cat__arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- On.com Style Mobile Progress Bar Indicator -->
+    {%- if section.settings.swipe_on_mobile -%}
+      <div class="kore-shop-cat__mobile-progress" aria-hidden="true">
+        <div class="kore-shop-cat__mobile-progress-track">
+          <div class="kore-shop-cat__mobile-progress-bar"></div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initShopCatProgress(section) {
+      if (!section) return;
+      const trackWrap = section.querySelector('.kore-shop-cat__grid-wrapper--swipe');
+      const progressBar = section.querySelector('.kore-shop-cat__mobile-progress-bar');
+      if (!trackWrap || !progressBar) return;
+
+      function updateProgress() {
+        const maxScroll = trackWrap.scrollWidth - trackWrap.clientWidth;
+        if (maxScroll <= 0) {
+          progressBar.style.width = '100%';
+          progressBar.style.left = '0%';
+          return;
+        }
+        const scrollRatio = trackWrap.scrollLeft / maxScroll;
+        const visibleRatio = trackWrap.clientWidth / trackWrap.scrollWidth;
+        const barWidth = Math.max(visibleRatio * 100, 33);
+        progressBar.style.width = barWidth + '%';
+        progressBar.style.left = (scrollRatio * (100 - barWidth)) + '%';
+      }
+
+      trackWrap.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+    }
+
+    function setup() {
+      const section = document.getElementById('ShopCategories-{{ section.id }}');
+      if (section) initShopCatProgress(section);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setup);
+    } else {
+      setup();
+    }
+
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e.detail.sectionId === '{{ section.id }}') {
+        setup();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shop Categories",
+  "tag": "section",
+  "class": "section-kore-shop-categories",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Card Aspect Ratio",
+      "options": [
+        { "value": "portrait", "label": "Portrait (3:4 Ratio)" },
+        { "value": "editorial", "label": "Editorial (4:5 Ratio)" },
+        { "value": "tall", "label": "Tall (9:16 Ratio)" },
+        { "value": "square", "label": "Square (1:1 Ratio)" },
+        { "value": "adapt", "label": "Adapt to image" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Default Image Fit",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill entire card)" },
+        { "value": "contain", "label": "Contain (Fit inside card)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Desktop Columns",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "label": "Enable swipe carousel on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Title Font Size",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Color Schemes"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Default Card Title Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Title Override"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Card Title Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image Override"
+        },
+        {
+          "type": "select",
+          "id": "image_fit",
+          "label": "Card Image Fit",
+          "options": [
+            { "value": "inherit", "label": "Use Section Setting" },
+            { "value": "cover", "label": "Cover (Fill card)" },
+            { "value": "contain", "label": "Contain (Fit full image)" }
+          ],
+          "default": "inherit"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image Focal Position",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "center top", "label": "Top Center" },
+            { "value": "center bottom", "label": "Bottom Center" },
+            { "value": "left center", "label": "Left Center" },
+            { "value": "right center", "label": "Right Center" }
+          ],
+          "default": "center center"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom URL Link"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "label": "Dark Overlay Opacity",
+          "default": 40
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop Categories",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Apparel"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Shoes"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "Accessories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
