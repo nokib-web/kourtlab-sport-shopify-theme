@@ -123,7 +123,7 @@
     min-height: 520px;
     text-decoration: none;
     overflow: hidden;
-    background-color: #111111;
+    background-color: #f4f4f4;
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-media {
@@ -134,7 +134,7 @@
     overflow: hidden;
     display: flex;
     aspect-ratio: 9 / 13;
-    background-color: #1a1a1a;
+    background-color: #f4f4f4;
   }
 
   @media screen and (min-width: 1200px) {
@@ -169,9 +169,9 @@
     inset: 0;
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.22) 25%,
-      rgba(0, 0, 0, 0) 55%
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.15) 25%,
+      rgba(0, 0, 0, 0) 50%
     );
     pointer-events: none;
     transition: opacity 0.4s ease;
@@ -181,8 +181,8 @@
   .kore-first-drop--{{ section.id }} .kore-first-drop__card:hover .kore-first-drop__card-overlay {
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.3) 30%,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.22) 30%,
       rgba(0, 0, 0, 0) 60%
     );
   }
@@ -207,7 +207,7 @@
     letter-spacing: -0.01em !important;
     text-transform: uppercase !important;
     font-family: var(--font-body-family), 'Inter', sans-serif !important;
-    color: #ffffff !important;
+    color: #ffffff;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     position: relative;
     display: inline-block;
@@ -229,7 +229,7 @@
   }
 
   .kore-first-drop--{{ section.id }} .kore-first-drop__card-arrow {
-    color: #ffffff !important;
+    color: #CBD64A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,7 +314,26 @@
       {%- comment -%} Right Column Category Cards {%- endcomment -%}
       <div class="kore-first-drop__cards-col">
         {%- for block in section.blocks -%}
-          <a href="{{ block.settings.link | default: '/collections/all' }}" class="kore-first-drop__card" {{ block.shopify_attributes }}>
+          {%- style -%}
+            #KoreCard-{{ block.id }} .kore-first-drop__card-title {
+              color: {{ block.settings.title_color | default: '#ffffff' }} !important;
+              {%- if block.settings.title_color != blank and block.settings.title_color != '#ffffff' and block.settings.title_color != '#FFFFFF' -%}
+                text-shadow: none !important;
+              {%- endif -%}
+            }
+            #KoreCard-{{ block.id }} .kore-first-drop__card-arrow {
+              color: {{ block.settings.arrow_color | default: '#CBD64A' }} !important;
+            }
+            {%- if block.settings.card_bg != blank and block.settings.card_bg != 'rgba(0,0,0,0)' and block.settings.card_bg != '#0A0A0A' and block.settings.card_bg != '#000000' -%}
+              #KoreCard-{{ block.id }} .kore-first-drop__card-bar {
+                background-color: {{ block.settings.card_bg }} !important;
+              }
+              #KoreCard-{{ block.id }} .kore-first-drop__card-overlay {
+                opacity: 0.15 !important;
+              }
+            {%- endif -%}
+          {%- endstyle -%}
+          <a href="{{ block.settings.link | default: '/collections/all' }}" class="kore-first-drop__card" id="KoreCard-{{ block.id }}" {{ block.shopify_attributes }}>
             <div class="kore-first-drop__card-media">
               {%- if block.settings.image != blank -%}
                 {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'kore-first-drop__card-img' }}
