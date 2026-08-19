@@ -589,6 +589,7 @@
           "settings": {
             "title": "Duffle Bags & Equipment",
             "collection": "",
+            "image": "shopify://shop_images/blog-5.webp",
             "link": "",
             "badge": ""
           }
@@ -598,6 +599,7 @@
           "settings": {
             "title": "First Drop Capsule",
             "collection": "",
+            "image": "shopify://shop_images/men-collection.webp",
             "link": "",
             "badge": ""
           }
@@ -617,6 +619,7 @@
           "settings": {
             "title": "Court Accessories",
             "collection": "",
+            "image": "shopify://shop_images/accessories.webp",
             "link": "",
             "badge": ""
           }
@@ -626,6 +629,7 @@
           "settings": {
             "title": "Off-Court Lifestyle",
             "collection": "",
+            "image": "shopify://shop_images/hero-2.webp",
             "link": "",
             "badge": ""
           }
