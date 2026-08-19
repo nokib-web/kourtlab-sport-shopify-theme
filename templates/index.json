@@ -87,27 +87,39 @@
         "cat_apparel": {
           "type": "category_card",
           "settings": {
-            "title": "Apparel",
             "collection": "men",
+            "title": "Men",
+            "title_color": "#ffffff",
             "image": "shopify://shop_images/men-collection.webp",
+            "image_fit": "inherit",
+            "image_position": "center center",
+            "link": "",
             "overlay_opacity": 45
           }
         },
         "cat_shoes": {
           "type": "category_card",
           "settings": {
-            "title": "Shoes",
             "collection": "women",
+            "title": "Wemen",
+            "title_color": "#ffffff",
             "image": "shopify://shop_images/wemen-collection.webp",
+            "image_fit": "inherit",
+            "image_position": "center center",
+            "link": "",
             "overlay_opacity": 45
           }
         },
         "cat_accessories": {
           "type": "category_card",
           "settings": {
-            "title": "Accessories",
             "collection": "accessories",
+            "title": "Accessories",
+            "title_color": "#ffffff",
             "image": "shopify://shop_images/accessories.webp",
+            "image_fit": "inherit",
+            "image_position": "center center",
+            "link": "",
             "overlay_opacity": 45
           }
         }
@@ -133,75 +145,102 @@
         "padding_bottom": 24
       }
     },
-    "kore_trust_bar": {
-      "type": "kore-trust-bar",
+    "kore_hover_categories": {
+      "type": "kore-hover-categories",
       "blocks": {
-        "item_1": {
-          "type": "trust_item",
+        "cat_1": {
+          "type": "category",
           "settings": {
-            "icon": "custom_image",
-            "custom_image": "shopify://shop_images/european.png",
-            "custom_svg": "",
-            "title": "SHIPPING ACROSS EUROPE",
-            "show_eu_flag": false,
-            "subtitle": "We deliver to all EU countries.",
-            "link": ""
+            "title": "Padel Apparel",
+            "collection": "",
+            "image": "shopify://shop_images/blog-4.webp",
+            "link": "",
+            "badge": ""
           }
         },
-        "item_2": {
-          "type": "trust_item",
+        "cat_2": {
+          "type": "category",
           "settings": {
-            "icon": "materials",
-            "custom_svg": "",
-            "title": "PREMIUM MATERIALS",
-            "show_eu_flag": false,
-            "subtitle": "Built to last.",
-            "link": ""
+            "title": "Court Performance",
+            "collection": "",
+            "image": "shopify://shop_images/blog-5.webp",
+            "link": "",
+            "badge": ""
           }
         },
-        "item_3": {
-          "type": "trust_item",
+        "cat_3": {
+          "type": "category",
           "settings": {
-            "icon": "lock",
-            "custom_svg": "",
-            "title": "SECURE PAYMENTS",
-            "show_eu_flag": false,
-            "subtitle": "Safe, easy & encrypted.",
-            "link": ""
+            "title": "Duffle Bags & Equipment",
+            "collection": "",
+            "image": "shopify://shop_images/blog-5.webp",
+            "link": "",
+            "badge": ""
           }
         },
-        "item_4": {
-          "type": "trust_item",
+        "cat_4": {
+          "type": "category",
           "settings": {
-            "icon": "palm",
-            "custom_svg": "",
-            "title": "DESIGNED IN CURAÇAO",
-            "show_eu_flag": false,
-            "subtitle": "Inspired by sport & culture.",
-            "link": ""
+            "title": "First Drop Capsule",
+            "collection": "",
+            "image": "shopify://shop_images/men-collection.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "title": "Training & Practice",
+            "collection": "",
+            "image": "shopify://shop_images/blog-1.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "title": "Court Accessories",
+            "collection": "",
+            "image": "shopify://shop_images/accessories.webp",
+            "link": "",
+            "badge": ""
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "title": "Off-Court Lifestyle",
+            "collection": "",
+            "image": "shopify://shop_images/hero-2.webp",
+            "link": "",
+            "badge": ""
           }
         }
       },
       "block_order": [
-        "item_1",
-        "item_2",
-        "item_3",
-        "item_4"
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7"
       ],
-      "disabled": true,
       "settings": {
+        "subheading": "",
+        "title": "",
+        "heading_size": "h1",
+        "header_alignment": "left",
+        "image_position": "right",
+        "image_aspect_ratio": "editorial",
         "bg_color": "#ffffff",
         "text_color": "#0a0a0a",
-        "subtitle_color": "#666666",
-        "icon_color": "#0a0a0a",
-        "divider_color": "#e5e5e5",
-        "border_color": "#eeeeee",
-        "show_dividers": true,
-        "font_family": "body",
-        "title_font_size": 12,
-        "subtitle_font_size": 11,
-        "padding_top": 24,
-        "padding_bottom": 24
+        "subheading_color": "#666666",
+        "accent_color": "#0a0a0a",
+        "padding_top": 80,
+        "padding_bottom": 40
       }
     },
     "kore_first_drop": {
@@ -211,7 +250,7 @@
           "type": "card",
           "settings": {
             "image": "shopify://shop_images/men-collection.webp",
-            "title": "MEN",
+            "title": "Apparel",
             "link": "/collections/men",
             "card_bg": "#ffffff",
             "title_color": "#0a0a0a",
@@ -221,11 +260,11 @@
         "card_women": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/wemen-collection.webp",
-            "title": "WOMEN",
+            "image": "shopify://shop_images/saw800423-bk_2.webp",
+            "title": "SHOES",
             "link": "/collections/women",
-            "card_bg": "#ffffff",
-            "title_color": "#0a0a0a",
+            "card_bg": "#FFFFFF",
+            "title_color": "#020202",
             "arrow_color": "#0a0a0a"
           }
         },
@@ -268,14 +307,34 @@
         "padding_bottom": 80
       }
     },
+    "kore_subcategory_slider": {
+      "type": "kore-subcategory-slider",
+      "settings": {
+        "title": "Best Sellers",
+        "heading_size": "h1",
+        "header_alignment": "left",
+        "collection": "best-seller",
+        "columns_desktop": 4,
+        "aspect_ratio": "portrait",
+        "products_to_show": 16,
+        "title_source": "short_title",
+        "metafield_key": "custom.short_name",
+        "max_words": 2,
+        "show_price": true,
+        "bg_color": "#ffffff",
+        "text_color": "#0a0a0a",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
+    },
     "kore_founding_1000": {
       "type": "kore-founding-1000",
       "blocks": {
         "perk_1": {
           "type": "perk",
           "settings": {
-            "icon": "crown",
             "custom_svg": "",
+            "icon": "crown",
             "title": "LIFETIME FOUNDING STATUS",
             "subtitle": "Your name in our history."
           }
@@ -283,8 +342,8 @@
         "perk_2": {
           "type": "perk",
           "settings": {
-            "icon": "clock",
             "custom_svg": "",
+            "icon": "clock",
             "title": "EARLY ACCESS TO EVERY DROP",
             "subtitle": "48 hours before the public."
           }
@@ -292,8 +351,8 @@
         "perk_3": {
           "type": "perk",
           "settings": {
-            "icon": "star_badge",
             "custom_svg": "",
+            "icon": "star_badge",
             "title": "EXCLUSIVE PRODUCTS",
             "subtitle": "Founding 1000 only."
           }
@@ -301,8 +360,8 @@
         "perk_4": {
           "type": "perk",
           "settings": {
-            "icon": "gift",
             "custom_svg": "",
+            "icon": "gift",
             "title": "PREMIUM WELCOME GIFT",
             "subtitle": "Curated. Limited. For you."
           }
@@ -310,8 +369,8 @@
         "perk_5": {
           "type": "perk",
           "settings": {
-            "icon": "ticket",
             "custom_svg": "",
+            "icon": "ticket",
             "title": "MEMBERS-ONLY EVENTS",
             "subtitle": "Connect. Play. Repeat."
           }
@@ -326,29 +385,23 @@
       ],
       "settings": {
         "bg_color": "#f8f8f8",
-        "bg_overlay_opacity": 0,
-        "tagline": "LIMITED REGISTRATION",
-        "tagline_color": "#0a0a0a",
+        "text_color": "#0a0a0a",
+        "muted_text_color": "#555555",
+        "border_color": "#0a0a0a",
+        "accent_color": "#cbd64a",
+        "icon_size": 36,
         "heading": "THE FIRST 1000\nWILL NEVER\nHAPPEN AGAIN.",
-        "heading_color": "#0a0a0a",
         "description": "Become one of the first 1,000 members of KOURTLAB and unlock benefits that will never be offered again.",
         "description_font_size": 19,
-        "description_color": "#555555",
         "button_label": "JOIN THE FOUNDING 1000",
         "button_link": "shopify://collections/all",
         "button_bg": "#cbd64a",
-        "button_text_color": "#0a0a0a",
         "progress_mode": "auto",
         "manual_progress_percent": 25,
         "counter_label": "FOUNDING MEMBERS",
-        "claimed_count": 247,
+        "claimed_count": 300,
         "total_count": 1000,
-        "progress_color": "#cbd64a",
         "counter_footer_text": "Only 1,000 memberships worldwide.\nOnce they're gone, they're gone forever.",
-        "divider_color": "#e0e0e0",
-        "perk_icon_color": "#0a0a0a",
-        "perk_title_font_size": 20,
-        "perk_subtitle_font_size": 15,
         "padding_top": 96,
         "padding_bottom": 96
       }
@@ -569,188 +622,6 @@
         "color_scheme": "scheme-1",
         "padding_top": 48,
         "padding_bottom": 48
-      }
-    },
-    "kore_hover_categories": {
-      "type": "kore-hover-categories",
-      "blocks": {
-        "cat_1": {
-          "type": "category",
-          "settings": {
-            "title": "Padel Apparel",
-            "collection": "",
-            "image": "shopify://shop_images/blog-4.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_2": {
-          "type": "category",
-          "settings": {
-            "title": "Court Performance",
-            "collection": "",
-            "image": "shopify://shop_images/blog-5.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_3": {
-          "type": "category",
-          "settings": {
-            "title": "Duffle Bags & Equipment",
-            "collection": "",
-            "image": "shopify://shop_images/blog-5.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_4": {
-          "type": "category",
-          "settings": {
-            "title": "First Drop Capsule",
-            "collection": "",
-            "image": "shopify://shop_images/men-collection.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_5": {
-          "type": "category",
-          "settings": {
-            "title": "Training & Practice",
-            "collection": "",
-            "image": "shopify://shop_images/blog-1.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_6": {
-          "type": "category",
-          "settings": {
-            "title": "Court Accessories",
-            "collection": "",
-            "image": "shopify://shop_images/accessories.webp",
-            "link": "",
-            "badge": ""
-          }
-        },
-        "cat_7": {
-          "type": "category",
-          "settings": {
-            "title": "Off-Court Lifestyle",
-            "collection": "",
-            "image": "shopify://shop_images/hero-2.webp",
-            "link": "",
-            "badge": ""
-          }
-        }
-      },
-      "block_order": [
-        "cat_1",
-        "cat_2",
-        "cat_3",
-        "cat_4",
-        "cat_5",
-        "cat_6",
-        "cat_7"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "heading_size": "h1",
-        "header_alignment": "left",
-        "image_position": "right",
-        "image_aspect_ratio": "editorial",
-        "bg_color": "#ffffff",
-        "text_color": "#0a0a0a",
-        "subheading_color": "#666666",
-        "accent_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 40
-      }
-    },
-    "kore_subcategory_slider": {
-      "type": "kore-subcategory-slider",
-      "blocks": {
-        "card_1": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_2": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "title": "KØRĒ Court Short",
-            "link": ""
-          }
-        },
-        "card_3": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "title": "KØRĒ Vent Polo",
-            "link": ""
-          }
-        },
-        "card_4": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "title": "KØRĒ Grip Tee",
-            "link": ""
-          }
-        },
-        "card_5": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "best-seller",
-            "title": "",
-            "link": ""
-          }
-        },
-        "card_6": {
-          "type": "card",
-          "disabled": true,
-          "settings": {
-            "collection": "",
-            "title": "KØRĒ Court Sock",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_1",
-        "card_2",
-        "card_3",
-        "card_4",
-        "card_5",
-        "card_6"
-      ],
-      "settings": {
-        "collection": "best-seller",
-        "products_to_show": 16,
-        "title_source": "short_title",
-        "metafield_key": "custom.short_name",
-        "max_words": 2,
-        "show_price": true,
-        "title": "Best Sellers",
-        "columns_desktop": 4,
-        "aspect_ratio": "portrait",
-        "heading_size": "h1",
-        "header_alignment": "left",
-        "bg_color": "#ffffff",
-        "text_color": "#0a0a0a",
-        "padding_top": 48,
-        "padding_bottom": 80
       }
     },
     "shop_by_activity": {
@@ -992,13 +863,12 @@
   "order": [
     "image_banner",
     "collection_list_XPKfRX",
-    "kore_trust_bar",
+    "kore_hover_categories",
     "kore_first_drop",
+    "kore_subcategory_slider",
     "kore_founding_1000",
     "why_choose_us",
     "expanding_carousel",
-    "kore_hover_categories",
-    "kore_subcategory_slider",
     "shop_by_activity",
     "featured_product_carousel",
     "17850441245e4f0ed8",
