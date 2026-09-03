@@ -1,0 +1,1670 @@
+{%- style -%}
+  /* Force clean full-viewport presentation on Shopify password page */
+  body.password {
+    background-color: #0A0A0A !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+  }
+  
+  body.password .password-header,
+  body.password .password__footer,
+  body.password footer hr {
+    display: none !important;
+  }
+  
+  body.password main.password-main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Scoped Namespaced Styles for KOURTLAB Launch Page */
+  #KourtlabLaunch-{{ section.id }} {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    font-family: var(--font-body-family, -apple-system, BlinkMacSystemFont, sans-serif);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+
+  #KourtlabLaunch-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+
+  /* Background Video / Image / Moody Texture Layer */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-video,
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-video video,
+  #KourtlabLaunch-{{ section.id }} video.kourtlab-launch-video,
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-img,
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.02);
+  }
+
+  /* Flat Moody Court Texture (Fallback) */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-default-bg {
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(ellipse at 50% 20%, rgba(200, 214, 74, 0.08) 0%, rgba(18, 18, 18, 0.5) 45%, #0A0A0A 100%),
+      #0A0A0A;
+    background-size: cover;
+  }
+
+  /* Vignette & Contrast Overlay */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(10, 10, 10, 0.5) 0%, rgba(10, 10, 10, 0.85) 65%, #0A0A0A 100%),
+                linear-gradient(180deg, rgba(10, 10, 10, 0.7) 0%, rgba(10, 10, 10, 0.45) 50%, #0A0A0A 100%);
+    opacity: {{ section.settings.overlay_opacity | default: 70 | divided_by: 100.0 }};
+    pointer-events: none;
+  }
+
+  /* Container */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Topbar */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar {
+    width: 100%;
+    padding: 1.75rem 0 1rem;
+    z-index: 10;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 clamp(2rem, 5vw, 6rem);
+    box-sizing: border-box;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #CBD64A;
+    background: rgba(203, 214, 74, 0.12);
+    border: 1.5px solid rgba(203, 214, 74, 0.5);
+    padding: 0.45rem 1rem;
+    white-space: nowrap;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-badge::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #CBD64A;
+  }
+
+  /* Store Access Button - High Contrast & Clearly Visible */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-pwd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: #FFFFFF;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-pwd-btn:hover {
+    color: #0A0A0A;
+    background: #CBD64A;
+    border-color: #CBD64A;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-pwd-btn svg {
+    stroke-width: 2.5;
+  }
+
+  /* Password Modal Styling */
+  .kourtlab-pwd-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .kourtlab-pwd-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .kourtlab-pwd-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+  }
+
+  .kourtlab-pwd-modal-card {
+    position: relative;
+    z-index: 2;
+    background: #111111;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+    padding: 2.75rem 2.25rem 2.25rem;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    box-sizing: border-box;
+    transform: translateY(15px) scale(0.98);
+    transition: transform 0.25s ease;
+  }
+
+  .kourtlab-pwd-modal.is-open .kourtlab-pwd-modal-card {
+    transform: translateY(0) scale(1);
+  }
+
+  .kourtlab-pwd-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    color: #888888;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .kourtlab-pwd-modal-close:hover {
+    color: #FFFFFF;
+    transform: rotate(90deg);
+  }
+
+  .kourtlab-pwd-modal-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    background: rgba(203, 214, 74, 0.12);
+    border: 1.5px solid rgba(203, 214, 74, 0.35);
+    margin-bottom: 1.25rem;
+  }
+
+  .kourtlab-pwd-modal-title {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: #FFFFFF;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+  }
+
+  .kourtlab-pwd-modal-sub {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.95rem;
+    color: #AAAAAA;
+    margin: 0 0 1.75rem 0;
+    line-height: 1.45;
+  }
+
+  .kourtlab-pwd-field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .kourtlab-pwd-field-wrap .kourtlab-launch-input {
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  .kourtlab-pwd-submit-btn {
+    width: 100%;
+  }
+
+  .kourtlab-pwd-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.85rem;
+    color: #888888;
+  }
+
+  .kourtlab-pwd-admin-link {
+    color: #CBD64A;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .kourtlab-pwd-admin-link:hover {
+    color: #FFFFFF;
+  }
+
+  /* Main Center Content */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 0 3.5rem;
+    width: 100%;
+    z-index: 5;
+  }
+
+  /* Actual Brand Logo */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-brand {
+    margin-bottom: 2.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-logo-wrap {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-logo-img {
+    display: block;
+    height: auto;
+    width: 100%;
+    max-width: {{ section.settings.logo_width | default: 360 }}px;
+    margin: 0 auto;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-wordmark {
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(2.8rem, 6.5vw, 5rem);
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  /* Stacked Taglines - Larger Size with Site Lime Color Accent */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-taglines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    max-width: 900px;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-tagline {
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(1.7rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: none !important;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-accent {
+    color: #CBD64A !important;
+  }
+
+  /* Launch Gate Card */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 660px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-glow {
+    position: absolute;
+    top: -12%;
+    left: -8%;
+    right: -8%;
+    bottom: -12%;
+    background: radial-gradient(ellipse at center, rgba(200, 214, 74, 0.12) 0%, rgba(200, 214, 74, 0.02) 45%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card {
+    background: rgba(18, 18, 18, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 2.75rem 2.4rem;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-pill {
+    display: inline-block;
+    background-color: #CBD64A;
+    color: #0A0A0A;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    margin-bottom: 1.35rem;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-heading {
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(2rem, 3.5vw, 2.7rem);
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    margin: 0 0 0.8rem 0;
+    text-shadow: none !important;
+  }
+
+  /* High-Contrast Clear Subtext */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-subtext {
+    font-family: var(--font-body-family, inherit);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #EEEEEE;
+    font-weight: 400;
+    margin: 0 auto 2rem;
+    max-width: 520px;
+    text-shadow: none !important;
+  }
+
+  /* Countdown Component - Accent Numbers */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-bottom: 2.2rem;
+    padding-bottom: 1.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 68px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.75rem 0.6rem;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-number {
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1;
+    color: #CBD64A;
+    font-variant-numeric: tabular-nums;
+    text-shadow: none !important;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-label {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #B5B5B5;
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-sep {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #666666;
+    margin-top: -0.6rem;
+    text-shadow: none !important;
+  }
+
+  /* Early Access Form */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-form-wrapper {
+    width: 100%;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+    width: 100%;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 600px) {
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-field-row {
+      flex-direction: row;
+      gap: 0;
+    }
+  }
+
+  /* High Contrast Input & Clear Placeholder */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-input {
+    width: 100%;
+    background: #0E0E0E;
+    color: #FFFFFF;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    padding: 1.05rem 1.25rem;
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    border-radius: 0 !important;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-input::placeholder {
+    color: #B5B5B5;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-input:focus {
+    border-color: #CBD64A;
+    background: #000000;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: #CBD64A;
+    color: #0A0A0A;
+    border: 1.5px solid #CBD64A;
+    padding: 1.05rem 1.8rem;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+    border-radius: 0 !important;
+    text-shadow: none !important;
+  }
+
+  @media screen and (min-width: 600px) {
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-field-row .kourtlab-launch-input {
+      border-right: none;
+    }
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-btn:hover {
+    background-color: #d8e452;
+    border-color: #d8e452;
+    color: #0A0A0A;
+  }
+
+  /* Clearly Readable Footnote */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footnote {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.85rem;
+    color: #B5B5B5;
+    margin-top: 0.85rem;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  /* Success & Error State */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-success {
+    background: rgba(203, 214, 74, 0.12);
+    border: 1.5px solid #CBD64A;
+    padding: 1.35rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-success-text strong {
+    display: block;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #CBD64A;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-success-text span {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.95rem;
+    color: #EEEEEE;
+    line-height: 1.5;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-error {
+    background: rgba(255, 77, 77, 0.15);
+    border: 1.5px solid #FF4D4D;
+    color: #FFA5A5;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: left;
+    margin-bottom: 0.85rem;
+  }
+
+  /* Footer & Socials - Clear, High Contrast & Larger */
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footer {
+    width: 100%;
+    padding: 2rem 0 2.5rem;
+    z-index: 10;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #F0F0F0;
+    text-decoration: none;
+    font-family: var(--font-heading-family, inherit);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-social-link:hover {
+    color: #CBD64A;
+    transform: translateY(-1px);
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-social-link svg {
+    stroke: #CBD64A;
+    transition: transform 0.2s ease;
+  }
+
+  #KourtlabLaunch-{{ section.id }} .kourtlab-launch-copyright {
+    font-family: var(--font-body-family, inherit);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #AAAAAA;
+  }
+
+  /* Desktop Layout & Alignment */
+  @media screen and (min-width: 990px) {
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-container {
+      max-width: 100%;
+      padding-left: clamp(2.5rem, 5.5vw, 6.5rem);
+      padding-right: clamp(2.5rem, 5.5vw, 6.5rem);
+      align-items: center;
+      text-align: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-inner {
+      max-width: 100%;
+      padding-left: clamp(2.5rem, 5.5vw, 6.5rem);
+      padding-right: clamp(2.5rem, 5.5vw, 6.5rem);
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-main {
+      padding: 2.5rem 0 3.5rem;
+      width: 100%;
+    }
+
+    /* Logo Centered in Topbar Header */
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-brand {
+      width: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 0;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-logo-wrap {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-logo-img {
+      margin: 0 auto;
+      max-width: {{ section.settings.logo_width | default: 280 }}px;
+    }
+
+    /* Left Position Modifier for Taglines & Card */
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-content-col {
+      align-self: flex-start;
+      max-width: 550px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-taglines {
+      align-items: flex-start;
+      text-align: left;
+      margin-bottom: 1.85rem;
+      max-width: 550px;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-tagline {
+      text-align: left;
+      font-size: clamp(1.45rem, 2.9vw, 2.45rem);
+      line-height: 1.15;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-card-wrap {
+      justify-content: flex-start;
+      max-width: 540px;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Right Position Modifier */
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-right .kourtlab-launch-content-col {
+      align-self: flex-end;
+      max-width: 550px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-right .kourtlab-launch-taglines {
+      align-items: flex-end;
+      text-align: right;
+      margin-bottom: 1.85rem;
+      max-width: 550px;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-right .kourtlab-launch-tagline {
+      text-align: right;
+      font-size: clamp(1.45rem, 2.9vw, 2.45rem);
+      line-height: 1.15;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-right .kourtlab-launch-card-wrap {
+      justify-content: flex-end;
+      max-width: 540px;
+      width: 100%;
+      margin: 0;
+    }
+
+    /* Center Position Modifier */
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-center .kourtlab-launch-content-col {
+      align-self: center;
+      max-width: 620px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Frosted Glassmorphism Card on Desktop */
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card {
+      background: rgba(14, 14, 14, 0.52);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      padding: 2.4rem 2.1rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-card {
+      text-align: left;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-card-subtext {
+      margin: 0 0 1.5rem 0;
+      text-align: left;
+      font-size: 0.98rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-countdown {
+      justify-content: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1.65rem;
+      padding-bottom: 1.45rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-footnote {
+      text-align: left;
+    }
+
+    /* Social / Footer Centered in Middle horizontally at bottom */
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footer {
+      width: 100%;
+      padding: 1.5rem 0 2rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footer .kourtlab-launch-container {
+      max-width: 100%;
+      padding-left: clamp(2.5rem, 5.5vw, 6.5rem);
+      padding-right: clamp(2.5rem, 5.5vw, 6.5rem);
+      align-items: center;
+      text-align: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.2rem;
+      margin: 0 auto 0.75rem auto;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-copyright {
+      text-align: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }}.kourtlab-launch--pos-left .kourtlab-launch-overlay {
+      background: linear-gradient(90deg, rgba(10, 10, 10, 0.88) 0%, rgba(10, 10, 10, 0.55) 42%, rgba(10, 10, 10, 0.1) 75%, transparent 100%),
+                  radial-gradient(ellipse at center, rgba(10, 10, 10, 0.2) 0%, rgba(10, 10, 10, 0.7) 100%);
+    }
+  }
+
+  /* Mobile Responsive (Logo in topbar, content anchored down, Frosted Glass) */
+  @media screen and (max-width: 989px) {
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-container {
+      padding: 0 1.15rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar {
+      padding: 0.85rem 0 0.5rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0 1.15rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-left {
+      order: 1;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-topbar-right {
+      order: 2;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-brand {
+      order: 3;
+      width: 100%;
+      margin: 0.4rem auto 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-logo-img {
+      max-width: 190px !important;
+      margin: 0 auto;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-badge {
+      font-size: 0.72rem;
+      padding: 0.3rem 0.65rem;
+      letter-spacing: 0.08em;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-pwd-btn {
+      font-size: 0.72rem;
+      padding: 0.35rem 0.7rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: calc(100dvh - 130px);
+      padding: 0.5rem 0 1.25rem;
+      width: 100%;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-main .kourtlab-launch-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 1 0 auto;
+      width: 100%;
+    }
+
+    /* Taglines and card anchored at bottom on mobile */
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-content-col {
+      margin-top: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-taglines {
+      gap: 0.2rem;
+      margin-bottom: 1.15rem;
+      width: 100%;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-tagline {
+      font-size: clamp(1.08rem, 4.5vw, 1.35rem);
+      line-height: 1.15;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-wrap {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card {
+      background: rgba(12, 12, 12, 0.52);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 1.35rem 1.1rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-pill {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-heading {
+      font-size: 1.35rem;
+      margin-bottom: 0.35rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-card-subtext {
+      font-size: 0.85rem;
+      line-height: 1.42;
+      margin-bottom: 1.15rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-countdown {
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.15rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-item {
+      min-width: 46px;
+      padding: 0.45rem 0.3rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-number {
+      font-size: 1.3rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-label {
+      font-size: 0.58rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-countdown-sep {
+      font-size: 1.15rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-input {
+      font-size: 0.82rem;
+      padding: 0.85rem 0.95rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-input::placeholder {
+      font-size: 0.75rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-btn {
+      font-size: 0.92rem;
+      padding: 0.85rem 1.2rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footnote {
+      font-size: 0.74rem;
+      margin-top: 0.55rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-footer {
+      padding: 0.75rem 0 1.25rem;
+      width: 100%;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-socials {
+      gap: 1.5rem;
+      margin-bottom: 0.65rem;
+      justify-content: center;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-social-link {
+      font-size: 0.82rem;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-social-link svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    #KourtlabLaunch-{{ section.id }} .kourtlab-launch-copyright {
+      font-size: 0.72rem;
+      text-align: center;
+    }
+  }
+{%- endstyle -%}
+
+<div id="KourtlabLaunch-{{ section.id }}" class="kourtlab-launch-section kourtlab-launch--pos-{{ section.settings.desktop_position | default: 'left' }}" data-section-id="{{ section.id }}">
+  <!-- Background Layer -->
+  <div class="kourtlab-launch-bg">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '2000x', class: 'kourtlab-launch-video' }}
+    {%- elsif section.settings.video_url != blank -%}
+      <video class="kourtlab-launch-video" autoplay muted loop playsinline {% if section.settings.bg_image != blank %}poster="{{ section.settings.bg_image | image_url: width: 2000 }}"{% endif %}>
+        <source src="{{ section.settings.video_url }}" type="video/mp4">
+      </video>
+    {%- elsif section.settings.bg_image != blank or section.settings.bg_image_mobile != blank -%}
+      <picture class="kourtlab-launch-picture">
+        {%- if section.settings.bg_image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.bg_image_mobile | image_url: width: 1200 }}">
+        {%- endif -%}
+        {%- if section.settings.bg_image != blank -%}
+          <source media="(min-width: 750px)" srcset="{{ section.settings.bg_image | image_url: width: 2400 }}">
+          <img
+            src="{{ section.settings.bg_image | image_url: width: 2000 }}"
+            alt="{{ section.settings.bg_image.alt | default: shop.name | escape }}"
+            class="kourtlab-launch-img"
+            loading="eager"
+            width="{{ section.settings.bg_image.width | default: 2000 }}"
+            height="{{ section.settings.bg_image.height | default: 1200 }}"
+          >
+        {%- elsif section.settings.bg_image_mobile != blank -%}
+          <img
+            src="{{ section.settings.bg_image_mobile | image_url: width: 1200 }}"
+            alt="{{ section.settings.bg_image_mobile.alt | default: shop.name | escape }}"
+            class="kourtlab-launch-img"
+            loading="eager"
+            width="{{ section.settings.bg_image_mobile.width | default: 1200 }}"
+            height="{{ section.settings.bg_image_mobile.height | default: 800 }}"
+          >
+        {%- endif -%}
+      </picture>
+    {%- else -%}
+      <div class="kourtlab-launch-default-bg"></div>
+    {%- endif -%}
+    <div class="kourtlab-launch-overlay"></div>
+  </div>
+
+  <!-- Topbar Header -->
+  <header class="kourtlab-launch-topbar">
+    <div class="kourtlab-launch-container kourtlab-launch-topbar-inner">
+      <div class="kourtlab-launch-topbar-left">
+        <div class="kourtlab-launch-badge">{{ section.settings.status_badge | default: 'OFFICIAL LAUNCH IMMINENT' }}</div>
+      </div>
+      
+      <!-- Center Aligned Brand Logo -->
+      <div class="kourtlab-launch-brand">
+        {%- assign brand_logo = section.settings.logo | default: settings.logo_transparent | default: settings.logo -%}
+        {%- if brand_logo != blank -%}
+          {%- assign logo_width_val = section.settings.logo_width | default: 280 -%}
+          {%- assign logo_alt_val = shop.name | escape -%}
+          <div class="kourtlab-launch-logo-wrap">
+            {{
+              brand_logo
+              | image_url: width: 800
+              | image_tag:
+                class: 'kourtlab-launch-logo-img',
+                widths: '200, 300, 400, 500, 600, 800',
+                width: logo_width_val,
+                alt: logo_alt_val,
+                preload: true
+            }}
+          </div>
+        {%- else -%}
+          <h1 class="kourtlab-launch-wordmark">{{ shop.name }}</h1>
+        {%- endif -%}
+      </div>
+
+      <div class="kourtlab-launch-topbar-right">
+        <!-- Store Access trigger (Shopify Password Modal) -->
+        {%- if request.page_type == 'password' or template.name == 'password' or template == 'password' or page.template_suffix == 'coming-soon' -%}
+          <button
+            type="button"
+            class="kourtlab-launch-pwd-btn"
+            onclick="kourtlabOpenPwdModal('{{ section.id }}')"
+            aria-label="Enter store with password"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>STORE ACCESS</span>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Content -->
+  <main class="kourtlab-launch-main">
+    <div class="kourtlab-launch-container">
+      
+      <!-- Content Column (Left-Aligned on Desktop / Lower Anchored on Mobile) -->
+      <div class="kourtlab-launch-content-col">
+        <!-- Stacked Taglines - With Lime Accent Highlight -->
+        <div class="kourtlab-launch-taglines">
+          {%- if section.settings.tagline_1 != blank -%}
+            <h2 class="kourtlab-launch-tagline">{{ section.settings.tagline_1 }}</h2>
+          {%- endif -%}
+          {%- if section.settings.tagline_2 != blank -%}
+            <h2 class="kourtlab-launch-tagline">{{ section.settings.tagline_2 }}</h2>
+          {%- endif -%}
+          {%- if section.settings.tagline_3 != blank -%}
+            <h2 class="kourtlab-launch-tagline"><span class="kourtlab-launch-accent">{{ section.settings.tagline_3 }}</span></h2>
+          {%- endif -%}
+        </div>
+
+        <!-- Early Access Launch Gate Card with Glow Layer -->
+        <div class="kourtlab-launch-card-wrap">
+          <div class="kourtlab-launch-card-glow" aria-hidden="true"></div>
+          <div class="kourtlab-launch-card">
+            {%- if section.settings.card_pill != blank -%}
+              <div class="kourtlab-launch-card-pill">{{ section.settings.card_pill }}</div>
+            {%- endif -%}
+
+            {%- if section.settings.card_heading != blank -%}
+              <h3 class="kourtlab-launch-card-heading">{{ section.settings.card_heading }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.card_subtext != blank -%}
+              <p class="kourtlab-launch-card-subtext">{{ section.settings.card_subtext }}</p>
+            {%- endif -%}
+
+            <!-- Live Countdown Timer -->
+            {%- if section.settings.enable_countdown -%}
+              <div
+                class="kourtlab-launch-countdown"
+                id="KourtlabCountdown-{{ section.id }}"
+                data-launch-date="{{ section.settings.countdown_date | default: '2026-10-15T00:00:00' }}"
+              >
+                <div class="kourtlab-countdown-item">
+                  <span class="kourtlab-countdown-number" data-days>00</span>
+                  <span class="kourtlab-countdown-label">DAYS</span>
+                </div>
+                <div class="kourtlab-countdown-sep">:</div>
+                <div class="kourtlab-countdown-item">
+                  <span class="kourtlab-countdown-number" data-hours>00</span>
+                  <span class="kourtlab-countdown-label">HOURS</span>
+                </div>
+                <div class="kourtlab-countdown-sep">:</div>
+                <div class="kourtlab-countdown-item">
+                  <span class="kourtlab-countdown-number" data-minutes>00</span>
+                  <span class="kourtlab-countdown-label">MINS</span>
+                </div>
+                <div class="kourtlab-countdown-sep">:</div>
+                <div class="kourtlab-countdown-item">
+                  <span class="kourtlab-countdown-number" data-seconds>00</span>
+                  <span class="kourtlab-countdown-label">SECS</span>
+                </div>
+              </div>
+            {%- endif -%}
+
+            <!-- Customer Early Access Capture Form -->
+            <div class="kourtlab-launch-form-wrapper">
+              {%- form 'customer', class: 'kourtlab-launch-form', id: 'KourtlabLaunchForm' -%}
+                <input type="hidden" name="contact[tags]" value="early-access, first-1000, launch-waitlist">
+
+                {%- if form.posted_successfully? -%}
+                  <div class="kourtlab-launch-success" tabindex="-1" autofocus>
+                    <div class="kourtlab-launch-success-icon">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CBD64A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="kourtlab-launch-success-text">
+                      <strong>YOU'RE ON THE LIST.</strong>
+                      <span>{{ section.settings.success_message | default: "Keep your eyes open. Exclusive access details will drop in your inbox before the public release." }}</span>
+                    </div>
+                  </div>
+                {%- else -%}
+                  {%- if form.errors -%}
+                    <div class="kourtlab-launch-error" role="alert">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                      <span>{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</span>
+                    </div>
+                  {%- endif -%}
+
+                  <div class="kourtlab-launch-field-row">
+                    <input
+                      type="email"
+                      name="contact[email]"
+                      id="KourtlabEmail-{{ section.id }}"
+                      class="kourtlab-launch-input"
+                      placeholder="ENTER YOUR EMAIL FOR EARLY ACCESS"
+                      required
+                      autocomplete="email"
+                      aria-required="true"
+                      {% if form.errors %}aria-invalid="true"{% endif %}
+                    >
+                    <button type="submit" class="kourtlab-launch-btn" id="KourtlabSubmitBtn-{{ section.id }}">
+                      <span>{{ section.settings.button_text | default: 'GET EARLY ACCESS' }}</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                  </div>
+
+                  {%- if section.settings.form_footnote != blank -%}
+                    <div class="kourtlab-launch-footnote">{{ section.settings.form_footnote }}</div>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endform -%}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer & Socials -->
+  <footer class="kourtlab-launch-footer">
+    <div class="kourtlab-launch-container">
+      <div class="kourtlab-launch-socials">
+        {%- if section.settings.instagram_url != blank -%}
+          <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="kourtlab-launch-social-link" aria-label="Follow KOURTLAB on Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <span>INSTAGRAM</span>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.tiktok_url != blank -%}
+          <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" class="kourtlab-launch-social-link" aria-label="Follow KOURTLAB on TikTok">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+            <span>TIKTOK</span>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="kourtlab-launch-copyright">
+        {{ section.settings.copyright_text | default: '© 2026 KOURTLAB · ALL RIGHTS RESERVED.' }}
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dedicated Store Access Password Modal Dialog -->
+  <div
+    id="KourtlabPwdModal-{{ section.id }}"
+    class="kourtlab-pwd-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="KourtlabPwdModalTitle-{{ section.id }}"
+    aria-hidden="true"
+  >
+    <div class="kourtlab-pwd-modal-backdrop" onclick="kourtlabClosePwdModal('{{ section.id }}')"></div>
+    <div class="kourtlab-pwd-modal-card">
+      <button
+        type="button"
+        class="kourtlab-pwd-modal-close"
+        onclick="kourtlabClosePwdModal('{{ section.id }}')"
+        aria-label="Close modal"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="kourtlab-pwd-modal-header">
+        <div class="kourtlab-pwd-modal-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#CBD64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <h3 id="KourtlabPwdModalTitle-{{ section.id }}" class="kourtlab-pwd-modal-title">STORE ACCESS</h3>
+        <p class="kourtlab-pwd-modal-sub">Enter the storefront password to access the private preview.</p>
+      </div>
+
+      {%- form 'storefront_password', class: 'kourtlab-pwd-modal-form', id: 'KourtlabStorefrontPasswordForm' -%}
+        {%- if form.errors -%}
+          <div class="kourtlab-launch-error" role="alert" style="margin-bottom: 1rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4D4D" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>{{ form.errors.messages.form | default: 'Incorrect password. Please try again.' }}</span>
+          </div>
+        {%- endif -%}
+
+        <div class="kourtlab-pwd-field-wrap">
+          <input
+            type="password"
+            name="password"
+            id="KourtlabStorePassword-{{ section.id }}"
+            class="kourtlab-launch-input"
+            placeholder="ENTER STORE PASSWORD"
+            autocomplete="current-password"
+            required
+          >
+          <button type="submit" class="kourtlab-launch-btn kourtlab-pwd-submit-btn">
+            <span>ENTER STORE</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+
+        <div class="kourtlab-pwd-modal-footer">
+          <span>Store owner?</span>
+          <a href="/admin" class="kourtlab-pwd-admin-link">Log in to Shopify Admin</a>
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Dynamic Browser Tab Title
+    try {
+      document.title = 'KOURTLAB — The Next Name In Padel';
+    } catch(e) {}
+
+    // Password Modal Controller
+    window.kourtlabOpenPwdModal = function(id) {
+      const modal = document.getElementById('KourtlabPwdModal-' + id);
+      if (modal) {
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        const input = modal.querySelector('input[type="password"]');
+        if (input) setTimeout(function() { input.focus(); }, 120);
+      }
+    };
+
+    window.kourtlabClosePwdModal = function(id) {
+      const modal = document.getElementById('KourtlabPwdModal-' + id);
+      if (modal) {
+        modal.setAttribute('aria-hidden', 'true');
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    };
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.kourtlab-pwd-modal.is-open').forEach(function(modal) {
+          const id = modal.id.replace('KourtlabPwdModal-', '');
+          window.kourtlabClosePwdModal(id);
+        });
+      }
+    });
+
+    // Countdown Timer logic scoped to section
+    const countdownEl = document.getElementById('KourtlabCountdown-{{ section.id }}');
+    if (countdownEl) {
+      const launchDateStr = countdownEl.getAttribute('data-launch-date');
+      const targetDate = new Date(launchDateStr).getTime();
+
+      const daysEl = countdownEl.querySelector('[data-days]');
+      const hoursEl = countdownEl.querySelector('[data-hours]');
+      const minsEl = countdownEl.querySelector('[data-minutes]');
+      const secsEl = countdownEl.querySelector('[data-seconds]');
+
+      function padZero(num) {
+        return num < 10 ? '0' + num : num;
+      }
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference <= 0 || isNaN(difference)) {
+          if (daysEl) daysEl.textContent = '00';
+          if (hoursEl) hoursEl.textContent = '00';
+          if (minsEl) minsEl.textContent = '00';
+          if (secsEl) secsEl.textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.textContent = padZero(days);
+        if (hoursEl) hoursEl.textContent = padZero(hours);
+        if (minsEl) minsEl.textContent = padZero(minutes);
+        if (secsEl) secsEl.textContent = padZero(seconds);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "KOURTLAB Coming Soon",
+  "tag": "section",
+  "class": "kourtlab-coming-soon-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop Layout & Alignment"
+    },
+    {
+      "type": "select",
+      "id": "desktop_position",
+      "label": "Desktop Content Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (Showcase Video)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "info": "Positioning content to the Left keeps the video character in the center unblocked."
+    },
+    {
+      "type": "header",
+      "content": "1. Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image (Desktop)",
+      "info": "Upload a high-resolution image for desktop screens."
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background Image (Mobile - Optional)",
+      "info": "Optional vertical image for mobile screens."
+    },
+    {
+      "type": "header",
+      "content": "2. Background Video (Optional - Overrides Image)"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Select Shopify Video",
+      "info": "Select or upload a video directly from your Shopify files."
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Or Direct MP4 Video URL",
+      "info": "Paste an external direct .mp4 video URL."
+    },
+    {
+      "type": "header",
+      "content": "3. Background Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark Overlay Opacity",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Topbar Status"
+    },
+    {
+      "type": "text",
+      "id": "status_badge",
+      "label": "Status Badge Text",
+      "default": "OFFICIAL LAUNCH IMMINENT"
+    },
+    {
+      "type": "header",
+      "content": "Brand Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Brand Logo (Overrides Header Logo)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 150,
+      "max": 550,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Max Width",
+      "default": 360
+    },
+    {
+      "type": "header",
+      "content": "Stacked Taglines"
+    },
+    {
+      "type": "text",
+      "id": "tagline_1",
+      "label": "Tagline Line 1",
+      "default": "THE NEXT NAME IN PADEL."
+    },
+    {
+      "type": "text",
+      "id": "tagline_2",
+      "label": "Tagline Line 2",
+      "default": "BUILT FOR REPEAT."
+    },
+    {
+      "type": "text",
+      "id": "tagline_3",
+      "label": "Tagline Line 3 (Lime Accent)",
+      "default": "ENGINEERED FOR PERFORMANCE."
+    },
+    {
+      "type": "header",
+      "content": "Early Access Card"
+    },
+    {
+      "type": "text",
+      "id": "card_pill",
+      "label": "Pill Badge",
+      "default": "LIMITED FIRST DROP · 1000 PACKS"
+    },
+    {
+      "type": "text",
+      "id": "card_heading",
+      "label": "Card Heading",
+      "default": "JOIN THE FIRST 1000"
+    },
+    {
+      "type": "textarea",
+      "id": "card_subtext",
+      "label": "Card Subtext",
+      "default": "Get exclusive VIP early access to our debut performance padel collection before the vault opens to the public."
+    },
+    {
+      "type": "header",
+      "content": "Countdown Timer"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countdown",
+      "label": "Enable Countdown Timer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_date",
+      "label": "Launch Target Date (ISO 8601)",
+      "default": "2026-10-15T00:00:00",
+      "info": "Format: YYYY-MM-DDTHH:MM:SS (e.g., 2026-10-15T00:00:00)"
+    },
+    {
+      "type": "header",
+      "content": "Signup Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Label",
+      "default": "GET EARLY ACCESS"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success Message Subtext",
+      "default": "Keep your eyes open. Exclusive access details will drop in your inbox before the public release."
+    },
+    {
+      "type": "text",
+      "id": "form_footnote",
+      "label": "Footnote Text",
+      "default": "Zero spam. Only high-performance drops and private invites."
+    },
+    {
+      "type": "header",
+      "content": "Social & Footer"
+    },
+    {
+      "type": "text",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://instagram.com"
+    },
+    {
+      "type": "text",
+      "id": "tiktok_url",
+      "label": "TikTok URL",
+      "default": "https://tiktok.com"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2026 KOURTLAB · ALL RIGHTS RESERVED."
+    }
+  ],
+  "presets": [
+    {
+      "name": "KOURTLAB Coming Soon"
+    }
+  ]
+}
+{% endschema %}
