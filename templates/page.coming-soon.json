@@ -1,24 +1,10 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "layout": "password",
   "sections": {
     "main": {
       "type": "kourtlab-coming-soon",
       "settings": {
         "desktop_position": "left",
-        "video": "shopify://files/videos/kourtlab.mp4",
-        "video_url": "",
-        "overlay_opacity": 70,
         "status_badge": "OFFICIAL LAUNCH IMMINENT",
-        "logo_width": 360,
         "tagline_1": "THE NEXT NAME IN PADEL.",
         "tagline_2": "BUILT FOR REPEAT.",
         "tagline_3": "ENGINEERED FOR PERFORMANCE.",
@@ -30,8 +16,6 @@
         "button_text": "GET EARLY ACCESS",
         "success_message": "Keep your eyes open. Exclusive access details will drop in your inbox before the public release.",
         "form_footnote": "Zero spam. Only high-performance drops and private invites.",
-        "instagram_url": "https://instagram.com",
-        "tiktok_url": "https://tiktok.com",
         "copyright_text": "© 2026 KOURTLAB · ALL RIGHTS RESERVED."
       }
     }
