@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "kourtlab-coming-soon",
+      "settings": {
+        "desktop_position": "left",
+        "status_badge": "OFFICIAL LAUNCH IMMINENT",
+        "tagline_1": "THE NEXT NAME IN PADEL.",
+        "tagline_2": "BUILT FOR REPEAT.",
+        "tagline_3": "ENGINEERED FOR PERFORMANCE.",
+        "card_pill": "LIMITED FIRST DROP · 1000 PACKS",
+        "card_heading": "JOIN THE FIRST 1000",
+        "card_subtext": "Get exclusive VIP early access to our debut performance padel collection before the vault opens to the public.",
+        "enable_countdown": true,
+        "countdown_date": "2026-10-15T00:00:00",
+        "button_text": "GET EARLY ACCESS",
+        "success_message": "Keep your eyes open. Exclusive access details will drop in your inbox before the public release.",
+        "form_footnote": "Zero spam. Only high-performance drops and private invites.",
+        "copyright_text": "© 2026 KOURTLAB · ALL RIGHTS RESERVED."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
